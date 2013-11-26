@@ -17,9 +17,67 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic, strong) UILabel *subtitleLabel;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UICollectionView *ovenCollectionView;
+
+@property (nonatomic, strong) UIImageView *activeImageView;
+@property (nonatomic, strong) UIImageView *unactiveImageView;
+@property (nonatomic, strong) UIImageView *timerImageView;
 @end
 
 @implementation HYPHomeViewController
+
+- (UIImageView *)timerImageView
+{
+    if (!_timerImageView) {
+        CGFloat sideMargin = 0.0f;
+        CGFloat topMargin = 60.0f;//40.0f;
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+        _timerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
+        _timerImageView.image = [UIImage imageNamed:@"timer"];
+        _timerImageView.alpha = 0.0f;
+        _timerImageView.contentMode = UIViewContentModeCenter;
+    }
+    return _timerImageView;
+}
+
+- (UIImageView *)activeImageView
+{
+    if (!_activeImageView) {
+        CGFloat sideMargin = 0.0f;
+        CGFloat topMargin = 110.0f;//40.0f;
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+        _activeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
+        _activeImageView.image = [UIImage imageNamed:@"activeKitchen"];
+        _activeImageView.userInteractionEnabled = YES;
+        _activeImageView.contentMode = UIViewContentModeCenter;
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(activeImageViewPressed)];
+        [gesture setNumberOfTouchesRequired:1];
+        [gesture setNumberOfTapsRequired:1];
+        [_activeImageView addGestureRecognizer:gesture];
+    }
+    return _activeImageView;
+}
+
+- (UIImageView *)unactiveImageView
+{
+    if (!_unactiveImageView) {
+        CGFloat sideMargin = 0.0f;
+        CGFloat topMargin = 110.0f;//40.0f;
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+        _unactiveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
+        _unactiveImageView.image = [UIImage imageNamed:@"unactiveKitchen"];
+        _unactiveImageView.contentMode = UIViewContentModeCenter;
+        _unactiveImageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(unactiveImageViewPressed)];
+        [gesture setNumberOfTouchesRequired:1];
+        [gesture setNumberOfTapsRequired:1];
+        [_unactiveImageView addGestureRecognizer:gesture];
+        _unactiveImageView.alpha = 0.0f;
+    }
+    return _unactiveImageView;
+}
 
 - (UILabel *)titleLabel
 {
@@ -60,19 +118,19 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if (!_collectionView) {
 
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 120.0f;
+        CGFloat cellWidth = 100.0f;
         [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 35.0f;
-        CGFloat topMargin = 110.0f;//40.0f;
+        CGFloat sideMargin = 50.0f;
+        CGFloat topMargin = 50.0f; //110.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
-        //[self applyTransformToLayer:_collectionView.layer];
+        [self applyTransformToLayer:_collectionView.layer usingFactor:0.30];
     }
     return _collectionView;
 }
@@ -87,35 +145,42 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
         CGFloat sideMargin = 100.0f;
-        CGFloat topMargin = 380.0f;
+        CGFloat topMargin = 50 + 270.0f;//380.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
         _ovenCollectionView.dataSource = self;
         _ovenCollectionView.delegate = self;
         _ovenCollectionView.backgroundColor = [UIColor clearColor];
-        //[self applyTransformToLayer:_collectionView.layer];
+        [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:0.25];
     }
     return _ovenCollectionView;
 }
 
-- (void)applyTransformToLayer:(CALayer *)layer
+- (void)applyTransformToLayer:(CALayer *)layer usingFactor:(CGFloat)factor
 {
     CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
-    rotationAndPerspectiveTransform.m34 = 1.0 / -1000.0;
-    rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, M_PI * 0.35, 1.0f, 0.0f, 0.0f);
-    layer.anchorPoint = CGPointMake(0.5, 0);
-    layer.transform = rotationAndPerspectiveTransform;
+    rotationAndPerspectiveTransform.m34 = 1.0 / -800.0;
+    rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, M_PI * factor, 1.0f, 0.0f, 0.0f);
+
+    [UIView animateWithDuration:0.5 animations:^{
+        layer.anchorPoint = CGPointMake(0.5, 0);
+        layer.transform = rotationAndPerspectiveTransform;
+    }];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.userInteractionEnabled = YES;
 
-    [self.view addSubview:self.titleLabel];
-    [self.view addSubview:self.subtitleLabel];
+    //[self.view addSubview:self.titleLabel];
+    //[self.view addSubview:self.subtitleLabel];
 
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
+    //[self.view addSubview:self.unactiveImageView];
+    //[self.view addSubview:self.activeImageView];
+    //[self.view addSubview:self.timerImageView];
     [self.collectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
     [self.ovenCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
     [self.view addSubview:self.collectionView];
@@ -141,6 +206,53 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     HYPPlateCell *cell = (HYPPlateCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.active = !cell.isActive;
+}
+
+- (void)activeImageViewPressed
+{
+    CGFloat scale = 0.3;
+    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+    CGPoint center = CGPointMake(self.view.center.x, self.view.center.y + 170.0f);
+
+    [UIView animateWithDuration:0.3 delay:0.2 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.timerImageView.alpha = 1.0f;
+    } completion:NULL];
+
+    [UIView animateWithDuration:0.4 animations:^{
+        self.titleLabel.alpha = 0.0f;
+        self.subtitleLabel.alpha = 0.0f;
+        self.activeImageView.alpha = 0.0f;
+        self.unactiveImageView.alpha = 1.0f;
+        self.activeImageView.transform = transform;
+        self.unactiveImageView.transform = transform;
+        self.activeImageView.center = center;
+        self.unactiveImageView.center = center;
+    } completion:^(BOOL finished) {
+        self.unactiveImageView.userInteractionEnabled = YES;
+        self.activeImageView.userInteractionEnabled = NO;
+    }];
+}
+
+- (void)unactiveImageViewPressed
+{
+    CGFloat scale = 1.0f;
+    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+    CGPoint center = CGPointMake(160, 270);
+
+    [UIView animateWithDuration:0.35f animations:^{
+        self.timerImageView.alpha = 0.0f;
+        self.titleLabel.alpha = 1.0f;
+        self.subtitleLabel.alpha = 1.0f;
+        self.activeImageView.alpha = 1.0f;
+        self.unactiveImageView.alpha = 0.0f;
+        self.activeImageView.transform = transform;
+        self.unactiveImageView.transform = transform;
+        self.activeImageView.center = center;
+        self.unactiveImageView.center = center;
+    } completion:^(BOOL finished) {
+        self.unactiveImageView.userInteractionEnabled = NO;
+        self.activeImageView.userInteractionEnabled = YES;
+    }];
 }
 
 @end
