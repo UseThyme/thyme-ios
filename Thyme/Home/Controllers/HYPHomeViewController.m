@@ -375,7 +375,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     self.kitchenIsMinized = !self.kitchenIsMinized;
 }*/
 
-/*- (void)activeImageViewPressed
+- (void)activeImageViewPressed
 {
     CGFloat scale = 0.3;
     CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
@@ -420,6 +420,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         self.unactiveImageView.userInteractionEnabled = NO;
         self.activeImageView.userInteractionEnabled = YES;
     }];
-}*/
+}
 
 @end

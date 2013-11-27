@@ -34,6 +34,9 @@
 		44AAE42D1844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
 		44AAE4351844C0690096BF52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AAE4331844C0690096BF52 /* InfoPlist.strings */; };
 		44AAE4371844C0690096BF52 /* ThymeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AAE4361844C0690096BF52 /* ThymeTests.m */; };
+		44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA691846586C0007E083 /* HYPTimerControl.m */; };
+		44F8DA7218467C390007E083 /* handle.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 44F8DA6E18467C390007E083 /* handle.jpeg */; };
+		44F8DA7318467C390007E083 /* TBCircularSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA7118467C390007E083 /* TBCircularSlider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,12 @@
 		44AAE4321844C0690096BF52 /* ThymeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ThymeTests-Info.plist"; sourceTree = "<group>"; };
 		44AAE4341844C0690096BF52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44AAE4361844C0690096BF52 /* ThymeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThymeTests.m; sourceTree = "<group>"; };
+		44F8DA681846586C0007E083 /* HYPTimerControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPTimerControl.h; sourceTree = "<group>"; };
+		44F8DA691846586C0007E083 /* HYPTimerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerControl.m; sourceTree = "<group>"; };
+		44F8DA6E18467C390007E083 /* handle.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = handle.jpeg; sourceTree = "<group>"; };
+		44F8DA6F18467C390007E083 /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
+		44F8DA7018467C390007E083 /* TBCircularSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCircularSlider.h; sourceTree = "<group>"; };
+		44F8DA7118467C390007E083 /* TBCircularSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCircularSlider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +159,7 @@
 		446C9E271844C551005FD797 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
+				44F8DA67184658450007E083 /* Views */,
 				442B140418462A8000D52AE1 /* Controllers */,
 			);
 			path = Timer;
@@ -258,6 +268,7 @@
 		44AAE4171844C0690096BF52 /* Thyme */ = {
 			isa = PBXGroup;
 			children = (
+				44F8DA6B18467C390007E083 /* External */,
 				44A691AE1844E0BB005D4C5A /* Library */,
 				446C9E221844C4E2005FD797 /* AppDelegate */,
 				446C9E261844C551005FD797 /* Home */,
@@ -297,6 +308,42 @@
 				44AAE4331844C0690096BF52 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		44F8DA67184658450007E083 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				44F8DA681846586C0007E083 /* HYPTimerControl.h */,
+				44F8DA691846586C0007E083 /* HYPTimerControl.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		44F8DA6B18467C390007E083 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				44F8DA6C18467C390007E083 /* TBCircularSlider */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		44F8DA6C18467C390007E083 /* TBCircularSlider */ = {
+			isa = PBXGroup;
+			children = (
+				44F8DA6D18467C390007E083 /* Assets */,
+				44F8DA6F18467C390007E083 /* Commons.h */,
+				44F8DA7018467C390007E083 /* TBCircularSlider.h */,
+				44F8DA7118467C390007E083 /* TBCircularSlider.m */,
+			);
+			path = TBCircularSlider;
+			sourceTree = "<group>";
+		};
+		44F8DA6D18467C390007E083 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				44F8DA6E18467C390007E083 /* handle.jpeg */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,6 +424,7 @@
 			files = (
 				442B1400184629EA00D52AE1 /* plusButtonImage@2x.png in Resources */,
 				44AAE41C1844C0690096BF52 /* InfoPlist.strings in Resources */,
+				44F8DA7218467C390007E083 /* handle.jpeg in Resources */,
 				44A691BE1844F03C005D4C5A /* activePlate@2x.png in Resources */,
 				44A691C41844FE3D005D4C5A /* timer@2x.png in Resources */,
 				442B13FF184629EA00D52AE1 /* minusButtonImage@2x.png in Resources */,
@@ -409,9 +457,11 @@
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
 				446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */,
 				44AAE41E1844C0690096BF52 /* main.m in Sources */,
+				44F8DA7318467C390007E083 /* TBCircularSlider.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
 				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
 				442B13FC184615B600D52AE1 /* HYPStove.m in Sources */,
+				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,7 +538,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "AAAAAC1A-AE7C-4CF7-A62D-5795B898BC34";
+				PROVISIONING_PROFILE = "9A1D0D46-C523-4D1E-A109-B20AA1897F8F";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -521,7 +571,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PROVISIONING_PROFILE = "AAAAAC1A-AE7C-4CF7-A62D-5795B898BC34";
+				PROVISIONING_PROFILE = "9A1D0D46-C523-4D1E-A109-B20AA1897F8F";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -537,7 +587,7 @@
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
 				INFOPLIST_FILE = "Thyme/Thyme-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AAAAAC1A-AE7C-4CF7-A62D-5795B898BC34";
+				PROVISIONING_PROFILE = "9A1D0D46-C523-4D1E-A109-B20AA1897F8F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -552,7 +602,7 @@
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
 				INFOPLIST_FILE = "Thyme/Thyme-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "AAAAAC1A-AE7C-4CF7-A62D-5795B898BC34";
+				PROVISIONING_PROFILE = "9A1D0D46-C523-4D1E-A109-B20AA1897F8F";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
