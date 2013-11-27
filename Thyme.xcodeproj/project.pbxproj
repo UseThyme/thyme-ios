@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		442B13FC184615B600D52AE1 /* HYPStove.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B13FB184615B600D52AE1 /* HYPStove.m */; };
+		442B13FF184629EA00D52AE1 /* minusButtonImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442B13FD184629EA00D52AE1 /* minusButtonImage@2x.png */; };
+		442B1400184629EA00D52AE1 /* plusButtonImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442B13FE184629EA00D52AE1 /* plusButtonImage@2x.png */; };
+		442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B140618462A8000D52AE1 /* HYPTimerViewController.m */; };
 		446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E241844C4E2005FD797 /* HYPAppDelegate.m */; };
 		446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */; };
 		446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */; };
@@ -46,6 +49,10 @@
 /* Begin PBXFileReference section */
 		442B13FA184615B600D52AE1 /* HYPStove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPStove.h; sourceTree = "<group>"; };
 		442B13FB184615B600D52AE1 /* HYPStove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPStove.m; sourceTree = "<group>"; };
+		442B13FD184629EA00D52AE1 /* minusButtonImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minusButtonImage@2x.png"; sourceTree = "<group>"; };
+		442B13FE184629EA00D52AE1 /* plusButtonImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plusButtonImage@2x.png"; sourceTree = "<group>"; };
+		442B140518462A8000D52AE1 /* HYPTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPTimerViewController.h; sourceTree = "<group>"; };
+		442B140618462A8000D52AE1 /* HYPTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerViewController.m; sourceTree = "<group>"; };
 		446C9E231844C4E2005FD797 /* HYPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAppDelegate.h; sourceTree = "<group>"; };
 		446C9E241844C4E2005FD797 /* HYPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPAppDelegate.m; sourceTree = "<group>"; };
 		446C9E291844C91A005FD797 /* HYPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPHomeViewController.h; sourceTree = "<group>"; };
@@ -113,6 +120,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		442B140418462A8000D52AE1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				442B140518462A8000D52AE1 /* HYPTimerViewController.h */,
+				442B140618462A8000D52AE1 /* HYPTimerViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		446C9E221844C4E2005FD797 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +150,7 @@
 		446C9E271844C551005FD797 /* Timer */ = {
 			isa = PBXGroup;
 			children = (
+				442B140418462A8000D52AE1 /* Controllers */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -159,6 +176,8 @@
 		44A691AB1844E02D005D4C5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				442B13FD184629EA00D52AE1 /* minusButtonImage@2x.png */,
+				442B13FE184629EA00D52AE1 /* plusButtonImage@2x.png */,
 				44A691C31844FE3D005D4C5A /* timer@2x.png */,
 				44A691BF1844F91D005D4C5A /* activeKitchen@2x.png */,
 				44A691C01844F91D005D4C5A /* unactiveKitchen@2x.png */,
@@ -356,9 +375,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				442B1400184629EA00D52AE1 /* plusButtonImage@2x.png in Resources */,
 				44AAE41C1844C0690096BF52 /* InfoPlist.strings in Resources */,
 				44A691BE1844F03C005D4C5A /* activePlate@2x.png in Resources */,
 				44A691C41844FE3D005D4C5A /* timer@2x.png in Resources */,
+				442B13FF184629EA00D52AE1 /* minusButtonImage@2x.png in Resources */,
 				44A691AD1844E02D005D4C5A /* background@2x.png in Resources */,
 				44A691C21844F91D005D4C5A /* unactiveKitchen@2x.png in Resources */,
 				44A691C11844F91D005D4C5A /* activeKitchen@2x.png in Resources */,
@@ -389,6 +410,7 @@
 				446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */,
 				44AAE41E1844C0690096BF52 /* main.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
+				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
 				442B13FC184615B600D52AE1 /* HYPStove.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

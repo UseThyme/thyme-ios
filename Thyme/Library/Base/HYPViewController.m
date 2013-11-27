@@ -19,4 +19,11 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.view.userInteractionEnabled = YES;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
+}
+
 @end
