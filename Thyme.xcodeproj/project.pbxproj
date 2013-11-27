@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		442B13FC184615B600D52AE1 /* HYPStove.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B13FB184615B600D52AE1 /* HYPStove.m */; };
 		446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E241844C4E2005FD797 /* HYPAppDelegate.m */; };
 		446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */; };
 		446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		442B13FA184615B600D52AE1 /* HYPStove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPStove.h; sourceTree = "<group>"; };
+		442B13FB184615B600D52AE1 /* HYPStove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPStove.m; sourceTree = "<group>"; };
 		446C9E231844C4E2005FD797 /* HYPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAppDelegate.h; sourceTree = "<group>"; };
 		446C9E241844C4E2005FD797 /* HYPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPAppDelegate.m; sourceTree = "<group>"; };
 		446C9E291844C91A005FD797 /* HYPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPHomeViewController.h; sourceTree = "<group>"; };
@@ -101,6 +104,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		442B13F9184614FC00D52AE1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				442B13FA184615B600D52AE1 /* HYPStove.h */,
+				442B13FB184615B600D52AE1 /* HYPStove.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		446C9E221844C4E2005FD797 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +243,7 @@
 				446C9E221844C4E2005FD797 /* AppDelegate */,
 				446C9E261844C551005FD797 /* Home */,
 				446C9E271844C551005FD797 /* Timer */,
+				442B13F9184614FC00D52AE1 /* Models */,
 				44A691AB1844E02D005D4C5A /* Images */,
 				44AAE4181844C0690096BF52 /* Supporting Files */,
 			);
@@ -376,6 +389,7 @@
 				446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */,
 				44AAE41E1844C0690096BF52 /* main.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
+				442B13FC184615B600D52AE1 /* HYPStove.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
