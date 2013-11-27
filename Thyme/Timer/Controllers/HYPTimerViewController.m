@@ -12,7 +12,6 @@
 
 @interface HYPTimerViewController ()
 @property (nonatomic, strong) HYPTimerControl *timerController;
-@property (nonatomic, strong) TBCircularSlider *sliderController;
 @end
 
 @implementation HYPTimerViewController
@@ -29,22 +28,10 @@
     return _timerController;
 }
 
-- (TBCircularSlider *)sliderController
-{
-    if (!_sliderController) {
-        CGFloat sideMargin = 0.0f;
-        CGFloat topMargin = 60.0f;//40.0f;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _sliderController = [[TBCircularSlider alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
-    }
-    return _sliderController;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view addSubview:self.sliderController];
+    [self.view addSubview:self.timerController];
 }
 
 @end
