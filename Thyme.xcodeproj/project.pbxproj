@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
 		442B13FC184615B600D52AE1 /* HYPStove.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B13FB184615B600D52AE1 /* HYPStove.m */; };
 		442B13FF184629EA00D52AE1 /* minusButtonImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442B13FD184629EA00D52AE1 /* minusButtonImage@2x.png */; };
 		442B1400184629EA00D52AE1 /* plusButtonImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442B13FE184629EA00D52AE1 /* plusButtonImage@2x.png */; };
@@ -59,6 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		442B13FA184615B600D52AE1 /* HYPStove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPStove.h; sourceTree = "<group>"; };
 		442B13FB184615B600D52AE1 /* HYPStove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPStove.m; sourceTree = "<group>"; };
 		442B13FD184629EA00D52AE1 /* minusButtonImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minusButtonImage@2x.png"; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */,
 				449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */,
 				449143D5184767A1008A80F0 /* Security.framework in Frameworks */,
 				449143D318476798008A80F0 /* QuartzCore.framework in Frameworks */,
@@ -315,6 +318,7 @@
 		44AAE4101844C0690096BF52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4409ADB818479AB300E349FF /* AVFoundation.framework */,
 				449143D6184767A7008A80F0 /* SystemConfiguration.framework */,
 				449143D4184767A1008A80F0 /* Security.framework */,
 				449143D218476798008A80F0 /* QuartzCore.framework */,
