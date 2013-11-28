@@ -170,22 +170,19 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super endTrackingWithTouch:touch withEvent:event];
-
     [self performSelector:@selector(startAlarm) withObject:nil afterDelay:1.0];
-    // Wait 3 seconds
-    // Start alarm
 }
 
 - (void)startAlarm
 {
     NSInteger numberOfSeconds = (self.angle / 6) * 60;
-    NSLog(@"number of seconds: %ld", (long)numberOfSeconds);
     NSDate *fireDate = [[NSDate date] dateByAddingTimeInterval:numberOfSeconds];
 
     if (numberOfSeconds > 0) {
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        [self createNotificationWithFireDate:fireDate];
+        /*UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.fireDate = fireDate;
-        notification.soundName = @"alarm.caf";
+        notification.soundName = nil;
         //notification.soundName = UILocalNotificationDefaultSoundName;
         notification.alertBody = [NSString stringWithFormat:@"Your meal is ready!"];
         notification.alertAction = NSLocalizedString(@"View Details", nil);
@@ -201,7 +198,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 
         // minute timer
         NSTimer *minutesTimer = [[NSTimer alloc] initWithFireDate:[[NSDate date] dateByAddingTimeInterval:60] interval:60 target:self selector:@selector(minuteUpdated:) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:minutesTimer forMode:NSDefaultRunLoopMode];
+        [[NSRunLoop currentRunLoop] addTimer:minutesTimer forMode:NSDefaultRunLoopMode];*/
 
     } else {
         // seconds is zero, cancel alarm if happening
@@ -216,6 +213,29 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (void)minuteUpdated:(NSTimer *)timer
 {
     NSLog(@"minute timer: %f", timer.timeInterval);
+}
+
+- (void)createNotificationWithFireDate:(NSDate *)fireDate
+{
+    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    if (!localNotification)
+        return;
+
+    localNotification.repeatInterval = NSDayCalendarUnit;
+    [localNotification setFireDate:fireDate];
+    [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
+    // Setup alert notification
+    [localNotification setAlertBody:@"Your meal is ready!"];
+    [localNotification setAlertAction:@"View Details"];
+    [localNotification setHasAction:YES];
+
+    NSNumber* uidToStore = [NSNumber numberWithInt:100];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:uidToStore forKey:@"notificationID"];
+    localNotification.userInfo = userInfo;
+
+    // Schedule the notification
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 @end
