@@ -54,7 +54,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         _textField.textColor = [UIColor colorFromHexString:@"30cec6"];
         _textField.textAlignment = NSTextAlignmentCenter;
         _textField.font = font;
-        _textField.text = [NSString stringWithFormat:@"%d", self.angle];
+        _textField.text = [NSString stringWithFormat:@"%ld", (long)self.angle];
         _textField.enabled = NO;
     }
     return _textField;
@@ -162,7 +162,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     self.angle = angle;
 
     //Textfielf
-    self.textField.text = [NSString stringWithFormat:@"%d", self.angle/6];
+    self.textField.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
 
     [self setNeedsDisplay];
 }

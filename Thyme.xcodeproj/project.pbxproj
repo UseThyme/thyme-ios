@@ -14,6 +14,16 @@
 		446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E241844C4E2005FD797 /* HYPAppDelegate.m */; };
 		446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */; };
 		446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */; };
+		449143C91847676F008A80F0 /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 449143C01847676F008A80F0 /* CHANGELOG */; };
+		449143CB1847676F008A80F0 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143C31847676F008A80F0 /* HockeySDK.framework */; };
+		449143CC1847676F008A80F0 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 449143C51847676F008A80F0 /* HockeySDK.xcconfig */; };
+		449143CD1847676F008A80F0 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 449143C61847676F008A80F0 /* HockeySDKResources.bundle */; };
+		449143CE1847676F008A80F0 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 449143C71847676F008A80F0 /* LICENSE */; };
+		449143CF1847676F008A80F0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 449143C81847676F008A80F0 /* README.md */; };
+		449143D118476786008A80F0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D018476786008A80F0 /* CoreText.framework */; };
+		449143D318476798008A80F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D218476798008A80F0 /* QuartzCore.framework */; };
+		449143D5184767A1008A80F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D4184767A1008A80F0 /* Security.framework */; };
+		449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D6184767A7008A80F0 /* SystemConfiguration.framework */; };
 		44A691AD1844E02D005D4C5A /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A691AC1844E02D005D4C5A /* background@2x.png */; };
 		44A691B21844E0F1005D4C5A /* HYPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B11844E0F1005D4C5A /* HYPViewController.m */; };
 		44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B51844E2A1005D4C5A /* HYPUtils.m */; };
@@ -35,8 +45,6 @@
 		44AAE4351844C0690096BF52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AAE4331844C0690096BF52 /* InfoPlist.strings */; };
 		44AAE4371844C0690096BF52 /* ThymeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AAE4361844C0690096BF52 /* ThymeTests.m */; };
 		44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA691846586C0007E083 /* HYPTimerControl.m */; };
-		44F8DA7218467C390007E083 /* handle.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 44F8DA6E18467C390007E083 /* handle.jpeg */; };
-		44F8DA7318467C390007E083 /* TBCircularSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA7118467C390007E083 /* TBCircularSlider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +70,16 @@
 		446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPHomeViewController.m; sourceTree = "<group>"; };
 		446C9E2E1844CA4A005FD797 /* HYPPlateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPPlateCell.h; sourceTree = "<group>"; };
 		446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPPlateCell.m; sourceTree = "<group>"; };
+		449143C01847676F008A80F0 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
+		449143C31847676F008A80F0 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
+		449143C51847676F008A80F0 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
+		449143C61847676F008A80F0 /* HockeySDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HockeySDKResources.bundle; sourceTree = "<group>"; };
+		449143C71847676F008A80F0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		449143C81847676F008A80F0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		449143D018476786008A80F0 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		449143D218476798008A80F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		449143D4184767A1008A80F0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		449143D6184767A7008A80F0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		44A691AC1844E02D005D4C5A /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		44A691B01844E0F1005D4C5A /* HYPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPViewController.h; sourceTree = "<group>"; };
 		44A691B11844E0F1005D4C5A /* HYPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPViewController.m; sourceTree = "<group>"; };
@@ -90,10 +108,6 @@
 		44AAE4361844C0690096BF52 /* ThymeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThymeTests.m; sourceTree = "<group>"; };
 		44F8DA681846586C0007E083 /* HYPTimerControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPTimerControl.h; sourceTree = "<group>"; };
 		44F8DA691846586C0007E083 /* HYPTimerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerControl.m; sourceTree = "<group>"; };
-		44F8DA6E18467C390007E083 /* handle.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = handle.jpeg; sourceTree = "<group>"; };
-		44F8DA6F18467C390007E083 /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
-		44F8DA7018467C390007E083 /* TBCircularSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBCircularSlider.h; sourceTree = "<group>"; };
-		44F8DA7118467C390007E083 /* TBCircularSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBCircularSlider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +115,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */,
+				449143D5184767A1008A80F0 /* Security.framework in Frameworks */,
+				449143D318476798008A80F0 /* QuartzCore.framework in Frameworks */,
+				449143D118476786008A80F0 /* CoreText.framework in Frameworks */,
+				449143CB1847676F008A80F0 /* HockeySDK.framework in Frameworks */,
 				44AAE4141844C0690096BF52 /* CoreGraphics.framework in Frameworks */,
 				44AAE4161844C0690096BF52 /* UIKit.framework in Frameworks */,
 				44AAE4121844C0690096BF52 /* Foundation.framework in Frameworks */,
@@ -183,6 +202,35 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		449143BF1847676F008A80F0 /* HockeySDK */ = {
+			isa = PBXGroup;
+			children = (
+				449143C01847676F008A80F0 /* CHANGELOG */,
+				449143C21847676F008A80F0 /* HockeySDK.embeddedframework */,
+				449143C71847676F008A80F0 /* LICENSE */,
+				449143C81847676F008A80F0 /* README.md */,
+			);
+			path = HockeySDK;
+			sourceTree = "<group>";
+		};
+		449143C21847676F008A80F0 /* HockeySDK.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				449143C31847676F008A80F0 /* HockeySDK.framework */,
+				449143C41847676F008A80F0 /* Resources */,
+			);
+			path = HockeySDK.embeddedframework;
+			sourceTree = "<group>";
+		};
+		449143C41847676F008A80F0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				449143C51847676F008A80F0 /* HockeySDK.xcconfig */,
+				449143C61847676F008A80F0 /* HockeySDKResources.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		44A691AB1844E02D005D4C5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +305,10 @@
 		44AAE4101844C0690096BF52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				449143D6184767A7008A80F0 /* SystemConfiguration.framework */,
+				449143D4184767A1008A80F0 /* Security.framework */,
+				449143D218476798008A80F0 /* QuartzCore.framework */,
+				449143D018476786008A80F0 /* CoreText.framework */,
 				44AAE4111844C0690096BF52 /* Foundation.framework */,
 				44AAE4131844C0690096BF52 /* CoreGraphics.framework */,
 				44AAE4151844C0690096BF52 /* UIKit.framework */,
@@ -322,28 +374,9 @@
 		44F8DA6B18467C390007E083 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				44F8DA6C18467C390007E083 /* TBCircularSlider */,
+				449143BF1847676F008A80F0 /* HockeySDK */,
 			);
 			path = External;
-			sourceTree = "<group>";
-		};
-		44F8DA6C18467C390007E083 /* TBCircularSlider */ = {
-			isa = PBXGroup;
-			children = (
-				44F8DA6D18467C390007E083 /* Assets */,
-				44F8DA6F18467C390007E083 /* Commons.h */,
-				44F8DA7018467C390007E083 /* TBCircularSlider.h */,
-				44F8DA7118467C390007E083 /* TBCircularSlider.m */,
-			);
-			path = TBCircularSlider;
-			sourceTree = "<group>";
-		};
-		44F8DA6D18467C390007E083 /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-				44F8DA6E18467C390007E083 /* handle.jpeg */,
-			);
-			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -424,13 +457,17 @@
 			files = (
 				442B1400184629EA00D52AE1 /* plusButtonImage@2x.png in Resources */,
 				44AAE41C1844C0690096BF52 /* InfoPlist.strings in Resources */,
-				44F8DA7218467C390007E083 /* handle.jpeg in Resources */,
 				44A691BE1844F03C005D4C5A /* activePlate@2x.png in Resources */,
 				44A691C41844FE3D005D4C5A /* timer@2x.png in Resources */,
 				442B13FF184629EA00D52AE1 /* minusButtonImage@2x.png in Resources */,
+				449143CF1847676F008A80F0 /* README.md in Resources */,
+				449143C91847676F008A80F0 /* CHANGELOG in Resources */,
 				44A691AD1844E02D005D4C5A /* background@2x.png in Resources */,
 				44A691C21844F91D005D4C5A /* unactiveKitchen@2x.png in Resources */,
+				449143CE1847676F008A80F0 /* LICENSE in Resources */,
+				449143CD1847676F008A80F0 /* HockeySDKResources.bundle in Resources */,
 				44A691C11844F91D005D4C5A /* activeKitchen@2x.png in Resources */,
+				449143CC1847676F008A80F0 /* HockeySDK.xcconfig in Resources */,
 				44A691B81844E559005D4C5A /* inactivePlate@2x.png in Resources */,
 				44AAE4241844C0690096BF52 /* Images.xcassets in Resources */,
 			);
@@ -457,7 +494,6 @@
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
 				446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */,
 				44AAE41E1844C0690096BF52 /* main.m in Sources */,
-				44F8DA7318467C390007E083 /* TBCircularSlider.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
 				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
 				442B13FC184615B600D52AE1 /* HYPStove.m in Sources */,
@@ -583,6 +619,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/elvisnunez/Projects/Hyper/Thyme/Thyme/External/HockeySDK/HockeySDK.embeddedframework,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
 				INFOPLIST_FILE = "Thyme/Thyme-Info.plist";
@@ -598,6 +638,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/elvisnunez/Projects/Hyper/Thyme/Thyme/External/HockeySDK/HockeySDK.embeddedframework,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
 				INFOPLIST_FILE = "Thyme/Thyme-Info.plist";

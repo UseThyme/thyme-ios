@@ -8,7 +8,6 @@
 
 #import "HYPTimerViewController.h"
 #import "HYPTimerControl.h"
-#import "TBCircularSlider.h"
 
 @interface HYPTimerViewController ()
 @property (nonatomic, strong) HYPTimerControl *timerController;

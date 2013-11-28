@@ -9,11 +9,18 @@
 #import "HYPAppDelegate.h"
 #import "HYPHomeViewController.h"
 #import "HYPTimerViewController.h"
+#import <HockeySDK/HockeySDK.h>
+
+@interface HYPAppDelegate (HockeyProtocols) <BITHockeyManagerDelegate>
+@end
 
 @implementation HYPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
