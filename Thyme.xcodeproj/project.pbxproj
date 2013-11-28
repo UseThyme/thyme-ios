@@ -11,6 +11,7 @@
 		442B13FF184629EA00D52AE1 /* minusButtonImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442B13FD184629EA00D52AE1 /* minusButtonImage@2x.png */; };
 		442B1400184629EA00D52AE1 /* plusButtonImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442B13FE184629EA00D52AE1 /* plusButtonImage@2x.png */; };
 		442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B140618462A8000D52AE1 /* HYPTimerViewController.m */; };
+		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
 		446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E241844C4E2005FD797 /* HYPAppDelegate.m */; };
 		446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */; };
 		446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */; };
@@ -64,6 +65,7 @@
 		442B13FE184629EA00D52AE1 /* plusButtonImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plusButtonImage@2x.png"; sourceTree = "<group>"; };
 		442B140518462A8000D52AE1 /* HYPTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPTimerViewController.h; sourceTree = "<group>"; };
 		442B140618462A8000D52AE1 /* HYPTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerViewController.m; sourceTree = "<group>"; };
+		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
 		446C9E231844C4E2005FD797 /* HYPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAppDelegate.h; sourceTree = "<group>"; };
 		446C9E241844C4E2005FD797 /* HYPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPAppDelegate.m; sourceTree = "<group>"; };
 		446C9E291844C91A005FD797 /* HYPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPHomeViewController.h; sourceTree = "<group>"; };
@@ -155,6 +157,14 @@
 				442B140618462A8000D52AE1 /* HYPTimerViewController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4465EE91184772F9006C145F /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				4465EE92184772F9006C145F /* alarm.caf */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		446C9E221844C4E2005FD797 /* AppDelegate */ = {
@@ -327,6 +337,7 @@
 				446C9E271844C551005FD797 /* Timer */,
 				442B13F9184614FC00D52AE1 /* Models */,
 				44A691AB1844E02D005D4C5A /* Images */,
+				4465EE91184772F9006C145F /* Sounds */,
 				44AAE4181844C0690096BF52 /* Supporting Files */,
 			);
 			path = Thyme;
@@ -469,6 +480,7 @@
 				44A691C11844F91D005D4C5A /* activeKitchen@2x.png in Resources */,
 				449143CC1847676F008A80F0 /* HockeySDK.xcconfig in Resources */,
 				44A691B81844E559005D4C5A /* inactivePlate@2x.png in Resources */,
+				4465EE93184772F9006C145F /* alarm.caf in Resources */,
 				44AAE4241844C0690096BF52 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

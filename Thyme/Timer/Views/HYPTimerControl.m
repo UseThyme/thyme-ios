@@ -170,8 +170,52 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super endTrackingWithTouch:touch withEvent:event];
+
+    [self performSelector:@selector(startAlarm) withObject:nil afterDelay:1.0];
     // Wait 3 seconds
     // Start alarm
+}
+
+- (void)startAlarm
+{
+    NSInteger numberOfSeconds = (self.angle / 6) * 60;
+    NSLog(@"number of seconds: %ld", (long)numberOfSeconds);
+    NSDate *fireDate = [[NSDate date] dateByAddingTimeInterval:numberOfSeconds];
+
+    if (numberOfSeconds > 0) {
+        UILocalNotification *notification = [[UILocalNotification alloc] init];
+        notification.fireDate = fireDate;
+        notification.soundName = @"alarm.caf";
+        //notification.soundName = UILocalNotificationDefaultSoundName;
+        notification.alertBody = [NSString stringWithFormat:@"Your meal is ready!"];
+        notification.alertAction = NSLocalizedString(@"View Details", nil);
+
+        //NSDictionary *infoDict = [NSDictionary dictionaryWithObject:item.eventName forKey:ToDoItemKey];
+        //notification.userInfo = infoDict;
+
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+
+        // seconds timer
+        NSTimer *secondsTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:1 target:self selector:@selector(secondUpdated:) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:secondsTimer forMode:NSDefaultRunLoopMode];
+
+        // minute timer
+        NSTimer *minutesTimer = [[NSTimer alloc] initWithFireDate:[[NSDate date] dateByAddingTimeInterval:60] interval:60 target:self selector:@selector(minuteUpdated:) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:minutesTimer forMode:NSDefaultRunLoopMode];
+
+    } else {
+        // seconds is zero, cancel alarm if happening
+    }
+}
+
+- (void)secondUpdated:(NSTimer *)timer
+{
+    NSLog(@"second timer: %f", timer.timeInterval);
+}
+
+- (void)minuteUpdated:(NSTimer *)timer
+{
+    NSLog(@"minute timer: %f", timer.timeInterval);
 }
 
 @end

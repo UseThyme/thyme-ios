@@ -18,8 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
-    [[BITHockeyManager sharedHockeyManager] startManager];
+    //[[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
+    //[[BITHockeyManager sharedHockeyManager] startManager];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 
@@ -33,6 +33,11 @@
 
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    [[[UIAlertView alloc] initWithTitle:@"Your meal is ready!" message:nil delegate:nil cancelButtonTitle:@"OK, thanks" otherButtonTitles:nil, nil] show];
 }
 
 @end
