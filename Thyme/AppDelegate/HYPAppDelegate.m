@@ -10,11 +10,27 @@
 #import "HYPHomeViewController.h"
 #import "HYPTimerViewController.h"
 #import <HockeySDK/HockeySDK.h>
+#import <AVFoundation/AVAudioPlayer.h>
 
-@interface HYPAppDelegate (HockeyProtocols) <BITHockeyManagerDelegate>
+@interface HYPAppDelegate () <BITHockeyManagerDelegate>
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @end
 
 @implementation HYPAppDelegate
+
+- (AVAudioPlayer *)audioPlayer
+{
+    if (!_audioPlayer) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"alarm" ofType:@"caf"];
+        NSURL *file = [[NSURL alloc] initFileURLWithPath:path];
+        NSError *error = nil;
+        _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:file error:&error];
+        if (error) {
+            NSLog(@"error loading sound: %@", [error description]);
+        }
+    }
+    return _audioPlayer;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -22,6 +38,7 @@
     //[[BITHockeyManager sharedHockeyManager] startManager];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
@@ -37,7 +54,10 @@
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification
 {
+    [self.audioPlayer prepareToPlay];
+    [self.audioPlayer play];
     [[[UIAlertView alloc] initWithTitle:@"Your meal is ready!" message:nil delegate:nil cancelButtonTitle:@"OK, thanks" otherButtonTitles:nil, nil] show];
 }
+
 
 @end
