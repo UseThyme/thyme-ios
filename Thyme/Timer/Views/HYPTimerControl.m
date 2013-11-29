@@ -19,7 +19,9 @@
 /** Parameters **/
 #define CIRCLE_COLOR [UIColor colorFromHexString:@"bcf5e9"]
 #define CIRCLE_SIZE_FACTOR 0.8f
-#define KNOB_COLOR [UIColor colorWithWhite:1.0 alpha:0.7]
+#define KNOB_COLOR [UIColor colorFromHexString:@"ff5c5c"]
+#define ALARM_ID @"THYME_ALARM_ID_0"
+#define ALARM_ID_KEY @"HYPAlarmID"
 
 @interface HYPTimerControl ()
 @property (nonatomic, strong) UITextField *textField;
@@ -178,7 +180,26 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     NSInteger numberOfSeconds = (self.angle / 6) * 60;
     NSDate *fireDate = [[NSDate date] dateByAddingTimeInterval:numberOfSeconds];
 
-    if (numberOfSeconds > 0) {
+    UILocalNotification *existingNotification = nil;
+    for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+        if ([[notification.userInfo objectForKey:ALARM_ID_KEY] isEqualToString:ALARM_ID]) {
+            existingNotification = notification;
+            break;
+        }
+    }
+
+    if (existingNotification) {
+        [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
+        NSLog(@"notification exists");
+        if (numberOfSeconds == 0) {
+            NSLog(@"just cancel");
+        } else {
+            // create a new one
+            NSLog(@"update local notification");
+            [self createNotificationWithFireDate:fireDate];
+        }
+    } else if (numberOfSeconds > 0) {
+        NSLog(@"create new notification");
         [self createNotificationWithFireDate:fireDate];
         /*UILocalNotification *notification = [[UILocalNotification alloc] init];
         notification.fireDate = fireDate;
@@ -222,7 +243,6 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     if (!localNotification)
         return;
 
-    localNotification.repeatInterval = NSDayCalendarUnit;
     [localNotification setFireDate:fireDate];
     [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
     // Setup alert notification
@@ -230,8 +250,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     [localNotification setAlertAction:@"View Details"];
     [localNotification setHasAction:YES];
 
-    NSNumber* uidToStore = [NSNumber numberWithInt:100];
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:uidToStore forKey:@"notificationID"];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:ALARM_ID forKey:ALARM_ID_KEY];
     localNotification.userInfo = userInfo;
 
     // Schedule the notification
