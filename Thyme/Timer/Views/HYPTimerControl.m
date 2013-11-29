@@ -194,35 +194,12 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         if (numberOfSeconds == 0) {
             NSLog(@"just cancel");
         } else {
-            // create a new one
             NSLog(@"update local notification");
             [self createNotificationWithFireDate:fireDate];
         }
     } else if (numberOfSeconds > 0) {
         NSLog(@"create new notification");
         [self createNotificationWithFireDate:fireDate];
-        /*UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.fireDate = fireDate;
-        notification.soundName = nil;
-        //notification.soundName = UILocalNotificationDefaultSoundName;
-        notification.alertBody = [NSString stringWithFormat:@"Your meal is ready!"];
-        notification.alertAction = NSLocalizedString(@"View Details", nil);
-
-        //NSDictionary *infoDict = [NSDictionary dictionaryWithObject:item.eventName forKey:ToDoItemKey];
-        //notification.userInfo = infoDict;
-
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-
-        // seconds timer
-        NSTimer *secondsTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:1 target:self selector:@selector(secondUpdated:) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:secondsTimer forMode:NSDefaultRunLoopMode];
-
-        // minute timer
-        NSTimer *minutesTimer = [[NSTimer alloc] initWithFireDate:[[NSDate date] dateByAddingTimeInterval:60] interval:60 target:self selector:@selector(minuteUpdated:) userInfo:nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:minutesTimer forMode:NSDefaultRunLoopMode];*/
-
-    } else {
-        // seconds is zero, cancel alarm if happening
     }
 }
 
