@@ -9,6 +9,10 @@
 #import "HYPTimerViewController.h"
 #import "HYPTimerControl.h"
 
+#define ALARM_ID @"THYME_ALARM_ID_0"
+#define ALARM_ID_KEY @"HYPAlarmID"
+#define ALARM_FIRE_DATE_KEY @"HYPAlarmFireDate"
+
 @interface HYPTimerViewController ()
 @property (nonatomic, strong) HYPTimerControl *timerController;
 @end
@@ -31,6 +35,30 @@
 {
     [super viewDidLoad];
     [self.view addSubview:self.timerController];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self currentNotificationRemainingTime];
+}
+
+- (void)currentNotificationRemainingTime
+{
+    UILocalNotification *existingNotification = nil;
+    for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+        if ([[notification.userInfo objectForKey:ALARM_ID_KEY] isEqualToString:ALARM_ID]) {
+            existingNotification = notification;
+            break;
+        }
+    }
+
+    if (existingNotification) {
+        NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];
+        NSLog(@"fired date: %f", [firedDate timeIntervalSinceNow]); // -120 = - 2 minutes to sound
+    } else {
+        NSLog(@"notification not found");
+    }
 }
 
 @end

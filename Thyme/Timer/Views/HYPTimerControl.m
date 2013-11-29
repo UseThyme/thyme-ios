@@ -22,6 +22,7 @@
 #define KNOB_COLOR [UIColor colorFromHexString:@"ff5c5c"]
 #define ALARM_ID @"THYME_ALARM_ID_0"
 #define ALARM_ID_KEY @"HYPAlarmID"
+#define ALARM_FIRE_DATE_KEY @"HYPAlarmFireDate"
 
 @interface HYPTimerControl ()
 @property (nonatomic, strong) UITextField *textField;
@@ -203,35 +204,25 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     }
 }
 
-- (void)secondUpdated:(NSTimer *)timer
-{
-    NSLog(@"second timer: %f", timer.timeInterval);
-}
-
-- (void)minuteUpdated:(NSTimer *)timer
-{
-    NSLog(@"minute timer: %f", timer.timeInterval);
-}
-
 - (void)createNotificationWithFireDate:(NSDate *)fireDate
 {
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.soundName = UILocalNotificationDefaultSoundName;
-    if (!localNotification)
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.soundName = UILocalNotificationDefaultSoundName;
+    if (!notification)
         return;
 
-    [localNotification setFireDate:fireDate];
-    [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
-    // Setup alert notification
-    [localNotification setAlertBody:@"Your meal is ready!"];
-    [localNotification setAlertAction:@"View Details"];
-    [localNotification setHasAction:YES];
+    notification.fireDate = fireDate;
+    notification.timeZone = [NSTimeZone defaultTimeZone];
+    notification.alertBody = @"Your meal is ready!";
+    notification.alertAction = @"View Details";
+    notification.hasAction = YES;
 
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:ALARM_ID forKey:ALARM_ID_KEY];
-    localNotification.userInfo = userInfo;
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:ALARM_ID forKey:ALARM_ID_KEY];
+    [userInfo setObject:[NSDate date] forKey:ALARM_FIRE_DATE_KEY];
+    notification.userInfo = userInfo;
 
-    // Schedule the notification
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 @end
