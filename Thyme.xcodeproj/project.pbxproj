@@ -637,7 +637,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/elvisnunez/Projects/Hyper/Thyme/Thyme/External/HockeySDK/HockeySDK.embeddedframework,
+					"$(SRCROOT)/Thyme/External/HockeySDK/HockeySDK.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
@@ -656,7 +656,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/elvisnunez/Projects/Hyper/Thyme/Thyme/External/HockeySDK/HockeySDK.embeddedframework,
+					"$(SRCROOT)/Thyme/External/HockeySDK/HockeySDK.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
