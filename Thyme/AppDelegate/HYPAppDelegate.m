@@ -56,7 +56,7 @@
 {
     [self.audioPlayer prepareToPlay];
     [self.audioPlayer play];
-    [[[UIAlertView alloc] initWithTitle:@"Your meal is ready!" message:nil delegate:nil cancelButtonTitle:@"OK, thanks" otherButtonTitles:nil, nil] show];
+    [[[UIAlertView alloc] initWithTitle:@"Your meal is ready!" message:nil delegate:self cancelButtonTitle:@"OK, thanks" otherButtonTitles:nil, nil] show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
