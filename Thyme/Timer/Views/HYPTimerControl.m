@@ -180,12 +180,17 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (void)startAlarm
 {
     NSInteger numberOfSeconds = (self.angle / 6) * 60;
+    [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
+}
 
+- (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
+{
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:ALARM_ID];
 
     if (existingNotification) {
-        [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
         NSLog(@"notification exists");
+        [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
+        
         if (numberOfSeconds == 0) {
             NSLog(@"just cancel");
         } else {
