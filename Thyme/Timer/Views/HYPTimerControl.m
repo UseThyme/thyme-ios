@@ -10,6 +10,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIColor+HYPExtensions.h"
 #import "HYPUtils.h"
+#import "HYPAlarm.h"
+#import "HYPLocalNotificationManager.h"
 
 /** Helper Functions **/
 #define ToRad(deg)                 ( (M_PI * (deg)) / 180.0 )
@@ -21,8 +23,6 @@
 #define CIRCLE_SIZE_FACTOR 0.8f
 #define KNOB_COLOR [UIColor colorFromHexString:@"ff5c5c"]
 #define ALARM_ID @"THYME_ALARM_ID_0"
-#define ALARM_ID_KEY @"HYPAlarmID"
-#define ALARM_FIRE_DATE_KEY @"HYPAlarmFireDate"
 
 @interface HYPTimerControl ()
 @property (nonatomic, strong) UITextField *textField;
@@ -163,11 +163,13 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     CGFloat currentAngle = AngleFromNorth(centerPoint, lastPoint, YES);
     NSInteger angle = floor(currentAngle);
     self.angle = angle;
-
-    //Textfielf
-    self.textField.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
-
     [self setNeedsDisplay];
+}
+
+- (void)setAngle:(NSInteger)angle
+{
+    _angle = angle;
+    self.textField.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
@@ -179,15 +181,8 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (void)startAlarm
 {
     NSInteger numberOfSeconds = (self.angle / 6) * 60;
-    NSDate *fireDate = [[NSDate date] dateByAddingTimeInterval:numberOfSeconds];
 
-    UILocalNotification *existingNotification = nil;
-    for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
-        if ([[notification.userInfo objectForKey:ALARM_ID_KEY] isEqualToString:ALARM_ID]) {
-            existingNotification = notification;
-            break;
-        }
-    }
+    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:ALARM_ID];
 
     if (existingNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
@@ -196,33 +191,24 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
             NSLog(@"just cancel");
         } else {
             NSLog(@"update local notification");
-            [self createNotificationWithFireDate:fireDate];
+            [self createNotificationUsingNumberOfSeconds:numberOfSeconds];
         }
     } else if (numberOfSeconds > 0) {
         NSLog(@"create new notification");
-        [self createNotificationWithFireDate:fireDate];
+        [self createNotificationUsingNumberOfSeconds:numberOfSeconds];
     }
 }
 
-- (void)createNotificationWithFireDate:(NSDate *)fireDate
+- (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.soundName = UILocalNotificationDefaultSoundName;
-    if (!notification)
-        return;
+    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:ALARM_ID];
+}
 
-    notification.fireDate = fireDate;
-    notification.timeZone = [NSTimeZone defaultTimeZone];
-    notification.alertBody = @"Your meal is ready!";
-    notification.alertAction = @"View Details";
-    notification.hasAction = YES;
-
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    [userInfo setObject:ALARM_ID forKey:ALARM_ID_KEY];
-    [userInfo setObject:[NSDate date] forKey:ALARM_FIRE_DATE_KEY];
-    notification.userInfo = userInfo;
-
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+- (void)setMinutesLeft:(NSTimeInterval)minutesLeft
+{
+    _minutesLeft = minutesLeft;
+    self.angle = minutesLeft * 6;
+    [self setNeedsDisplay];
 }
 
 @end

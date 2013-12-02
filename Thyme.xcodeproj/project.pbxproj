@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088056184C803300935802 /* HYPLocalNotificationManager.m */; };
+		4408805A184C808500935802 /* HYPAlarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088059184C808500935802 /* HYPAlarm.m */; };
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
 		442B13FC184615B600D52AE1 /* HYPStove.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B13FB184615B600D52AE1 /* HYPStove.m */; };
 		442B13FF184629EA00D52AE1 /* minusButtonImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442B13FD184629EA00D52AE1 /* minusButtonImage@2x.png */; };
@@ -60,6 +62,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		44088055184C803300935802 /* HYPLocalNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPLocalNotificationManager.h; sourceTree = "<group>"; };
+		44088056184C803300935802 /* HYPLocalNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPLocalNotificationManager.m; sourceTree = "<group>"; };
+		44088058184C808500935802 /* HYPAlarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAlarm.h; sourceTree = "<group>"; };
+		44088059184C808500935802 /* HYPAlarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPAlarm.m; sourceTree = "<group>"; };
 		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		442B13FA184615B600D52AE1 /* HYPStove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPStove.h; sourceTree = "<group>"; };
 		442B13FB184615B600D52AE1 /* HYPStove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPStove.m; sourceTree = "<group>"; };
@@ -149,6 +155,8 @@
 			children = (
 				442B13FA184615B600D52AE1 /* HYPStove.h */,
 				442B13FB184615B600D52AE1 /* HYPStove.m */,
+				44088058184C808500935802 /* HYPAlarm.h */,
+				44088059184C808500935802 /* HYPAlarm.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -283,6 +291,8 @@
 			children = (
 				44A691B41844E2A1005D4C5A /* HYPUtils.h */,
 				44A691B51844E2A1005D4C5A /* HYPUtils.m */,
+				44088055184C803300935802 /* HYPLocalNotificationManager.h */,
+				44088056184C803300935802 /* HYPLocalNotificationManager.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -507,12 +517,14 @@
 				446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */,
 				44A691B21844E0F1005D4C5A /* HYPViewController.m in Sources */,
 				446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */,
+				4408805A184C808500935802 /* HYPAlarm.m in Sources */,
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
 				446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */,
 				44AAE41E1844C0690096BF52 /* main.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
 				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
 				442B13FC184615B600D52AE1 /* HYPStove.m in Sources */,
+				44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */,
 				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
