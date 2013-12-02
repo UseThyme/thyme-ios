@@ -9,6 +9,8 @@
 #import "HYPTimerViewController.h"
 #import "HYPTimerControl.h"
 #import "HYPLocalNotificationManager.h"
+#import "HYPUtils.h"
+#import "HYPMathHelpers.h"
 
 #define ALARM_ID @"THYME_ALARM_ID_0"
 #import "HYPAlarm.h"

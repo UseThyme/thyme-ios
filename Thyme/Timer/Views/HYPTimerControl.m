@@ -12,17 +12,62 @@
 #import "HYPUtils.h"
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
-
-/** Helper Functions **/
-#define DegToRad(deg)                 ( (M_PI * (deg)) / 180.0 )
-#define RadToDeg(rad)                ( (180.0 * (rad)) / M_PI )
-#define SQR(x)                        ( (x) * (x) )
+#import "HYPMathHelpers.h"
+#import <CoreText/CoreText.h>
 
 /** Parameters **/
 #define CIRCLE_COLOR [UIColor colorFromHexString:@"bcf5e9"]
 #define CIRCLE_SIZE_FACTOR 0.8f
 #define KNOB_COLOR [UIColor colorFromHexString:@"ff5c5c"]
 #define ALARM_ID @"THYME_ALARM_ID_0"
+
+#define TEXT_FONT [HYPUtils avenirLightWithSize:13]
+#define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
+#define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
+#define C_DEFAULT_TEXT @"------------------YOUR MEAL WILL BE READY IN------------------"
+
+#define DEFAULT_RADIUS 0
+#define TEXT_COLOR [UIColor whiteColor]
+
+typedef struct GlyphArcInfo {
+	CGFloat			width;
+	CGFloat			angle;	// in radians
+} GlyphArcInfo;
+
+static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo *glyphArcInfo)
+{
+	NSArray *runArray = (__bridge NSArray *)CTLineGetGlyphRuns(line);
+
+	// Examine each run in the line, updating glyphOffset to track how far along the run is in terms of glyphCount.
+	CFIndex glyphOffset = 0;
+	for (id run in runArray) {
+		CFIndex runGlyphCount = CTRunGetGlyphCount((__bridge CTRunRef)run);
+
+		// Ask for the width of each glyph in turn.
+		CFIndex runGlyphIndex = 0;
+		for (; runGlyphIndex < runGlyphCount; runGlyphIndex++) {
+			glyphArcInfo[runGlyphIndex + glyphOffset].width = CTRunGetTypographicBounds((__bridge CTRunRef)run, CFRangeMake(runGlyphIndex, 1), NULL, NULL, NULL);
+		}
+
+		glyphOffset += runGlyphCount;
+	}
+
+	double lineLength = CTLineGetTypographicBounds(line, NULL, NULL, NULL);
+
+	CGFloat prevHalfWidth = glyphArcInfo[0].width / 2.0;
+	glyphArcInfo[0].angle = (prevHalfWidth / lineLength) * M_PI;
+
+	// Divide the arc into slices such that each one covers the distance from one glyph's center to the next.
+	CFIndex lineGlyphIndex = 1;
+	for (; lineGlyphIndex < glyphCount; lineGlyphIndex++) {
+		CGFloat halfWidth = glyphArcInfo[lineGlyphIndex].width / 2.0;
+		CGFloat prevCenterToCenter = prevHalfWidth + halfWidth;
+
+		glyphArcInfo[lineGlyphIndex].angle = (prevCenterToCenter / lineLength) * M_PI;
+        
+		prevHalfWidth = halfWidth;
+	}
+}
 
 @interface HYPTimerControl ()
 @property (nonatomic, strong) UILabel *minutesValueLabel;
@@ -126,8 +171,112 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 
     UIColor *secondsColor = KNOB_COLOR;
     if (self.timer && [self.timer isValid]) {
-        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2];
+        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.1];
     }
+
+    [self drawText:context rect:rect];
+}
+
+- (NSAttributedString *)attributedString
+{
+	// Create our attributes.
+	NSDictionary *attributes = @{NSFontAttributeName: TEXT_FONT, NSForegroundColorAttributeName : TEXT_COLOR};
+
+	// Create the attributed string.
+	NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:A_DEFAULT_TEXT attributes:attributes];
+	return attrString;
+}
+
+- (void)drawText:(CGContextRef)context rect:(CGRect)rect
+{
+    // Draw a white background
+	//[[UIColor greenColor] set];
+	//CGContextFillRect(context, rect);
+
+	// Initialize the text matrix to a known value
+    CGAffineTransform t0 = CGContextGetCTM(context);
+    CGFloat xScaleFactor = t0.a > 0 ? t0.a : -t0.a;
+    CGFloat yScaleFactor = t0.d > 0 ? t0.d : -t0.d;
+    t0 = CGAffineTransformInvert(t0);
+    if (xScaleFactor != 1.0 || yScaleFactor != 1.0)
+        t0 = CGAffineTransformScale(t0, xScaleFactor, yScaleFactor);
+    CGContextConcatCTM(context, t0);
+    CGContextSetTextMatrix(context, CGAffineTransformIdentity);
+
+	CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)self.attributedString);
+	assert(line != NULL);
+
+	CFIndex glyphCount = CTLineGetGlyphCount(line);
+	if (glyphCount == 0) {
+		CFRelease(line);
+		return;
+	}
+
+	GlyphArcInfo *	glyphArcInfo = (GlyphArcInfo*)calloc(glyphCount, sizeof(GlyphArcInfo));
+	PrepareGlyphArcInfo(line, glyphCount, glyphArcInfo);
+
+	// Move the origin from the lower left of the view nearer to its center.
+	CGContextSaveGState(context);
+	CGContextTranslateCTM(context, CGRectGetMidX(rect), CGRectGetMidY(rect) - DEFAULT_RADIUS / 2.0);
+
+	// Stroke the arc in red for verification.
+	/*CGContextBeginPath(context);
+    CGFloat margin = 15;
+	CGContextAddArc(context, 0.0, 0.0, DEFAULT_RADIUS, DegToRad(135+margin), DegToRad(45-margin),1);
+	CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
+	CGContextStrokePath(context);*/
+
+	// Rotate the context 90 degrees counterclockwise.
+	CGContextRotateCTM(context, M_PI_2);
+
+	/*
+     Now for the actual drawing. The angle offset for each glyph relative to the previous glyph has already been calculated; with that information in hand, draw those glyphs overstruck and centered over one another, making sure to rotate the context after each glyph so the glyphs are spread along a semicircular path.
+     */
+
+	CGPoint textPosition = CGPointMake(0.0, DEFAULT_RADIUS);
+	CGContextSetTextPosition(context, textPosition.x, textPosition.y);
+
+	CFArrayRef runArray = CTLineGetGlyphRuns(line);
+	CFIndex runCount = CFArrayGetCount(runArray);
+
+	CFIndex glyphOffset = 0;
+	CFIndex runIndex = 0;
+	for (; runIndex < runCount; runIndex++) {
+		CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runArray, runIndex);
+		CFIndex runGlyphCount = CTRunGetGlyphCount(run);
+
+		for (CFIndex runGlyphIndex = 0; runGlyphIndex < runGlyphCount; runGlyphIndex++) {
+
+			CFRange glyphRange = CFRangeMake(runGlyphIndex, 1);
+			CGContextRotateCTM(context, -(glyphArcInfo[runGlyphIndex + glyphOffset].angle));
+
+			// Center this glyph by moving left by half its width.
+			CGFloat glyphWidth = glyphArcInfo[runGlyphIndex + glyphOffset].width;
+			CGFloat halfGlyphWidth = glyphWidth / 2.0;
+			CGPoint positionForThisGlyph = CGPointMake(textPosition.x - halfGlyphWidth, textPosition.y + 135);
+
+			// Glyphs are positioned relative to the text position for the line, so offset text position leftwards by this glyph's width in preparation for the next glyph.
+			textPosition.x -= glyphWidth;
+
+			CGAffineTransform textMatrix = CTRunGetTextMatrix(run);
+			textMatrix.tx = positionForThisGlyph.x;
+			textMatrix.ty = positionForThisGlyph.y;
+			CGContextSetTextMatrix(context, textMatrix);
+
+            if (runGlyphIndex < 18 || runGlyphIndex > runGlyphCount - 19) {
+                continue;
+            }
+
+            CTRunDraw(run, context, glyphRange);
+		}
+
+		glyphOffset += runGlyphCount;
+	}
+
+	CGContextRestoreGState(context);
+
+	free(glyphArcInfo);
+	CFRelease(line);	
 }
 
 - (void)drawCircle:(CGContextRef)context withColor:(UIColor *)color inRect:(CGRect)rect
@@ -164,7 +313,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     CGContextSaveGState(context);
 
     [color set];
-    CGFloat value = (60 - self.seconds) * 6;
+    CGFloat value = self.seconds * 6;
     CGPoint circleCenter =  [self pointFromAngle:value usingRadius:radius];
     CGRect circleRect = CGRectMake(circleCenter.x, circleCenter.y, radius * 2, radius * 2);
     CGContextFillEllipseInRect(context, circleRect);
@@ -178,9 +327,9 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     CGPoint centerPoint = CGPointMake(self.frame.size.width / 2 - radius, self.frame.size.height / 2 - radius);
     CGPoint result;
     NSInteger angleTranslation = -90;
-    NSInteger magicFuckingNumber = 130;
-    result.x = round(centerPoint.x + magicFuckingNumber * cos(DegToRad(angle+angleTranslation)));
-    result.y = round(centerPoint.y + magicFuckingNumber * sin(DegToRad(angle+angleTranslation)));
+    NSInteger magicFuckingNumber = 128;
+    result.x = centerPoint.x + magicFuckingNumber * cos(DegToRad(angle+angleTranslation));
+    result.y = centerPoint.y + magicFuckingNumber * sin(DegToRad(angle+angleTranslation));
     return result;
 }
 
@@ -232,6 +381,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     if (self.seconds >= 60) {
         self.angle = (self.minutesLeft - 1) * 6;
         self.seconds = 0;
+        self.minutesLeft--;
     }
 
     if (self.minutesLeft == 0 && self.seconds == 59) {

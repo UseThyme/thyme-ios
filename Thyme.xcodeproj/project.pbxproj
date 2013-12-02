@@ -67,6 +67,7 @@
 		44088058184C808500935802 /* HYPAlarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAlarm.h; sourceTree = "<group>"; };
 		44088059184C808500935802 /* HYPAlarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPAlarm.m; sourceTree = "<group>"; };
 		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		440D8FDD184CE5ED00BB5392 /* HYPMathHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYPMathHelpers.h; sourceTree = "<group>"; };
 		442B13FA184615B600D52AE1 /* HYPStove.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPStove.h; sourceTree = "<group>"; };
 		442B13FB184615B600D52AE1 /* HYPStove.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPStove.m; sourceTree = "<group>"; };
 		442B13FD184629EA00D52AE1 /* minusButtonImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minusButtonImage@2x.png"; sourceTree = "<group>"; };
@@ -293,6 +294,7 @@
 				44A691B51844E2A1005D4C5A /* HYPUtils.m */,
 				44088055184C803300935802 /* HYPLocalNotificationManager.h */,
 				44088056184C803300935802 /* HYPLocalNotificationManager.m */,
+				440D8FDD184CE5ED00BB5392 /* HYPMathHelpers.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
