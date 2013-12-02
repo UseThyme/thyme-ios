@@ -14,8 +14,8 @@
 #import "HYPLocalNotificationManager.h"
 
 /** Helper Functions **/
-#define ToRad(deg)                 ( (M_PI * (deg)) / 180.0 )
-#define ToDeg(rad)                ( (180.0 * (rad)) / M_PI )
+#define DegToRad(deg)                 ( (M_PI * (deg)) / 180.0 )
+#define RadToDeg(rad)                ( (180.0 * (rad)) / M_PI )
 #define SQR(x)                        ( (x) * (x) )
 
 /** Parameters **/
@@ -28,7 +28,7 @@
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
-@property (nonatomic) NSInteger seconds;
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation HYPTimerControl
@@ -38,7 +38,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     float vmag = sqrt(SQR(v.x) + SQR(v.y)), result = 0;
     v.x /= vmag;
     v.y /= vmag;
-    result = ToDeg(atan2(v.x, (flipped ? - v.y : v.y)));
+    result = RadToDeg(atan2(v.x, (flipped ? - v.y : v.y)));
     return (result >= 0 ? result : result + 360.0);
 }
 
@@ -92,7 +92,6 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         self.angle = 0;
         [self addSubview:self.minutesValueLabel];
         [self addSubview:self.minutesTitleLabel];
-        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSeconds:) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -112,8 +111,10 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     CGFloat radius = CGRectGetWidth(circleRect) / 2;
     [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius];
 
-    //UIColor *secondsColor = KNOB_COLOR;
-    //[self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.3];
+    UIColor *secondsColor = KNOB_COLOR;
+    if ([self.timer isValid]) {
+        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2];
+    }
 }
 
 - (void)drawCircle:(CGContextRef)context withColor:(UIColor *)color inRect:(CGRect)rect
@@ -131,8 +132,8 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     CGContextSaveGState(context);
 
     NSInteger angleTranslation = -90;
-    CGFloat startDeg = ToRad(0 + angleTranslation);
-    CGFloat endDeg = ToRad(self.angle + angleTranslation);
+    CGFloat startDeg = DegToRad(0 + angleTranslation);
+    CGFloat endDeg = DegToRad(self.angle + angleTranslation);
     CGFloat x = 159;
     CGFloat y = 159;
 
@@ -150,9 +151,10 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     CGContextSaveGState(context);
 
     [color set];
-    CGPoint knobCenter =  [self pointFromAngle:self.angle usingRadius:radius];
-    CGRect knobRect = CGRectMake(knobCenter.x, knobCenter.y, radius * 2, radius * 2);
-    CGContextFillEllipseInRect(context, knobRect);
+    CGFloat value = (60 - self.seconds) * 6;
+    CGPoint circleCenter =  [self pointFromAngle:value usingRadius:radius];
+    CGRect circleRect = CGRectMake(circleCenter.x, circleCenter.y, radius * 2, radius * 2);
+    CGContextFillEllipseInRect(context, circleRect);
 
     CGContextRestoreGState(context);
 }
@@ -163,9 +165,9 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     CGPoint centerPoint = CGPointMake(self.frame.size.width / 2 - radius, self.frame.size.height / 2 - radius);
     CGPoint result;
     NSInteger angleTranslation = -90;
-    NSInteger magicFuckingNumber = 120;
-    result.x = round(centerPoint.x + magicFuckingNumber * cos(ToRad(angle+angleTranslation)));
-    result.y = round(centerPoint.y + magicFuckingNumber * sin(ToRad(angle+angleTranslation)));
+    NSInteger magicFuckingNumber = 130;
+    result.x = round(centerPoint.x + magicFuckingNumber * cos(DegToRad(angle+angleTranslation)));
+    result.y = round(centerPoint.y + magicFuckingNumber * sin(DegToRad(angle+angleTranslation)));
     return result;
 }
 
@@ -178,7 +180,8 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super continueTrackingWithTouch:touch withEvent:event];
-
+    [self stopTimer];
+    
     CGPoint lastPoint = [touch locationInView:self];
     [self evaluateMinutesUsingPoint:lastPoint];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -193,8 +196,8 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     CGFloat currentAngle = AngleFromNorth(centerPoint, lastPoint, YES);
     NSInteger angle = floor(currentAngle);
     self.angle = angle;
+    self.minutesLeft = self.angle / 6;
     [self setNeedsDisplay];
-
     // Draw chart
 }
 
@@ -224,9 +227,17 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         self.seconds = 0;
     }
 
-    if (self.minutesLeft == 0) {
+    NSLog(@"second: %ld", (long)self.seconds);
+    NSLog(@"minutesLeft: %ld", (long)self.minutesLeft);
 
+    if (self.minutesLeft == 0 && self.seconds == 59) {
+        self.angle = 0;
+        self.seconds = 0;
+        self.minutesLeft = 0;
+        [self stopTimer];
     }
+
+    [self setNeedsDisplay];
 }
 
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
@@ -251,6 +262,9 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
+    self.seconds = 1;
+    self.minutesLeft--;
+    [self startTimer];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:ALARM_ID];
 }
 
@@ -259,6 +273,19 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     _minutesLeft = minutesLeft;
     self.angle = minutesLeft * 6;
     [self setNeedsDisplay];
+}
+
+- (void)stopTimer
+{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+- (void)startTimer
+{
+    if (!self.timer) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSeconds:) userInfo:nil repeats:YES];
+    }
 }
 
 @end
