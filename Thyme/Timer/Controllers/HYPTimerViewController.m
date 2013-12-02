@@ -57,7 +57,7 @@
         NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
         NSLog(@"secondsLeft: %ld", (long)secondsLeft);
         NSTimeInterval currentSecond = secondsLeft % 60;
-        NSLog(@"remainign: %f", currentSecond);
+        NSLog(@"currentSecond: %f", currentSecond);
 
         self.timerController.minutesLeft = secondsLeft/60;
         self.timerController.seconds = currentSecond;

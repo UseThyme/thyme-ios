@@ -187,14 +187,14 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super beginTrackingWithTouch:touch withEvent:event];
-    [self stopTimer];
-    [self setNeedsDisplay];
     return YES;
 }
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super continueTrackingWithTouch:touch withEvent:event];
+    [self stopTimer];
+
     CGPoint lastPoint = [touch locationInView:self];
     [self evaluateMinutesUsingPoint:lastPoint];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
