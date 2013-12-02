@@ -272,6 +272,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 {
     _minutesLeft = minutesLeft;
     self.angle = minutesLeft * 6;
+    [self startTimer];
     [self setNeedsDisplay];
 }
 

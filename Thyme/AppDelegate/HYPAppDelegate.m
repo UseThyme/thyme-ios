@@ -12,7 +12,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import <AVFoundation/AVAudioPlayer.h>
 
-@interface HYPAppDelegate () <BITHockeyManagerDelegate>
+@interface HYPAppDelegate () <BITHockeyManagerDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @end
 
@@ -59,5 +59,9 @@
     [[[UIAlertView alloc] initWithTitle:@"Your meal is ready!" message:nil delegate:nil cancelButtonTitle:@"OK, thanks" otherButtonTitles:nil, nil] show];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self.audioPlayer stop];
+}
 
 @end
