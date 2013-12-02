@@ -50,9 +50,9 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         NSString *sampleString = @"000";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
         CGSize fontSize = [sampleString sizeWithAttributes:attributes];
-        CGFloat x = (self.frame.size.width - fontSize.width) / 2;
+        CGFloat x = 0;
         CGFloat y = (self.frame.size.height - fontSize.height) / 2 - 20.0f;
-        CGRect rect = CGRectMake(x, y, fontSize.width, fontSize.height);
+        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), fontSize.height);
         _minutesValueLabel = [[UILabel alloc] initWithFrame:rect];
         _minutesValueLabel.backgroundColor = [UIColor clearColor];
         _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
@@ -68,18 +68,18 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     if (!_minutesTitleLabel) {
         //Define the Font
         UIFont *font = [HYPUtils avenirLightWithSize:14.0f];
-        NSString *sampleString = @"MINUTES";
+        NSString *sampleString = @"MINUTES LEFT";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
         CGSize fontSize = [sampleString sizeWithAttributes:attributes];
-        CGFloat x = (self.frame.size.width - fontSize.width) / 2;
+        CGFloat x = 0;
         CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - 5.0f;
-        CGRect rect = CGRectMake(x, y, fontSize.width, fontSize.height);
+        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), fontSize.height);
         _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
         _minutesTitleLabel.backgroundColor = [UIColor clearColor];
         _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
         _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
         _minutesTitleLabel.font = font;
-        _minutesTitleLabel.text = @"MINUTES";
+        _minutesTitleLabel.text = @"MINUTES LEFT";
     }
     return _minutesTitleLabel;
 }
