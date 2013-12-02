@@ -51,8 +51,17 @@
         NSNumber *numberOfSeconds = [existingNotification.userInfo objectForKey:ALARM_FIRE_INTERVAL_KEY];
 
         // Fired date + amount of seconds = target date
-        NSTimeInterval secondsLeft = [[NSDate date] timeIntervalSinceDate:firedDate];
-        self.timerController.minutesLeft = ([numberOfSeconds integerValue] - secondsLeft)/60;
+        NSTimeInterval secondsPassed = [[NSDate date] timeIntervalSinceDate:firedDate];
+        NSLog(@"secondsPassed: %f", secondsPassed);
+        NSLog(@"numberOfSeconds: %@", numberOfSeconds);
+        NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
+        NSLog(@"secondsLeft: %ld", (long)secondsLeft);
+        NSTimeInterval currentSecond = secondsLeft % 60;
+        NSLog(@"remainign: %f", currentSecond);
+
+        self.timerController.minutesLeft = secondsLeft/60;
+        self.timerController.seconds = currentSecond;
+
     } else {
         NSLog(@"notification not found");
     }
