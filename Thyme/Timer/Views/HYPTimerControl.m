@@ -25,8 +25,8 @@
 #define ALARM_ID @"THYME_ALARM_ID_0"
 
 @interface HYPTimerControl ()
-@property (nonatomic, strong) UITextField *textField;
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *minutesValueLabel;
+@property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
 @end
 
@@ -41,9 +41,9 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     return (result >= 0 ? result : result + 360.0);
 }
 
-- (UITextField *)textField
+- (UILabel *)minutesValueLabel
 {
-    if (!_textField) {
+    if (!_minutesValueLabel) {
         //Define the Font
         UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:95.0f];
         NSString *sampleString = @"000";
@@ -52,36 +52,35 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         CGFloat x = (self.frame.size.width - fontSize.width) / 2;
         CGFloat y = (self.frame.size.height - fontSize.height) / 2 - 20.0f;
         CGRect rect = CGRectMake(x, y, fontSize.width, fontSize.height);
-        _textField = [[UITextField alloc] initWithFrame:rect];
-        _textField.backgroundColor = [UIColor clearColor];
-        _textField.textColor = [UIColor colorFromHexString:@"30cec6"];
-        _textField.textAlignment = NSTextAlignmentCenter;
-        _textField.font = font;
-        _textField.text = [NSString stringWithFormat:@"%ld", (long)self.angle];
-        _textField.enabled = NO;
+        _minutesValueLabel = [[UILabel alloc] initWithFrame:rect];
+        _minutesValueLabel.backgroundColor = [UIColor clearColor];
+        _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+        _minutesValueLabel.textAlignment = NSTextAlignmentCenter;
+        _minutesValueLabel.font = font;
+        _minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle];
     }
-    return _textField;
+    return _minutesValueLabel;
 }
 
-- (UILabel *)titleLabel
+- (UILabel *)minutesTitleLabel
 {
-    if (!_titleLabel) {
+    if (!_minutesTitleLabel) {
         //Define the Font
         UIFont *font = [HYPUtils avenirLightWithSize:14.0f];
         NSString *sampleString = @"MINUTES";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
         CGSize fontSize = [sampleString sizeWithAttributes:attributes];
         CGFloat x = (self.frame.size.width - fontSize.width) / 2;
-        CGFloat y = CGRectGetMaxY(self.textField.frame) - 5.0f;
+        CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - 5.0f;
         CGRect rect = CGRectMake(x, y, fontSize.width, fontSize.height);
-        _titleLabel = [[UILabel alloc] initWithFrame:rect];
-        _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.font = font;
-        _titleLabel.text = @"MINUTES";
+        _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
+        _minutesTitleLabel.backgroundColor = [UIColor clearColor];
+        _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+        _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _minutesTitleLabel.font = font;
+        _minutesTitleLabel.text = @"MINUTES";
     }
-    return _titleLabel;
+    return _minutesTitleLabel;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -90,8 +89,8 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.angle = 0;
-        [self addSubview:self.textField];
-        [self addSubview:self.titleLabel];
+        [self addSubview:self.minutesValueLabel];
+        [self addSubview:self.minutesTitleLabel];
     }
     return self;
 }
@@ -169,7 +168,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (void)setAngle:(NSInteger)angle
 {
     _angle = angle;
-    self.textField.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
+    self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
