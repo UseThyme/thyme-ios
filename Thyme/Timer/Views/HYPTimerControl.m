@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
+@property (nonatomic) NSInteger seconds;
 @end
 
 @implementation HYPTimerControl
@@ -91,6 +92,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         self.angle = 0;
         [self addSubview:self.minutesValueLabel];
         [self addSubview:self.minutesTitleLabel];
+        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSeconds:) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -101,23 +103,52 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    UIColor *circleColor = CIRCLE_COLOR;
-    [circleColor set];
     CGFloat transform = CIRCLE_SIZE_FACTOR;
     CGFloat sideMargin = floor(CGRectGetWidth(rect) * (1.0f - transform) / 2);
     CGFloat length = CGRectGetWidth(rect) * transform;
     CGRect circleRect = CGRectMake(sideMargin, sideMargin, length, length);
-    CGContextFillEllipseInRect(context, circleRect);
+    [self drawCircle:context withColor:CIRCLE_COLOR inRect:circleRect];
 
-    UIColor *knobColor = KNOB_COLOR;
-    [self drawKnob:context withColor:knobColor andRadius:sideMargin];
+    CGFloat radius = CGRectGetWidth(circleRect) / 2;
+    [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius];
+
+    //UIColor *secondsColor = KNOB_COLOR;
+    //[self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.3];
 }
 
-- (void)drawKnob:(CGContextRef)context withColor:(UIColor *)color andRadius:(CGFloat)radius
+- (void)drawCircle:(CGContextRef)context withColor:(UIColor *)color inRect:(CGRect)rect
 {
     CGContextSaveGState(context);
 
-    // Draw knob
+    [color set];
+    CGContextFillEllipseInRect(context, rect);
+
+    CGContextRestoreGState(context);
+}
+
+- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius
+{
+    CGContextSaveGState(context);
+
+    NSInteger angleTranslation = -90;
+    CGFloat startDeg = ToRad(0 + angleTranslation);
+    CGFloat endDeg = ToRad(self.angle + angleTranslation);
+    CGFloat x = 159;
+    CGFloat y = 159;
+
+    [color set];
+    CGContextMoveToPoint(context, x, y);
+    CGContextAddArc(context, x, y, radius, startDeg, endDeg, 0);
+    CGContextClosePath(context);
+    CGContextFillPath(context);
+
+    CGContextRestoreGState(context);
+}
+
+- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color andRadius:(CGFloat)radius
+{
+    CGContextSaveGState(context);
+
     [color set];
     CGPoint knobCenter =  [self pointFromAngle:self.angle usingRadius:radius];
     CGRect knobRect = CGRectMake(knobCenter.x, knobCenter.y, radius * 2, radius * 2);
@@ -149,12 +180,12 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     [super continueTrackingWithTouch:touch withEvent:event];
 
     CGPoint lastPoint = [touch locationInView:self];
-    [self moveKnobToPoint:lastPoint];
+    [self evaluateMinutesUsingPoint:lastPoint];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
     return YES;
 }
 
-- (void)moveKnobToPoint:(CGPoint)lastPoint
+- (void)evaluateMinutesUsingPoint:(CGPoint)lastPoint
 {
     CGPoint centerPoint = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 
@@ -163,6 +194,8 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     NSInteger angle = floor(currentAngle);
     self.angle = angle;
     [self setNeedsDisplay];
+
+    // Draw chart
 }
 
 - (void)setAngle:(NSInteger)angle
@@ -181,6 +214,19 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 {
     NSInteger numberOfSeconds = (self.angle / 6) * 60;
     [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
+}
+
+- (void)updateSeconds:(NSTimer *)timer
+{
+    self.seconds += 1;
+    if (self.seconds >= 60) {
+        self.angle = (self.minutesLeft - 1) * 6;
+        self.seconds = 0;
+    }
+
+    if (self.minutesLeft == 0) {
+
+    }
 }
 
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
