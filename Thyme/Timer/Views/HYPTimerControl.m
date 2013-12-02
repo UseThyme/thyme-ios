@@ -84,6 +84,19 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     return _minutesTitleLabel;
 }
 
+- (void)setAngle:(NSInteger)angle
+{
+    _angle = angle;
+    self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
+}
+
+- (void)setMinutesLeft:(NSTimeInterval)minutesLeft
+{
+    _minutesLeft = minutesLeft;
+    self.angle = minutesLeft * 6;
+    [self setNeedsDisplay];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -112,7 +125,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius];
 
     UIColor *secondsColor = KNOB_COLOR;
-    if ([self.timer isValid]) {
+    if (self.timer && [self.timer isValid]) {
         [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2];
     }
 }
@@ -174,14 +187,14 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super beginTrackingWithTouch:touch withEvent:event];
+    [self stopTimer];
+    [self setNeedsDisplay];
     return YES;
 }
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super continueTrackingWithTouch:touch withEvent:event];
-    [self stopTimer];
-    
     CGPoint lastPoint = [touch locationInView:self];
     [self evaluateMinutesUsingPoint:lastPoint];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -199,12 +212,6 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     self.minutesLeft = self.angle / 6;
     [self setNeedsDisplay];
     // Draw chart
-}
-
-- (void)setAngle:(NSInteger)angle
-{
-    _angle = angle;
-    self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
@@ -226,9 +233,6 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         self.angle = (self.minutesLeft - 1) * 6;
         self.seconds = 0;
     }
-
-    NSLog(@"second: %ld", (long)self.seconds);
-    NSLog(@"minutesLeft: %ld", (long)self.minutesLeft);
 
     if (self.minutesLeft == 0 && self.seconds == 59) {
         self.angle = 0;
@@ -266,14 +270,6 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
     self.minutesLeft--;
     [self startTimer];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:ALARM_ID];
-}
-
-- (void)setMinutesLeft:(NSTimeInterval)minutesLeft
-{
-    _minutesLeft = minutesLeft;
-    self.angle = minutesLeft * 6;
-    [self startTimer];
-    [self setNeedsDisplay];
 }
 
 - (void)stopTimer

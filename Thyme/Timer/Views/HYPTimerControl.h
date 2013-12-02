@@ -11,4 +11,6 @@
 @interface HYPTimerControl : UIControl
 @property (nonatomic) NSTimeInterval minutesLeft;
 @property (nonatomic) NSTimeInterval seconds;
+- (void)startTimer;
+- (void)stopTimer;
 @end

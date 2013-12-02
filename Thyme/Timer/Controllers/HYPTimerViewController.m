@@ -61,6 +61,7 @@
 
         self.timerController.minutesLeft = secondsLeft/60;
         self.timerController.seconds = currentSecond;
+        [self.timerController startTimer];
 
     } else {
         NSLog(@"notification not found");
