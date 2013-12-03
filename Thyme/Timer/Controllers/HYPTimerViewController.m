@@ -59,7 +59,7 @@
         // Fired date + amount of seconds = target date
         NSTimeInterval secondsPassed = [[NSDate date] timeIntervalSinceDate:firedDate];
         NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
-        NSTimeInterval currentSecond = 60 - secondsLeft % 60;
+        NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
 
         NSLog(@"secondsPassed: %f", secondsPassed);

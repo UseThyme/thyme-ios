@@ -178,14 +178,14 @@
 
 - (void)updateSeconds:(NSTimer *)timer
 {
-    self.seconds += 1;
-    if (self.seconds >= 60) {
+    self.seconds -= 1;
+    if (self.seconds < 0) {
         self.angle = (self.minutesLeft - 1) * 6;
-        self.seconds = 0;
+        self.seconds = 59;
         self.minutesLeft--;
     }
 
-    if (self.minutesLeft == 0 && self.seconds == 59) {
+    if (self.minutesLeft == 0 && self.seconds == 0) {
         self.angle = 0;
         self.seconds = 0;
         self.minutesLeft = 0;
@@ -219,7 +219,6 @@
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
     self.seconds = 0;
-    self.minutesLeft--;
     [self startTimer];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:ALARM_ID];
 }
