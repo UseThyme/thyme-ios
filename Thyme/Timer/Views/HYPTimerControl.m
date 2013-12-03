@@ -15,6 +15,10 @@
 #import "HYPMathHelpers.h"
 #import <CoreText/CoreText.h>
 
+#define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
+#define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
+#define C_DEFAULT_TEXT @"------------------YOUR MEAL WILL BE READY IN------------------"
+
 /** Parameters **/
 #define CIRCLE_COLOR [UIColor colorFromHexString:@"bcf5e9"]
 #define CIRCLE_SIZE_FACTOR 0.8f
@@ -22,9 +26,6 @@
 #define ALARM_ID @"THYME_ALARM_ID_0"
 
 #define TEXT_FONT [HYPUtils avenirLightWithSize:13]
-#define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
-#define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
-#define C_DEFAULT_TEXT @"------------------YOUR MEAL WILL BE READY IN------------------"
 
 #define DEFAULT_RADIUS 0
 #define TEXT_COLOR [UIColor whiteColor]
@@ -74,7 +75,6 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) NSString *title;
 @end
 
 @implementation HYPTimerControl
@@ -376,6 +376,13 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 {
     NSInteger numberOfSeconds = (self.angle / 6) * 60;
     [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
+    
+    if (numberOfSeconds == 0) {
+        self.title = A_DEFAULT_TEXT;
+    } else {
+        self.title = C_DEFAULT_TEXT;
+    }
+    [self setNeedsDisplay];
 }
 
 - (void)updateSeconds:(NSTimer *)timer
@@ -391,6 +398,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         self.angle = 0;
         self.seconds = 0;
         self.minutesLeft = 0;
+        self.title = A_DEFAULT_TEXT;
         [self stopTimer];
     }
 
@@ -419,7 +427,6 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
-    self.title = C_DEFAULT_TEXT;
     self.seconds = 1;
     self.minutesLeft--;
     [self startTimer];

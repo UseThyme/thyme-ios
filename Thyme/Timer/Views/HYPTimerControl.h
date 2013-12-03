@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HYPTimerControl : UIControl
+@property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSTimeInterval minutesLeft;
 @property (nonatomic) NSTimeInterval seconds;
 - (void)startTimer;

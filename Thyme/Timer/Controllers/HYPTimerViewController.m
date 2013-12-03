@@ -15,6 +15,10 @@
 #define ALARM_ID @"THYME_ALARM_ID_0"
 #import "HYPAlarm.h"
 
+#define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
+#define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
+#define C_DEFAULT_TEXT @"------------------YOUR MEAL WILL BE READY IN------------------"
+
 @interface HYPTimerViewController ()
 @property (nonatomic, strong) HYPTimerControl *timerController;
 @end
@@ -61,6 +65,7 @@
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSLog(@"currentSecond: %f", currentSecond);
 
+        self.timerController.title = C_DEFAULT_TEXT;
         self.timerController.minutesLeft = secondsLeft/60;
         self.timerController.seconds = currentSecond;
         [self.timerController startTimer];
