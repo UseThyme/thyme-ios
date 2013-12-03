@@ -101,6 +101,7 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.angle = 0;
+        self.title = [HYPAlarm messageForSetAlarm];
         [self addSubview:self.minutesValueLabel];
         [self addSubview:self.minutesTitleLabel];
     }
@@ -127,7 +128,7 @@
         [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.1 containerRect:circleRect];
     }
 
-    if (self.title) {
+    if (self.showTitle) {
         [self drawText:context rect:rect];
     }
 }
