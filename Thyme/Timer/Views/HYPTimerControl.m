@@ -218,7 +218,7 @@
 
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
-    self.seconds = 1;
+    self.seconds = 0;
     self.minutesLeft--;
     [self startTimer];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:ALARM_ID];
