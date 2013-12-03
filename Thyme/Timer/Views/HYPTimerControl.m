@@ -154,7 +154,6 @@
     self.angle = angle;
     self.minutesLeft = self.angle / 6;
     [self setNeedsDisplay];
-    // Draw chart
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
