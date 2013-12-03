@@ -16,4 +16,5 @@
 + (NSString *)messageForSetAlarm;
 + (NSString *)messageForReleaseToSetAlarm;
 + (NSString *)messageForCurrentAlarm;
++ (NSString *)defaultAlarmID;
 @end

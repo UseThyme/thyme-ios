@@ -12,7 +12,6 @@
 #import "HYPUtils.h"
 #import "HYPMathHelpers.h"
 
-#define ALARM_ID @"THYME_ALARM_ID_0"
 #import "HYPAlarm.h"
 
 @interface HYPTimerViewController ()
@@ -47,7 +46,7 @@
 
 - (void)currentNotificationRemainingTime
 {
-    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:ALARM_ID];
+    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:[HYPAlarm defaultAlarmID]];
 
     if (existingNotification) {
         NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];

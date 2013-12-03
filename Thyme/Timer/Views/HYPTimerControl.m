@@ -20,7 +20,6 @@
 #define CIRCLE_COLOR [UIColor colorFromHexString:@"bcf5e9"]
 #define CIRCLE_SIZE_FACTOR 0.8f
 #define KNOB_COLOR [UIColor colorFromHexString:@"ff5c5c"]
-#define ALARM_ID @"THYME_ALARM_ID_0"
 
 @interface HYPTimerControl ()
 @property (nonatomic, strong) UILabel *minutesValueLabel;
@@ -193,7 +192,7 @@
 
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
 {
-    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:ALARM_ID];
+    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:[HYPAlarm defaultAlarmID]];
     BOOL createNotification = (numberOfSeconds > 0);
 
     if (existingNotification) {
@@ -210,7 +209,7 @@
 {
     self.seconds = 0;
     [self startTimer];
-    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:ALARM_ID];
+    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:[HYPAlarm defaultAlarmID]];
 }
 
 - (void)stopTimer

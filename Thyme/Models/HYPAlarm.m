@@ -13,6 +13,7 @@
 #define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
 #define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
 #define C_DEFAULT_TEXT @"------------------YOUR MEAL WILL BE READY IN------------------"
+#define ALARM_ID @"THYME_ALARM_ID_0"
 
 - (instancetype)initWithNotification:(UILocalNotification *)notification
 {
@@ -36,6 +37,11 @@
 + (NSString *)messageForCurrentAlarm
 {
     return C_DEFAULT_TEXT;
+}
+
++ (NSString *)defaultAlarmID
+{
+    return ALARM_ID;
 }
 
 @end
