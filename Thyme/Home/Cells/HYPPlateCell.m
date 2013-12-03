@@ -21,6 +21,7 @@
 {
     if (!_timerControl) {
         _timerControl = [[HYPTimerControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.frame), CGRectGetWidth(self.frame))];
+        _timerControl.userInteractionEnabled = NO;
     }
     return _timerControl;
 }

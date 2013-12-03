@@ -9,6 +9,7 @@
 #import "HYPHomeViewController.h"
 #import "HYPPlateCell.h"
 #import "HYPUtils.h"
+#import "HYPTimerViewController.h"
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
@@ -236,14 +237,16 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HYPPlateCell *cell = (HYPPlateCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
+    [self presentViewController:timerController animated:YES completion:nil];
+    /*HYPPlateCell *cell = (HYPPlateCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.active = !cell.isActive;
 
     if (self.kitchenIsMinized) {
         [self big];
     } else {
         [self small];
-    }
+    }*/
 }
 
 - (void)small
