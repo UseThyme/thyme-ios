@@ -28,27 +28,10 @@
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
-@property (nonatomic) NSInteger oldAngle;
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @end
 
 @implementation HYPTimerControl
-
-- (AVAudioPlayer *)audioPlayer
-{
-    if (!_audioPlayer) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"tick" ofType:@"caf"];
-        NSURL *file = [[NSURL alloc] initFileURLWithPath:path];
-        NSError *error = nil;
-        _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:file error:&error];
-        if (error) {
-            NSLog(@"error loading sound: %@", [error description]);
-        }
-        [_audioPlayer prepareToPlay];
-    }
-    return _audioPlayer;
-}
 
 - (UILabel *)minutesValueLabel
 {
@@ -176,11 +159,6 @@
     //Calculate the direction from the center point to an arbitrary position.
     CGFloat currentAngle = AngleFromNorth(centerPoint, lastPoint, YES);
     NSInteger angle = floor(currentAngle);
-    if (self.angle != self.oldAngle) {
-        [self.audioPlayer play];
-        self.oldAngle = self.angle;
-    }
-
     self.angle = angle;
     self.minutesLeft = self.angle / 6;
     [self setNeedsDisplay];
