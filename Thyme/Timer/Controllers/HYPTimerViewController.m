@@ -28,6 +28,7 @@
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _timerController = [[HYPTimerControl alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
+        _timerController.title = [HYPAlarm messageForSetAlarm];
     }
     return _timerController;
 }

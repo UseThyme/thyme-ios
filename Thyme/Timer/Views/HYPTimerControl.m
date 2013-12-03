@@ -93,7 +93,6 @@
         self.angle = 0;
         [self addSubview:self.minutesValueLabel];
         [self addSubview:self.minutesTitleLabel];
-        self.title = [HYPAlarm messageForSetAlarm];
     }
     return self;
 }
@@ -118,7 +117,9 @@
         [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.1];
     }
 
-    [self drawText:context rect:rect];
+    if (self.title) {
+        [self drawText:context rect:rect];
+    }
 }
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
