@@ -120,11 +120,11 @@
     [self drawCircle:context withColor:CIRCLE_COLOR inRect:circleRect];
 
     CGFloat radius = CGRectGetWidth(circleRect) / 2;
-    [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius angle:self.angle];
+    [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius angle:self.angle containerRect:circleRect];
 
     UIColor *secondsColor = KNOB_COLOR;
     if (self.timer && [self.timer isValid]) {
-        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.1];
+        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.1 containerRect:circleRect];
     }
 
     if (self.title) {

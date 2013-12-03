@@ -161,15 +161,15 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGContextRestoreGState(context);
 }
 
-- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius angle:(NSInteger)angle
+- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius angle:(NSInteger)angle containerRect:(CGRect)containerRect
 {
     CGContextSaveGState(context);
 
     NSInteger angleTranslation = -90;
     CGFloat startDeg = DegToRad(0 + angleTranslation);
     CGFloat endDeg = DegToRad(angle + angleTranslation);
-    CGFloat x = 159;
-    CGFloat y = 159;
+    CGFloat x = CGRectGetWidth(containerRect) / 2 + containerRect.origin.x;
+    CGFloat y = CGRectGetWidth(containerRect) / 2 + containerRect.origin.y;
 
     [color set];
     CGContextMoveToPoint(context, x, y);
@@ -180,26 +180,25 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGContextRestoreGState(context);
 }
 
-- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color andRadius:(CGFloat)radius
+- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color andRadius:(CGFloat)radius containerRect:(CGRect)containerRect
 {
     CGContextSaveGState(context);
 
     [color set];
     CGFloat value = self.seconds * 6;
-    CGPoint circleCenter =  [self pointFromAngle:value usingRadius:radius];
+    CGPoint circleCenter =  [self pointFromAngle:value usingRadius:radius containerRect:containerRect];
     CGRect circleRect = CGRectMake(circleCenter.x, circleCenter.y, radius * 2, radius * 2);
     CGContextFillEllipseInRect(context, circleRect);
 
     CGContextRestoreGState(context);
 }
 
-// Magic function (not really)
-- (CGPoint)pointFromAngle:(NSInteger)angle usingRadius:(CGFloat)radius
+- (CGPoint)pointFromAngle:(NSInteger)angle usingRadius:(CGFloat)radius containerRect:(CGRect)containerRect
 {
-    CGPoint centerPoint = CGPointMake(self.frame.size.width / 2 - radius, self.frame.size.height / 2 - radius);
+    CGPoint centerPoint = CGPointMake(CGRectGetWidth(self.frame) / 2 - radius, CGRectGetHeight(self.frame) / 2 - radius);
     CGPoint result;
     NSInteger angleTranslation = -90;
-    NSInteger magicFuckingNumber = 128;
+    NSInteger magicFuckingNumber = CGRectGetWidth(containerRect) / 2;
     result.x = centerPoint.x + magicFuckingNumber * cos(DegToRad(angle+angleTranslation));
     result.y = centerPoint.y + magicFuckingNumber * sin(DegToRad(angle+angleTranslation));
     return result;

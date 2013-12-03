@@ -23,12 +23,12 @@
 - (HYPTimerControl *)timerController
 {
     if (!_timerController) {
-        CGFloat sideMargin = 100.0f;
+        CGFloat sideMargin = 90.0f;
         CGFloat topMargin = 60.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _timerController = [[HYPTimerControl alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
-        _timerController.title = [HYPAlarm messageForSetAlarm];
+        //_timerController.title = [HYPAlarm messageForSetAlarm];
     }
     return _timerController;
 }
@@ -59,7 +59,7 @@
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
 
-        self.timerController.title = [HYPAlarm messageForCurrentAlarm];
+        //self.timerController.title = [HYPAlarm messageForCurrentAlarm];
         self.timerController.minutesLeft = minutesLeft;
         self.timerController.seconds = currentSecond;
         [self.timerController startTimer];
