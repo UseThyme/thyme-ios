@@ -125,19 +125,19 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if (!_collectionView) {
 
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 100.0f;
+        CGFloat cellWidth = 110.0f;
         [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 50.0f;
-        CGFloat topMargin = 50.0f; //110.0f;
+        CGFloat sideMargin = 45.0f;
+        CGFloat topMargin = 0.0f; //110.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width + 20) collectionViewLayout:flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
-        //[self applyTransformToLayer:_collectionView.layer usingFactor:0.30];
+        [self applyTransformToLayer:_collectionView.layer usingFactor:0.30];
     }
     return _collectionView;
 }
@@ -205,7 +205,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     //[self.view addSubview:self.titleLabel];
     //[self.view addSubview:self.subtitleLabel];
 
@@ -232,13 +231,20 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
+    /*if (indexPath.row == 0) {
+        cell.backgroundColor = [UIColor greenColor];
+    } else if (indexPath.row == 1) {
+        cell.backgroundColor = [UIColor grayColor];
+    } else if (indexPath.row == 2) {
+        cell.backgroundColor = [UIColor brownColor];
+    }*/
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
-    [self presentViewController:timerController animated:YES completion:nil];
+    [self.navigationController pushViewController:timerController animated:YES];
     /*HYPPlateCell *cell = (HYPPlateCell *)[collectionView cellForItemAtIndexPath:indexPath];
     cell.active = !cell.isActive;
 

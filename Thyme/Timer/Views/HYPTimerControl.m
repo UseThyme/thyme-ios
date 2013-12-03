@@ -39,12 +39,13 @@
 
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat fontSize = floor(MINUTE_VALUE_SIZE * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        CGFloat defaultSize = (self.showSubtitle) ? MINUTE_VALUE_SIZE : MINUTE_VALUE_SIZE * 1.5;
+        CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
         NSString *sampleString = @"000";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
         CGSize textSize = [sampleString sizeWithAttributes:attributes];
-        CGFloat yOffset = floor(20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        CGFloat yOffset = (self.showSubtitle) ? floor(20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)) : 0;
         CGFloat x = 0;
         CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
         CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
@@ -96,15 +97,28 @@
     [self setNeedsDisplay];
 }
 
+- (id)initShowingSubtitleWithFrame:(CGRect)frame
+{
+    return [self initWithFrame:frame showingSubtitle:YES];
+}
+
 - (id)initWithFrame:(CGRect)frame
+{
+    return [self initWithFrame:frame showingSubtitle:NO];
+}
+
+- (id)initWithFrame:(CGRect)frame showingSubtitle:(BOOL)showingSubtitle
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        self.showSubtitle = showingSubtitle;
         self.angle = 0;
         self.title = [HYPAlarm messageForSetAlarm];
         [self addSubview:self.minutesValueLabel];
-        [self addSubview:self.minutesTitleLabel];
+        if (self.showSubtitle) {
+            [self addSubview:self.minutesTitleLabel];
+        }
     }
     return self;
 }
@@ -129,7 +143,7 @@
         [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.1 containerRect:circleRect];
     }
 
-    if (self.showTitle) {
+    if (self.showSubtitle) {
         [self drawText:context rect:rect];
     }
 }

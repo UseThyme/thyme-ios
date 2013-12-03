@@ -16,9 +16,26 @@
 
 @interface HYPTimerViewController ()
 @property (nonatomic, strong) HYPTimerControl *timerController;
+@property (nonatomic, strong) UIButton *kitchenButton;
 @end
 
 @implementation HYPTimerViewController
+
+- (UIButton *)kitchenButton
+{
+    if (!_kitchenButton) {
+        _kitchenButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *image = [UIImage imageNamed:@"kitchenImage"];
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat topMargin = 100.0f;
+        CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+        CGFloat y = CGRectGetHeight(bounds) - topMargin;
+        _kitchenButton.frame = CGRectMake(x, y, image.size.width, image.size.height);
+        [_kitchenButton setImage:image forState:UIControlStateNormal];
+        [_kitchenButton addTarget:self action:@selector(kitchenButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _kitchenButton;
+}
 
 - (HYPTimerControl *)timerController
 {
@@ -27,8 +44,7 @@
         CGFloat topMargin = 60.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _timerController = [[HYPTimerControl alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
-        _timerController.showTitle = YES;
+        _timerController = [[HYPTimerControl alloc] initShowingSubtitleWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
     }
     return _timerController;
 }
@@ -37,6 +53,7 @@
 {
     [super viewDidLoad];
     [self.view addSubview:self.timerController];
+    [self.view addSubview:self.kitchenButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -64,6 +81,11 @@
         self.timerController.seconds = currentSecond;
         [self.timerController startTimer];
     }
+}
+
+- (void)kitchenButtonPressed:(UIButton *)button
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -115,7 +115,7 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 			// Center this glyph by moving left by half its width.
 			CGFloat glyphWidth = glyphArcInfo[runGlyphIndex + glyphOffset].width;
 			CGFloat halfGlyphWidth = glyphWidth / 2.0;
-			CGPoint positionForThisGlyph = CGPointMake(textPosition.x - halfGlyphWidth, textPosition.y + 135);
+			CGPoint positionForThisGlyph = CGPointMake(textPosition.x - halfGlyphWidth, textPosition.y + 140);
 
 			// Glyphs are positioned relative to the text position for the line, so offset text position leftwards by this glyph's width in preparation for the next glyph.
 			textPosition.x -= glyphWidth;

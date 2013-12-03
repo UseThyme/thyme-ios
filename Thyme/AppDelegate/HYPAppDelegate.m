@@ -42,11 +42,13 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    //HYPHomeViewController *homeController = [[HYPHomeViewController alloc] init];
-    //self.window.rootViewController = homeController;
+    HYPHomeViewController *homeController = [[HYPHomeViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeController];
+    navController.navigationBarHidden = YES;
+    self.window.rootViewController = navController;
 
-    HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
-    self.window.rootViewController = timerController;
+    //HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
+    //self.window.rootViewController = timerController;
 
     [self.window makeKeyAndVisible];
     return YES;

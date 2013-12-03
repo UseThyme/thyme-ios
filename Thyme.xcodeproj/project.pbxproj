@@ -11,6 +11,7 @@
 		4408805A184C808500935802 /* HYPAlarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088059184C808500935802 /* HYPAlarm.m */; };
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
 		441B5818184E061200839331 /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = 441B5817184E059800839331 /* tick.caf */; };
+		441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 441B5819184E14F600839331 /* kitchenImage@2x.png */; };
 		442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B140618462A8000D52AE1 /* HYPTimerViewController.m */; };
 		44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
@@ -68,6 +69,7 @@
 		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		440D8FDD184CE5ED00BB5392 /* HYPMathHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYPMathHelpers.h; sourceTree = "<group>"; };
 		441B5817184E059800839331 /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tick.caf; sourceTree = "<group>"; };
+		441B5819184E14F600839331 /* kitchenImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kitchenImage@2x.png"; sourceTree = "<group>"; };
 		442B140518462A8000D52AE1 /* HYPTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPTimerViewController.h; sourceTree = "<group>"; };
 		442B140618462A8000D52AE1 /* HYPTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerViewController.m; sourceTree = "<group>"; };
 		44522B38184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HYPTimerControl+DrawingMethods.h"; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 		44A691AB1844E02D005D4C5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				441B5819184E14F600839331 /* kitchenImage@2x.png */,
 				44A691C31844FE3D005D4C5A /* timer@2x.png */,
 				44A691BF1844F91D005D4C5A /* activeKitchen@2x.png */,
 				44A691C01844F91D005D4C5A /* unactiveKitchen@2x.png */,
@@ -488,6 +491,7 @@
 				44A691AD1844E02D005D4C5A /* background@2x.png in Resources */,
 				44A691C21844F91D005D4C5A /* unactiveKitchen@2x.png in Resources */,
 				449143CE1847676F008A80F0 /* LICENSE in Resources */,
+				441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */,
 				449143CD1847676F008A80F0 /* HockeySDKResources.bundle in Resources */,
 				44A691C11844F91D005D4C5A /* activeKitchen@2x.png in Resources */,
 				449143CC1847676F008A80F0 /* HockeySDK.xcconfig in Resources */,

@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface HYPTimerControl : UIControl
-@property (nonatomic) BOOL showTitle;
+@property (nonatomic) BOOL showSubtitle;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSTimeInterval minutesLeft;
 @property (nonatomic) NSTimeInterval seconds;
+
+- (id)initShowingSubtitleWithFrame:(CGRect)frame;
 - (void)startTimer;
 - (void)stopTimer;
 @end
