@@ -52,6 +52,7 @@
 - (void)currentNotificationRemainingTime
 {
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:ALARM_ID];
+
     if (existingNotification) {
         NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];
         NSNumber *numberOfSeconds = [existingNotification.userInfo objectForKey:ALARM_FIRE_INTERVAL_KEY];
@@ -62,19 +63,10 @@
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
 
-        NSLog(@"secondsPassed: %f", secondsPassed);
-        NSLog(@"numberOfSeconds: %@", numberOfSeconds);
-        NSLog(@"secondsLeft: %ld", (long)secondsLeft);
-        NSLog(@"currentSecond: %f", currentSecond);
-        NSLog(@"minutes: %f", minutesLeft);
-
         self.timerController.title = C_DEFAULT_TEXT;
         self.timerController.minutesLeft = minutesLeft;
         self.timerController.seconds = currentSecond;
         [self.timerController startTimer];
-
-    } else {
-        NSLog(@"notification not found");
     }
 }
 
