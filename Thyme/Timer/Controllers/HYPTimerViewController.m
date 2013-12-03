@@ -41,7 +41,14 @@
 {
     if (!_timerController) {
         CGFloat sideMargin = 0.0f;
-        CGFloat topMargin = 60.0f;
+
+        CGFloat topMargin;
+        if ([HYPUtils isTallPhone]) {
+            topMargin = 60.0f;
+        } else {
+            topMargin = 50.0f;
+        }
+
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _timerController = [[HYPTimerControl alloc] initShowingSubtitleWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
