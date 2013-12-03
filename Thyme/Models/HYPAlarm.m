@@ -24,6 +24,11 @@
     return self;
 }
 
+- (void)fillUsingIndexPath:(NSIndexPath *)indexPath
+{
+
+}
+
 + (NSString *)messageForSetAlarm
 {
     return A_DEFAULT_TEXT;

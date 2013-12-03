@@ -10,6 +10,7 @@
 #import "HYPPlateCell.h"
 #import "HYPUtils.h"
 #import "HYPTimerViewController.h"
+#import "HYPAlarm.h"
 
 #define SHORT_TOP_MARGIN 10
 #define TALL_TOP_MARGIN 50
@@ -29,9 +30,34 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic) CGPoint kitchenCenter;
 @property (nonatomic) CGPoint ovenCenter;
 @property (nonatomic) CGPoint totalCenter;
+
+@property (nonatomic, strong) NSMutableArray *alarms;
 @end
 
 @implementation HYPHomeViewController
+
+- (NSMutableArray *)alarms
+{
+    if (!_alarms) {
+        _alarms = [NSMutableArray array];
+
+        HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
+        alarm1.name = @"alarm 1";
+
+        HYPAlarm *alarm2 = [[HYPAlarm alloc] init];
+        alarm1.name = @"alarm 2";
+
+        HYPAlarm *alarm3 = [[HYPAlarm alloc] init];
+        alarm1.name = @"alarm 3";
+
+        HYPAlarm *alarm4 = [[HYPAlarm alloc] init];
+        alarm1.name = @"alarm 4";
+
+        [_alarms addObject:@[alarm1, alarm2]];
+        [_alarms addObject:@[alarm3, alarm4]];
+    }
+    return _alarms;
+}
 
 - (UIImageView *)ovenBackgroundImageView
 {
@@ -164,10 +190,22 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.ovenCollectionView];
 }
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    if ([collectionView isEqual:self.collectionView]) {
+        NSInteger rows = [self.alarms count];
+        return rows;
+    }
+
+    return 1;
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if ([collectionView isEqual:self.collectionView]) {
-        return 4;
+        NSArray *array = [self.alarms objectAtIndex:0];
+        NSInteger rows = [array count];
+        return rows;
     }
 
     return 1;
@@ -176,7 +214,16 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
+    NSArray *row = [self.alarms objectAtIndex:indexPath.section];
+    HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
+
+    NSLog(@"indexPath: %@", indexPath);
+    NSLog(@"alr: %@", alarm.name);
+    NSLog(@" ");
+
+    //[alarm fillUsingIndexPath:indexPath];
     cell.timerControl.active = NO;
+
     /*if (indexPath.row == 0) {
         cell.backgroundColor = [UIColor greenColor];
     } else if (indexPath.row == 1) {
