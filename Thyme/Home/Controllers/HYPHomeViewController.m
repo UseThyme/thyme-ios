@@ -11,11 +11,13 @@
 #import "HYPUtils.h"
 #import "HYPTimerViewController.h"
 
-#define TOP_MARGIN 50
+#define SHORT_TOP_MARGIN 10
+#define TALL_TOP_MARGIN 50
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 @interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@property (nonatomic) CGFloat topMargin;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *subtitleLabel;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -36,7 +38,15 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if (!_ovenBackgroundImageView) {
         UIImage *image = [UIImage imageNamed:@"ovenBackground"];
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat topMargin = image.size.height + 110.0f;
+
+
+        CGFloat topMargin;
+        if ([HYPUtils isTallPhone]) {
+            topMargin = image.size.height + 110.0f;
+        } else {
+            topMargin = image.size.height + 60.0f;
+        }
+
         CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
         CGFloat y = CGRectGetHeight(bounds) - topMargin;
         _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, image.size.width, image.size.height)];
@@ -89,7 +99,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
         CGFloat sideMargin = 55.0f;
-        CGFloat topMargin = TOP_MARGIN;
+        CGFloat topMargin = self.topMargin;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
@@ -110,7 +120,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
         CGFloat sideMargin = 100.0f;
-        CGFloat topMargin = TOP_MARGIN + 240.0f;
+        CGFloat topMargin = self.topMargin + 240.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
@@ -137,6 +147,13 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    if ([HYPUtils isTallPhone]) {
+        self.topMargin = TALL_TOP_MARGIN;
+    } else {
+        self.topMargin = SHORT_TOP_MARGIN;
+    }
+
     [self.view addSubview:self.titleLabel];
     [self.view addSubview:self.subtitleLabel];
     [self.view addSubview:self.ovenBackgroundImageView];

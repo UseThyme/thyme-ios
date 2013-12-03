@@ -25,4 +25,10 @@
     return [UIFont fontWithName:@"HelveticaNeue-UltraLight" size:size];
 }
 
++ (BOOL)isTallPhone
+{
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    return (bounds.size.height > 480.0f);
+}
+
 @end
