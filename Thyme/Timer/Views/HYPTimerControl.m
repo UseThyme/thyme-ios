@@ -74,6 +74,7 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) NSString *title;
 @end
 
 @implementation HYPTimerControl
@@ -150,6 +151,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
         self.angle = 0;
         [self addSubview:self.minutesValueLabel];
         [self addSubview:self.minutesTitleLabel];
+        self.title = A_DEFAULT_TEXT;
     }
     return self;
 }
@@ -183,7 +185,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 	NSDictionary *attributes = @{NSFontAttributeName: TEXT_FONT, NSForegroundColorAttributeName : TEXT_COLOR};
 
 	// Create the attributed string.
-	NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:A_DEFAULT_TEXT attributes:attributes];
+	NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:self.title attributes:attributes];
 	return attrString;
 }
 
@@ -342,6 +344,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super continueTrackingWithTouch:touch withEvent:event];
+    self.title = B_DEFAULT_TEXT;
     [self stopTimer];
 
     CGPoint lastPoint = [touch locationInView:self];
@@ -416,6 +419,7 @@ static inline float AngleFromNorth(CGPoint p1, CGPoint p2, BOOL flipped) {
 
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
+    self.title = C_DEFAULT_TEXT;
     self.seconds = 1;
     self.minutesLeft--;
     [self startTimer];
