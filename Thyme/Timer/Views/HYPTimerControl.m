@@ -16,10 +16,6 @@
 #import <CoreText/CoreText.h>
 #import "HYPTimerControl+DrawingMethods.h"
 
-#define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
-#define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
-#define C_DEFAULT_TEXT @"------------------YOUR MEAL WILL BE READY IN------------------"
-
 /** Parameters **/
 #define CIRCLE_COLOR [UIColor colorFromHexString:@"bcf5e9"]
 #define CIRCLE_SIZE_FACTOR 0.8f
@@ -98,7 +94,7 @@
         self.angle = 0;
         [self addSubview:self.minutesValueLabel];
         [self addSubview:self.minutesTitleLabel];
-        self.title = A_DEFAULT_TEXT;
+        self.title = [HYPAlarm messageForSetAlarm];
     }
     return self;
 }
@@ -135,7 +131,7 @@
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super continueTrackingWithTouch:touch withEvent:event];
-    self.title = B_DEFAULT_TEXT;
+    self.title = [HYPAlarm messageForReleaseToSetAlarm];
     [self stopTimer];
 
     CGPoint lastPoint = [touch locationInView:self];
@@ -168,9 +164,9 @@
     [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
     
     if (numberOfSeconds == 0) {
-        self.title = A_DEFAULT_TEXT;
+        self.title = [HYPAlarm messageForSetAlarm];
     } else {
-        self.title = C_DEFAULT_TEXT;
+        self.title = [HYPAlarm messageForCurrentAlarm];
     }
     [self setNeedsDisplay];
 }
@@ -188,7 +184,7 @@
         self.angle = 0;
         self.seconds = 0;
         self.minutesLeft = 0;
-        self.title = A_DEFAULT_TEXT;
+        self.title = [HYPAlarm messageForSetAlarm];
         [self stopTimer];
     }
 

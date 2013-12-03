@@ -13,4 +13,7 @@
 
 @interface HYPAlarm : NSObject
 - (instancetype)initWithNotification:(UILocalNotification *)notification;
++ (NSString *)messageForSetAlarm;
++ (NSString *)messageForReleaseToSetAlarm;
++ (NSString *)messageForCurrentAlarm;
 @end
