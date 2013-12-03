@@ -199,22 +199,17 @@
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
 {
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:ALARM_ID];
+    BOOL createNotification = (numberOfSeconds > 0);
 
     if (existingNotification) {
-        NSLog(@"notification exists");
         [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
-        
-        if (numberOfSeconds == 0) {
-            NSLog(@"just cancel");
-        } else {
-            NSLog(@"update local notification");
-            [self createNotificationUsingNumberOfSeconds:numberOfSeconds];
-        }
-    } else if (numberOfSeconds > 0) {
-        NSLog(@"create new notification");
+    }
+
+    if (createNotification) {
         [self createNotificationUsingNumberOfSeconds:numberOfSeconds];
     }
 }
+
 
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
