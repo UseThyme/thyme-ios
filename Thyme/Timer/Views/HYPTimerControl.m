@@ -123,6 +123,12 @@
     return self;
 }
 
+- (void)setActive:(BOOL)active
+{
+    _active = active;
+    self.minutesValueLabel.hidden = !_active;
+}
+
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
@@ -133,18 +139,25 @@
     CGFloat sideMargin = floor(CGRectGetWidth(rect) * (1.0f - transform) / 2);
     CGFloat length = CGRectGetWidth(rect) * transform;
     CGRect circleRect = CGRectMake(sideMargin, sideMargin, length, length);
-    [self drawCircle:context withColor:CIRCLE_COLOR inRect:circleRect];
+    UIColor *circleColor = (self.isActive) ? CIRCLE_COLOR : [UIColor colorWithWhite:1.0f alpha:0.4f];
+    [self drawCircle:context withColor:circleColor inRect:circleRect];
 
-    CGFloat radius = CGRectGetWidth(circleRect) / 2;
-    [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius angle:self.angle containerRect:circleRect];
+    if (self.isActive) {
 
-    UIColor *secondsColor = KNOB_COLOR;
-    if (self.timer && [self.timer isValid]) {
-        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.1 containerRect:circleRect];
-    }
+        CGFloat radius = CGRectGetWidth(circleRect) / 2;
+        [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius angle:self.angle containerRect:circleRect];
 
-    if (self.showSubtitle) {
-        [self drawText:context rect:rect];
+        UIColor *secondsColor = KNOB_COLOR;
+        if (self.timer && [self.timer isValid]) {
+            [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2 containerRect:circleRect];
+        }
+
+        if (self.showSubtitle) {
+            [self drawText:context rect:rect];
+        }
+    } else {
+        UIColor *secondsColor = [UIColor whiteColor];
+        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2 containerRect:circleRect];
     }
 }
 

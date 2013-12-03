@@ -9,10 +9,8 @@
 #import "HYPPlateCell.h"
 #import "HYPUtils.h"
 #import "UIColor+HYPExtensions.h"
-#import "HYPTimerControl.h"
 
 @interface HYPPlateCell ()
-@property (nonatomic, strong) HYPTimerControl *timerControl;
 @end
 
 @implementation HYPPlateCell

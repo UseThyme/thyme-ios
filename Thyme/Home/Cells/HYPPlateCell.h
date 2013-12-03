@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HYPTimerControl.h"
 
 @interface HYPPlateCell : UICollectionViewCell
-@property (nonatomic, getter = isActive) BOOL active;
+@property (nonatomic, strong) HYPTimerControl *timerControl;
 @end

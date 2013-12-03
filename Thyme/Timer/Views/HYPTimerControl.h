@@ -13,6 +13,7 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic) NSTimeInterval minutesLeft;
 @property (nonatomic) NSTimeInterval seconds;
+@property (nonatomic, getter = isActive) BOOL active;
 
 - (id)initShowingSubtitleWithFrame:(CGRect)frame;
 - (void)startTimer;

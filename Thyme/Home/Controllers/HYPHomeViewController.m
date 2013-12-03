@@ -176,6 +176,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
+    cell.timerControl.active = NO;
     /*if (indexPath.row == 0) {
         cell.backgroundColor = [UIColor greenColor];
     } else if (indexPath.row == 1) {
