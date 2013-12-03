@@ -20,6 +20,8 @@
 #define CIRCLE_COLOR [UIColor colorFromHexString:@"bcf5e9"]
 #define CIRCLE_SIZE_FACTOR 0.8f
 #define KNOB_COLOR [UIColor colorFromHexString:@"ff5c5c"]
+#define MINUTE_VALUE_SIZE 95.0f
+#define MINUTE_TITLE_SIZE 14.0f
 
 @interface HYPTimerControl ()
 @property (nonatomic, strong) UILabel *minutesValueLabel;
@@ -33,14 +35,18 @@
 - (UILabel *)minutesValueLabel
 {
     if (!_minutesValueLabel) {
+
         //Define the Font
-        UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:95.0f];
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat fontSize = floor(MINUTE_VALUE_SIZE * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
         NSString *sampleString = @"000";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
-        CGSize fontSize = [sampleString sizeWithAttributes:attributes];
+        CGSize textSize = [sampleString sizeWithAttributes:attributes];
+        CGFloat yOffset = floor(20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         CGFloat x = 0;
-        CGFloat y = (self.frame.size.height - fontSize.height) / 2 - 20.0f;
-        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), fontSize.height);
+        CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
+        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
         _minutesValueLabel = [[UILabel alloc] initWithFrame:rect];
         _minutesValueLabel.backgroundColor = [UIColor clearColor];
         _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
@@ -54,14 +60,18 @@
 - (UILabel *)minutesTitleLabel
 {
     if (!_minutesTitleLabel) {
+
         //Define the Font
-        UIFont *font = [HYPUtils avenirLightWithSize:14.0f];
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat fontSize = floor(MINUTE_TITLE_SIZE * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
         NSString *sampleString = @"MINUTES LEFT";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
-        CGSize fontSize = [sampleString sizeWithAttributes:attributes];
+        CGSize textSize = [sampleString sizeWithAttributes:attributes];
         CGFloat x = 0;
-        CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - 5.0f;
-        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), fontSize.height);
+        CGFloat yOffset = floor(5.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
+        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
         _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
         _minutesTitleLabel.backgroundColor = [UIColor clearColor];
         _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];

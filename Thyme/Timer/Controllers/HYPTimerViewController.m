@@ -23,8 +23,8 @@
 - (HYPTimerControl *)timerController
 {
     if (!_timerController) {
-        CGFloat sideMargin = 0.0f;
-        CGFloat topMargin = 60.0f;//40.0f;
+        CGFloat sideMargin = 100.0f;
+        CGFloat topMargin = 60.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _timerController = [[HYPTimerControl alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
