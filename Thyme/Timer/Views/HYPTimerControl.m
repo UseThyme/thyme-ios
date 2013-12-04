@@ -153,7 +153,8 @@
 
         UIColor *secondsColor = KNOB_COLOR;
         if (self.timer && [self.timer isValid]) {
-            [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2 containerRect:circleRect];
+            CGFloat factor = (self.showSubtitle) ? 0.1f : 0.2f;
+            [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * factor containerRect:circleRect];
         }
 
         if (self.showSubtitle) {
