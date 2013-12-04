@@ -40,6 +40,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 @implementation HYPHomeViewController
 
+#pragma mark - Lazy instantiation
+
 - (NSMutableArray *)alarms
 {
     if (!_alarms) {
@@ -165,17 +167,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     return _ovenCollectionView;
 }
 
-- (void)applyTransformToLayer:(CALayer *)layer usingFactor:(CGFloat)factor
-{
-    CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
-    rotationAndPerspectiveTransform.m34 = 1.0 / -800.0;
-    rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, M_PI * factor, 1.0f, 0.0f, 0.0f);
-
-    //[UIView animateWithDuration:0.5 animations:^{
-        layer.anchorPoint = CGPointMake(0.5, 0);
-        layer.transform = rotationAndPerspectiveTransform;
-    //}];
-}
+#pragma mark - View Lifecycle
 
 - (void)viewDidLoad
 {
@@ -197,6 +189,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.ovenCollectionView];
 }
 
+#pragma mark - UICollectionViewDataSource
+
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     if ([collectionView isEqual:self.collectionView]) {
@@ -204,7 +198,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         return rows;
     }
 
-    // Oven
     NSInteger rows = self.ovenAlarms.count;
     return rows;
 }
@@ -217,7 +210,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         return rows;
     }
 
-    // Oven
     NSArray *array = [self.ovenAlarms objectAtIndex:0];
     NSInteger rows = [array count];
     return rows;
@@ -238,6 +230,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self refreshTimerInCell:cell forCurrentAlarm:alarm];
 }
 
+#pragma mark - UICollectionViewDelegate
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
@@ -246,6 +240,16 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     timerController.alarm = alarm;
     [self.navigationController pushViewController:timerController animated:YES];
 }
+
+#pragma mark - HYPTimerControllerDelegate
+
+- (void)dismissedTimerController:(HYPTimerViewController *)timerController
+{
+    NSIndexPath *indexPath = timerController.alarm.indexPath;
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+}
+
+#pragma mark - Helpers
 
 - (HYPAlarm *)alarmAtIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView
 {
@@ -258,6 +262,18 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     row = [self.alarms objectAtIndex:indexPath.section];
     HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
     return alarm;
+}
+
+- (void)applyTransformToLayer:(CALayer *)layer usingFactor:(CGFloat)factor
+{
+    CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+    rotationAndPerspectiveTransform.m34 = 1.0 / -800.0;
+    rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, M_PI * factor, 1.0f, 0.0f, 0.0f);
+
+    //[UIView animateWithDuration:0.5 animations:^{
+    layer.anchorPoint = CGPointMake(0.5, 0);
+    layer.transform = rotationAndPerspectiveTransform;
+    //}];
 }
 
 - (void)refreshTimerInCell:(HYPPlateCell *)cell forCurrentAlarm:(HYPAlarm *)alarm
@@ -284,14 +300,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         alarm.active = NO;
         cell.timerControl.active = NO;
     }
-}
-
-#pragma mark - HYPTimerControllerDelegate
-
-- (void)dismissedTimerController:(HYPTimerViewController *)timerController
-{
-    NSIndexPath *indexPath = timerController.alarm.indexPath;
-    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 @end
