@@ -72,7 +72,11 @@
 
 - (void)currentNotificationRemainingTime
 {
-    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:[HYPAlarm defaultAlarmID]];
+    if (!self.alarm) {
+        abort();
+    }
+
+    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:self.alarm.alarmID];
 
     if (existingNotification) {
         NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];

@@ -214,32 +214,28 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
-    NSArray *row = [self.alarms objectAtIndex:indexPath.section];
-    HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
-
-    NSLog(@"indexPath: %@", indexPath);
-    NSLog(@"alr: %@", alarm.name);
-    NSLog(@" ");
-
-    //[alarm fillUsingIndexPath:indexPath];
-    cell.timerControl.active = NO;
-
-    /*if (indexPath.row == 0) {
-        cell.backgroundColor = [UIColor greenColor];
-    } else if (indexPath.row == 1) {
-        cell.backgroundColor = [UIColor grayColor];
-    } else if (indexPath.row == 2) {
-        cell.backgroundColor = [UIColor brownColor];
-    } else {
-        cell.backgroundColor = [UIColor lightGrayColor];
-    }*/
+    [self configureCell:cell atIndexPath:indexPath];
     return cell;
+}
+
+- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    HYPAlarm *alarm = [self alarmAtIndexPath:indexPath];
+    alarm.indexPath = indexPath;
+    cell.timerControl.active = alarm.active;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
     [self.navigationController pushViewController:timerController animated:YES];
+}
+
+- (HYPAlarm *)alarmAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray *row = [self.alarms objectAtIndex:indexPath.section];
+    HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
+    return alarm;
 }
 
 @end

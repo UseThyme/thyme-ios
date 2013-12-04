@@ -24,9 +24,10 @@
     return self;
 }
 
-- (void)fillUsingIndexPath:(NSIndexPath *)indexPath
+- (void)setIndexPath:(NSIndexPath *)indexPath
 {
-
+    _indexPath = indexPath;
+    _alarmID = [HYPAlarm idForIndexPath:indexPath];
 }
 
 + (NSString *)messageForSetAlarm
@@ -47,6 +48,11 @@
 + (NSString *)defaultAlarmID
 {
     return ALARM_ID;
+}
+
++ (NSString *)idForIndexPath:(NSIndexPath *)indexPath
+{
+    return [NSString stringWithFormat:@"HYPAlert section: %d row: %d", indexPath.section, indexPath.row];
 }
 
 @end

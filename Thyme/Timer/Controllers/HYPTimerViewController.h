@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "HYPViewController.h"
+@class HYPAlarm;
 
 @interface HYPTimerViewController : HYPViewController
-
+@property (nonatomic, strong) HYPAlarm *alarm;
 @end

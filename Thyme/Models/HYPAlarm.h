@@ -12,11 +12,17 @@
 #define ALARM_FIRE_INTERVAL_KEY @"HYPAlarmFireInterval"
 
 @interface HYPAlarm : NSObject
+
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSIndexPath *indexPath;
+@property (nonatomic, strong) NSString *alarmID;
+@property (nonatomic, getter = isActive) BOOL active;
+
 - (instancetype)initWithNotification:(UILocalNotification *)notification;
-- (void)fillUsingIndexPath:(NSIndexPath *)indexPath;
 + (NSString *)messageForSetAlarm;
 + (NSString *)messageForReleaseToSetAlarm;
 + (NSString *)messageForCurrentAlarm;
 + (NSString *)defaultAlarmID;
++ (NSString *)idForIndexPath:(NSIndexPath *)indexPath;
+
 @end
