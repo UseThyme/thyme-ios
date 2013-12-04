@@ -100,7 +100,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat height = 25.0f;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
         _titleLabel.font = [HYPUtils avenirLightWithSize:12.0f];
-        _titleLabel.text = @"YOUR DISH WILL BE DONE IN";
+        _titleLabel.text = @"TIME IS RUNNING, DON'T WORRY";
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
     }
@@ -117,7 +117,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat height = CGRectGetHeight(self.titleLabel.frame);
         _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
         _subtitleLabel.font = [HYPUtils avenirBlackWithSize:19.0f];
-        _subtitleLabel.text = @"ABOUT 20 MINUTES";
+        _subtitleLabel.text = @"WE WILL LET YOU KNOW";
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
         _subtitleLabel.textColor = [UIColor whiteColor];
     }
