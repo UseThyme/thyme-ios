@@ -268,7 +268,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (void)dismissedTimerController:(HYPTimerViewController *)timerController
 {
     NSIndexPath *indexPath = timerController.alarm.indexPath;
-    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    if (timerController.alarm.isOven) {
+        [self.ovenCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+    } else {
+        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }
 }
 
 #pragma mark - Feedback Action
