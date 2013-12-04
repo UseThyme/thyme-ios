@@ -18,7 +18,8 @@
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
-@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HYPTimerControllerDelegate>
+
 @property (nonatomic) CGFloat topMargin;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *subtitleLabel;
@@ -33,6 +34,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic) CGPoint totalCenter;
 
 @property (nonatomic, strong) NSMutableArray *alarms;
+@property (nonatomic, strong) NSMutableArray *ovenAlarms;
+
 @end
 
 @implementation HYPHomeViewController
@@ -41,23 +44,26 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     if (!_alarms) {
         _alarms = [NSMutableArray array];
-
         HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
-        alarm1.name = @"alarm 1";
-
         HYPAlarm *alarm2 = [[HYPAlarm alloc] init];
-        alarm1.name = @"alarm 2";
-
         HYPAlarm *alarm3 = [[HYPAlarm alloc] init];
-        alarm1.name = @"alarm 3";
-
         HYPAlarm *alarm4 = [[HYPAlarm alloc] init];
-        alarm1.name = @"alarm 4";
-
         [_alarms addObject:@[alarm1, alarm2]];
         [_alarms addObject:@[alarm3, alarm4]];
     }
     return _alarms;
+}
+
+- (NSMutableArray *)ovenAlarms
+{
+    if (!_ovenAlarms) {
+        _ovenAlarms = [NSMutableArray array];
+
+        HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
+        alarm1.oven = YES;
+        [_ovenAlarms addObject:@[alarm1]];
+    }
+    return _ovenAlarms;
 }
 
 - (UIImageView *)ovenBackgroundImageView
@@ -194,11 +200,13 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     if ([collectionView isEqual:self.collectionView]) {
-        NSInteger rows = [self.alarms count];
+        NSInteger rows = self.alarms.count;
         return rows;
     }
 
-    return 1;
+    // Oven
+    NSInteger rows = self.ovenAlarms.count;
+    return rows;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -209,19 +217,22 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         return rows;
     }
 
-    return 1;
+    // Oven
+    NSArray *array = [self.ovenAlarms objectAtIndex:0];
+    NSInteger rows = [array count];
+    return rows;
 }
 
 - (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath collectionView:collectionView];
     return cell;
 }
 
-- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView;
 {
-    HYPAlarm *alarm = [self alarmAtIndexPath:indexPath];
+    HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
     alarm.indexPath = indexPath;
     cell.timerControl.active = alarm.active;
     [self refreshTimerInCell:cell forCurrentAlarm:alarm];
@@ -230,14 +241,21 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
-    HYPAlarm *alarm = [self alarmAtIndexPath:indexPath];
+    timerController.delegate = self;
+    HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
     timerController.alarm = alarm;
     [self.navigationController pushViewController:timerController animated:YES];
 }
 
-- (HYPAlarm *)alarmAtIndexPath:(NSIndexPath *)indexPath
+- (HYPAlarm *)alarmAtIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView
 {
-    NSArray *row = [self.alarms objectAtIndex:indexPath.section];
+    NSArray *row;
+    if ([collectionView isEqual:self.collectionView]) {
+        row = [self.alarms objectAtIndex:indexPath.section];
+    } else {
+        row = [self.ovenAlarms objectAtIndex:indexPath.section];
+    }
+    row = [self.alarms objectAtIndex:indexPath.section];
     HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
     return alarm;
 }
@@ -266,6 +284,14 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         alarm.active = NO;
         cell.timerControl.active = NO;
     }
+}
+
+#pragma mark - HYPTimerControllerDelegate
+
+- (void)dismissedTimerController:(HYPTimerViewController *)timerController
+{
+    NSIndexPath *indexPath = timerController.alarm.indexPath;
+    [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 @end

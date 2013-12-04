@@ -98,6 +98,10 @@
 
 - (void)kitchenButtonPressed:(UIButton *)button
 {
+    if ([self.delegate respondsToSelector:@selector(dismissedTimerController:)]) {
+        [self.delegate dismissedTimerController:self];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

@@ -27,7 +27,7 @@
 - (void)setIndexPath:(NSIndexPath *)indexPath
 {
     _indexPath = indexPath;
-    _alarmID = [HYPAlarm idForIndexPath:indexPath];
+    _alarmID = [self idForIndexPath:indexPath];
 }
 
 + (NSString *)messageForSetAlarm
@@ -50,8 +50,11 @@
     return ALARM_ID;
 }
 
-+ (NSString *)idForIndexPath:(NSIndexPath *)indexPath
+- (NSString *)idForIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.isOven) {
+        return [NSString stringWithFormat:@"HYPAlert oven section: %d row: %d", indexPath.section, indexPath.row];
+    }
     return [NSString stringWithFormat:@"HYPAlert section: %d row: %d", indexPath.section, indexPath.row];
 }
 

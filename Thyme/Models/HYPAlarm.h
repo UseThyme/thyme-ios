@@ -13,16 +13,15 @@
 
 @interface HYPAlarm : NSObject
 
-@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) NSString *alarmID;
 @property (nonatomic, getter = isActive) BOOL active;
+@property (nonatomic, getter = isOven) BOOL oven;
 
 - (instancetype)initWithNotification:(UILocalNotification *)notification;
 + (NSString *)messageForSetAlarm;
 + (NSString *)messageForReleaseToSetAlarm;
 + (NSString *)messageForCurrentAlarm;
 + (NSString *)defaultAlarmID;
-+ (NSString *)idForIndexPath:(NSIndexPath *)indexPath;
 
 @end
