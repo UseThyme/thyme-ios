@@ -22,4 +22,5 @@
 - (id)initShowingSubtitleWithFrame:(CGRect)frame;
 - (void)startTimer;
 - (void)stopTimer;
+
 @end

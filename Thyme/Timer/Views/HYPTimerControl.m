@@ -219,6 +219,7 @@
         self.angle = (self.minutesLeft - 1) * 6;
         self.seconds = 59;
         self.minutesLeft--;
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 
     if (self.minutesLeft == 0 && self.seconds == 0) {

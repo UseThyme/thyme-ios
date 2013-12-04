@@ -33,12 +33,20 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic, strong) NSMutableArray *ovenAlarms;
 
 @property (nonatomic, strong) UIButton *feedbackButton;
+@property (nonatomic) NSTimeInterval maxMinutesLeft;
 
 @end
 
 @implementation HYPHomeViewController
 
 #pragma mark - Lazy instantiation
+
+- (void)setMaxMinutesLeft:(NSTimeInterval)maxMinutesLeft
+{
+    _maxMinutesLeft = maxMinutesLeft;
+    self.titleLabel.text = @"YOUR DISH WILL BE DONE";
+    self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %.0f MINUTES", _maxMinutesLeft];
+}
 
 - (UIButton *)feedbackButton
 {
@@ -244,6 +252,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
     alarm.indexPath = indexPath;
     cell.timerControl.active = alarm.active;
+    [cell.timerControl addTarget:self action:@selector(timerControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self refreshTimerInCell:cell forCurrentAlarm:alarm];
 }
 
@@ -267,6 +276,13 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [self.ovenCollectionView reloadItemsAtIndexPaths:@[indexPath]];
     } else {
         [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+    }
+}
+
+- (void)timerControlChangedValue:(HYPTimerControl*)timerControl
+{
+    if (self.maxMinutesLeft - 1 == timerControl.minutesLeft) {
+        self.maxMinutesLeft = timerControl.minutesLeft;
     }
 }
 
@@ -322,6 +338,10 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
         if (minutesLeft < 0) { // clean up weird alarms
             [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
+        }
+
+        if (minutesLeft > self.maxMinutesLeft) {
+            self.maxMinutesLeft = minutesLeft;
         }
 
         alarm.active = YES;
