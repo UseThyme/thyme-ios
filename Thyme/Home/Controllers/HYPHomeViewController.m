@@ -29,11 +29,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 @property (nonatomic, strong) UIImageView *ovenBackgroundImageView;
 
-@property (nonatomic) BOOL kitchenIsMinized;
-@property (nonatomic) CGPoint kitchenCenter;
-@property (nonatomic) CGPoint ovenCenter;
-@property (nonatomic) CGPoint totalCenter;
-
 @property (nonatomic, strong) NSMutableArray *alarms;
 @property (nonatomic, strong) NSMutableArray *ovenAlarms;
 
