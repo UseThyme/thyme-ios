@@ -129,6 +129,8 @@
 {
     _active = active;
     self.minutesValueLabel.hidden = !_active;
+    self.angle = 0;
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect

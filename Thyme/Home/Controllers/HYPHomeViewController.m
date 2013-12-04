@@ -365,6 +365,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     } else {
         alarm.active = NO;
         cell.timerControl.active = NO;
+        [cell.timerControl stopTimer];
     }
 }
 
