@@ -119,6 +119,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         _titleLabel.text = @"TIME IS RUNNING, DON'T WORRY";
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
+        _titleLabel.backgroundColor = [UIColor clearColor];
     }
     return _titleLabel;
 }
@@ -136,6 +137,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         _subtitleLabel.text = @"WE WILL LET YOU KNOW";
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
         _subtitleLabel.textColor = [UIColor whiteColor];
+        _subtitleLabel.backgroundColor = [UIColor clearColor];
     }
     return _subtitleLabel;
 }

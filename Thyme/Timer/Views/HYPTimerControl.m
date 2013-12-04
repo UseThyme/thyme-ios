@@ -44,7 +44,14 @@
         UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
         NSString *sampleString = @"000";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
-        CGSize textSize = [sampleString sizeWithAttributes:attributes];
+
+        CGSize textSize;
+        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
+            textSize = [sampleString sizeWithAttributes:attributes];
+        } else {
+            textSize = [sampleString sizeWithFont:font];
+        }
+
         CGFloat yOffset = (self.showSubtitle) ? floor(20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)) : 0;
         CGFloat x = 0;
         CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
@@ -69,7 +76,14 @@
         UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
         NSString *sampleString = @"MINUTES LEFT";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
-        CGSize textSize = [sampleString sizeWithAttributes:attributes];
+
+        CGSize textSize;
+        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
+            textSize = [sampleString sizeWithAttributes:attributes];
+        } else {
+            textSize = [sampleString sizeWithFont:font];
+        }
+
         CGFloat x = 0;
         CGFloat yOffset = floor(5.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
