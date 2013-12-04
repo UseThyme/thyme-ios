@@ -28,6 +28,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic, strong) UICollectionView *ovenCollectionView;
 
 @property (nonatomic, strong) UIImageView *ovenBackgroundImageView;
+@property (nonatomic, strong) UIImageView *ovenShineImageView;
 
 @property (nonatomic, strong) NSMutableArray *alarms;
 @property (nonatomic, strong) NSMutableArray *ovenAlarms;
@@ -117,6 +118,15 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         _ovenBackgroundImageView.image = image;
     }
     return _ovenBackgroundImageView;
+}
+
+- (UIImageView *)ovenShineImageView
+{
+    if (!_ovenShineImageView) {
+        _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
+        _ovenShineImageView.image = [UIImage imageNamed:@"ovenShine"];
+    }
+    return _ovenShineImageView;
 }
 
 - (UILabel *)titleLabel
@@ -224,6 +234,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.ovenCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
+    [self.view addSubview:self.ovenShineImageView];
 
 #if IS_RELEASE_VERSION
     [self.view addSubview:self.feedbackButton];
