@@ -40,7 +40,6 @@
 #endif
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    //[UIApplication sharedApplication].idleTimerDisabled = YES;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
@@ -53,9 +52,6 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeController];
     navController.navigationBarHidden = YES;
     self.window.rootViewController = navController;
-
-    //HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
-    //self.window.rootViewController = timerController;
 
     [self.window makeKeyAndVisible];
     return YES;
