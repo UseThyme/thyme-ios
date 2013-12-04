@@ -59,7 +59,13 @@
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    [self handleLocalNotification:notification playingSound:YES];
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    BOOL playingSound = YES;
+    if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+        playingSound = NO;
+    }
+
+    [self handleLocalNotification:notification playingSound:playingSound];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
