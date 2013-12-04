@@ -321,6 +321,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
+        if (minutesLeft < 0) { // clean up weird alarms
+            [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
+        }
 
         alarm.active = YES;
         cell.timerControl.active = YES;
