@@ -207,7 +207,7 @@
     if (numberOfSeconds == 0) {
         self.title = [HYPAlarm messageForSetAlarm];
     } else {
-        self.title = [HYPAlarm messageForCurrentAlarm];
+        self.title = [self.alarm timerTitle];
     }
     [self setNeedsDisplay];
 }

@@ -12,7 +12,6 @@
 
 #define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
 #define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
-#define C_DEFAULT_TEXT @"------------------YOUR MEAL WILL BE READY IN------------------"
 #define ALARM_ID @"THYME_ALARM_ID_0"
 
 - (instancetype)initWithNotification:(UILocalNotification *)notification
@@ -50,9 +49,28 @@
     return B_DEFAULT_TEXT;
 }
 
-+ (NSString *)messageForCurrentAlarm
+- (NSString *)timerTitle
 {
-    return C_DEFAULT_TEXT;
+    if (self.isOven) {
+        return @"------------------OVEN------------------";
+    }
+    
+    NSString *leading;
+
+    if (self.indexPath.section == 0) {
+        leading = @"TOP";
+    } else {
+        leading = @"BOTTOM";
+    }
+
+    NSString *position;
+    if (self.indexPath.row == 0) {
+        position = @"LEFT";
+    } else {
+        position = @"RIGHT";
+    }
+
+    return [NSString stringWithFormat:@"------------------%@ %@ PLATE------------------", leading, position];
 }
 
 + (NSString *)defaultAlarmID

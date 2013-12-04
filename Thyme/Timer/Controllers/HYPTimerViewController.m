@@ -75,6 +75,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.timerControl.alarm = self.alarm;
     self.timerControl.alarmID = self.alarm.alarmID;
     [self refreshTimerForCurrentAlarm];
 }
@@ -97,7 +98,7 @@
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
 
-        self.timerControl.title = [HYPAlarm messageForCurrentAlarm];
+        self.timerControl.title = [self.alarm timerTitle];
         self.timerControl.minutesLeft = minutesLeft;
         self.timerControl.seconds = currentSecond;
         [self.timerControl startTimer];

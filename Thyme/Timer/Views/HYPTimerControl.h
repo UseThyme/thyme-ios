@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class HYPAlarm;
+
 @interface HYPTimerControl : UIControl
 
+@property (nonatomic, strong) HYPAlarm *alarm;
 @property (nonatomic, strong) NSString *alarmID;
 @property (nonatomic, strong) NSString *title;
 
