@@ -38,7 +38,7 @@
     //[[BITHockeyManager sharedHockeyManager] startManager];
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
+    //[UIApplication sharedApplication].idleTimerDisabled = YES;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
