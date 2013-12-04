@@ -12,6 +12,7 @@
 #import "HYPTimerViewController.h"
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
+#import <HockeySDK/HockeySDK.h>
 
 #define SHORT_TOP_MARGIN 10
 #define TALL_TOP_MARGIN 50
@@ -36,11 +37,26 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic, strong) NSMutableArray *alarms;
 @property (nonatomic, strong) NSMutableArray *ovenAlarms;
 
+@property (nonatomic, strong) UIButton *feedbackButton;
+
 @end
 
 @implementation HYPHomeViewController
 
 #pragma mark - Lazy instantiation
+
+- (UIButton *)feedbackButton
+{
+    if (!_feedbackButton) {
+        _feedbackButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [_feedbackButton addTarget:self action:@selector(feedbackButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
+        _feedbackButton.frame = CGRectMake(15.0f, y, 44.0f, 44.0f);
+        _feedbackButton.tintColor = [UIColor whiteColor];
+    }
+    return _feedbackButton;
+}
 
 - (NSMutableArray *)alarms
 {
@@ -187,6 +203,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.ovenCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
+
+    [self.view addSubview:self.feedbackButton];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -247,6 +265,17 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     NSIndexPath *indexPath = timerController.alarm.indexPath;
     [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+}
+
+#pragma mark - Feedback Action
+
+- (void)feedbackButtonPressed:(UIButton *)button
+{
+    BITFeedbackManager *manager = [[BITFeedbackManager alloc] init];
+    BITFeedbackComposeViewController *feedbackCompose = [manager feedbackComposeViewController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:feedbackCompose];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark - Helpers
