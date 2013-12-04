@@ -44,16 +44,11 @@
 		44AAE42D1844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
 		44AAE4351844C0690096BF52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AAE4331844C0690096BF52 /* InfoPlist.strings */; };
 		44AAE4371844C0690096BF52 /* ThymeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AAE4361844C0690096BF52 /* ThymeTests.m */; };
-		44AE6676184F423200148398 /* active1-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE666C184F423200148398 /* active1-1@2x.png */; };
-		44AE6677184F423200148398 /* inactive1-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE666D184F423200148398 /* inactive1-1@2x.png */; };
-		44AE6678184F423200148398 /* active1-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE666E184F423200148398 /* active1-0@2x.png */; };
-		44AE6679184F423200148398 /* inactive1-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE666F184F423200148398 /* inactive1-0@2x.png */; };
-		44AE667A184F423200148398 /* active0-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6670184F423200148398 /* active0-1@2x.png */; };
-		44AE667B184F423200148398 /* inactive0-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6671184F423200148398 /* inactive0-1@2x.png */; };
-		44AE667C184F423200148398 /* active0-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6672184F423200148398 /* active0-0@2x.png */; };
-		44AE667D184F423200148398 /* inactive0-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6673184F423200148398 /* inactive0-0@2x.png */; };
-		44AE667E184F423200148398 /* oven-active0-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6674184F423200148398 /* oven-active0-0@2x.png */; };
-		44AE667F184F423200148398 /* oven-inactive0-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6675184F423200148398 /* oven-inactive0-0@2x.png */; };
+		44AE6685184F4E1C00148398 /* 1-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6680184F4E1C00148398 /* 1-1@2x.png */; };
+		44AE6686184F4E1C00148398 /* 1-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6681184F4E1C00148398 /* 1-0@2x.png */; };
+		44AE6687184F4E1C00148398 /* 0-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6682184F4E1C00148398 /* 0-1@2x.png */; };
+		44AE6688184F4E1C00148398 /* 0-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6683184F4E1C00148398 /* 0-0@2x.png */; };
+		44AE6689184F4E1C00148398 /* oven@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6684184F4E1C00148398 /* oven@2x.png */; };
 		44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA691846586C0007E083 /* HYPTimerControl.m */; };
 /* End PBXBuildFile section */
 
@@ -119,16 +114,11 @@
 		44AAE4321844C0690096BF52 /* ThymeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ThymeTests-Info.plist"; sourceTree = "<group>"; };
 		44AAE4341844C0690096BF52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44AAE4361844C0690096BF52 /* ThymeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThymeTests.m; sourceTree = "<group>"; };
-		44AE666C184F423200148398 /* active1-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "active1-1@2x.png"; sourceTree = "<group>"; };
-		44AE666D184F423200148398 /* inactive1-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inactive1-1@2x.png"; sourceTree = "<group>"; };
-		44AE666E184F423200148398 /* active1-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "active1-0@2x.png"; sourceTree = "<group>"; };
-		44AE666F184F423200148398 /* inactive1-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inactive1-0@2x.png"; sourceTree = "<group>"; };
-		44AE6670184F423200148398 /* active0-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "active0-1@2x.png"; sourceTree = "<group>"; };
-		44AE6671184F423200148398 /* inactive0-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inactive0-1@2x.png"; sourceTree = "<group>"; };
-		44AE6672184F423200148398 /* active0-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "active0-0@2x.png"; sourceTree = "<group>"; };
-		44AE6673184F423200148398 /* inactive0-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "inactive0-0@2x.png"; sourceTree = "<group>"; };
-		44AE6674184F423200148398 /* oven-active0-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oven-active0-0@2x.png"; sourceTree = "<group>"; };
-		44AE6675184F423200148398 /* oven-inactive0-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oven-inactive0-0@2x.png"; sourceTree = "<group>"; };
+		44AE6680184F4E1C00148398 /* 1-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-1@2x.png"; sourceTree = "<group>"; };
+		44AE6681184F4E1C00148398 /* 1-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-0@2x.png"; sourceTree = "<group>"; };
+		44AE6682184F4E1C00148398 /* 0-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-1@2x.png"; sourceTree = "<group>"; };
+		44AE6683184F4E1C00148398 /* 0-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-0@2x.png"; sourceTree = "<group>"; };
+		44AE6684184F4E1C00148398 /* oven@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oven@2x.png"; sourceTree = "<group>"; };
 		44F8DA681846586C0007E083 /* HYPTimerControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPTimerControl.h; sourceTree = "<group>"; };
 		44F8DA691846586C0007E083 /* HYPTimerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -267,16 +257,11 @@
 		44A691AB1844E02D005D4C5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				44AE666C184F423200148398 /* active1-1@2x.png */,
-				44AE666D184F423200148398 /* inactive1-1@2x.png */,
-				44AE666E184F423200148398 /* active1-0@2x.png */,
-				44AE666F184F423200148398 /* inactive1-0@2x.png */,
-				44AE6670184F423200148398 /* active0-1@2x.png */,
-				44AE6671184F423200148398 /* inactive0-1@2x.png */,
-				44AE6672184F423200148398 /* active0-0@2x.png */,
-				44AE6673184F423200148398 /* inactive0-0@2x.png */,
-				44AE6674184F423200148398 /* oven-active0-0@2x.png */,
-				44AE6675184F423200148398 /* oven-inactive0-0@2x.png */,
+				44AE6680184F4E1C00148398 /* 1-1@2x.png */,
+				44AE6681184F4E1C00148398 /* 1-0@2x.png */,
+				44AE6682184F4E1C00148398 /* 0-1@2x.png */,
+				44AE6683184F4E1C00148398 /* 0-0@2x.png */,
+				44AE6684184F4E1C00148398 /* oven@2x.png */,
 				44A54150184E1FCC00964F58 /* ovenBackground@2x.png */,
 				441B5819184E14F600839331 /* kitchenImage@2x.png */,
 				44A691AC1844E02D005D4C5A /* background@2x.png */,
@@ -500,24 +485,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44AE667B184F423200148398 /* inactive0-1@2x.png in Resources */,
-				44AE667C184F423200148398 /* active0-0@2x.png in Resources */,
-				44AE667E184F423200148398 /* oven-active0-0@2x.png in Resources */,
-				44AE667A184F423200148398 /* active0-1@2x.png in Resources */,
-				44AE6679184F423200148398 /* inactive1-0@2x.png in Resources */,
 				44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */,
 				441B5818184E061200839331 /* tick.caf in Resources */,
-				44AE6676184F423200148398 /* active1-1@2x.png in Resources */,
+				44AE6687184F4E1C00148398 /* 0-1@2x.png in Resources */,
+				44AE6685184F4E1C00148398 /* 1-1@2x.png in Resources */,
+				44AE6688184F4E1C00148398 /* 0-0@2x.png in Resources */,
 				44AAE41C1844C0690096BF52 /* InfoPlist.strings in Resources */,
+				44AE6689184F4E1C00148398 /* oven@2x.png in Resources */,
 				449143CF1847676F008A80F0 /* README.md in Resources */,
 				449143C91847676F008A80F0 /* CHANGELOG in Resources */,
 				44A691AD1844E02D005D4C5A /* background@2x.png in Resources */,
 				449143CE1847676F008A80F0 /* LICENSE in Resources */,
-				44AE6678184F423200148398 /* active1-0@2x.png in Resources */,
 				441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */,
-				44AE667F184F423200148398 /* oven-inactive0-0@2x.png in Resources */,
-				44AE6677184F423200148398 /* inactive1-1@2x.png in Resources */,
-				44AE667D184F423200148398 /* inactive0-0@2x.png in Resources */,
+				44AE6686184F4E1C00148398 /* 1-0@2x.png in Resources */,
 				449143CD1847676F008A80F0 /* HockeySDKResources.bundle in Resources */,
 				449143CC1847676F008A80F0 /* HockeySDK.xcconfig in Resources */,
 				4465EE93184772F9006C145F /* alarm.caf in Resources */,

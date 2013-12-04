@@ -290,7 +290,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     } else {
         row = [self.ovenAlarms objectAtIndex:indexPath.section];
     }
-    row = [self.alarms objectAtIndex:indexPath.section];
     HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
     return alarm;
 }
