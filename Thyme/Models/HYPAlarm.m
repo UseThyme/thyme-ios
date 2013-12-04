@@ -57,14 +57,14 @@
     
     NSString *leading;
 
-    if (self.indexPath.section == 0) {
+    if (self.indexPath.row == 0) {
         leading = @"TOP";
     } else {
         leading = @"BOTTOM";
     }
 
     NSString *position;
-    if (self.indexPath.row == 0) {
+    if (self.indexPath.section == 0) {
         position = @"LEFT";
     } else {
         position = @"RIGHT";
