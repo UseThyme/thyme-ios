@@ -54,9 +54,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
             NSInteger result = [_maxMinutesLeft integerValue] / 5;
             NSInteger minutes = (result + 1) * 5;
             if (minutes > 10) {
-                self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", minutes];
+                self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)minutes];
             } else {
-                self.subtitleLabel.text = [NSString stringWithFormat:@"IN %ld MINUTES", [_maxMinutesLeft integerValue]];
+                self.subtitleLabel.text = [NSString stringWithFormat:@"IN %ld MINUTES", (long)[_maxMinutesLeft integerValue]];
             }
         }
     } else {
