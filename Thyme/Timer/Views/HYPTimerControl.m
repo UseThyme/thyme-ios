@@ -46,7 +46,7 @@
         NSDictionary *attributes = @{ NSFontAttributeName:font };
 
         CGSize textSize = [sampleString sizeWithAttributes:attributes];
-        CGFloat yOffset = (self.showSubtitle) ? floor(20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)) : 0;
+        CGFloat yOffset = 20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds);//(self.showSubtitle) ? floor(20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)) : 0;
         CGFloat x = 0;
         CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
         CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
