@@ -15,7 +15,7 @@
 #import "HYPAlarm.h"
 
 @interface HYPTimerViewController ()
-@property (nonatomic, strong) HYPTimerControl *timerController;
+@property (nonatomic, strong) HYPTimerControl *timerControl;
 @property (nonatomic, strong) UIButton *kitchenButton;
 @end
 
@@ -37,9 +37,9 @@
     return _kitchenButton;
 }
 
-- (HYPTimerControl *)timerController
+- (HYPTimerControl *)timerControl
 {
-    if (!_timerController) {
+    if (!_timerControl) {
         CGFloat sideMargin = 0.0f;
 
         CGFloat topMargin;
@@ -51,26 +51,27 @@
 
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _timerController = [[HYPTimerControl alloc] initShowingSubtitleWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
-        _timerController.active = YES;
+        _timerControl = [[HYPTimerControl alloc] initShowingSubtitleWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
+        _timerControl.active = YES;
     }
-    return _timerController;
+    return _timerControl;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view addSubview:self.timerController];
+    [self.view addSubview:self.timerControl];
     [self.view addSubview:self.kitchenButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self currentNotificationRemainingTime];
+    self.timerControl.alarmID = self.alarm.alarmID;
+    [self refreshTimerForCurrentAlarm];
 }
 
-- (void)currentNotificationRemainingTime
+- (void)refreshTimerForCurrentAlarm
 {
     if (!self.alarm) {
         abort();
@@ -88,10 +89,10 @@
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
 
-        self.timerController.title = [HYPAlarm messageForCurrentAlarm];
-        self.timerController.minutesLeft = minutesLeft;
-        self.timerController.seconds = currentSecond;
-        [self.timerController startTimer];
+        self.timerControl.title = [HYPAlarm messageForCurrentAlarm];
+        self.timerControl.minutesLeft = minutesLeft;
+        self.timerControl.seconds = currentSecond;
+        [self.timerControl startTimer];
     }
 }
 

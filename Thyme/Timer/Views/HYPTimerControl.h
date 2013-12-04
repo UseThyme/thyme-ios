@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface HYPTimerControl : UIControl
-@property (nonatomic) BOOL showSubtitle;
+
+@property (nonatomic, strong) NSString *alarmID;
 @property (nonatomic, strong) NSString *title;
+
 @property (nonatomic) NSTimeInterval minutesLeft;
 @property (nonatomic) NSTimeInterval seconds;
+
+@property (nonatomic) BOOL showSubtitle;
 @property (nonatomic, getter = isActive) BOOL active;
 
 - (id)initShowingSubtitleWithFrame:(CGRect)frame;

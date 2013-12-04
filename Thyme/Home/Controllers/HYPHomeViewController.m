@@ -11,6 +11,7 @@
 #import "HYPUtils.h"
 #import "HYPTimerViewController.h"
 #import "HYPAlarm.h"
+#import "HYPLocalNotificationManager.h"
 
 #define SHORT_TOP_MARGIN 10
 #define TALL_TOP_MARGIN 50
@@ -223,11 +224,14 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     HYPAlarm *alarm = [self alarmAtIndexPath:indexPath];
     alarm.indexPath = indexPath;
     cell.timerControl.active = alarm.active;
+    [self refreshTimerInCell:cell forCurrentAlarm:alarm];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
+    HYPAlarm *alarm = [self alarmAtIndexPath:indexPath];
+    timerController.alarm = alarm;
     [self.navigationController pushViewController:timerController animated:YES];
 }
 
@@ -236,6 +240,32 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     NSArray *row = [self.alarms objectAtIndex:indexPath.section];
     HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
     return alarm;
+}
+
+- (void)refreshTimerInCell:(HYPPlateCell *)cell forCurrentAlarm:(HYPAlarm *)alarm
+{
+    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarm.alarmID];
+
+    if (existingNotification) {
+        NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];
+        NSNumber *numberOfSeconds = [existingNotification.userInfo objectForKey:ALARM_FIRE_INTERVAL_KEY];
+
+        // Fired date + amount of seconds = target date
+        NSTimeInterval secondsPassed = [[NSDate date] timeIntervalSinceDate:firedDate];
+        NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
+        NSTimeInterval currentSecond = secondsLeft % 60;
+        NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
+
+        alarm.active = YES;
+        cell.timerControl.active = YES;
+        cell.timerControl.alarmID = alarm.alarmID;
+        cell.timerControl.minutesLeft = minutesLeft;
+        cell.timerControl.seconds = currentSecond;
+        [cell.timerControl startTimer];
+    } else {
+        alarm.active = NO;
+        cell.timerControl.active = NO;
+    }
 }
 
 @end

@@ -232,7 +232,11 @@
 
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
 {
-    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:[HYPAlarm defaultAlarmID]];
+    if (!self.alarmID) {
+        abort();
+    }
+
+    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:self.alarmID];
     BOOL createNotification = (numberOfSeconds > 0);
 
     if (existingNotification) {
@@ -247,9 +251,13 @@
 
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
+    if (!self.alarmID) {
+        abort();
+    }
+
     self.seconds = 0;
     [self startTimer];
-    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:[HYPAlarm defaultAlarmID]];
+    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:self.alarmID];
 }
 
 - (void)stopTimer
