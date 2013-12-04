@@ -24,6 +24,7 @@
 + (NSString *)subtitleForHomescreen;
 + (NSString *)messageForSetAlarm;
 + (NSString *)messageForReleaseToSetAlarm;
+- (NSString *)title;
 - (NSString *)timerTitle;
 + (NSString *)defaultAlarmID;
 

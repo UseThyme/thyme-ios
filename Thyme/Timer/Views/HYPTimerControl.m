@@ -264,7 +264,8 @@
 
     self.seconds = 0;
     [self startTimer];
-    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:self.alarmID];
+    NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
+    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
 }
 
 - (void)stopTimer

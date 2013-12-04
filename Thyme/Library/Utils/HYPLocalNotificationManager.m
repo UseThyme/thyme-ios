@@ -28,7 +28,7 @@
 + (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds message:(NSString *)message actionTitle:(NSString *)actionTitle alarmID:(NSString *)alarmID
 {
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.soundName = UILocalNotificationDefaultSoundName;
+    notification.soundName = @"alarm.caf";
     if (!notification)
         return;
 

@@ -49,12 +49,12 @@
     return B_DEFAULT_TEXT;
 }
 
-- (NSString *)timerTitle
+- (NSString *)title
 {
     if (self.isOven) {
-        return @"------------------OVEN------------------";
+        return @"OVEN";
     }
-    
+
     NSString *leading;
 
     if (self.indexPath.row == 0) {
@@ -70,7 +70,12 @@
         position = @"RIGHT";
     }
 
-    return [NSString stringWithFormat:@"------------------%@ %@ PLATE------------------", leading, position];
+    return [NSString stringWithFormat:@"%@ %@ PLATE", leading, position];
+}
+
+- (NSString *)timerTitle
+{
+    return [NSString stringWithFormat:@"------------------%@------------------", [self title]];
 }
 
 + (NSString *)defaultAlarmID
