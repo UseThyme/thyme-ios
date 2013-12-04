@@ -30,6 +30,16 @@
     _alarmID = [self idForIndexPath:indexPath];
 }
 
++ (NSString *)titleForHomescreen
+{
+    return @"Bet you've been working all day";
+}
+
++ (NSString *)subtitleForHomescreen
+{
+    return @"YOU MUST BE STARVING";
+}
+
 + (NSString *)messageForSetAlarm
 {
     return A_DEFAULT_TEXT;

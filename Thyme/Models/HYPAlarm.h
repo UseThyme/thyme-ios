@@ -19,6 +19,9 @@
 @property (nonatomic, getter = isOven) BOOL oven;
 
 - (instancetype)initWithNotification:(UILocalNotification *)notification;
+
++ (NSString *)titleForHomescreen;
++ (NSString *)subtitleForHomescreen;
 + (NSString *)messageForSetAlarm;
 + (NSString *)messageForReleaseToSetAlarm;
 + (NSString *)messageForCurrentAlarm;

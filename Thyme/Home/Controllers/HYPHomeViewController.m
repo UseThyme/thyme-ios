@@ -33,7 +33,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic, strong) NSMutableArray *ovenAlarms;
 
 @property (nonatomic, strong) UIButton *feedbackButton;
-@property (nonatomic) NSTimeInterval maxMinutesLeft;
+@property (nonatomic, strong) NSNumber *maxMinutesLeft;
 
 @end
 
@@ -41,11 +41,21 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 #pragma mark - Lazy instantiation
 
-- (void)setMaxMinutesLeft:(NSTimeInterval)maxMinutesLeft
+- (void)setMaxMinutesLeft:(NSNumber *)maxMinutesLeft
 {
     _maxMinutesLeft = maxMinutesLeft;
-    self.titleLabel.text = @"YOUR DISH WILL BE DONE";
-    self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %.0f MINUTES", _maxMinutesLeft];
+    
+    if (_maxMinutesLeft) {
+        self.titleLabel.text = @"Your dish will be done";
+        if ([_maxMinutesLeft doubleValue] == 0.0f) {
+            self.subtitleLabel.text = @"IN LESS THAN A MINUTE";
+        } else {
+            self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %.0f MINUTES", [_maxMinutesLeft doubleValue]];
+        }
+    } else {
+        self.titleLabel.text = [HYPAlarm titleForHomescreen];
+        self.subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
+    }
 }
 
 - (UIButton *)feedbackButton
@@ -115,11 +125,17 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat sideMargin = 20.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        CGFloat topMargin = 40.0f;
+
+        CGFloat topMargin;
+        if ([HYPUtils isTallPhone]) {
+            topMargin = 60.0f;
+        } else {
+            topMargin = 40.0f;
+        }
         CGFloat height = 25.0f;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
         _titleLabel.font = [HYPUtils avenirLightWithSize:12.0f];
-        _titleLabel.text = @"TIME IS RUNNING, DON'T WORRY";
+        _titleLabel.text = [HYPAlarm titleForHomescreen];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.backgroundColor = [UIColor clearColor];
@@ -137,7 +153,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat height = CGRectGetHeight(self.titleLabel.frame);
         _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
         _subtitleLabel.font = [HYPUtils avenirBlackWithSize:19.0f];
-        _subtitleLabel.text = @"WE WILL LET YOU KNOW";
+        _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
         _subtitleLabel.textColor = [UIColor whiteColor];
         _subtitleLabel.backgroundColor = [UIColor clearColor];
@@ -271,18 +287,24 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 - (void)dismissedTimerController:(HYPTimerViewController *)timerController
 {
-    NSIndexPath *indexPath = timerController.alarm.indexPath;
+    self.maxMinutesLeft = nil;
+    [self.collectionView reloadData];
+    [self.ovenCollectionView reloadData];
+
+    /*NSIndexPath *indexPath = timerController.alarm.indexPath;
     if (timerController.alarm.isOven) {
         [self.ovenCollectionView reloadItemsAtIndexPaths:@[indexPath]];
     } else {
         [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-    }
+    }*/
 }
 
 - (void)timerControlChangedValue:(HYPTimerControl*)timerControl
 {
-    if (self.maxMinutesLeft - 1 == timerControl.minutesLeft) {
-        self.maxMinutesLeft = timerControl.minutesLeft;
+    if ([self.maxMinutesLeft doubleValue] - 1 == timerControl.minutesLeft) {
+        self.maxMinutesLeft = @(timerControl.minutesLeft);
+    } else if ([self.maxMinutesLeft floatValue] == 0.0f && timerControl.minutesLeft == 59.0f) {
+        self.maxMinutesLeft = nil;
     }
 }
 
@@ -316,11 +338,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
     rotationAndPerspectiveTransform.m34 = 1.0 / -800.0;
     rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, M_PI * factor, 1.0f, 0.0f, 0.0f);
-
-    //[UIView animateWithDuration:0.5 animations:^{
     layer.anchorPoint = CGPointMake(0.5, 0);
     layer.transform = rotationAndPerspectiveTransform;
-    //}];
 }
 
 - (void)refreshTimerInCell:(HYPPlateCell *)cell forCurrentAlarm:(HYPAlarm *)alarm
@@ -340,8 +359,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
             [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
         }
 
-        if (minutesLeft > self.maxMinutesLeft) {
-            self.maxMinutesLeft = minutesLeft;
+        if (minutesLeft >= [self.maxMinutesLeft doubleValue]) {
+            self.maxMinutesLeft = @(minutesLeft);
         }
 
         alarm.active = YES;
