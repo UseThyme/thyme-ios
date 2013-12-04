@@ -290,13 +290,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     self.maxMinutesLeft = nil;
     [self.collectionView reloadData];
     [self.ovenCollectionView reloadData];
-
-    /*NSIndexPath *indexPath = timerController.alarm.indexPath;
-    if (timerController.alarm.isOven) {
-        [self.ovenCollectionView reloadItemsAtIndexPaths:@[indexPath]];
-    } else {
-        [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
-    }*/
 }
 
 - (void)timerControlChangedValue:(HYPTimerControl*)timerControl
