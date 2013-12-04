@@ -16,12 +16,12 @@
 
 @interface HYPTimerViewController ()
 @property (nonatomic, strong) HYPTimerControl *timerControl;
-@property (nonatomic, strong) UIButton *kitchenButton;
+@property (nonatomic, strong) UIImageView *kitchenButton;
 @end
 
 @implementation HYPTimerViewController
 
-- (UIButton *)kitchenButton
+/*- (UIButton *)kitchenButton
 {
     if (!_kitchenButton) {
         _kitchenButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -33,9 +33,51 @@
         _kitchenButton.frame = CGRectMake(x, y, image.size.width, image.size.height);
         [_kitchenButton setImage:image forState:UIControlStateNormal];
         [_kitchenButton addTarget:self action:@selector(kitchenButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(30, 30, 290, 400)];
+        img.animationImages = [NSArray arrayWithObjects:[UIImage imageNamed:@"Cover_0.png"],
+                             [UIImage imageNamed:@"Cover_1.png"],
+                             [UIImage imageNamed:@"Cover_2.png"],
+                             [UIImage imageNamed:@"Cover_3.png"],
+                             [UIImage imageNamed:@"Cover_4.png"],
+                             [UIImage imageNamed:@"Cover_5.png"],
+                             [UIImage imageNamed:@"Cover_6.png"],
+                             [UIImage imageNamed:@"Cover_7.png"],nil];
+
+    }
+    return _kitchenButton;
+}*/
+
+- (UIImageView *)kitchenButton
+{
+    if (!_kitchenButton) {
+        UIImage *image = [UIImage imageNamed:@"oven-inactive0-0"];
+        _kitchenButton = [[UIImageView alloc] initWithImage:image];
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat topMargin = 100.0f;
+        CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+        CGFloat y = CGRectGetHeight(bounds) - topMargin;
+        _kitchenButton.frame = CGRectMake(x, y, image.size.width, image.size.height);
+        _kitchenButton.userInteractionEnabled = YES;
+
+        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(kitchenButtonPressed:)];
+        [tapGestureRecognizer addTarget:self action:@selector(kitchenButtonPressed:)];
+        [_kitchenButton addGestureRecognizer:tapGestureRecognizer];
+
+        for (int col = 0; col < 2; col++) {
+            for (int row = 0; row < 2; row++) {
+                NSString *imageName = [NSString stringWithFormat:@"inactive%d-%d", col, row];
+                UIImage *image = [UIImage imageNamed:imageName];
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:_kitchenButton.frame];
+                imageView.userInteractionEnabled = NO;
+                imageView.image = image;
+                [self.view addSubview:imageView];
+            }
+        }
     }
     return _kitchenButton;
 }
+
 
 - (HYPTimerControl *)timerControl
 {
