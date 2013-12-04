@@ -34,8 +34,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //[[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
-    //[[BITHockeyManager sharedHockeyManager] startManager];
+#if IS_RELEASE_VERSION
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+#endif
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     //[UIApplication sharedApplication].idleTimerDisabled = YES;

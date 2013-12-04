@@ -204,7 +204,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
 
+#if IS_RELEASE_VERSION
     [self.view addSubview:self.feedbackButton];
+#endif
 }
 
 #pragma mark - UICollectionViewDataSource
