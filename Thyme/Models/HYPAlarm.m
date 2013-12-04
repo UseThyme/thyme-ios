@@ -53,9 +53,9 @@
 - (NSString *)idForIndexPath:(NSIndexPath *)indexPath
 {
     if (self.isOven) {
-        return [NSString stringWithFormat:@"HYPAlert oven section: %d row: %d", indexPath.section, indexPath.row];
+        return [NSString stringWithFormat:@"HYPAlert oven section: %ld row: %ld", (long)indexPath.section, (long)indexPath.row];
     }
-    return [NSString stringWithFormat:@"HYPAlert section: %d row: %d", indexPath.section, indexPath.row];
+    return [NSString stringWithFormat:@"HYPAlert section: %ld row: %ld", (long)indexPath.section, (long)indexPath.row];
 }
 
 @end
