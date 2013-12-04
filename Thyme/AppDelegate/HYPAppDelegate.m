@@ -46,7 +46,7 @@
 
     UILocalNotification *notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
     if (notification) {
-        [self handleLocalNotification:notification];
+        [self handleLocalNotification:notification playingSound:NO];
     }
 
     HYPHomeViewController *homeController = [[HYPHomeViewController alloc] init];
@@ -63,7 +63,7 @@
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    [self handleLocalNotification:notification];
+    [self handleLocalNotification:notification playingSound:YES];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -71,10 +71,12 @@
     [self.audioPlayer stop];
 }
 
-- (void)handleLocalNotification:(UILocalNotification *)notification
+- (void)handleLocalNotification:(UILocalNotification *)notification playingSound:(BOOL)playingSound
 {
-    [self.audioPlayer prepareToPlay];
-    [self.audioPlayer play];
+    if (playingSound) {
+        [self.audioPlayer prepareToPlay];
+        [self.audioPlayer play];
+    }
     [[[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
 }
 
