@@ -51,7 +51,13 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         if ([_maxMinutesLeft doubleValue] == 0.0f) {
             self.subtitleLabel.text = @"IN LESS THAN A MINUTE";
         } else {
-            self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %.0f MINUTES", [_maxMinutesLeft doubleValue]];
+            NSInteger result = [_maxMinutesLeft integerValue] / 5;
+            NSInteger minutes = (result + 1) * 5;
+            if (minutes > 10) {
+                self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", minutes];
+            } else {
+                self.subtitleLabel.text = [NSString stringWithFormat:@"IN %ld MINUTES", [_maxMinutesLeft integerValue]];
+            }
         }
     } else {
         self.titleLabel.text = [HYPAlarm titleForHomescreen];
@@ -144,7 +150,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         }
         CGFloat height = 25.0f;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _titleLabel.font = [HYPUtils avenirLightWithSize:12.0f];
+        _titleLabel.font = [HYPUtils avenirLightWithSize:14.0f];
         _titleLabel.text = [HYPAlarm titleForHomescreen];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
