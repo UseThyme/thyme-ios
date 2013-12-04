@@ -78,6 +78,13 @@
     self.timerControl.alarm = self.alarm;
     self.timerControl.alarmID = self.alarm.alarmID;
     [self refreshTimerForCurrentAlarm];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kitchenButtonPressed:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)refreshTimerForCurrentAlarm
