@@ -47,7 +47,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     _maxMinutesLeft = maxMinutesLeft;
     
     if (_maxMinutesLeft) {
-        self.titleLabel.text = @"Your dish will be done";
+        self.titleLabel.text = @"YOUR DISH WILL BE DONE";
         if ([_maxMinutesLeft doubleValue] == 0.0f) {
             self.subtitleLabel.text = @"IN LESS THAN A MINUTE";
         } else {
@@ -150,11 +150,12 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         }
         CGFloat height = 25.0f;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _titleLabel.font = [HYPUtils avenirLightWithSize:14.0f];
+        _titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
         _titleLabel.text = [HYPAlarm titleForHomescreen];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
         _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _titleLabel;
 }
@@ -173,6 +174,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
         _subtitleLabel.textColor = [UIColor whiteColor];
         _subtitleLabel.backgroundColor = [UIColor clearColor];
+        _subtitleLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _subtitleLabel;
 }

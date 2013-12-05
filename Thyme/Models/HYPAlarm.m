@@ -31,7 +31,7 @@
 
 + (NSString *)titleForHomescreen
 {
-    return @"Bet you've been working all day";
+    return @"BET YOU'VE BEEN WORKING ALL DAY";
 }
 
 + (NSString *)subtitleForHomescreen

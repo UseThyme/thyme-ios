@@ -13,7 +13,7 @@
 
 #define DEFAULT_RADIUS 0
 #define TEXT_COLOR [UIColor whiteColor]
-#define TEXT_FONT [HYPUtils avenirLightWithSize:13]
+#define TEXT_FONT [HYPUtils avenirLightWithSize:14]
 
 @implementation HYPTimerControl (DrawingMethods)
 
