@@ -247,6 +247,18 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 #endif
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissedTimerController:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -382,6 +394,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     } else {
         alarm.active = NO;
         cell.timerControl.active = NO;
+        [cell.timerControl restartTimer];
         [cell.timerControl stopTimer];
     }
 }
