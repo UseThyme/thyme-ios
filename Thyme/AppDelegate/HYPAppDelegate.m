@@ -34,19 +34,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //[[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
-    //[[BITHockeyManager sharedHockeyManager] startManager];
+#if IS_RELEASE_VERSION
+    [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
+    [[BITHockeyManager sharedHockeyManager] startManager];
+#endif
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    [UIApplication sharedApplication].idleTimerDisabled = YES;
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    //HYPHomeViewController *homeController = [[HYPHomeViewController alloc] init];
-    //self.window.rootViewController = homeController;
+    UILocalNotification *notification = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    if (notification) {
+        [self handleLocalNotification:notification playingSound:NO];
+    }
 
-    HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
-    self.window.rootViewController = timerController;
+    HYPHomeViewController *homeController = [[HYPHomeViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeController];
+    navController.navigationBarHidden = YES;
+    self.window.rootViewController = navController;
 
     [self.window makeKeyAndVisible];
     return YES;
@@ -54,14 +59,27 @@
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification
 {
-    [self.audioPlayer prepareToPlay];
-    [self.audioPlayer play];
-    [[[UIAlertView alloc] initWithTitle:@"Your meal is ready!" message:nil delegate:self cancelButtonTitle:@"OK, thanks" otherButtonTitles:nil, nil] show];
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    BOOL playingSound = YES;
+    if (state == UIApplicationStateBackground || state == UIApplicationStateInactive) {
+        playingSound = NO;
+    }
+
+    [self handleLocalNotification:notification playingSound:playingSound];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [self.audioPlayer stop];
+}
+
+- (void)handleLocalNotification:(UILocalNotification *)notification playingSound:(BOOL)playingSound
+{
+    if (playingSound) {
+        [self.audioPlayer prepareToPlay];
+        [self.audioPlayer play];
+    }
+    [[[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
 }
 
 @end

@@ -8,10 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+@class HYPAlarm;
+
 @interface HYPTimerControl : UIControl
+
+@property (nonatomic, strong) HYPAlarm *alarm;
+@property (nonatomic, strong) NSString *alarmID;
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic) NSTimeInterval minutesLeft;
+
+@property (nonatomic) NSTimeInterval minutes;
 @property (nonatomic) NSTimeInterval seconds;
+
+@property (nonatomic) BOOL showSubtitle;
+@property (nonatomic, getter = isActive) BOOL active;
+
+- (id)initShowingSubtitleWithFrame:(CGRect)frame;
+- (void)restartTimer;
 - (void)startTimer;
 - (void)stopTimer;
+
 @end

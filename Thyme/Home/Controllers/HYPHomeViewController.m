@@ -9,80 +9,130 @@
 #import "HYPHomeViewController.h"
 #import "HYPPlateCell.h"
 #import "HYPUtils.h"
+#import "HYPTimerViewController.h"
+#import "HYPAlarm.h"
+#import "HYPLocalNotificationManager.h"
+#import <HockeySDK/HockeySDK.h>
+
+#define SHORT_TOP_MARGIN 10
+#define TALL_TOP_MARGIN 50
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
-@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HYPTimerControllerDelegate>
+
+@property (nonatomic) CGFloat topMargin;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *subtitleLabel;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UICollectionView *ovenCollectionView;
-@property (nonatomic, strong) UICollectionView *selectedCollectionView;
 
-@property (nonatomic, strong) UIImageView *activeImageView;
-@property (nonatomic, strong) UIImageView *unactiveImageView;
-@property (nonatomic, strong) UIImageView *timerImageView;
+@property (nonatomic, strong) UIImageView *ovenBackgroundImageView;
+@property (nonatomic, strong) UIImageView *ovenShineImageView;
 
-@property (nonatomic) BOOL kitchenIsMinized;
-@property (nonatomic) CGPoint kitchenCenter;
-@property (nonatomic) CGPoint ovenCenter;
-@property (nonatomic) CGPoint totalCenter;
+@property (nonatomic, strong) NSMutableArray *alarms;
+@property (nonatomic, strong) NSMutableArray *ovenAlarms;
+
+@property (nonatomic, strong) UIButton *feedbackButton;
+@property (nonatomic, strong) NSNumber *maxMinutesLeft;
+
 @end
 
 @implementation HYPHomeViewController
 
-- (UIImageView *)timerImageView
+#pragma mark - Lazy instantiation
+
+- (void)setMaxMinutesLeft:(NSNumber *)maxMinutesLeft
 {
-    if (!_timerImageView) {
-        CGFloat sideMargin = 0.0f;
-        CGFloat topMargin = 60.0f;//40.0f;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _timerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
-        _timerImageView.image = [UIImage imageNamed:@"timer"];
-        _timerImageView.alpha = 0.0f;
-        _timerImageView.contentMode = UIViewContentModeCenter;
+    _maxMinutesLeft = maxMinutesLeft;
+    
+    if (_maxMinutesLeft) {
+        self.titleLabel.text = @"YOUR DISH WILL BE DONE";
+        if ([_maxMinutesLeft doubleValue] == 0.0f) {
+            self.subtitleLabel.text = @"IN LESS THAN A MINUTE";
+        } else {
+            NSInteger result = [_maxMinutesLeft integerValue] / 5;
+            NSInteger minutes = (result + 1) * 5;
+            if (minutes > 10) {
+                self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)minutes];
+            } else {
+                self.subtitleLabel.text = [NSString stringWithFormat:@"IN %ld MINUTES", (long)[_maxMinutesLeft integerValue]];
+            }
+        }
+    } else {
+        self.titleLabel.text = [HYPAlarm titleForHomescreen];
+        self.subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
     }
-    return _timerImageView;
 }
 
-- (UIImageView *)activeImageView
+- (UIButton *)feedbackButton
 {
-    if (!_activeImageView) {
-        CGFloat sideMargin = 0.0f;
-        CGFloat topMargin = 110.0f;//40.0f;
+    if (!_feedbackButton) {
+        _feedbackButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [_feedbackButton addTarget:self action:@selector(feedbackButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _activeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
-        _activeImageView.image = [UIImage imageNamed:@"activeKitchen"];
-        _activeImageView.userInteractionEnabled = YES;
-        _activeImageView.contentMode = UIViewContentModeCenter;
-        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(activeImageViewPressed)];
-        [gesture setNumberOfTouchesRequired:1];
-        [gesture setNumberOfTapsRequired:1];
-        [_activeImageView addGestureRecognizer:gesture];
+        CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
+        _feedbackButton.frame = CGRectMake(15.0f, y, 44.0f, 44.0f);
+        _feedbackButton.tintColor = [UIColor whiteColor];
     }
-    return _activeImageView;
+    return _feedbackButton;
 }
 
-- (UIImageView *)unactiveImageView
+- (NSMutableArray *)alarms
 {
-    if (!_unactiveImageView) {
-        CGFloat sideMargin = 0.0f;
-        CGFloat topMargin = 110.0f;//40.0f;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _unactiveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
-        _unactiveImageView.image = [UIImage imageNamed:@"unactiveKitchen"];
-        _unactiveImageView.contentMode = UIViewContentModeCenter;
-        _unactiveImageView.userInteractionEnabled = YES;
-        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(unactiveImageViewPressed)];
-        [gesture setNumberOfTouchesRequired:1];
-        [gesture setNumberOfTapsRequired:1];
-        [_unactiveImageView addGestureRecognizer:gesture];
-        _unactiveImageView.alpha = 0.0f;
+    if (!_alarms) {
+        _alarms = [NSMutableArray array];
+        HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
+        HYPAlarm *alarm2 = [[HYPAlarm alloc] init];
+        HYPAlarm *alarm3 = [[HYPAlarm alloc] init];
+        HYPAlarm *alarm4 = [[HYPAlarm alloc] init];
+        [_alarms addObject:@[alarm1, alarm2]];
+        [_alarms addObject:@[alarm3, alarm4]];
     }
-    return _unactiveImageView;
+    return _alarms;
+}
+
+- (NSMutableArray *)ovenAlarms
+{
+    if (!_ovenAlarms) {
+        _ovenAlarms = [NSMutableArray array];
+
+        HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
+        alarm1.oven = YES;
+        [_ovenAlarms addObject:@[alarm1]];
+    }
+    return _ovenAlarms;
+}
+
+- (UIImageView *)ovenBackgroundImageView
+{
+    if (!_ovenBackgroundImageView) {
+        UIImage *image = [UIImage imageNamed:@"ovenBackground"];
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+
+
+        CGFloat topMargin;
+        if ([HYPUtils isTallPhone]) {
+            topMargin = image.size.height + 110.0f;
+        } else {
+            topMargin = image.size.height + 60.0f;
+        }
+
+        CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+        CGFloat y = CGRectGetHeight(bounds) - topMargin;
+        _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, image.size.width, image.size.height)];
+        _ovenBackgroundImageView.image = image;
+    }
+    return _ovenBackgroundImageView;
+}
+
+- (UIImageView *)ovenShineImageView
+{
+    if (!_ovenShineImageView) {
+        _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
+        _ovenShineImageView.image = [UIImage imageNamed:@"ovenShine"];
+    }
+    return _ovenShineImageView;
 }
 
 - (UILabel *)titleLabel
@@ -91,13 +141,21 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat sideMargin = 20.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        CGFloat topMargin = 40.0f;//60.0f;
+
+        CGFloat topMargin;
+        if ([HYPUtils isTallPhone]) {
+            topMargin = 60.0f;
+        } else {
+            topMargin = 40.0f;
+        }
         CGFloat height = 25.0f;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _titleLabel.font = [HYPUtils avenirLightWithSize:12.0f];
-        _titleLabel.text = @"YOUR DISH WILL BE DONE IN";
+        _titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
+        _titleLabel.text = [HYPAlarm titleForHomescreen];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _titleLabel;
 }
@@ -112,9 +170,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat height = CGRectGetHeight(self.titleLabel.frame);
         _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
         _subtitleLabel.font = [HYPUtils avenirBlackWithSize:19.0f];
-        _subtitleLabel.text = @"ABOUT 20 MINUTES";
+        _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
         _subtitleLabel.textColor = [UIColor whiteColor];
+        _subtitleLabel.backgroundColor = [UIColor clearColor];
+        _subtitleLabel.adjustsFontSizeToFitWidth = YES;
     }
     return _subtitleLabel;
 }
@@ -128,15 +188,15 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 50.0f;
-        CGFloat topMargin = 50.0f; //110.0f;
+        CGFloat sideMargin = 55.0f;
+        CGFloat topMargin = self.topMargin;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
-        //[self applyTransformToLayer:_collectionView.layer usingFactor:0.30];
+        [self applyTransformToLayer:_collectionView.layer usingFactor:0.30];
     }
     return _collectionView;
 }
@@ -144,49 +204,158 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (UICollectionView *)ovenCollectionView
 {
     if (!_ovenCollectionView) {
-
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         CGFloat cellWidth = 120.0f;
         [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
         CGFloat sideMargin = 100.0f;
-        CGFloat topMargin = 50 + 270.0f;//380.0f;
+        CGFloat topMargin = self.topMargin + 240.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
         _ovenCollectionView.dataSource = self;
         _ovenCollectionView.delegate = self;
         _ovenCollectionView.backgroundColor = [UIColor clearColor];
-        //[self applyTransformToLayer:_ovenCollectionView.layer usingFactor:0.25];
+        [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:0.25];
     }
     return _ovenCollectionView;
 }
 
-- (UICollectionView *)selectedCollectionView
+#pragma mark - View Lifecycle
+
+- (void)viewDidLoad
 {
-    if (!_selectedCollectionView) {
+    [super viewDidLoad];
 
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 120.0f;
-        [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
-        [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-
-        CGFloat sideMargin = 100.0f;
-        CGFloat topMargin = -270.0f;//380.0f;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _selectedCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
-        _selectedCollectionView.dataSource = self;
-        _selectedCollectionView.delegate = self;
-        _selectedCollectionView.backgroundColor = [UIColor clearColor];
-        //[self applyTransformToLayer:_ovenCollectionView.layer usingFactor:0.25];
-
-        CGFloat scale = 3.0f;
-        CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-        _selectedCollectionView.transform = transform;
+    if ([HYPUtils isTallPhone]) {
+        self.topMargin = TALL_TOP_MARGIN;
+    } else {
+        self.topMargin = SHORT_TOP_MARGIN;
     }
-    return _selectedCollectionView;
+
+    [self.view addSubview:self.titleLabel];
+    [self.view addSubview:self.subtitleLabel];
+    [self.view addSubview:self.ovenBackgroundImageView];
+
+    [self.collectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
+    [self.ovenCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
+    [self.view addSubview:self.collectionView];
+    [self.view addSubview:self.ovenCollectionView];
+    [self.view addSubview:self.ovenShineImageView];
+    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
+
+#if IS_RELEASE_VERSION
+    [self.view addSubview:self.feedbackButton];
+#endif
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissedTimerController:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    if ([collectionView isEqual:self.collectionView]) {
+        NSInteger rows = self.alarms.count;
+        return rows;
+    }
+
+    NSInteger rows = self.ovenAlarms.count;
+    return rows;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    if ([collectionView isEqual:self.collectionView]) {
+        NSArray *array = [self.alarms objectAtIndex:0];
+        NSInteger rows = [array count];
+        return rows;
+    }
+
+    NSArray *array = [self.ovenAlarms objectAtIndex:0];
+    NSInteger rows = [array count];
+    return rows;
+}
+
+- (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath collectionView:collectionView];
+    return cell;
+}
+
+- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView;
+{
+    HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
+    alarm.indexPath = indexPath;
+    cell.timerControl.active = alarm.active;
+    [cell.timerControl addTarget:self action:@selector(timerControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [self refreshTimerInCell:cell forCurrentAlarm:alarm];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    HYPTimerViewController *timerController = [[HYPTimerViewController alloc] init];
+    timerController.delegate = self;
+    HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
+    timerController.alarm = alarm;
+    [self.navigationController pushViewController:timerController animated:YES];
+}
+
+#pragma mark - HYPTimerControllerDelegate
+
+- (void)dismissedTimerController:(HYPTimerViewController *)timerController
+{
+    self.maxMinutesLeft = nil;
+    [self.collectionView reloadData];
+    [self.ovenCollectionView reloadData];
+}
+
+- (void)timerControlChangedValue:(HYPTimerControl*)timerControl
+{
+    if ([self.maxMinutesLeft doubleValue] - 1 == timerControl.minutes) {
+        self.maxMinutesLeft = @(timerControl.minutes);
+    } else if ([self.maxMinutesLeft floatValue] == 0.0f && timerControl.minutes == 59.0f) {
+        self.maxMinutesLeft = nil;
+    }
+}
+
+#pragma mark - Feedback Action
+
+- (void)feedbackButtonPressed:(UIButton *)button
+{
+    BITFeedbackManager *manager = [[BITFeedbackManager alloc] init];
+    BITFeedbackComposeViewController *feedbackCompose = [manager feedbackComposeViewController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:feedbackCompose];
+    navController.modalPresentationStyle = UIModalPresentationFormSheet;
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+#pragma mark - Helpers
+
+- (HYPAlarm *)alarmAtIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView
+{
+    NSArray *row;
+    if ([collectionView isEqual:self.collectionView]) {
+        row = [self.alarms objectAtIndex:indexPath.section];
+    } else {
+        row = [self.ovenAlarms objectAtIndex:indexPath.section];
+    }
+    HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
+    return alarm;
 }
 
 - (void)applyTransformToLayer:(CALayer *)layer usingFactor:(CGFloat)factor
@@ -194,232 +363,43 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
     rotationAndPerspectiveTransform.m34 = 1.0 / -800.0;
     rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, M_PI * factor, 1.0f, 0.0f, 0.0f);
-
-    [UIView animateWithDuration:0.5 animations:^{
-        layer.anchorPoint = CGPointMake(0.5, 0);
-        layer.transform = rotationAndPerspectiveTransform;
-    }];
+    layer.anchorPoint = CGPointMake(0.5, 0);
+    layer.transform = rotationAndPerspectiveTransform;
 }
 
-- (void)viewDidLoad
+- (void)refreshTimerInCell:(HYPPlateCell *)cell forCurrentAlarm:(HYPAlarm *)alarm
 {
-    [super viewDidLoad];
+    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarm.alarmID];
 
-    //[self.view addSubview:self.titleLabel];
-    //[self.view addSubview:self.subtitleLabel];
+    if (existingNotification) {
+        NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];
+        NSNumber *numberOfSeconds = [existingNotification.userInfo objectForKey:ALARM_FIRE_INTERVAL_KEY];
 
-    //[self.view addSubview:self.unactiveImageView];
-    //[self.view addSubview:self.activeImageView];
-    //[self.view addSubview:self.timerImageView];
-    [self.collectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
-    [self.ovenCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
-    [self.selectedCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
-    [self.view addSubview:self.collectionView];
-    [self.view addSubview:self.ovenCollectionView];
-    [self.view addSubview:self.selectedCollectionView];
-}
+        // Fired date + amount of seconds = target date
+        NSTimeInterval secondsPassed = [[NSDate date] timeIntervalSinceDate:firedDate];
+        NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
+        NSTimeInterval currentSecond = secondsLeft % 60;
+        NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
+        if (minutesLeft < 0) { // clean up weird alarms
+            [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
+        }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    if ([collectionView isEqual:self.collectionView]) {
-        return 4;
-    }
+        if (minutesLeft >= [self.maxMinutesLeft doubleValue]) {
+            self.maxMinutesLeft = @(minutesLeft);
+        }
 
-    return 1;
-}
-
-- (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
-    return cell;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    HYPPlateCell *cell = (HYPPlateCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.active = !cell.isActive;
-
-    if (self.kitchenIsMinized) {
-        [self big];
+        alarm.active = YES;
+        cell.timerControl.active = YES;
+        cell.timerControl.alarmID = alarm.alarmID;
+        cell.timerControl.minutes = minutesLeft;
+        cell.timerControl.seconds = currentSecond;
+        [cell.timerControl startTimer];
     } else {
-        [self small];
+        alarm.active = NO;
+        cell.timerControl.active = NO;
+        [cell.timerControl restartTimer];
+        [cell.timerControl stopTimer];
     }
-}
-
-- (void)small
-{
-    self.kitchenCenter = self.collectionView.center;
-    self.ovenCenter = self.ovenCollectionView.center;
-    self.totalCenter = self.selectedCollectionView.center;
-
-    CGFloat scale = 0.3;
-    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-    CGAffineTransform fullTransform = CGAffineTransformMakeScale(2.0, 2.0);
-    CGPoint kitchenCenter = CGPointMake(self.view.center.x, self.view.center.y + 170.0f);
-    CGPoint ovenCenter = CGPointMake(self.view.center.x, self.view.center.y + 220.0f);
-    CGPoint fullCenter = CGPointMake(self.view.center.x, self.view.center.y - 90.0f);
-
-    [UIView animateWithDuration:0.3 animations:^{
-        self.titleLabel.alpha = 0.0f;
-        self.subtitleLabel.alpha = 0.0f;
-        self.collectionView.alpha = 0.0f;
-        self.ovenCollectionView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-
-        self.collectionView.transform = transform;
-        self.ovenCollectionView.transform = transform;
-        self.selectedCollectionView.transform = fullTransform;
-
-        self.collectionView.center = kitchenCenter;
-        self.ovenCollectionView.center = ovenCenter;
-        self.selectedCollectionView.center = fullCenter;
-
-        [UIView animateWithDuration:0.3 animations:^{
-            self.collectionView.alpha = 1.0f;
-            self.ovenCollectionView.alpha = 1.0f;
-            self.selectedCollectionView.alpha = 1.0f;
-
-        }];
-    }];
-
-    self.kitchenIsMinized = !self.kitchenIsMinized;
-}
-
-- (void)big
-{
-    CGFloat scale = 1.0f;
-    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-    CGAffineTransform fullTransform = CGAffineTransformMakeScale(3.0f, 3.0f);
-
-    [UIView animateWithDuration:0.3 animations:^{
-        self.collectionView.alpha = 0.0f;
-        self.ovenCollectionView.alpha = 0.0f;
-        self.selectedCollectionView.alpha = 0.0f;
-    } completion:^(BOOL finished) {
-
-        self.collectionView.transform = transform;
-        self.ovenCollectionView.transform = transform;
-        self.selectedCollectionView.transform = fullTransform;
-
-        self.collectionView.center = self.kitchenCenter;
-        self.ovenCollectionView.center = self.ovenCenter;
-        self.selectedCollectionView.center = self.totalCenter;
-
-        [UIView animateWithDuration:0.3 animations:^{
-            self.titleLabel.alpha = 1.0f;
-            self.subtitleLabel.alpha = 1.0f;
-            self.collectionView.alpha = 1.0f;
-            self.ovenCollectionView.alpha = 1.0f;
-        }];
-
-    }];
-
-    self.kitchenIsMinized = !self.kitchenIsMinized;
-}
-
-/*- (void)small
-{
-    self.kitchenPoint = self.collectionView.center;
-    self.ovenPoint = self.ovenCollectionView.center;
-    self.totalPoint = self.selectedCollectionView.center;
-
-    CGFloat scale = 0.3;
-    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-    CGPoint kitchenCenter = CGPointMake(self.view.center.x, self.view.center.y + 170.0f);
-    CGPoint ovenCenter = CGPointMake(self.view.center.x, self.view.center.y + 220.0f);
-    CGPoint fullCenter = CGPointMake(self.view.center.x, self.view.center.y - 90.0f);
-
-    CGAffineTransform fullTransform = CGAffineTransformMakeScale(2.0, 2.0);
-
-    [UIView animateWithDuration:0.3 delay:0.2 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.timerImageView.alpha = 1.0f;
-    } completion:NULL];
-
-    [UIView animateWithDuration:0.4 animations:^{
-        self.titleLabel.alpha = 0.0f;
-        self.subtitleLabel.alpha = 0.0f;
-
-        self.collectionView.transform = transform;
-        self.ovenCollectionView.transform = transform;
-        self.selectedCollectionView.transform = fullTransform;
-
-        self.collectionView.center = kitchenCenter;
-        self.ovenCollectionView.center = ovenCenter;
-        self.selectedCollectionView.center = fullCenter;
-    }];
-
-    self.kitchenIsMinized = !self.kitchenIsMinized;
-}
-
-- (void)big
-{
-    CGFloat scale = 1.0f;
-    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-    CGAffineTransform fullTransform = CGAffineTransformMakeScale(3.0f, 3.0f);
-
-    [UIView animateWithDuration:0.4 animations:^{
-        self.timerImageView.alpha = 0.0f;
-
-        self.titleLabel.alpha = 1.0f;
-        self.subtitleLabel.alpha = 1.0f;
-
-        self.collectionView.transform = transform;
-        self.ovenCollectionView.transform = transform;
-        self.selectedCollectionView.transform = fullTransform;
-
-        self.collectionView.center = self.kitchenPoint;
-        self.ovenCollectionView.center = self.ovenPoint;
-        self.selectedCollectionView.center = self.totalPoint;
-    }];
-    
-    self.kitchenIsMinized = !self.kitchenIsMinized;
-}*/
-
-- (void)activeImageViewPressed
-{
-    CGFloat scale = 0.3;
-    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-    CGPoint center = CGPointMake(self.view.center.x, self.view.center.y + 170.0f);
-
-    [UIView animateWithDuration:0.3 delay:0.2 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-        self.timerImageView.alpha = 1.0f;
-    } completion:NULL];
-
-    [UIView animateWithDuration:0.4 animations:^{
-        self.titleLabel.alpha = 0.0f;
-        self.subtitleLabel.alpha = 0.0f;
-        self.activeImageView.alpha = 0.0f;
-        self.unactiveImageView.alpha = 1.0f;
-        self.activeImageView.transform = transform;
-        self.unactiveImageView.transform = transform;
-        self.activeImageView.center = center;
-        self.unactiveImageView.center = center;
-    } completion:^(BOOL finished) {
-        self.unactiveImageView.userInteractionEnabled = YES;
-        self.activeImageView.userInteractionEnabled = NO;
-    }];
-}
-
-- (void)unactiveImageViewPressed
-{
-    CGFloat scale = 1.0f;
-    CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-    CGPoint center = CGPointMake(160, 270);
-
-    [UIView animateWithDuration:0.35f animations:^{
-        self.timerImageView.alpha = 0.0f;
-        self.titleLabel.alpha = 1.0f;
-        self.subtitleLabel.alpha = 1.0f;
-        self.activeImageView.alpha = 1.0f;
-        self.unactiveImageView.alpha = 0.0f;
-        self.activeImageView.transform = transform;
-        self.unactiveImageView.transform = transform;
-        self.activeImageView.center = center;
-        self.unactiveImageView.center = center;
-    } completion:^(BOOL finished) {
-        self.unactiveImageView.userInteractionEnabled = NO;
-        self.activeImageView.userInteractionEnabled = YES;
-    }];
 }
 
 @end

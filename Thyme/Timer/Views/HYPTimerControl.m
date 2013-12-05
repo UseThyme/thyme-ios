@@ -15,21 +15,20 @@
 #import "HYPMathHelpers.h"
 #import <CoreText/CoreText.h>
 #import "HYPTimerControl+DrawingMethods.h"
-
-#define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
-#define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
-#define C_DEFAULT_TEXT @"------------------YOUR MEAL WILL BE READY IN------------------"
+#import <AVFoundation/AVAudioPlayer.h>
 
 /** Parameters **/
 #define CIRCLE_COLOR [UIColor colorFromHexString:@"bcf5e9"]
 #define CIRCLE_SIZE_FACTOR 0.8f
 #define KNOB_COLOR [UIColor colorFromHexString:@"ff5c5c"]
-#define ALARM_ID @"THYME_ALARM_ID_0"
+#define MINUTE_VALUE_SIZE 95.0f
+#define MINUTE_TITLE_SIZE 14.0f
 
 @interface HYPTimerControl ()
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
+@property (nonatomic, getter = isHoursMode) BOOL hoursMode;
 @property (nonatomic, strong) NSTimer *timer;
 @end
 
@@ -38,14 +37,20 @@
 - (UILabel *)minutesValueLabel
 {
     if (!_minutesValueLabel) {
+
         //Define the Font
-        UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:95.0f];
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat defaultSize = (self.showSubtitle) ? MINUTE_VALUE_SIZE : MINUTE_VALUE_SIZE * 1.5;
+        CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
         NSString *sampleString = @"000";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
-        CGSize fontSize = [sampleString sizeWithAttributes:attributes];
+
+        CGSize textSize = [sampleString sizeWithAttributes:attributes];
+        CGFloat yOffset = 20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds);//(self.showSubtitle) ? floor(20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)) : 0;
         CGFloat x = 0;
-        CGFloat y = (self.frame.size.height - fontSize.height) / 2 - 20.0f;
-        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), fontSize.height);
+        CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
+        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
         _minutesValueLabel = [[UILabel alloc] initWithFrame:rect];
         _minutesValueLabel.backgroundColor = [UIColor clearColor];
         _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
@@ -59,14 +64,19 @@
 - (UILabel *)minutesTitleLabel
 {
     if (!_minutesTitleLabel) {
+
         //Define the Font
-        UIFont *font = [HYPUtils avenirLightWithSize:14.0f];
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat fontSize = floor(MINUTE_TITLE_SIZE * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
         NSString *sampleString = @"MINUTES LEFT";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
-        CGSize fontSize = [sampleString sizeWithAttributes:attributes];
+
+        CGSize textSize = [sampleString sizeWithAttributes:attributes];
         CGFloat x = 0;
-        CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - 5.0f;
-        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), fontSize.height);
+        CGFloat yOffset = floor(5.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
+        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
         _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
         _minutesTitleLabel.backgroundColor = [UIColor clearColor];
         _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
@@ -83,24 +93,45 @@
     self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
 }
 
-- (void)setMinutesLeft:(NSTimeInterval)minutesLeft
+- (void)setMinutes:(NSTimeInterval)minutes
 {
-    _minutesLeft = minutesLeft;
-    self.angle = minutesLeft * 6;
+    _minutes = minutes;
+    self.angle = minutes * 6;
     [self setNeedsDisplay];
+}
+
+- (id)initShowingSubtitleWithFrame:(CGRect)frame
+{
+    return [self initWithFrame:frame showingSubtitle:YES];
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
+    return [self initWithFrame:frame showingSubtitle:NO];
+}
+
+- (id)initWithFrame:(CGRect)frame showingSubtitle:(BOOL)showingSubtitle
+{
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
+        self.showSubtitle = showingSubtitle;
         self.angle = 0;
+        self.title = [HYPAlarm messageForSetAlarm];
         [self addSubview:self.minutesValueLabel];
-        [self addSubview:self.minutesTitleLabel];
-        self.title = A_DEFAULT_TEXT;
+        if (self.showSubtitle) {
+            [self addSubview:self.minutesTitleLabel];
+        }
     }
     return self;
+}
+
+- (void)setActive:(BOOL)active
+{
+    _active = active;
+    self.minutesValueLabel.hidden = !_active;
+    self.angle = 0;
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -113,17 +144,27 @@
     CGFloat sideMargin = floor(CGRectGetWidth(rect) * (1.0f - transform) / 2);
     CGFloat length = CGRectGetWidth(rect) * transform;
     CGRect circleRect = CGRectMake(sideMargin, sideMargin, length, length);
-    [self drawCircle:context withColor:CIRCLE_COLOR inRect:circleRect];
+    UIColor *circleColor = (self.isActive) ? CIRCLE_COLOR : [UIColor colorWithWhite:1.0f alpha:0.4f];
+    [self drawCircle:context withColor:circleColor inRect:circleRect];
 
-    CGFloat radius = CGRectGetWidth(circleRect) / 2;
-    [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius angle:self.angle];
+    if (self.isActive) {
 
-    UIColor *secondsColor = KNOB_COLOR;
-    if (self.timer && [self.timer isValid]) {
-        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.1];
+        CGFloat radius = CGRectGetWidth(circleRect) / 2;
+        [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius angle:self.angle containerRect:circleRect];
+
+        UIColor *secondsColor = KNOB_COLOR;
+        if (self.timer && [self.timer isValid]) {
+            CGFloat factor = (self.showSubtitle) ? 0.1f : 0.2f;
+            [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * factor containerRect:circleRect];
+        }
+
+        if (self.showSubtitle) {
+            [self drawText:context rect:rect];
+        }
+    } else {
+        UIColor *secondsColor = [UIColor whiteColor];
+        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2 containerRect:circleRect];
     }
-
-    [self drawText:context rect:rect];
 }
 
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
@@ -135,9 +176,8 @@
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super continueTrackingWithTouch:touch withEvent:event];
-    self.title = B_DEFAULT_TEXT;
+    self.title = [HYPAlarm messageForReleaseToSetAlarm];
     [self stopTimer];
-
     CGPoint lastPoint = [touch locationInView:self];
     [self evaluateMinutesUsingPoint:lastPoint];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -151,16 +191,25 @@
     //Calculate the direction from the center point to an arbitrary position.
     CGFloat currentAngle = AngleFromNorth(centerPoint, lastPoint, YES);
     NSInteger angle = floor(currentAngle);
+
+    CGFloat nextminutes = angle / 6;
+    if (self.minutes == 59.0f && nextminutes == 0.0f) {
+        // HOURS!
+    }
+
+    self.minutes = angle / 6;
     self.angle = angle;
-    self.minutesLeft = self.angle / 6;
     [self setNeedsDisplay];
-    // Draw chart
 }
 
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super endTrackingWithTouch:touch withEvent:event];
-    [self performSelector:@selector(startAlarm) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.2f];
+
+    if (self.minutes == 0.0f) {
+        self.angle = 0;
+    }
 }
 
 - (void)startAlarm
@@ -169,9 +218,9 @@
     [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
     
     if (numberOfSeconds == 0) {
-        self.title = A_DEFAULT_TEXT;
+        self.title = [HYPAlarm messageForSetAlarm];
     } else {
-        self.title = C_DEFAULT_TEXT;
+        self.title = [self.alarm timerTitle];
     }
     [self setNeedsDisplay];
 }
@@ -180,47 +229,59 @@
 {
     self.seconds -= 1;
     if (self.seconds < 0) {
-        self.angle = (self.minutesLeft - 1) * 6;
+        self.angle = (self.minutes - 1) * 6;
         self.seconds = 59;
-        self.minutesLeft--;
+        self.minutes--;
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 
-    if (self.minutesLeft == 0 && self.seconds == 0) {
-        self.angle = 0;
-        self.seconds = 0;
-        self.minutesLeft = 0;
-        self.title = A_DEFAULT_TEXT;
+    if (self.minutes == 0 && self.seconds == 0) {
+        [self restartTimer];
+        self.title = [HYPAlarm messageForSetAlarm];
         [self stopTimer];
     }
 
     [self setNeedsDisplay];
 }
 
+- (void)restartTimer
+{
+    self.minutes = 59;
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    self.angle = 0;
+    self.seconds = 0;
+    self.minutes = 0;
+}
+
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
 {
-    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:ALARM_ID];
+    if (!self.alarmID) {
+        abort();
+    }
+
+    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:self.alarmID];
+    BOOL createNotification = (numberOfSeconds > 0);
 
     if (existingNotification) {
-        NSLog(@"notification exists");
         [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
-        
-        if (numberOfSeconds == 0) {
-            NSLog(@"just cancel");
-        } else {
-            NSLog(@"update local notification");
-            [self createNotificationUsingNumberOfSeconds:numberOfSeconds];
-        }
-    } else if (numberOfSeconds > 0) {
-        NSLog(@"create new notification");
+    }
+
+    if (createNotification) {
         [self createNotificationUsingNumberOfSeconds:numberOfSeconds];
     }
 }
 
+
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
+    if (!self.alarmID) {
+        abort();
+    }
+
     self.seconds = 0;
     [self startTimer];
-    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:@"Your meal is ready!" actionTitle:@"View Details" alarmID:ALARM_ID];
+    NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
+    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
 }
 
 - (void)stopTimer
