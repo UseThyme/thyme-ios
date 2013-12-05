@@ -29,6 +29,9 @@
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
 @property (nonatomic, strong) NSTimer *timer;
+
+@property (nonatomic) CGPoint startingPoint;
+
 @end
 
 @implementation HYPTimerControl
@@ -169,6 +172,7 @@
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super beginTrackingWithTouch:touch withEvent:event];
+    self.startingPoint = [touch locationInView:self];
     return YES;
 }
 
@@ -179,8 +183,17 @@
     [self stopTimer];
 
     CGPoint lastPoint = [touch locationInView:self];
-    [self evaluateMinutesUsingPoint:lastPoint];
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    NSLog(@"startingPoint: %@", NSStringFromCGPoint(self.startingPoint));
+    NSLog(@"point: %@", NSStringFromCGPoint(lastPoint));
+
+    CGFloat blockCoordinate = CGRectGetWidth(self.frame) / 2.0f;
+    if (lastPoint.x < blockCoordinate && self.minutesLeft == 0) {
+        NSLog(@"BLOCK");
+    } else {
+        [self evaluateMinutesUsingPoint:lastPoint];
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
+    }
+    NSLog(@" ");
     return YES;
 }
 
