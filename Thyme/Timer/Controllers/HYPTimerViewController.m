@@ -106,7 +106,7 @@
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
 
         self.timerControl.title = [self.alarm timerTitle];
-        self.timerControl.minutesLeft = minutesLeft;
+        self.timerControl.minutes = minutesLeft;
         self.timerControl.seconds = currentSecond;
         [self.timerControl startTimer];
     }

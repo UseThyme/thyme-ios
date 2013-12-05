@@ -28,6 +28,7 @@
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
 @property (nonatomic) NSInteger angle;
+@property (nonatomic, getter = isHoursMode) BOOL hoursMode;
 @property (nonatomic, strong) NSTimer *timer;
 @end
 
@@ -92,10 +93,10 @@
     self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
 }
 
-- (void)setMinutesLeft:(NSTimeInterval)minutesLeft
+- (void)setMinutes:(NSTimeInterval)minutes
 {
-    _minutesLeft = minutesLeft;
-    self.angle = minutesLeft * 6;
+    _minutes = minutes;
+    self.angle = minutes * 6;
     [self setNeedsDisplay];
 }
 
@@ -179,14 +180,17 @@
     [self stopTimer];
 
     CGPoint lastPoint = [touch locationInView:self];
+    NSLog(@"l: %@", NSStringFromCGPoint(lastPoint));
+
     CGFloat blockCoordinate = CGRectGetWidth(self.frame) / 2.0f;
-    if (lastPoint.x < blockCoordinate && self.minutesLeft == 0) {
-       NSLog(@"BLOCK");
+    if (lastPoint.x < blockCoordinate && self.minutes == 0.0f) {
+       // Block touches since we are going back from 0 to 59
+        NSLog(@"BLOCK");
     } else {
+        NSLog(@"DON'T BLOCK");
         [self evaluateMinutesUsingPoint:lastPoint];
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
-    NSLog(@" ");
     return YES;
 }
 
@@ -197,8 +201,14 @@
     //Calculate the direction from the center point to an arbitrary position.
     CGFloat currentAngle = AngleFromNorth(centerPoint, lastPoint, YES);
     NSInteger angle = floor(currentAngle);
+
+    CGFloat nextminutes = angle / 6;
+    if (self.minutes == 59.0f && nextminutes == 0.0f) {
+        // HOURS!
+    }
+
+    self.minutes = angle / 6;
     self.angle = angle;
-    self.minutesLeft = self.angle / 6;
     [self setNeedsDisplay];
 }
 
@@ -206,6 +216,10 @@
 {
     [super endTrackingWithTouch:touch withEvent:event];
     [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.2f];
+
+    if (self.minutes == 0.0f) {
+        self.angle = 0;
+    }
 }
 
 - (void)startAlarm
@@ -225,13 +239,13 @@
 {
     self.seconds -= 1;
     if (self.seconds < 0) {
-        self.angle = (self.minutesLeft - 1) * 6;
+        self.angle = (self.minutes - 1) * 6;
         self.seconds = 59;
-        self.minutesLeft--;
+        self.minutes--;
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 
-    if (self.minutesLeft == 0 && self.seconds == 0) {
+    if (self.minutes == 0 && self.seconds == 0) {
         [self restartTimer];
         self.title = [HYPAlarm messageForSetAlarm];
         [self stopTimer];
@@ -242,11 +256,11 @@
 
 - (void)restartTimer
 {
-    self.minutesLeft = 59;
+    self.minutes = 59;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
     self.angle = 0;
     self.seconds = 0;
-    self.minutesLeft = 0;
+    self.minutes = 0;
 }
 
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds

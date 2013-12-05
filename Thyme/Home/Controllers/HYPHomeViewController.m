@@ -243,6 +243,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
     [self.view addSubview:self.ovenShineImageView];
+    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
 
 #if IS_RELEASE_VERSION
     [self.view addSubview:self.feedbackButton];
@@ -325,9 +326,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 - (void)timerControlChangedValue:(HYPTimerControl*)timerControl
 {
-    if ([self.maxMinutesLeft doubleValue] - 1 == timerControl.minutesLeft) {
-        self.maxMinutesLeft = @(timerControl.minutesLeft);
-    } else if ([self.maxMinutesLeft floatValue] == 0.0f && timerControl.minutesLeft == 59.0f) {
+    if ([self.maxMinutesLeft doubleValue] - 1 == timerControl.minutes) {
+        self.maxMinutesLeft = @(timerControl.minutes);
+    } else if ([self.maxMinutesLeft floatValue] == 0.0f && timerControl.minutes == 59.0f) {
         self.maxMinutesLeft = nil;
     }
 }
@@ -390,7 +391,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         alarm.active = YES;
         cell.timerControl.active = YES;
         cell.timerControl.alarmID = alarm.alarmID;
-        cell.timerControl.minutesLeft = minutesLeft;
+        cell.timerControl.minutes = minutesLeft;
         cell.timerControl.seconds = currentSecond;
         [cell.timerControl startTimer];
     } else {
