@@ -226,16 +226,21 @@
     }
 
     if (self.minutesLeft == 0 && self.seconds == 0) {
-        self.minutesLeft = 59;
-        [self sendActionsForControlEvents:UIControlEventValueChanged];
-        self.angle = 0;
-        self.seconds = 0;
-        self.minutesLeft = 0;
+        [self restartTimer];
         self.title = [HYPAlarm messageForSetAlarm];
         [self stopTimer];
     }
 
     [self setNeedsDisplay];
+}
+
+- (void)restartTimer
+{
+    self.minutesLeft = 59;
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
+    self.angle = 0;
+    self.seconds = 0;
+    self.minutesLeft = 0;
 }
 
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds

@@ -23,6 +23,7 @@
 @property (nonatomic, getter = isActive) BOOL active;
 
 - (id)initShowingSubtitleWithFrame:(CGRect)frame;
+- (void)restartTimer;
 - (void)startTimer;
 - (void)stopTimer;
 
