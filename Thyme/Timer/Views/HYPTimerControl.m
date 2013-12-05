@@ -178,19 +178,9 @@
     [super continueTrackingWithTouch:touch withEvent:event];
     self.title = [HYPAlarm messageForReleaseToSetAlarm];
     [self stopTimer];
-
     CGPoint lastPoint = [touch locationInView:self];
-    NSLog(@"l: %@", NSStringFromCGPoint(lastPoint));
-
-    CGFloat blockCoordinate = CGRectGetWidth(self.frame) / 2.0f;
-    if (lastPoint.x < blockCoordinate && self.minutes == 0.0f) {
-       // Block touches since we are going back from 0 to 59
-        NSLog(@"BLOCK");
-    } else {
-        NSLog(@"DON'T BLOCK");
-        [self evaluateMinutesUsingPoint:lastPoint];
-        [self sendActionsForControlEvents:UIControlEventValueChanged];
-    }
+    [self evaluateMinutesUsingPoint:lastPoint];
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
     return YES;
 }
 
