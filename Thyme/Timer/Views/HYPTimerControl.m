@@ -199,7 +199,7 @@
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super endTrackingWithTouch:touch withEvent:event];
-    [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.5f];
+    [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.2f];
 }
 
 - (void)startAlarm
