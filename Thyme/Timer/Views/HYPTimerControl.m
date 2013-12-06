@@ -18,21 +18,58 @@
 #import <AVFoundation/AVAudioPlayer.h>
 
 /** Parameters **/
-#define CIRCLE_COLOR [UIColor colorFromHexString:@"bcf5e9"]
 #define CIRCLE_SIZE_FACTOR 0.8f
-#define KNOB_COLOR [UIColor colorFromHexString:@"ff5c5c"]
 #define MINUTE_VALUE_SIZE 95.0f
 #define MINUTE_TITLE_SIZE 14.0f
 
+#define UNACTIVE_SECONDS_INDICATOR_COLOR [UIColor whiteColor]
+#define ACTIVE_SECONDS_INDICATOR_COLOR [UIColor colorFromHexString:@"ff5c5c"]
+#define MINUTES_INDICATOR_COLOR [UIColor whiteColor]
+
 @interface HYPTimerControl ()
+@property (nonatomic, strong) UILabel *hoursLabel;
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
+
+@property (nonatomic) CGRect circleRect;
 @property (nonatomic) NSInteger angle;
 @property (nonatomic, getter = isHoursMode) BOOL hoursMode;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic) CGPoint lastPoint;
+@property (nonatomic) BOOL activateTouches;
 @end
 
 @implementation HYPTimerControl
+
+#pragma mark - Getters
+
+- (UILabel *)hoursLabel
+{
+    if (!_hoursLabel) {
+
+        //Define the Font
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat defaultSize = (self.simpleMode) ? MINUTE_TITLE_SIZE : MINUTE_TITLE_SIZE * 1.5;
+        CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
+        NSString *sampleString = @"2 HOURS";
+        NSDictionary *attributes = @{ NSFontAttributeName:font };
+
+        CGSize textSize = [sampleString sizeWithAttributes:attributes];
+        CGFloat yOffset = self.minutesValueLabel.frame.origin.y - 8.0f;
+        CGFloat x = 0;
+        CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
+        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
+        _hoursLabel = [[UILabel alloc] initWithFrame:rect];
+        _hoursLabel.backgroundColor = [UIColor clearColor];
+        _hoursLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+        _hoursLabel.textAlignment = NSTextAlignmentCenter;
+        _hoursLabel.font = font;
+        _hoursLabel.text = sampleString;
+        _hoursLabel.hidden = YES;
+    }
+    return _hoursLabel;
+}
 
 - (UILabel *)minutesValueLabel
 {
@@ -40,14 +77,14 @@
 
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat defaultSize = (self.showSubtitle) ? MINUTE_VALUE_SIZE : MINUTE_VALUE_SIZE * 1.5;
+        CGFloat defaultSize = (self.simpleMode) ? MINUTE_VALUE_SIZE : MINUTE_VALUE_SIZE * 1.5;
         CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
         NSString *sampleString = @"000";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
 
         CGSize textSize = [sampleString sizeWithAttributes:attributes];
-        CGFloat yOffset = 20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds);//(self.showSubtitle) ? floor(20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)) : 0;
+        CGFloat yOffset = 20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds);
         CGFloat x = 0;
         CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
         CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
@@ -87,18 +124,33 @@
     return _minutesTitleLabel;
 }
 
+#pragma mark - Setters
+
 - (void)setAngle:(NSInteger)angle
 {
     _angle = angle;
     self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
 }
 
-- (void)setMinutes:(NSTimeInterval)minutes
+- (void)setMinutes:(NSInteger)minutes
 {
     _minutes = minutes;
     self.angle = minutes * 6;
+    if (_minutes > 0) {
+        self.activateTouches = YES;
+    }
     [self setNeedsDisplay];
 }
+
+- (void)setActive:(BOOL)active
+{
+    _active = active;
+    self.minutesValueLabel.hidden = !_active;
+    self.angle = 0;
+    [self setNeedsDisplay];
+}
+
+#pragma mark - Initializators
 
 - (id)initShowingSubtitleWithFrame:(CGRect)frame
 {
@@ -115,24 +167,19 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        self.showSubtitle = showingSubtitle;
+        self.simpleMode = showingSubtitle;
         self.angle = 0;
         self.title = [HYPAlarm messageForSetAlarm];
         [self addSubview:self.minutesValueLabel];
-        if (self.showSubtitle) {
+        if (self.simpleMode) {
             [self addSubview:self.minutesTitleLabel];
+            [self addSubview:self.hoursLabel];
         }
     }
     return self;
 }
 
-- (void)setActive:(BOOL)active
-{
-    _active = active;
-    self.minutesValueLabel.hidden = !_active;
-    self.angle = 0;
-    [self setNeedsDisplay];
-}
+#pragma mark - Drawing
 
 - (void)drawRect:(CGRect)rect
 {
@@ -140,48 +187,212 @@
 
     CGContextRef context = UIGraphicsGetCurrentContext();
 
+    UIColor *circleColor = [self colorForMinutesIndicator];
     CGFloat transform = CIRCLE_SIZE_FACTOR;
     CGFloat sideMargin = floor(CGRectGetWidth(rect) * (1.0f - transform) / 2);
     CGFloat length = CGRectGetWidth(rect) * transform;
     CGRect circleRect = CGRectMake(sideMargin, sideMargin, length, length);
-    UIColor *circleColor = (self.isActive) ? CIRCLE_COLOR : [UIColor colorWithWhite:1.0f alpha:0.4f];
     [self drawCircle:context withColor:circleColor inRect:circleRect];
+    self.circleRect = circleRect;
 
     if (self.isActive) {
-
         CGFloat radius = CGRectGetWidth(circleRect) / 2;
-        [self drawMinutesIndicator:context withColor:[UIColor whiteColor] radius:radius angle:self.angle containerRect:circleRect];
+        UIColor *minutesColor = MINUTES_INDICATOR_COLOR;
+        [self drawMinutesIndicator:context withColor:minutesColor radius:radius angle:self.angle containerRect:circleRect];
 
-        UIColor *secondsColor = KNOB_COLOR;
-        if (self.timer && [self.timer isValid]) {
-            CGFloat factor = (self.showSubtitle) ? 0.1f : 0.2f;
+        UIColor *secondsColor = ACTIVE_SECONDS_INDICATOR_COLOR;
+        BOOL shouldShowSeconds = (self.timer && [self.timer isValid]);
+        if (shouldShowSeconds) {
+            CGFloat factor = (self.simpleMode) ? 0.1f : 0.2f;
             [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * factor containerRect:circleRect];
         }
 
-        if (self.showSubtitle) {
+        if (self.simpleMode) {
             [self drawText:context rect:rect];
         }
     } else {
-        UIColor *secondsColor = [UIColor whiteColor];
+        UIColor *secondsColor = UNACTIVE_SECONDS_INDICATOR_COLOR;
         [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2 containerRect:circleRect];
     }
 }
 
+#pragma mark - Drawing Helpers
+
+- (UIColor *)colorForMinutesIndicator
+{
+    CGFloat saturationBaseOffset = 1.0f;
+    CGFloat saturationBase = 0.20f;
+    CGFloat saturationBasedOnAngle = saturationBase * (self.angle/360.0f) + saturationBaseOffset;
+
+    UIColor *normalCircleColor = [UIColor colorWithHue:167.0f/360.0f saturation:0.20f brightness:0.96f alpha:1.0f];
+    UIColor *calculatedColor = [UIColor colorWithHue:167.0f/360.0f saturation:saturationBasedOnAngle brightness:0.96f alpha:1.0f];
+    UIColor *unactiveCircleColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
+
+    UIColor *circleColor;
+    if (self.isActive) {
+        if (self.isHoursMode) {
+            circleColor = calculatedColor;
+        } else {
+            circleColor = normalCircleColor;
+        }
+    } else {
+        circleColor = unactiveCircleColor;
+    }
+    return circleColor;
+}
+
+#pragma mark - UIControl Overwritable methods
+
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super beginTrackingWithTouch:touch withEvent:event];
+    self.title = [HYPAlarm messageForReleaseToSetAlarm];
+    [self stopTimer];
     return YES;
 }
 
 - (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super continueTrackingWithTouch:touch withEvent:event];
-    self.title = [HYPAlarm messageForReleaseToSetAlarm];
-    [self stopTimer];
-    CGPoint lastPoint = [touch locationInView:self];
-    [self evaluateMinutesUsingPoint:lastPoint];
+
+    CGPoint currentPoint = [touch locationInView:self];
+
+    if (self.activateTouches) {
+
+        BOOL shouldBlockTouchesForPoint = [self shouldBlockTouchesForPoint:currentPoint];
+        if (shouldBlockTouchesForPoint) {
+            self.title = [HYPAlarm messageForSetAlarm];
+            self.activateTouches = NO;
+            self.angle = 0;
+            [self setNeedsDisplay];
+            return YES;
+        } else {
+            [self handleTouchesForPoint:currentPoint];
+        }
+
+    } else {
+        [self activateTouchesForPointIfValid:currentPoint];
+    }
+
+    self.lastPoint = currentPoint;
+
+
+    /*if (self.minutes == 0 && self.hours == 0) {
+
+        // only accept things to the right
+        CGFloat topMargin = CGRectGetMinY(self.frame);
+        CGRect firstQuadrandRect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, - topMargin, CGRectGetMaxX(self.circleRect), CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
+        BOOL currentPointIsInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, self.lastPoint);
+        if (currentPointIsInFirstQuadrand) {
+            return YES;
+        }
+
+        BOOL lastPointWasInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, self.lastPoint);
+        if (!lastPointWasInFirstQuadrand) {
+            NSLog(@"YES");
+            self.lastPoint = currentPoint;
+            return YES;
+        } else {
+            NSLog(@"NO");
+        }
+    }
+    [self evaluateMinutesUsingPoint:currentPoint];
     [self sendActionsForControlEvents:UIControlEventValueChanged];
+    self.lastPoint = currentPoint;*/
+
+    // start in 0
+    // if 0
+    // work only to the right
+
+    /*CGFloat topMargin = CGRectGetMinY(self.frame);
+    CGRect firstQuadrandRect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, - topMargin, CGRectGetMaxX(self.circleRect), CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
+    BOOL lastPointWasInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, self.lastPoint);
+
+    CGRect secondQuadrandRect = CGRectMake(0.0f, - topMargin, CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
+    BOOL currentPointWasInSecondQuadrand = CGRectContainsPoint(secondQuadrandRect, currentPoint);
+
+    CGFloat xBlockCoordinate = CGRectGetWidth(self.frame) / 2.0f;
+    BOOL x = (currentPoint.x < xBlockCoordinate);
+
+    CGFloat yBlockCoordinate = CGRectGetHeight(self.frame) / 2.0f;
+    BOOL y = (currentPoint.y < yBlockCoordinate);
+
+    if (!self.isHoursMode && x && lastPointWasInFirstQuadrand) {
+       // Block touches since we are going back from 0 to 59
+        self.angle = 0;
+        [self setNeedsDisplay];
+        NSLog(@"BLOCK");
+    } else {
+        [self evaluateMinutesUsingPoint:currentPoint];
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
+        self.lastPoint = currentPoint;
+    }*/
+
+
     return YES;
+}
+
+- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    [super endTrackingWithTouch:touch withEvent:event];
+    [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.2f];
+    self.lastPoint = CGPointZero;
+
+    if (self.minutes == 0) {
+        self.angle = 0;
+        self.activateTouches = NO;
+    }
+}
+
+#pragma mark - Helpers
+
+- (void)handleTouchesForPoint:(CGPoint)currentPoint
+{
+    self.title = [HYPAlarm messageForReleaseToSetAlarm];
+    [self evaluateMinutesUsingPoint:currentPoint];
+    self.lastPoint = currentPoint;
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
+- (void)activateTouchesForPointIfValid:(CGPoint)currentPoint
+{
+    BOOL currentPointIsInFirstQuadrand = CGRectContainsPoint([self firstQuadrandRect], currentPoint);
+    BOOL lastPointWasInSecondQuadrand = CGRectContainsPoint([self secondQuadrandRect], self.lastPoint);
+    BOOL lastPointIsZero = (CGPointEqualToPoint(self.lastPoint, CGPointZero));
+
+    if (currentPointIsInFirstQuadrand) {
+        if (!lastPointIsZero && lastPointWasInSecondQuadrand) {
+            self.activateTouches = YES;
+        }
+    }
+}
+
+- (BOOL)shouldBlockTouchesForPoint:(CGPoint)currentPoint
+{
+    CGFloat xBlockCoordinate = CGRectGetWidth(self.frame) / 2.0f;
+    BOOL pointBelongsToFirstHalfOfTheScreen = (currentPoint.x < xBlockCoordinate);
+    BOOL lastPointIsZero = CGPointEqualToPoint(self.lastPoint, CGPointZero);
+    BOOL lastPointWasInFirstQuadrand = CGRectContainsPoint([self firstQuadrandRect], self.lastPoint);
+
+    if (!self.isHoursMode && pointBelongsToFirstHalfOfTheScreen && (!lastPointIsZero && lastPointWasInFirstQuadrand)) {
+        return YES;
+    }
+
+    return NO;
+}
+
+- (CGRect)firstQuadrandRect
+{
+    CGFloat topMargin = CGRectGetMinY(self.frame);
+    CGRect firstQuadrandRect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, - topMargin, CGRectGetMaxX(self.circleRect), CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
+    return firstQuadrandRect;
+}
+
+- (CGRect)secondQuadrandRect
+{
+    CGFloat topMargin = CGRectGetMinY(self.frame);
+    CGRect secondQuadrandRect = CGRectMake(0.0f, - topMargin, CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
+    return secondQuadrandRect;
 }
 
 - (void)evaluateMinutesUsingPoint:(CGPoint)lastPoint
@@ -191,37 +402,31 @@
     //Calculate the direction from the center point to an arbitrary position.
     CGFloat currentAngle = AngleFromNorth(centerPoint, lastPoint, YES);
     NSInteger angle = floor(currentAngle);
+    //CGFloat nextMinutes = angle / 6;
 
-    CGFloat nextminutes = angle / 6;
-    if (self.minutes == 59.0f && nextminutes == 0.0f) {
-        // HOURS!
-    }
+    /*if (self.hoursMode && self.hours > 0 && nextMinutes == 0.0f) {
+        self.hours--;
+        self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)self.hours];
+    }*/
+
+    /*if (self.hoursMode && self.minutes == 0 && nextMinutes == 59.0f) {
+        self.hours--;
+        self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)self.hours];
+        if (self.hours == 0) {
+            self.hoursLabel.hidden = YES;
+            self.hoursMode = NO;
+        }
+    }*/
+
+    /*if (self.minutes == 59 && nextMinutes == 0.0f) {
+        self.hoursMode = YES;
+        self.hours++;
+        self.hoursLabel.hidden = NO;
+        self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)self.hours];
+    }*/
 
     self.minutes = angle / 6;
     self.angle = angle;
-    [self setNeedsDisplay];
-}
-
-- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
-{
-    [super endTrackingWithTouch:touch withEvent:event];
-    [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.2f];
-
-    if (self.minutes == 0.0f) {
-        self.angle = 0;
-    }
-}
-
-- (void)startAlarm
-{
-    NSInteger numberOfSeconds = (self.angle / 6) * 60;
-    [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
-    
-    if (numberOfSeconds == 0) {
-        self.title = [HYPAlarm messageForSetAlarm];
-    } else {
-        self.title = [self.alarm timerTitle];
-    }
     [self setNeedsDisplay];
 }
 
@@ -236,22 +441,67 @@
     }
 
     if (self.minutes == 0 && self.seconds == 0) {
-        [self restartTimer];
-        self.title = [HYPAlarm messageForSetAlarm];
-        [self stopTimer];
+
+        if (self.isHoursMode) {
+            _minutes = 60;
+            self.seconds = 0;
+            self.hours--;
+            self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)self.hours];
+            if (self.hours == 0) {
+                self.hoursLabel.hidden = YES;
+                self.hoursMode = NO;
+            }
+        } else {
+            [self restartTimer];
+            self.title = [HYPAlarm messageForSetAlarm];
+            [self stopTimer];
+        }
+
     }
 
+    [self setNeedsDisplay];
+}
+
+#pragma mark - Alarm methods
+
+- (void)startAlarm
+{
+    NSInteger numberOfSeconds = (self.angle / 6) * 60;
+    [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
+    
+    if (numberOfSeconds == 0) {
+        self.title = [HYPAlarm messageForSetAlarm];
+    } else {
+        self.title = [self.alarm timerTitle];
+    }
     [self setNeedsDisplay];
 }
 
 - (void)restartTimer
 {
     self.minutes = 59;
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
     self.angle = 0;
     self.seconds = 0;
     self.minutes = 0;
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
+
+#pragma mark - Timer
+
+- (void)startTimer
+{
+    if (!self.timer) {
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(updateSeconds:) userInfo:nil repeats:YES];
+    }
+}
+
+- (void)stopTimer
+{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+#pragma mark - Handle Notifications
 
 - (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
 {
@@ -282,19 +532,6 @@
     [self startTimer];
     NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
-}
-
-- (void)stopTimer
-{
-    [self.timer invalidate];
-    self.timer = nil;
-}
-
-- (void)startTimer
-{
-    if (!self.timer) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateSeconds:) userInfo:nil repeats:YES];
-    }
 }
 
 @end

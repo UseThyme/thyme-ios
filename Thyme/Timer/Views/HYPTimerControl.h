@@ -16,10 +16,18 @@
 @property (nonatomic, strong) NSString *alarmID;
 @property (nonatomic, strong) NSString *title;
 
-@property (nonatomic) NSTimeInterval minutes;
-@property (nonatomic) NSTimeInterval seconds;
+@property (nonatomic) NSInteger hours;
+@property (nonatomic) NSInteger minutes;
+@property (nonatomic) NSInteger seconds;
 
-@property (nonatomic) BOOL showSubtitle;
+// SimpleMode
+// YES: Timer on main screen
+// NO: Timer in detail screen
+@property (nonatomic, getter = isSimpleMode) BOOL simpleMode;
+
+// Active
+// YES: This timer has an alarm
+// NO: No alarm was set for this timer
 @property (nonatomic, getter = isActive) BOOL active;
 
 - (id)initShowingSubtitleWithFrame:(CGRect)frame;
