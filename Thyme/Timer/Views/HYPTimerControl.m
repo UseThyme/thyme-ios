@@ -150,6 +150,23 @@
     [self setNeedsDisplay];
 }
 
+- (void)setHours:(NSInteger)hours
+{
+    _hours = hours;
+    if (_hours == 0) {
+        self.hoursMode = NO;
+        self.hoursLabel.hidden = YES;
+    } else {
+        self.hoursMode = YES;
+        self.hoursLabel.hidden = NO;
+        if (_hours == 1) {
+            self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOUR", (long)_hours];
+        } else {
+            self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)_hours];
+        }
+    }
+}
+
 #pragma mark - Initializators
 
 - (id)initShowingSubtitleWithFrame:(CGRect)frame
@@ -220,7 +237,7 @@
 
 - (UIColor *)colorForMinutesIndicator
 {
-    CGFloat saturationBaseOffset = 1.0f;
+    CGFloat saturationBaseOffset = 0.10f;
     CGFloat saturationBase = 0.20f;
     CGFloat saturationBasedOnAngle = saturationBase * (self.angle/360.0f) + saturationBaseOffset;
 
@@ -260,7 +277,7 @@
     if (self.activateTouches) {
 
         BOOL shouldBlockTouchesForPoint = [self shouldBlockTouchesForPoint:currentPoint];
-        if (shouldBlockTouchesForPoint) {
+        if (!self.isHoursMode && shouldBlockTouchesForPoint) {
             self.title = [HYPAlarm messageForSetAlarm];
             self.activateTouches = NO;
             self.angle = 0;
@@ -270,8 +287,8 @@
             [self handleTouchesForPoint:currentPoint];
         }
 
-    } else {
-        [self activateTouchesForPointIfValid:currentPoint];
+    } else if ([self pointIsComingFromSecondQuadrand:currentPoint]) {
+        self.activateTouches = YES;
     }
 
     self.lastPoint = currentPoint;
@@ -301,17 +318,32 @@
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
-- (void)activateTouchesForPointIfValid:(CGPoint)currentPoint
+- (BOOL)pointIsComingFromSecondQuadrand:(CGPoint)point
 {
-    BOOL currentPointIsInFirstQuadrand = CGRectContainsPoint([self firstQuadrandRect], currentPoint);
+    BOOL currentPointIsInFirstQuadrand = CGRectContainsPoint([self firstQuadrandRect], point);
     BOOL lastPointWasInSecondQuadrand = CGRectContainsPoint([self secondQuadrandRect], self.lastPoint);
     BOOL lastPointIsZero = (CGPointEqualToPoint(self.lastPoint, CGPointZero));
 
     if (currentPointIsInFirstQuadrand) {
         if (!lastPointIsZero && lastPointWasInSecondQuadrand) {
-            self.activateTouches = YES;
+            return YES;
         }
     }
+    return NO;
+}
+
+- (BOOL)pointIsComingFromFirstQuadrand:(CGPoint)point
+{
+    BOOL currentPointIsInSecondQuadrand = CGRectContainsPoint([self secondQuadrandRect], point);
+    BOOL lastPointWasInFirstQuadrand = CGRectContainsPoint([self firstQuadrandRect], self.lastPoint);
+    BOOL lastPointIsZero = (CGPointEqualToPoint(self.lastPoint, CGPointZero));
+
+    if (currentPointIsInSecondQuadrand) {
+        if (!lastPointIsZero && lastPointWasInFirstQuadrand) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (BOOL)shouldBlockTouchesForPoint:(CGPoint)currentPoint
@@ -342,12 +374,18 @@
     return secondQuadrandRect;
 }
 
-- (void)evaluateMinutesUsingPoint:(CGPoint)lastPoint
+- (void)evaluateMinutesUsingPoint:(CGPoint)currentPoint
 {
     CGPoint centerPoint = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
-
-    CGFloat currentAngle = AngleFromNorth(centerPoint, lastPoint, YES);
+    CGFloat currentAngle = AngleFromNorth(centerPoint, currentPoint, YES);
     NSInteger angle = floor(currentAngle);
+
+    if ([self pointIsComingFromSecondQuadrand:currentPoint]) {
+        self.hours++;
+    } else if (self.isHoursMode && [self pointIsComingFromFirstQuadrand:currentPoint]) {
+        self.hours--;
+    }
+
     self.minutes = angle / 6;
     self.angle = angle;
     [self setNeedsDisplay];
@@ -369,11 +407,6 @@
             _minutes = 60;
             self.seconds = 0;
             self.hours--;
-            self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)self.hours];
-            if (self.hours == 0) {
-                self.hoursLabel.hidden = YES;
-                self.hoursMode = NO;
-            }
         } else {
             [self restartTimer];
             self.title = [HYPAlarm messageForSetAlarm];
@@ -454,7 +487,7 @@
     self.seconds = 0;
     [self startTimer];
     NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
-    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
+    //[HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
 }
 
 @end
