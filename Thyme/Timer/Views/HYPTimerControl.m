@@ -276,59 +276,6 @@
 
     self.lastPoint = currentPoint;
 
-
-    /*if (self.minutes == 0 && self.hours == 0) {
-
-        // only accept things to the right
-        CGFloat topMargin = CGRectGetMinY(self.frame);
-        CGRect firstQuadrandRect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, - topMargin, CGRectGetMaxX(self.circleRect), CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
-        BOOL currentPointIsInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, self.lastPoint);
-        if (currentPointIsInFirstQuadrand) {
-            return YES;
-        }
-
-        BOOL lastPointWasInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, self.lastPoint);
-        if (!lastPointWasInFirstQuadrand) {
-            NSLog(@"YES");
-            self.lastPoint = currentPoint;
-            return YES;
-        } else {
-            NSLog(@"NO");
-        }
-    }
-    [self evaluateMinutesUsingPoint:currentPoint];
-    [self sendActionsForControlEvents:UIControlEventValueChanged];
-    self.lastPoint = currentPoint;*/
-
-    // start in 0
-    // if 0
-    // work only to the right
-
-    /*CGFloat topMargin = CGRectGetMinY(self.frame);
-    CGRect firstQuadrandRect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, - topMargin, CGRectGetMaxX(self.circleRect), CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
-    BOOL lastPointWasInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, self.lastPoint);
-
-    CGRect secondQuadrandRect = CGRectMake(0.0f, - topMargin, CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
-    BOOL currentPointWasInSecondQuadrand = CGRectContainsPoint(secondQuadrandRect, currentPoint);
-
-    CGFloat xBlockCoordinate = CGRectGetWidth(self.frame) / 2.0f;
-    BOOL x = (currentPoint.x < xBlockCoordinate);
-
-    CGFloat yBlockCoordinate = CGRectGetHeight(self.frame) / 2.0f;
-    BOOL y = (currentPoint.y < yBlockCoordinate);
-
-    if (!self.isHoursMode && x && lastPointWasInFirstQuadrand) {
-       // Block touches since we are going back from 0 to 59
-        self.angle = 0;
-        [self setNeedsDisplay];
-        NSLog(@"BLOCK");
-    } else {
-        [self evaluateMinutesUsingPoint:currentPoint];
-        [self sendActionsForControlEvents:UIControlEventValueChanged];
-        self.lastPoint = currentPoint;
-    }*/
-
-
     return YES;
 }
 
@@ -399,32 +346,8 @@
 {
     CGPoint centerPoint = CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2);
 
-    //Calculate the direction from the center point to an arbitrary position.
     CGFloat currentAngle = AngleFromNorth(centerPoint, lastPoint, YES);
     NSInteger angle = floor(currentAngle);
-    //CGFloat nextMinutes = angle / 6;
-
-    /*if (self.hoursMode && self.hours > 0 && nextMinutes == 0.0f) {
-        self.hours--;
-        self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)self.hours];
-    }*/
-
-    /*if (self.hoursMode && self.minutes == 0 && nextMinutes == 59.0f) {
-        self.hours--;
-        self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)self.hours];
-        if (self.hours == 0) {
-            self.hoursLabel.hidden = YES;
-            self.hoursMode = NO;
-        }
-    }*/
-
-    /*if (self.minutes == 59 && nextMinutes == 0.0f) {
-        self.hoursMode = YES;
-        self.hours++;
-        self.hoursLabel.hidden = NO;
-        self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)self.hours];
-    }*/
-
     self.minutes = angle / 6;
     self.angle = angle;
     [self setNeedsDisplay];
