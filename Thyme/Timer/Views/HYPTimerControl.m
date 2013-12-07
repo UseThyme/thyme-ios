@@ -33,7 +33,6 @@
 
 @property (nonatomic) CGRect circleRect;
 @property (nonatomic) NSInteger angle;
-@property (nonatomic, getter = isHoursMode) BOOL hoursMode;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) CGPoint lastPoint;
 @property (nonatomic) BOOL activateTouches;
@@ -119,7 +118,7 @@
         _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
         _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
         _minutesTitleLabel.font = font;
-        _minutesTitleLabel.text = @"MINUTES LEFT";
+        _minutesTitleLabel.text = sampleString;
     }
     return _minutesTitleLabel;
 }
@@ -154,10 +153,8 @@
 {
     _hours = hours;
     if (_hours == 0) {
-        self.hoursMode = NO;
         self.hoursLabel.hidden = YES;
     } else {
-        self.hoursMode = YES;
         self.hoursLabel.hidden = NO;
         if (_hours == 1) {
             self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOUR", (long)_hours];
@@ -418,6 +415,11 @@
     [self setNeedsDisplay];
 }
 
+- (BOOL)isHoursMode
+{
+    return (self.hours > 0);
+}
+
 #pragma mark - Alarm methods
 
 - (void)startAlarm
@@ -476,7 +478,6 @@
         [self createNotificationUsingNumberOfSeconds:numberOfSeconds];
     }
 }
-
 
 - (void)createNotificationUsingNumberOfSeconds:(NSInteger)numberOfSeconds
 {
