@@ -130,7 +130,12 @@
     _angle = angle;
     
     if (!self.isCompleteMode && self.isHoursMode) {
-        self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld:%ld", (long)self.hours, (long)self.angle/6];
+        NSInteger minute = (long)self.angle/6;
+        if (minute < 10) {
+            self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld:0%ld", (long)self.hours, (long)self.angle/6];
+        } else {
+            self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld:%ld", (long)self.hours, (long)self.angle/6];
+        }
     } else {
         self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
     }
