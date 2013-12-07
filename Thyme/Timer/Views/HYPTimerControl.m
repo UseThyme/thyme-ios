@@ -306,6 +306,7 @@
     if (self.minutes == 0 && self.hours == 0) {
         self.angle = 0;
         self.touchesAreActive = NO;
+        self.title = [HYPAlarm messageForSetAlarm];
     } else {
         if (self.minutes == 0) {
             self.angle = 0;
@@ -435,12 +436,7 @@
 {
     NSInteger numberOfSeconds = (self.angle / 6) * 60 + self.hours * 3600;
     [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
-    
-    if (self.minutes == 0 && self.hours == 0) {
-        self.title = [HYPAlarm messageForSetAlarm];
-    } else {
-        self.title = [self.alarm timerTitle];
-    }
+    self.title = [self.alarm timerTitle];
     [self setNeedsDisplay];
 }
 
