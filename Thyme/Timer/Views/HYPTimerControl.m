@@ -48,7 +48,7 @@
 
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat defaultSize = (self.simpleMode) ? MINUTE_TITLE_SIZE : MINUTE_TITLE_SIZE * 1.5;
+        CGFloat defaultSize = (self.isCompleteMode) ? MINUTE_TITLE_SIZE : MINUTE_TITLE_SIZE * 1.5;
         CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
         NSString *sampleString = @"2 HOURS";
@@ -76,10 +76,10 @@
 
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat defaultSize = (self.simpleMode) ? MINUTE_VALUE_SIZE : MINUTE_VALUE_SIZE * 1.5;
+        CGFloat defaultSize = (self.isCompleteMode) ? MINUTE_VALUE_SIZE : MINUTE_VALUE_SIZE * 0.9;
         CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
-        NSString *sampleString = @"000";
+        NSString *sampleString = @"10:00";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
 
         CGSize textSize = [sampleString sizeWithAttributes:attributes];
@@ -128,7 +128,12 @@
 - (void)setAngle:(NSInteger)angle
 {
     _angle = angle;
-    self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
+    
+    if (!self.isCompleteMode && self.isHoursMode) {
+        self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld:%ld", (long)self.hours, (long)self.angle/6];
+    } else {
+        self.minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle/6];
+    }
 }
 
 - (void)setMinutes:(NSInteger)minutes
@@ -138,6 +143,7 @@
     if (_minutes > 0) {
         self.touchesAreActive = YES;
     }
+    
     [self setNeedsDisplay];
 }
 
@@ -166,26 +172,26 @@
 
 #pragma mark - Initializators
 
-- (id)initShowingSubtitleWithFrame:(CGRect)frame
+- (id)initCompleteModeWithFrame:(CGRect)frame
 {
-    return [self initWithFrame:frame showingSubtitle:YES];
+    return [self initWithFrame:frame completeMode:YES];
 }
 
 - (id)initWithFrame:(CGRect)frame
 {
-    return [self initWithFrame:frame showingSubtitle:NO];
+    return [self initWithFrame:frame completeMode:NO];
 }
 
-- (id)initWithFrame:(CGRect)frame showingSubtitle:(BOOL)showingSubtitle
+- (id)initWithFrame:(CGRect)frame completeMode:(BOOL)completeMode
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        self.simpleMode = showingSubtitle;
+        self.completeMode = completeMode;
         self.angle = 0;
         self.title = [HYPAlarm messageForSetAlarm];
         [self addSubview:self.minutesValueLabel];
-        if (self.simpleMode) {
+        if (self.isCompleteMode) {
             [self addSubview:self.minutesTitleLabel];
             [self addSubview:self.hoursLabel];
         }
@@ -217,11 +223,11 @@
         UIColor *secondsColor = ACTIVE_SECONDS_INDICATOR_COLOR;
         BOOL shouldShowSeconds = (self.timer && [self.timer isValid]);
         if (shouldShowSeconds) {
-            CGFloat factor = (self.simpleMode) ? 0.1f : 0.2f;
+            CGFloat factor = (self.isCompleteMode) ? 0.1f : 0.2f;
             [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * factor containerRect:circleRect];
         }
 
-        if (self.simpleMode) {
+        if (self.isCompleteMode) {
             [self drawText:context rect:rect];
         }
     } else {
@@ -444,6 +450,7 @@
     self.angle = 0;
     self.seconds = 0;
     self.minutes = 0;
+    self.hours = 0;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 

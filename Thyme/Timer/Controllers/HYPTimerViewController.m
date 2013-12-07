@@ -59,7 +59,7 @@
 
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _timerControl = [[HYPTimerControl alloc] initShowingSubtitleWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
+        _timerControl = [[HYPTimerControl alloc] initCompleteModeWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
         _timerControl.active = YES;
     }
     return _timerControl;
@@ -104,10 +104,15 @@
         NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
+        NSTimeInterval hoursLeft = floor(minutesLeft/60.0f);
+        if (hoursLeft > 0) {
+            minutesLeft = minutesLeft - (hoursLeft * 60);
+        }
 
         self.timerControl.title = [self.alarm timerTitle];
-        self.timerControl.minutes = minutesLeft;
         self.timerControl.seconds = currentSecond;
+        self.timerControl.hours = hoursLeft;
+        self.timerControl.minutes = minutesLeft;
         [self.timerControl startTimer];
     }
 }

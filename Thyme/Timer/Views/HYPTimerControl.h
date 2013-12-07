@@ -23,14 +23,14 @@
 // SimpleMode
 // YES: Timer on main screen
 // NO: Timer in detail screen
-@property (nonatomic, getter = isSimpleMode) BOOL simpleMode;
+@property (nonatomic, getter = isCompleteMode) BOOL completeMode;
 
 // Active
 // YES: This timer has an alarm
 // NO: No alarm was set for this timer
 @property (nonatomic, getter = isActive) BOOL active;
 
-- (id)initShowingSubtitleWithFrame:(CGRect)frame;
+- (id)initCompleteModeWithFrame:(CGRect)frame;
 - (void)restartTimer;
 - (void)startTimer;
 - (void)stopTimer;

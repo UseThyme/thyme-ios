@@ -380,6 +380,10 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
+        NSTimeInterval hoursLeft = floor(minutesLeft/60.0f);
+        if (hoursLeft > 0) {
+            minutesLeft = minutesLeft - (hoursLeft * 60);
+        }
         if (minutesLeft < 0) { // clean up weird alarms
             [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
         }
@@ -391,8 +395,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         alarm.active = YES;
         cell.timerControl.active = YES;
         cell.timerControl.alarmID = alarm.alarmID;
-        cell.timerControl.minutes = minutesLeft;
         cell.timerControl.seconds = currentSecond;
+        cell.timerControl.hours = hoursLeft;
+        cell.timerControl.minutes = minutesLeft;
         [cell.timerControl startTimer];
     } else {
         alarm.active = NO;
