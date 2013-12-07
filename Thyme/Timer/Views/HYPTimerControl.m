@@ -307,6 +307,7 @@
         self.angle = 0;
         self.touchesAreActive = NO;
         self.title = [HYPAlarm messageForSetAlarm];
+        [self cancelCurrentLocalNotification];
     } else {
         if (self.minutes == 0) {
             self.angle = 0;
@@ -467,19 +468,22 @@
 
 #pragma mark - Handle Notifications
 
-- (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
+- (void)cancelCurrentLocalNotification
 {
     if (!self.alarmID) {
         abort();
     }
-
+    
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:self.alarmID];
-    BOOL createNotification = (numberOfSeconds > 0);
-
     if (existingNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
     }
+}
 
+- (void)handleNotificationWithNumberOfSeconds:(NSInteger)numberOfSeconds
+{
+    BOOL createNotification = (numberOfSeconds > 0);
+    [self cancelCurrentLocalNotification];
     if (createNotification) {
         [self createNotificationUsingNumberOfSeconds:numberOfSeconds];
     }
