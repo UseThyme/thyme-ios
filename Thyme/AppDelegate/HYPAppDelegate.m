@@ -12,6 +12,17 @@
 #import <HockeySDK/HockeySDK.h>
 #import <AVFoundation/AVAudioPlayer.h>
 
+#ifdef DEBUG
+/// Tests if .xctest bundle is loaded, so returns YES if the app is running with XCTest framework.
+static inline BOOL IsUnitTesting() __attribute__((const));
+static inline BOOL IsUnitTesting()
+{
+    NSDictionary *environment = [NSProcessInfo processInfo].environment;
+    NSString *injectBundlePath = environment[@"XCInjectBundle"];
+    return [injectBundlePath.pathExtension isEqualToString:@"xctest"];
+}
+#endif
+
 @interface HYPAppDelegate () <BITHockeyManagerDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @end
@@ -34,6 +45,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+#ifdef DEBUG
+    if (IsUnitTesting()) {
+        return YES;
+    }
+#endif
+
 #if IS_RELEASE_VERSION
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];

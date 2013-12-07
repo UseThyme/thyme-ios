@@ -51,13 +51,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         if ([_maxMinutesLeft doubleValue] == 0.0f) {
             self.subtitleLabel.text = @"IN LESS THAN A MINUTE";
         } else {
-            NSInteger result = [_maxMinutesLeft integerValue] / 5;
-            NSInteger minutes = (result + 1) * 5;
-            if (minutes > 10) {
-                self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)minutes];
-            } else {
-                self.subtitleLabel.text = [NSString stringWithFormat:@"IN %ld MINUTES", (long)[_maxMinutesLeft integerValue]];
-            }
+            self.subtitleLabel.text = [HYPAlarm subtitleForHomescreenUsingMinutes:_maxMinutesLeft];
         }
     } else {
         self.titleLabel.text = [HYPAlarm titleForHomescreen];
@@ -381,15 +375,15 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
         NSTimeInterval hoursLeft = floor(minutesLeft/60.0f);
+        if (minutesLeft >= [self.maxMinutesLeft doubleValue]) {
+            self.maxMinutesLeft = @(minutesLeft);
+        }
+
         if (hoursLeft > 0) {
             minutesLeft = minutesLeft - (hoursLeft * 60);
         }
         if (minutesLeft < 0) { // clean up weird alarms
             [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
-        }
-
-        if (minutesLeft >= [self.maxMinutesLeft doubleValue]) {
-            self.maxMinutesLeft = @(minutesLeft);
         }
 
         alarm.active = YES;

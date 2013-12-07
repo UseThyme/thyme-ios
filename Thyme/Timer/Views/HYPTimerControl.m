@@ -313,6 +313,7 @@
         self.touchesAreActive = NO;
         self.title = [HYPAlarm messageForSetAlarm];
         [self cancelCurrentLocalNotification];
+        [self setNeedsDisplay];
     } else {
         if (self.minutes == 0) {
             self.angle = 0;
