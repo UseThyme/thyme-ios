@@ -35,7 +35,7 @@
 @property (nonatomic) NSInteger angle;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) CGPoint lastPoint;
-@property (nonatomic) BOOL activateTouches;
+@property (nonatomic) BOOL touchesAreActive;
 @end
 
 @implementation HYPTimerControl
@@ -136,7 +136,7 @@
     _minutes = minutes;
     self.angle = minutes * 6;
     if (_minutes > 0) {
-        self.activateTouches = YES;
+        self.touchesAreActive = YES;
     }
     [self setNeedsDisplay];
 }
@@ -271,12 +271,12 @@
 
     CGPoint currentPoint = [touch locationInView:self];
 
-    if (self.activateTouches) {
+    if (self.touchesAreActive) {
 
         BOOL shouldBlockTouchesForPoint = [self shouldBlockTouchesForPoint:currentPoint];
         if (!self.isHoursMode && shouldBlockTouchesForPoint) {
             self.title = [HYPAlarm messageForSetAlarm];
-            self.activateTouches = NO;
+            self.touchesAreActive = NO;
             self.angle = 0;
             [self setNeedsDisplay];
             return YES;
@@ -285,7 +285,7 @@
         }
 
     } else if ([self pointIsComingFromSecondQuadrand:currentPoint]) {
-        self.activateTouches = YES;
+        self.touchesAreActive = YES;
     }
 
     self.lastPoint = currentPoint;
@@ -296,13 +296,18 @@
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super endTrackingWithTouch:touch withEvent:event];
-    [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.2f];
-    self.lastPoint = CGPointZero;
-
-    if (self.minutes == 0) {
+    
+    if (self.minutes == 0 && self.hours == 0) {
         self.angle = 0;
-        self.activateTouches = NO;
+        self.touchesAreActive = NO;
+    } else {
+        if (self.minutes == 0) {
+            self.angle = 0;
+            [self setNeedsDisplay];
+        }
+        [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.2f];
     }
+    self.lastPoint = CGPointZero;
 }
 
 #pragma mark - Helpers
@@ -395,21 +400,19 @@
         self.angle = (self.minutes - 1) * 6;
         self.seconds = 59;
         self.minutes--;
+        
+        if (self.minutes < 0 && self.hours > 0) {
+            self.minutes = 59;
+            self.hours--;
+        }
+        
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 
-    if (self.minutes == 0 && self.seconds == 0) {
-
-        if (self.isHoursMode) {
-            _minutes = 60;
-            self.seconds = 0;
-            self.hours--;
-        } else {
-            [self restartTimer];
-            self.title = [HYPAlarm messageForSetAlarm];
-            [self stopTimer];
-        }
-
+    if (self.minutes == 0 && self.seconds == 0 && self.hours == 0) {
+        [self restartTimer];
+        self.title = [HYPAlarm messageForSetAlarm];
+        [self stopTimer];
     }
 
     [self setNeedsDisplay];
@@ -424,10 +427,10 @@
 
 - (void)startAlarm
 {
-    NSInteger numberOfSeconds = (self.angle / 6) * 60;
+    NSInteger numberOfSeconds = (self.angle / 6) * 60 + self.hours * 3600;
     [self handleNotificationWithNumberOfSeconds:numberOfSeconds];
     
-    if (numberOfSeconds == 0) {
+    if (self.minutes == 0 && self.hours == 0) {
         self.title = [HYPAlarm messageForSetAlarm];
     } else {
         self.title = [self.alarm timerTitle];
@@ -488,7 +491,7 @@
     self.seconds = 0;
     [self startTimer];
     NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
-    //[HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
+    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
 }
 
 @end
