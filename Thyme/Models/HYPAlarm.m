@@ -22,12 +22,12 @@
 
 + (NSString *)titleForHomescreen
 {
-    return @"BET YOU'VE BEEN WORKING ALL DAY";
+    return @"IT'S TIME TO GET COOKING";
 }
 
 + (NSString *)subtitleForHomescreen
 {
-    return @"YOU MUST BE STARVING";
+    return @"TAP A PLATE TO SET A TIMER";
 }
 
 + (NSString *)subtitleForHomescreenUsingMinutes:(NSNumber *)maxMinutesLeft
