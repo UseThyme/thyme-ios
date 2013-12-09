@@ -14,15 +14,6 @@
 #define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
 #define ALARM_ID @"THYME_ALARM_ID_0"
 
-- (instancetype)initWithNotification:(UILocalNotification *)notification
-{
-    self = [super init];
-    if (self) {
-
-    }
-    return self;
-}
-
 - (void)setIndexPath:(NSIndexPath *)indexPath
 {
     _indexPath = indexPath;
@@ -31,12 +22,55 @@
 
 + (NSString *)titleForHomescreen
 {
-    return @"BET YOU'VE BEEN WORKING ALL DAY";
+    return @"IT'S TIME TO GET COOKING";
 }
 
 + (NSString *)subtitleForHomescreen
 {
-    return @"YOU MUST BE STARVING";
+    return @"TAP A PLATE TO SET A TIMER";
+}
+
++ (NSString *)subtitleForHomescreenUsingMinutes:(NSNumber *)maxMinutesLeft
+{
+    NSString *message;
+
+    if ([maxMinutesLeft doubleValue] == 0.0f) {
+        message = @"IN LESS THAN A MINUTE";
+    } else {
+        NSInteger hoursLeft = floor([maxMinutesLeft integerValue]/60.0f);
+        if (hoursLeft > 0) {
+            maxMinutesLeft = @([maxMinutesLeft integerValue] - (hoursLeft * 60));
+        }
+        
+        CGFloat result = [maxMinutesLeft integerValue] / 5.0f;
+        NSInteger minutes = (result == 0.0f) ? 0 : (floor(result) + 1) * 5;
+        
+        if (hoursLeft > 0) {
+            if (minutes == 60) {
+                hoursLeft++;
+                minutes = 0;
+            }
+            if (hoursLeft == 1 && minutes == 0) {
+                message = [NSString stringWithFormat:@"IN ABOUT 1 HOUR"];
+            } else if (hoursLeft == 1 && minutes > 0) {
+                message = [NSString stringWithFormat:@"IN ABOUT 1 HOUR %ld MINUTES", (long)minutes];
+            } else if (minutes == 0) {
+                message = [NSString stringWithFormat:@"IN ABOUT %ld HOURS", (long)hoursLeft];
+            } else {
+                message = [NSString stringWithFormat:@"IN ABOUT %ld HOURS %ld MINUTES", (long)hoursLeft, (long)minutes];
+            }
+        } else {
+            if (minutes == 60) {
+                message = [NSString stringWithFormat:@"IN ABOUT 1 HOUR"];
+            } else if (minutes > 10) {
+                message = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)minutes];
+            } else {
+                message = [NSString stringWithFormat:@"IN %ld MINUTES", (long)[maxMinutesLeft integerValue]];
+            }
+        }
+    }
+
+    return message;
 }
 
 + (NSString *)messageForSetAlarm
