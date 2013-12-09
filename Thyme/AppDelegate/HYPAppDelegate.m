@@ -11,6 +11,8 @@
 #import "HYPTimerViewController.h"
 #import <HockeySDK/HockeySDK.h>
 #import <AVFoundation/AVAudioPlayer.h>
+#import "HYPAlarm.h"
+#import "HYPLocalNotificationManager.h"
 
 #ifdef DEBUG
 /// Tests if .xctest bundle is loaded, so returns YES if the app is running with XCTest framework.
@@ -82,7 +84,9 @@ static inline BOOL IsUnitTesting()
         playingSound = NO;
     }
 
-    [self handleLocalNotification:notification playingSound:playingSound];
+    if (notification) {
+        [self handleLocalNotification:notification playingSound:playingSound];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -92,11 +96,24 @@ static inline BOOL IsUnitTesting()
 
 - (void)handleLocalNotification:(UILocalNotification *)notification playingSound:(BOOL)playingSound
 {
+    NSString *alarmID = [notification.userInfo objectForKey:ALARM_ID_KEY];
+    [self cleanUpLocalNotificationWithAlarmID:alarmID];
+
     if (playingSound) {
         [self.audioPlayer prepareToPlay];
         [self.audioPlayer play];
     }
     [[[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+}
+
+- (void)cleanUpLocalNotificationWithAlarmID:(NSString *)alarmID
+{
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    UILocalNotification *notification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarmID];
+    if (notification) {
+        [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
 }
 
 @end
