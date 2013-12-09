@@ -237,9 +237,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
     [self.view addSubview:self.ovenShineImageView];
-    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
 
-#if IS_RELEASE_VERSION
+#if IS_PRE_RELEASE_VERSION
     [self.view addSubview:self.feedbackButton];
 #endif
 }

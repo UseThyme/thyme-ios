@@ -16,4 +16,4 @@
 #endif
 
 
-#define IS_RELEASE_VERSION 0
+#define IS_PRE_RELEASE_VERSION 0
