@@ -286,7 +286,6 @@
 
         BOOL shouldBlockTouchesForPoint = [self shouldBlockTouchesForPoint:currentPoint];
         if (!self.isHoursMode && shouldBlockTouchesForPoint) {
-            self.title = [HYPAlarm messageForSetAlarm];
             self.touchesAreActive = NO;
             self.angle = 0;
             [self setNeedsDisplay];
@@ -307,18 +306,15 @@
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super endTrackingWithTouch:touch withEvent:event];
-    
-    if (self.minutes == 0 && self.hours == 0) {
+
+    CGPoint currentPoint = [touch locationInView:self];
+    if (([self pointIsComingFromFirstQuadrand:currentPoint] && self.hours == 0) || self.angle == 0 || (self.minutes == 0 && self.hours == 0)) {
         self.angle = 0;
-        self.touchesAreActive = NO;
+        self.touchesAreActive = NO;  
         self.title = [HYPAlarm messageForSetAlarm];
         [self cancelCurrentLocalNotification];
         [self setNeedsDisplay];
     } else {
-        if (self.minutes == 0) {
-            self.angle = 0;
-            [self setNeedsDisplay];
-        }
         [self performSelector:@selector(startAlarm) withObject:nil afterDelay:0.2f];
     }
     self.lastPoint = CGPointZero;
@@ -328,7 +324,6 @@
 
 - (void)handleTouchesForPoint:(CGPoint)currentPoint
 {
-    self.title = [HYPAlarm messageForReleaseToSetAlarm];
     [self evaluateMinutesUsingPoint:currentPoint];
     self.lastPoint = currentPoint;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
@@ -427,6 +422,10 @@
         [self restartTimer];
         self.title = [HYPAlarm messageForSetAlarm];
         [self stopTimer];
+    }
+
+    if (self.minutes == -1) {
+        [self restartTimer];
     }
 
     [self setNeedsDisplay];
