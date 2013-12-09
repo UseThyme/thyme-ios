@@ -19,6 +19,7 @@
 		446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E241844C4E2005FD797 /* HYPAppDelegate.m */; };
 		446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */; };
 		446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */; };
+		4473616C1856008B004274DF /* fingerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4473616B1856008B004274DF /* fingerImage@2x.png */; };
 		449143C91847676F008A80F0 /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = 449143C01847676F008A80F0 /* CHANGELOG */; };
 		449143CB1847676F008A80F0 /* HockeySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143C31847676F008A80F0 /* HockeySDK.framework */; };
 		449143CC1847676F008A80F0 /* HockeySDK.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 449143C51847676F008A80F0 /* HockeySDK.xcconfig */; };
@@ -84,6 +85,7 @@
 		446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPHomeViewController.m; sourceTree = "<group>"; };
 		446C9E2E1844CA4A005FD797 /* HYPPlateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPPlateCell.h; sourceTree = "<group>"; };
 		446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPPlateCell.m; sourceTree = "<group>"; };
+		4473616B1856008B004274DF /* fingerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingerImage@2x.png"; sourceTree = "<group>"; };
 		449143C01847676F008A80F0 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
 		449143C31847676F008A80F0 /* HockeySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HockeySDK.framework; sourceTree = "<group>"; };
 		449143C51847676F008A80F0 /* HockeySDK.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = HockeySDK.xcconfig; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 		44A691AB1844E02D005D4C5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4473616B1856008B004274DF /* fingerImage@2x.png */,
 				44AE6680184F4E1C00148398 /* 1-1@2x.png */,
 				44AE6681184F4E1C00148398 /* 1-0@2x.png */,
 				44AE6682184F4E1C00148398 /* 0-1@2x.png */,
@@ -495,6 +498,7 @@
 				44AE6685184F4E1C00148398 /* 1-1@2x.png in Resources */,
 				44AE6688184F4E1C00148398 /* 0-0@2x.png in Resources */,
 				44AAE41C1844C0690096BF52 /* InfoPlist.strings in Resources */,
+				4473616C1856008B004274DF /* fingerImage@2x.png in Resources */,
 				44AE6689184F4E1C00148398 /* oven@2x.png in Resources */,
 				449143CF1847676F008A80F0 /* README.md in Resources */,
 				449143C91847676F008A80F0 /* CHANGELOG in Resources */,

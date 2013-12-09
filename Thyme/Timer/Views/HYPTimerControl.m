@@ -145,10 +145,6 @@
 {
     _minutes = minutes;
     self.angle = minutes * 6;
-    if (_minutes > 0) {
-        self.touchesAreActive = YES;
-    }
-    
     [self setNeedsDisplay];
 }
 
@@ -294,7 +290,7 @@
             [self handleTouchesForPoint:currentPoint];
         }
 
-    } else if ([self pointIsComingFromSecondQuadrand:currentPoint]) {
+    } else if ([self pointIsComingFromSecondQuadrand:currentPoint] || [self pointIsInFirstQuadrand:currentPoint]) {
         self.touchesAreActive = YES;
     }
 
@@ -327,6 +323,20 @@
     [self evaluateMinutesUsingPoint:currentPoint];
     self.lastPoint = currentPoint;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
+- (BOOL)pointIsInFirstQuadrand:(CGPoint)point
+{
+    BOOL currentPointIsInFirstQuadrand = CGRectContainsPoint([self firstQuadrandRect], point);
+    BOOL lastPointWasInFirstQuadrand = CGRectContainsPoint([self firstQuadrandRect], self.lastPoint);
+    BOOL lastPointIsZero = (CGPointEqualToPoint(self.lastPoint, CGPointZero));
+
+    if (currentPointIsInFirstQuadrand) {
+        if (!lastPointIsZero && lastPointWasInFirstQuadrand) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (BOOL)pointIsComingFromSecondQuadrand:(CGPoint)point
@@ -504,6 +514,11 @@
     [self startTimer];
     NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
+}
+
+- (void)dealloc
+{
+    [self stopTimer];
 }
 
 @end

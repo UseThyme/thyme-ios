@@ -393,6 +393,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         cell.timerControl.hours = hoursLeft;
         cell.timerControl.minutes = minutesLeft;
         [cell.timerControl startTimer];
+
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:YES forKey:@"presentedClue"];
+        [defaults synchronize];
+
     } else {
         alarm.active = NO;
         cell.timerControl.active = NO;
