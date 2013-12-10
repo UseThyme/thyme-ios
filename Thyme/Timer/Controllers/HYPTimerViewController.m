@@ -197,6 +197,7 @@
         self.timerControl.seconds = currentSecond;
         self.timerControl.hours = hoursLeft;
         self.timerControl.minutes = minutesLeft;
+        self.timerControl.touchesAreActive = YES;
         [self.timerControl startTimer];
     }
 }

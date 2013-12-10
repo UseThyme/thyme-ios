@@ -35,7 +35,6 @@
 @property (nonatomic) NSInteger angle;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) CGPoint lastPoint;
-@property (nonatomic) BOOL touchesAreActive;
 @end
 
 @implementation HYPTimerControl

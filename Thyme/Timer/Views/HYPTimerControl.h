@@ -19,6 +19,7 @@
 @property (nonatomic) NSInteger hours;
 @property (nonatomic) NSInteger minutes;
 @property (nonatomic) NSInteger seconds;
+@property (nonatomic) BOOL touchesAreActive;
 
 // SimpleMode
 // YES: Timer on main screen
