@@ -107,9 +107,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         CGFloat topMargin;
         if ([HYPUtils isTallPhone]) {
-            topMargin = image.size.height + 110.0f;
+            topMargin = image.size.height + 90.0f;
         } else {
-            topMargin = image.size.height + 60.0f;
+            topMargin = image.size.height + 40.0f;
         }
 
         CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
@@ -179,10 +179,10 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         CGFloat cellWidth = 100.0f;
-        [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
+        [flowLayout setItemSize:CGSizeMake(cellWidth + 10, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 55.0f;
+        CGFloat sideMargin = 50.0f;
         CGFloat topMargin = self.topMargin;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
@@ -204,7 +204,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
         CGFloat sideMargin = 100.0f;
-        CGFloat topMargin = self.topMargin + 240.0f;
+
+        CGFloat topMargin = self.topMargin + 260.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
@@ -305,7 +306,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     timerController.delegate = self;
     HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
     timerController.alarm = alarm;
-    [self.navigationController pushViewController:timerController animated:YES];
+    [self presentViewController:timerController animated:YES completion:nil];
 }
 
 #pragma mark - HYPTimerControllerDelegate
