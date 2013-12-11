@@ -303,7 +303,7 @@
     [super endTrackingWithTouch:touch withEvent:event];
 
     CGPoint currentPoint = [touch locationInView:self];
-    if (([self pointIsComingFromFirstQuadrand:currentPoint] && self.hours == 0) || self.angle == 0 || (self.minutes == 0 && self.hours == 0)) {
+    if (([self pointIsComingFromFirstQuadrand:currentPoint] && self.hours == 0) || (self.angle == 0 && self.hours == 0) || (self.minutes == 0 && self.hours == 0)) {
         self.angle = 0;
         self.touchesAreActive = NO;  
         self.title = [HYPAlarm messageForSetAlarm];
