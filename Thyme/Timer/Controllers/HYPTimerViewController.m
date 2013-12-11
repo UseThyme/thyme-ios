@@ -208,7 +208,7 @@
         [self.delegate dismissedTimerController:self];
     }
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
