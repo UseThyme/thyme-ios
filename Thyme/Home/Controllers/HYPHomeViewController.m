@@ -15,7 +15,7 @@
 #import <HockeySDK/HockeySDK.h>
 
 #define SHORT_TOP_MARGIN 0
-#define TALL_TOP_MARGIN 40
+#define TALL_TOP_MARGIN 30
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
@@ -107,7 +107,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         CGFloat topMargin = image.size.height + 45.0f;
         if ([HYPUtils isTallPhone]) {
-            topMargin += 50.0f;
+            topMargin += 60.0f;
         }
 
         CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
@@ -201,7 +201,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         CGFloat sideMargin = 95.0f;
 
-        CGFloat topMargin = self.topMargin + 255.0f;
+        CGFloat topMargin = self.topMargin + 255.0f;//self.topMargin + 255.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
