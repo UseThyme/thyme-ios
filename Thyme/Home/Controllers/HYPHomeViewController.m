@@ -195,13 +195,13 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     if (!_ovenCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 120.0f;
+        CGFloat cellWidth = 130.0f;
         [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 100.0f;
+        CGFloat sideMargin = 95.0f;
 
-        CGFloat topMargin = self.topMargin + 260.0f;
+        CGFloat topMargin = self.topMargin + 255.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
@@ -422,7 +422,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         }
     }
     
-    return CGSizeMake(120.0f, 120.0f);
+    return CGSizeMake(130.0f, 130.0f);
 }
 
 @end
