@@ -14,8 +14,8 @@
 #import "HYPLocalNotificationManager.h"
 #import <HockeySDK/HockeySDK.h>
 
-#define SHORT_TOP_MARGIN 10
-#define TALL_TOP_MARGIN 50
+#define SHORT_TOP_MARGIN 0
+#define TALL_TOP_MARGIN 40
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
@@ -186,7 +186,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat topMargin = self.topMargin;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin + 1, topMargin, width, width) collectionViewLayout:flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
@@ -205,7 +205,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         CGFloat sideMargin = 100.0f;
 
-        CGFloat topMargin = self.topMargin + 260.0f;
+        CGFloat topMargin = self.topMargin + 270.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
