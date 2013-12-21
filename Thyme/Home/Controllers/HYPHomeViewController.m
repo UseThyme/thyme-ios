@@ -14,8 +14,8 @@
 #import "HYPLocalNotificationManager.h"
 #import <HockeySDK/HockeySDK.h>
 
-#define SHORT_TOP_MARGIN 0
-#define TALL_TOP_MARGIN 30
+#define SHORT_TOP_MARGIN 10
+#define TALL_TOP_MARGIN 50
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
@@ -105,9 +105,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGRect bounds = [[UIScreen mainScreen] bounds];
 
 
-        CGFloat topMargin = image.size.height + 45.0f;
+        CGFloat topMargin;
         if ([HYPUtils isTallPhone]) {
-            topMargin += 60.0f;
+            topMargin = image.size.height + 90.0f;
+        } else {
+            topMargin = image.size.height + 40.0f;
         }
 
         CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
@@ -134,14 +136,15 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
 
-        CGFloat topMargin = 40.0f;
+        CGFloat topMargin;
         if ([HYPUtils isTallPhone]) {
-            topMargin += 15.0f;
+            topMargin = 60.0f;
+        } else {
+            topMargin = 40.0f;
         }
-        
         CGFloat height = 25.0f;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _titleLabel.font = [HYPUtils avenirLightWithSize:14.0f];
+        _titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
         _titleLabel.text = [HYPAlarm titleForHomescreen];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
@@ -160,7 +163,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
         CGFloat height = CGRectGetHeight(self.titleLabel.frame);
         _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _subtitleLabel.font = [HYPUtils avenirBlackWithSize:18.0f];
+        _subtitleLabel.font = [HYPUtils avenirBlackWithSize:19.0f];
         _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
         _subtitleLabel.textColor = [UIColor whiteColor];
@@ -175,10 +178,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if (!_collectionView) {
 
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 90.0f;
-        [flowLayout setItemSize:CGSizeMake(cellWidth + 10.0f, cellWidth)];
+        CGFloat cellWidth = 100.0f;
+        [flowLayout setItemSize:CGSizeMake(cellWidth + 10, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-        CGFloat sideMargin = 46.0f;
+
+        CGFloat sideMargin = 50.0f;
         CGFloat topMargin = self.topMargin;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
@@ -186,7 +190,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
-        [self applyTransformToLayer:_collectionView.layer usingFactor:0.31];
+        [self applyTransformToLayer:_collectionView.layer usingFactor:0.30];
     }
     return _collectionView;
 }
@@ -195,13 +199,13 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     if (!_ovenCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 130.0f;
+        CGFloat cellWidth = 120.0f;
         [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 95.0f;
+        CGFloat sideMargin = 100.0f;
 
-        CGFloat topMargin = self.topMargin + 255.0f;//self.topMargin + 255.0f;
+        CGFloat topMargin = self.topMargin + 260.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
@@ -400,29 +404,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [cell.timerControl restartTimer];
         [cell.timerControl stopTimer];
     }
-}
-
-#pragma mark collection view cell paddings
-
-- (UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    if ([collectionView isEqual:self.collectionView]) {
-        return UIEdgeInsetsMake(10.0f, 0.0f, 0.0f, 0.0f);
-    }
-    return UIEdgeInsetsZero;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([collectionView isEqual:self.collectionView]) {
-        if (indexPath.row == 0) {
-            return CGSizeMake(100.0f, 90.0f);
-        } else {
-            return CGSizeMake(115.0f, 105.0f);
-        }
-    }
-    
-    return CGSizeMake(130.0f, 130.0f);
 }
 
 @end
