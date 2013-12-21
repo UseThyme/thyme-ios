@@ -39,6 +39,14 @@
 
 @implementation HYPTimerControl
 
+#pragma mark - Dealloc
+
+- (void)dealloc
+{
+    [self.minutesValueLabel removeObserver:self forKeyPath:@"text"];
+    [self stopTimer];
+}
+
 #pragma mark - Getters
 
 - (UILabel *)hoursLabel
@@ -553,11 +561,6 @@
     [self startTimer];
     NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
-}
-
-- (void)dealloc
-{
-    [self stopTimer];
 }
 
 @end
