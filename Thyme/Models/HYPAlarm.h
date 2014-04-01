@@ -18,14 +18,12 @@
 @property (nonatomic, getter = isActive) BOOL active;
 @property (nonatomic, getter = isOven) BOOL oven;
 
-- (instancetype)initWithNotification:(UILocalNotification *)notification;
-
 + (NSString *)titleForHomescreen;
 + (NSString *)subtitleForHomescreen;
++ (NSString *)subtitleForHomescreenUsingMinutes:(NSNumber *)minutes;
 + (NSString *)messageForSetAlarm;
 + (NSString *)messageForReleaseToSetAlarm;
 - (NSString *)title;
 - (NSString *)timerTitle;
 + (NSString *)defaultAlarmID;
-
 @end

@@ -13,13 +13,54 @@
 #import "HYPMathHelpers.h"
 
 #import "HYPAlarm.h"
+#import "HYPMathHelpers.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface HYPTimerViewController ()
 @property (nonatomic, strong) HYPTimerControl *timerControl;
 @property (nonatomic, strong) UIButton *kitchenButton;
+@property (nonatomic, strong) UIImageView *fingerView;
+@property (nonatomic) CGRect startRect;
+@property (nonatomic) CGRect finalRect;
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation HYPTimerViewController
+
+- (void)startTimerGoingForward:(BOOL)forward
+{
+    if (!self.timer) {
+        if (forward) {
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateForward:) userInfo:nil repeats:YES];
+        } else {
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateBackwards:) userInfo:nil repeats:YES];
+        }
+    }
+}
+
+- (void)stopTimer
+{
+    [self.timer invalidate];
+    self.timer = nil;
+}
+
+- (UIImageView *)fingerView
+{
+    if (!_fingerView) {
+        UIImage *image = [UIImage imageNamed:@"fingerImage"];
+        _fingerView = [[UIImageView alloc] initWithImage:image];
+        CGFloat x = CGRectGetMaxX(self.timerControl.frame) / 2.0f - image.size.width / 2.0f;
+        CGFloat y = CGRectGetMinY(self.timerControl.frame) + image.size.height;
+        CGFloat width = image.size.width;
+        CGFloat height = image.size.height;
+
+        self.startRect = CGRectMake(x, y, width, height);
+        self.finalRect = CGRectMake(x + 61, y + 18, width, height);
+        _fingerView.frame = self.startRect;
+        _fingerView.hidden = YES;
+    }
+    return _fingerView;
+}
 
 - (UIButton *)kitchenButton
 {
@@ -33,7 +74,21 @@
             image = [UIImage imageNamed:imageName];
         }
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat topMargin = 100.0f;
+        CGFloat topMargin;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 160.0f;
+            } else {
+                topMargin = 130.0f;
+            }
+        } else {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 140.0f;
+            } else {
+                topMargin = 110.0f;
+            }
+        }
+
         CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
         CGFloat y = CGRectGetHeight(bounds) - topMargin;
         _kitchenButton.frame = CGRectMake(x, y, image.size.width, image.size.height);
@@ -51,15 +106,23 @@
         CGFloat sideMargin = 0.0f;
 
         CGFloat topMargin;
-        if ([HYPUtils isTallPhone]) {
-            topMargin = 60.0f;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 40.0f;
+            } else {
+                topMargin = 20.0f;
+            }
         } else {
-            topMargin = 50.0f;
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 60.0f;
+            } else {
+                topMargin = 30.0f;
+            }
         }
 
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _timerControl = [[HYPTimerControl alloc] initShowingSubtitleWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
+        _timerControl = [[HYPTimerControl alloc] initCompleteModeWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
         _timerControl.active = YES;
     }
     return _timerControl;
@@ -70,6 +133,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.timerControl];
     [self.view addSubview:self.kitchenButton];
+    [self.view addSubview:self.fingerView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,6 +143,48 @@
     self.timerControl.alarmID = self.alarm.alarmID;
     [self refreshTimerForCurrentAlarm];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(kitchenButtonPressed:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL presentedClue = [defaults boolForKey:@"presentedClue"];
+    if (!presentedClue) {
+        self.fingerView.hidden = NO;
+        [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+        [self startTimerGoingForward:YES];
+        [UIView animateWithDuration:0.8f animations:^{
+            self.fingerView.frame = self.finalRect;
+        } completion:^(BOOL finished) {
+            [self stopTimer];
+            [self startTimerGoingForward:NO];
+            [UIView animateWithDuration:0.8f animations:^{
+                self.fingerView.frame = self.startRect;
+            } completion:^(BOOL finished) {
+                self.fingerView.hidden = YES;
+                [self stopTimer];
+            }];
+            [[UIApplication sharedApplication] endIgnoringInteractionEvents];
+            [defaults setBool:YES forKey:@"presentedClue"];
+            [defaults synchronize];
+        }];
+    }
+}
+
+- (void)updateForward:(NSTimer *)timer
+{
+    if (self.timerControl.minutes < 7) {
+        self.timerControl.minutes += 1;
+    }
+}
+
+- (void)updateBackwards:(NSTimer *)timer
+{
+    if (self.timerControl.minutes > 0) {
+        self.timerControl.minutes -= 1;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -104,10 +210,16 @@
         NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
+        NSTimeInterval hoursLeft = floor(minutesLeft/60.0f);
+        if (hoursLeft > 0) {
+            minutesLeft = minutesLeft - (hoursLeft * 60);
+        }
 
         self.timerControl.title = [self.alarm timerTitle];
-        self.timerControl.minutes = minutesLeft;
         self.timerControl.seconds = currentSecond;
+        self.timerControl.hours = hoursLeft;
+        self.timerControl.minutes = minutesLeft;
+        self.timerControl.touchesAreActive = YES;
         [self.timerControl startTimer];
     }
 }
@@ -118,7 +230,7 @@
         [self.delegate dismissedTimerController:self];
     }
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

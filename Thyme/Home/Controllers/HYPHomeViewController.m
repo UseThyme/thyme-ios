@@ -14,6 +14,9 @@
 #import "HYPLocalNotificationManager.h"
 #import <HockeySDK/HockeySDK.h>
 
+#define IOS6_SHORT_TOP_MARGIN 0
+#define IOS6_TALL_TOP_MARGIN 30
+
 #define SHORT_TOP_MARGIN 10
 #define TALL_TOP_MARGIN 50
 
@@ -51,13 +54,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         if ([_maxMinutesLeft doubleValue] == 0.0f) {
             self.subtitleLabel.text = @"IN LESS THAN A MINUTE";
         } else {
-            NSInteger result = [_maxMinutesLeft integerValue] / 5;
-            NSInteger minutes = (result + 1) * 5;
-            if (minutes > 10) {
-                self.subtitleLabel.text = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)minutes];
-            } else {
-                self.subtitleLabel.text = [NSString stringWithFormat:@"IN %ld MINUTES", (long)[_maxMinutesLeft integerValue]];
-            }
+            self.subtitleLabel.text = [HYPAlarm subtitleForHomescreenUsingMinutes:_maxMinutesLeft];
         }
     } else {
         self.titleLabel.text = [HYPAlarm titleForHomescreen];
@@ -112,10 +109,18 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 
         CGFloat topMargin;
-        if ([HYPUtils isTallPhone]) {
-            topMargin = image.size.height + 110.0f;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = image.size.height + 110.0f;
+            } else {
+                topMargin = image.size.height + 50.0f;
+            }
         } else {
-            topMargin = image.size.height + 60.0f;
+            if ([HYPUtils isTallPhone]) {
+                topMargin = image.size.height + 90.0f;
+            } else {
+                topMargin = image.size.height + 40.0f;
+            }
         }
 
         CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
@@ -143,11 +148,21 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
 
         CGFloat topMargin;
-        if ([HYPUtils isTallPhone]) {
-            topMargin = 60.0f;
+
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 40.0f;
+            } else {
+                topMargin = 20.0f;
+            }
         } else {
-            topMargin = 40.0f;
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 60.0f;
+            } else {
+                topMargin = 40.0f;
+            }
         }
+
         CGFloat height = 25.0f;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
         _titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
@@ -185,14 +200,14 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         CGFloat cellWidth = 100.0f;
-        [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
+        [flowLayout setItemSize:CGSizeMake(cellWidth + 10, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 55.0f;
+        CGFloat sideMargin = 50.0f;
         CGFloat topMargin = self.topMargin;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin + 1, topMargin, width, width) collectionViewLayout:flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
@@ -210,7 +225,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
         CGFloat sideMargin = 100.0f;
-        CGFloat topMargin = self.topMargin + 240.0f;
+
+        CGFloat topMargin = self.topMargin + 270.0f;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
@@ -228,10 +244,18 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     [super viewDidLoad];
 
-    if ([HYPUtils isTallPhone]) {
-        self.topMargin = TALL_TOP_MARGIN;
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+        if ([HYPUtils isTallPhone]) {
+            self.topMargin = IOS6_TALL_TOP_MARGIN;
+        } else {
+            self.topMargin = IOS6_SHORT_TOP_MARGIN;
+        }
     } else {
-        self.topMargin = SHORT_TOP_MARGIN;
+        if ([HYPUtils isTallPhone]) {
+            self.topMargin = TALL_TOP_MARGIN;
+        } else {
+            self.topMargin = SHORT_TOP_MARGIN;
+        }
     }
 
     [self.view addSubview:self.titleLabel];
@@ -243,9 +267,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
     [self.view addSubview:self.ovenShineImageView];
-    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
 
-#if IS_RELEASE_VERSION
+#if IS_PRE_RELEASE_VERSION
     [self.view addSubview:self.feedbackButton];
 #endif
 }
@@ -312,7 +335,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     timerController.delegate = self;
     HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
     timerController.alarm = alarm;
-    [self.navigationController pushViewController:timerController animated:YES];
+    [self presentViewController:timerController animated:YES completion:nil];
 }
 
 #pragma mark - HYPTimerControllerDelegate
@@ -380,20 +403,30 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
         NSTimeInterval currentSecond = secondsLeft % 60;
         NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
-        if (minutesLeft < 0) { // clean up weird alarms
-            [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
-        }
-
+        NSTimeInterval hoursLeft = floor(minutesLeft/60.0f);
         if (minutesLeft >= [self.maxMinutesLeft doubleValue]) {
             self.maxMinutesLeft = @(minutesLeft);
+        }
+
+        if (hoursLeft > 0) {
+            minutesLeft = minutesLeft - (hoursLeft * 60);
+        }
+        if (minutesLeft < 0) { // clean up weird alarms
+            [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
         }
 
         alarm.active = YES;
         cell.timerControl.active = YES;
         cell.timerControl.alarmID = alarm.alarmID;
-        cell.timerControl.minutes = minutesLeft;
         cell.timerControl.seconds = currentSecond;
+        cell.timerControl.hours = hoursLeft;
+        cell.timerControl.minutes = minutesLeft;
         [cell.timerControl startTimer];
+
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:YES forKey:@"presentedClue"];
+        [defaults synchronize];
+
     } else {
         alarm.active = NO;
         cell.timerControl.active = NO;
