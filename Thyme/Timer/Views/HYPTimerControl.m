@@ -134,13 +134,11 @@
             textSize = [sampleString sizeWithFont:font];
         }
         CGFloat x = 0;
-        CGFloat factor;
-        if ([UIScreen andy_isPad]) {
-            factor = 5.0f;
-        } else {
-            factor = 5.0f;
-        }
+        CGFloat factor = 5.0f;
         CGFloat yOffset = floor(factor * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        if ([UIScreen andy_isPad]) {
+            yOffset = -10;
+        }
         CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
         CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
         _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
@@ -219,7 +217,7 @@
     if (self) {
         if ([UIScreen andy_isPad]) {
             self.minuteValueSize = 200.0f;
-            self.minuteTitleSize = 50.0f;
+            self.minuteTitleSize = 35.0f;
         } else {
             self.minuteValueSize = 95.0f;
             self.minuteTitleSize = 14.0f;
@@ -249,7 +247,11 @@
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat baseSize;
         if (aLabel.text.length == 5) {
-            baseSize = self.minuteValueSize;
+            if ([UIScreen andy_isPad]) {
+                baseSize = 200.0f;
+            } else {
+                baseSize = self.minuteValueSize;
+            }
         } else if (aLabel.text.length == 4) {
             if ([UIScreen andy_isPad]) {
                 baseSize = 220.0f;
@@ -265,7 +267,11 @@
         }
         
         if (self.isCompleteMode) {
-            baseSize = self.minuteValueSize;
+            if ([UIScreen andy_isPad]) {
+                baseSize = 250.0f;
+            } else {
+                baseSize = self.minuteValueSize;
+            }
         }
         
         CGFloat fontSize = floor(baseSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));

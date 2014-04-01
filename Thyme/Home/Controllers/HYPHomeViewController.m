@@ -114,7 +114,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat topMargin;
         if ([UIScreen andy_isPad]) {
-            topMargin = image.size.height + 215.0f;
+            topMargin = image.size.height + 175.0f;
         } else {
             if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
                 if ([HYPUtils isTallPhone]) {
@@ -146,6 +146,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         UIImage *image;
         if ([UIScreen andy_isPad]) {
             image = [UIImage imageNamed:@"ovenShine~iPad"];
+            _ovenShineImageView.hidden = YES;
         } else {
             image = [UIImage imageNamed:@"ovenShine"];
         }
@@ -259,7 +260,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         CGFloat factor;
         if ([UIScreen andy_isPad]) {
-            factor = 0.34f;
+            factor = 0.36f;
         } else {
             factor = 0.30f;
         }
@@ -291,7 +292,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         CGFloat topMargin;
         if ([UIScreen andy_isPad]) {
-            topMargin = self.topMargin + 435.0f;
+            topMargin = self.topMargin + 475.0f;
         } else {
             topMargin = self.topMargin + 270.0f;
         }
