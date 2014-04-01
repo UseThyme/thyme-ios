@@ -104,22 +104,30 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (UIImageView *)ovenBackgroundImageView
 {
     if (!_ovenBackgroundImageView) {
-        UIImage *image = [UIImage imageNamed:@"ovenBackground"];
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-
-
-        CGFloat topMargin;
-        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = image.size.height + 110.0f;
-            } else {
-                topMargin = image.size.height + 50.0f;
-            }
+        UIImage *image;
+        if ([UIScreen andy_isPad]) {
+            image = [UIImage imageNamed:@"ovenBackground~iPad"];
         } else {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = image.size.height + 90.0f;
+            image = [UIImage imageNamed:@"ovenBackground"];
+        }
+
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat topMargin;
+        if ([UIScreen andy_isPad]) {
+            topMargin = image.size.height + 215.0f;
+        } else {
+            if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+                if ([HYPUtils isTallPhone]) {
+                    topMargin = image.size.height + 110.0f;
+                } else {
+                    topMargin = image.size.height + 50.0f;
+                }
             } else {
-                topMargin = image.size.height + 40.0f;
+                if ([HYPUtils isTallPhone]) {
+                    topMargin = image.size.height + 90.0f;
+                } else {
+                    topMargin = image.size.height + 40.0f;
+                }
             }
         }
 
@@ -135,7 +143,14 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     if (!_ovenShineImageView) {
         _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
-        _ovenShineImageView.image = [UIImage imageNamed:@"ovenShine"];
+        UIImage *image;
+        if ([UIScreen andy_isPad]) {
+            image = [UIImage imageNamed:@"ovenShine~iPad"];
+        } else {
+            image = [UIImage imageNamed:@"ovenShine"];
+        }
+
+        _ovenShineImageView.image = image;
     }
     return _ovenShineImageView;
 }
@@ -149,23 +164,33 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         CGFloat topMargin;
 
-        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = 40.0f;
-            } else {
-                topMargin = 20.0f;
-            }
+        if ([UIScreen andy_isPad]) {
+            topMargin = 115.0f;
         } else {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = 60.0f;
+            if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+                if ([HYPUtils isTallPhone]) {
+                    topMargin = 40.0f;
+                } else {
+                    topMargin = 20.0f;
+                }
             } else {
-                topMargin = 40.0f;
+                if ([HYPUtils isTallPhone]) {
+                    topMargin = 60.0f;
+                } else {
+                    topMargin = 40.0f;
+                }
             }
         }
 
         CGFloat height = 25.0f;
+        UIFont *font;
+        if ([UIScreen andy_isPad]) {
+            font = [HYPUtils avenirLightWithSize:20.0f];
+        } else {
+            font = [HYPUtils avenirLightWithSize:15.0f];
+        }
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
+        _titleLabel.font = font;
         _titleLabel.text = [HYPAlarm titleForHomescreen];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.textColor = [UIColor whiteColor];
@@ -183,8 +208,14 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
         CGFloat height = CGRectGetHeight(self.titleLabel.frame);
+        UIFont *font;
+        if ([UIScreen andy_isPad]) {
+            font = [HYPUtils avenirBlackWithSize:25.0f];
+        } else {
+            font = [HYPUtils avenirBlackWithSize:19.0f];
+        }
         _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _subtitleLabel.font = [HYPUtils avenirBlackWithSize:19.0f];
+        _subtitleLabel.font = font;
         _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
         _subtitleLabel.textAlignment = NSTextAlignmentCenter;
         _subtitleLabel.textColor = [UIColor whiteColor];
@@ -199,19 +230,37 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if (!_collectionView) {
 
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 100.0f;
-        [flowLayout setItemSize:CGSizeMake(cellWidth + 10, cellWidth)];
+        CGFloat cellWidth;
+        if ([UIScreen andy_isPad]) {
+            cellWidth = 175.0f;
+        } else {
+            cellWidth = 100.0f;
+        }
+
+        [flowLayout setItemSize:CGSizeMake(cellWidth + 10.0f, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 50.0f;
+        CGFloat sideMargin;
+        if ([UIScreen andy_isPad]) {
+            sideMargin = 200.0f;
+        } else {
+            sideMargin = 50.0f;
+        }
         CGFloat topMargin = self.topMargin;
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin + 1, topMargin, width, width) collectionViewLayout:flowLayout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.backgroundColor = [UIColor clearColor];
-        [self applyTransformToLayer:_collectionView.layer usingFactor:0.30];
+
+        CGFloat factor;
+        if ([UIScreen andy_isPad]) {
+            factor = 0.34f;
+        } else {
+            factor = 0.30f;
+        }
+        [self applyTransformToLayer:_collectionView.layer usingFactor:factor];
     }
     return _collectionView;
 }
@@ -220,20 +269,44 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     if (!_ovenCollectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 120.0f;
+        CGFloat cellWidth;
+        if ([UIScreen andy_isPad]) {
+            cellWidth = 220.0f;
+        } else {
+            cellWidth = 120.0f;
+        }
+
         [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-        CGFloat sideMargin = 100.0f;
+        CGFloat sideMargin;
+        if ([UIScreen andy_isPad]) {
+            sideMargin = 274.0f;
+        } else {
+            sideMargin = 100.0f;
+        }
 
-        CGFloat topMargin = self.topMargin + 270.0f;
+        CGFloat topMargin;
+        if ([UIScreen andy_isPad]) {
+            topMargin = self.topMargin + 435.0f;
+        } else {
+            topMargin = self.topMargin + 270.0f;
+        }
+
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
         _ovenCollectionView.dataSource = self;
         _ovenCollectionView.delegate = self;
         _ovenCollectionView.backgroundColor = [UIColor clearColor];
-        [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:0.25];
+
+        CGFloat factor;
+        if ([UIScreen andy_isPad]) {
+            factor = 0.29f;
+        } else {
+            factor = 0.25f;
+        }
+        [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:factor];
     }
     return _ovenCollectionView;
 }
@@ -244,17 +317,21 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     [super viewDidLoad];
 
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        if ([HYPUtils isTallPhone]) {
-            self.topMargin = IOS6_TALL_TOP_MARGIN;
-        } else {
-            self.topMargin = IOS6_SHORT_TOP_MARGIN;
-        }
+    if ([UIScreen andy_isPad]) {
+        self.topMargin = 70.0f;
     } else {
-        if ([HYPUtils isTallPhone]) {
-            self.topMargin = TALL_TOP_MARGIN;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                self.topMargin = IOS6_TALL_TOP_MARGIN;
+            } else {
+                self.topMargin = IOS6_SHORT_TOP_MARGIN;
+            }
         } else {
-            self.topMargin = SHORT_TOP_MARGIN;
+            if ([HYPUtils isTallPhone]) {
+                self.topMargin = TALL_TOP_MARGIN;
+            } else {
+                self.topMargin = SHORT_TOP_MARGIN;
+            }
         }
     }
 

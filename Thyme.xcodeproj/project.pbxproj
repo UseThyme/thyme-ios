@@ -30,6 +30,12 @@
 		444B1F7518EB27E5004BAB33 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 444B1F7218EB27E5004BAB33 /* Default.png */; };
 		444B1F7618EB27E5004BAB33 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 444B1F7318EB27E5004BAB33 /* Default@2x.png */; };
 		44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */; };
+		4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */; };
+		4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */; };
+		4454E98A18EB3BFF00CB1C87 /* background~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98918EB3BFF00CB1C87 /* background~iPad@2x.png */; };
+		4454E98D18EB3D9B00CB1C87 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98B18EB3D9B00CB1C87 /* Icon-76.png */; };
+		4454E98E18EB3D9B00CB1C87 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98C18EB3D9B00CB1C87 /* Icon-76@2x.png */; };
+		4454E99218EB3E1800CB1C87 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E99118EB3E1800CB1C87 /* Icon-40.png */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
 		446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E241844C4E2005FD797 /* HYPAppDelegate.m */; };
 		446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */; };
@@ -107,6 +113,12 @@
 		444B1F7318EB27E5004BAB33 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		44522B38184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HYPTimerControl+DrawingMethods.h"; sourceTree = "<group>"; };
 		44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HYPTimerControl+DrawingMethods.m"; sourceTree = "<group>"; };
+		4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground~iPad@2x.png"; sourceTree = "<group>"; };
+		4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenShine~iPad@2x.png"; sourceTree = "<group>"; };
+		4454E98918EB3BFF00CB1C87 /* background~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background~iPad@2x.png"; sourceTree = "<group>"; };
+		4454E98B18EB3D9B00CB1C87 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
+		4454E98C18EB3D9B00CB1C87 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76@2x.png"; sourceTree = "<group>"; };
+		4454E99118EB3E1800CB1C87 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
 		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
 		446C9E231844C4E2005FD797 /* HYPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAppDelegate.h; sourceTree = "<group>"; };
 		446C9E241844C4E2005FD797 /* HYPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPAppDelegate.m; sourceTree = "<group>"; };
@@ -208,10 +220,13 @@
 		444B1F5718EB2624004BAB33 /* AppIcons */ = {
 			isa = PBXGroup;
 			children = (
+				4454E99118EB3E1800CB1C87 /* Icon-40.png */,
 				444B1F5818EB2624004BAB33 /* Icon-40@2x.png */,
 				444B1F5918EB2624004BAB33 /* Icon-60@2x.png */,
 				444B1F5A18EB2624004BAB33 /* Icon-72.png */,
 				444B1F5B18EB2624004BAB33 /* Icon-72@2x.png */,
+				4454E98B18EB3D9B00CB1C87 /* Icon-76.png */,
+				4454E98C18EB3D9B00CB1C87 /* Icon-76@2x.png */,
 				444B1F5C18EB2624004BAB33 /* Icon-Small-50.png */,
 				444B1F5D18EB2624004BAB33 /* Icon-Small-50@2x.png */,
 				444B1F5E18EB2624004BAB33 /* Icon-Small.png */,
@@ -336,9 +351,12 @@
 				44AE6683184F4E1C00148398 /* 0-0@2x.png */,
 				44AE6684184F4E1C00148398 /* oven@2x.png */,
 				44A54150184E1FCC00964F58 /* ovenBackground@2x.png */,
+				4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */,
 				442CD148184F7A0900CE9031 /* ovenShine@2x.png */,
+				4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */,
 				441B5819184E14F600839331 /* kitchenImage@2x.png */,
 				44A691AC1844E02D005D4C5A /* background@2x.png */,
+				4454E98918EB3BFF00CB1C87 /* background~iPad@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -564,7 +582,9 @@
 				44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */,
 				444B1F6D18EB2624004BAB33 /* Icon@2x.png in Resources */,
 				441B5818184E061200839331 /* tick.caf in Resources */,
+				4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */,
 				442CD149184F7A0900CE9031 /* ovenShine@2x.png in Resources */,
+				4454E98E18EB3D9B00CB1C87 /* Icon-76@2x.png in Resources */,
 				444B1F6618EB2624004BAB33 /* Icon-72.png in Resources */,
 				44AE6687184F4E1C00148398 /* 0-1@2x.png in Resources */,
 				44AE6685184F4E1C00148398 /* 1-1@2x.png in Resources */,
@@ -577,10 +597,13 @@
 				444B1F6418EB2624004BAB33 /* Icon-40@2x.png in Resources */,
 				444B1F7418EB27E5004BAB33 /* Default-568h@2x.png in Resources */,
 				444B1F6C18EB2624004BAB33 /* Icon.png in Resources */,
+				4454E99218EB3E1800CB1C87 /* Icon-40.png in Resources */,
+				4454E98D18EB3D9B00CB1C87 /* Icon-76.png in Resources */,
 				444B1F6B18EB2624004BAB33 /* Icon-Small@2x.png in Resources */,
 				444B1F6F18EB2624004BAB33 /* iTunesArtwork@2x.png in Resources */,
 				449143CF1847676F008A80F0 /* README.md in Resources */,
 				449143C91847676F008A80F0 /* CHANGELOG in Resources */,
+				4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */,
 				44A691AD1844E02D005D4C5A /* background@2x.png in Resources */,
 				444B1F6E18EB2624004BAB33 /* iTunesArtwork.png in Resources */,
 				444B1F6A18EB2624004BAB33 /* Icon-Small.png in Resources */,
@@ -592,6 +615,7 @@
 				449143CD1847676F008A80F0 /* HockeySDKResources.bundle in Resources */,
 				444B1F6818EB2624004BAB33 /* Icon-Small-50.png in Resources */,
 				444B1F6918EB2624004BAB33 /* Icon-Small-50@2x.png in Resources */,
+				4454E98A18EB3BFF00CB1C87 /* background~iPad@2x.png in Resources */,
 				4465EE93184772F9006C145F /* alarm.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

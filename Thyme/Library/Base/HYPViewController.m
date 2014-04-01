@@ -23,7 +23,13 @@
 {
     [super viewDidLoad];
     self.view.userInteractionEnabled = YES;
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
+    UIImage *image;
+    if ([UIScreen andy_isPad]) {
+        image = [UIImage imageNamed:@"background~iPad"];
+    } else {
+        image = [UIImage imageNamed:@"background"];
+    }
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
 }
 
 @end
