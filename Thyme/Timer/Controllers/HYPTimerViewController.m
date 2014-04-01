@@ -74,7 +74,21 @@
             image = [UIImage imageNamed:imageName];
         }
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat topMargin = 100.0f;
+        CGFloat topMargin;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 160.0f;
+            } else {
+                topMargin = 130.0f;
+            }
+        } else {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 140.0f;
+            } else {
+                topMargin = 110.0f;
+            }
+        }
+
         CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
         CGFloat y = CGRectGetHeight(bounds) - topMargin;
         _kitchenButton.frame = CGRectMake(x, y, image.size.width, image.size.height);
@@ -92,10 +106,18 @@
         CGFloat sideMargin = 0.0f;
 
         CGFloat topMargin;
-        if ([HYPUtils isTallPhone]) {
-            topMargin = 60.0f;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 40.0f;
+            } else {
+                topMargin = 20.0f;
+            }
         } else {
-            topMargin = 50.0f;
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 60.0f;
+            } else {
+                topMargin = 30.0f;
+            }
         }
 
         CGRect bounds = [[UIScreen mainScreen] bounds];

@@ -17,3 +17,4 @@
 
 
 #define IS_PRE_RELEASE_VERSION 0
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)

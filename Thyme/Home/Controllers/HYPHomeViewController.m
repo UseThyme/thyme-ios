@@ -14,6 +14,9 @@
 #import "HYPLocalNotificationManager.h"
 #import <HockeySDK/HockeySDK.h>
 
+#define IOS6_SHORT_TOP_MARGIN 0
+#define IOS6_TALL_TOP_MARGIN 30
+
 #define SHORT_TOP_MARGIN 10
 #define TALL_TOP_MARGIN 50
 
@@ -106,10 +109,18 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 
         CGFloat topMargin;
-        if ([HYPUtils isTallPhone]) {
-            topMargin = image.size.height + 90.0f;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = image.size.height + 110.0f;
+            } else {
+                topMargin = image.size.height + 50.0f;
+            }
         } else {
-            topMargin = image.size.height + 40.0f;
+            if ([HYPUtils isTallPhone]) {
+                topMargin = image.size.height + 90.0f;
+            } else {
+                topMargin = image.size.height + 40.0f;
+            }
         }
 
         CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
@@ -137,11 +148,21 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
 
         CGFloat topMargin;
-        if ([HYPUtils isTallPhone]) {
-            topMargin = 60.0f;
+
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 40.0f;
+            } else {
+                topMargin = 20.0f;
+            }
         } else {
-            topMargin = 40.0f;
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 60.0f;
+            } else {
+                topMargin = 40.0f;
+            }
         }
+
         CGFloat height = 25.0f;
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
         _titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
@@ -223,10 +244,18 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     [super viewDidLoad];
 
-    if ([HYPUtils isTallPhone]) {
-        self.topMargin = TALL_TOP_MARGIN;
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+        if ([HYPUtils isTallPhone]) {
+            self.topMargin = IOS6_TALL_TOP_MARGIN;
+        } else {
+            self.topMargin = IOS6_SHORT_TOP_MARGIN;
+        }
     } else {
-        self.topMargin = SHORT_TOP_MARGIN;
+        if ([HYPUtils isTallPhone]) {
+            self.topMargin = TALL_TOP_MARGIN;
+        } else {
+            self.topMargin = SHORT_TOP_MARGIN;
+        }
     }
 
     [self.view addSubview:self.titleLabel];

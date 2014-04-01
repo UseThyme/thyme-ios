@@ -53,7 +53,13 @@
         NSString *sampleString = @"2 HOURS";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
 
-        CGSize textSize = [sampleString sizeWithAttributes:attributes];
+        CGSize textSize;
+        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
+            textSize = [sampleString sizeWithAttributes:attributes];
+        } else {
+            textSize = [sampleString sizeWithFont:font];
+        }
+
         CGFloat yOffset = self.minutesValueLabel.frame.origin.y - 8.0f;
         CGFloat x = 0;
         CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
@@ -81,7 +87,12 @@
         NSString *sampleString = @"10:00";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
 
-        CGSize textSize = [sampleString sizeWithAttributes:attributes];
+        CGSize textSize;
+        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
+            textSize = [sampleString sizeWithAttributes:attributes];
+        } else {
+            textSize = [sampleString sizeWithFont:font];
+        }
         CGFloat yOffset = 20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds);
         CGFloat x = 0;
         CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
@@ -107,7 +118,12 @@
         NSString *sampleString = @"MINUTES LEFT";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
 
-        CGSize textSize = [sampleString sizeWithAttributes:attributes];
+        CGSize textSize;
+        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
+            textSize = [sampleString sizeWithAttributes:attributes];
+        } else {
+            textSize = [sampleString sizeWithFont:font];
+        }
         CGFloat x = 0;
         CGFloat yOffset = floor(5.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
