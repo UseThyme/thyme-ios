@@ -19,8 +19,6 @@
 
 /** Parameters **/
 #define CIRCLE_SIZE_FACTOR 0.8f
-#define MINUTE_VALUE_SIZE 95.0f
-#define MINUTE_TITLE_SIZE 14.0f
 
 #define UNACTIVE_SECONDS_INDICATOR_COLOR [UIColor whiteColor]
 #define ACTIVE_SECONDS_INDICATOR_COLOR [UIColor colorFromHexString:@"ff5c5c"]
@@ -35,6 +33,9 @@
 @property (nonatomic) NSInteger angle;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) CGPoint lastPoint;
+
+@property (nonatomic) CGFloat minuteValueSize;
+@property (nonatomic) CGFloat minuteTitleSize;
 @end
 
 @implementation HYPTimerControl
@@ -55,7 +56,7 @@
 
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat defaultSize = (self.isCompleteMode) ? MINUTE_TITLE_SIZE : MINUTE_TITLE_SIZE * 1.5;
+        CGFloat defaultSize = (self.isCompleteMode) ? self.minuteTitleSize : self.minuteTitleSize * 1.5;
         CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
         NSString *sampleString = @"2 HOURS";
@@ -89,7 +90,7 @@
 
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat defaultSize = (self.isCompleteMode) ? MINUTE_VALUE_SIZE : MINUTE_VALUE_SIZE * 0.9;
+        CGFloat defaultSize = (self.isCompleteMode) ? self.minuteValueSize : self.minuteValueSize * 0.9;
         CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
         NSString *sampleString = @"10:00";
@@ -121,7 +122,7 @@
 
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat fontSize = floor(MINUTE_TITLE_SIZE * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        CGFloat fontSize = floor(self.minuteTitleSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
         NSString *sampleString = @"MINUTES LEFT";
         NSDictionary *attributes = @{ NSFontAttributeName:font };
@@ -133,7 +134,13 @@
             textSize = [sampleString sizeWithFont:font];
         }
         CGFloat x = 0;
-        CGFloat yOffset = floor(5.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        CGFloat factor;
+        if ([UIScreen andy_isPad]) {
+            factor = 5.0f;
+        } else {
+            factor = 5.0f;
+        }
+        CGFloat yOffset = floor(factor * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
         CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
         _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
@@ -210,6 +217,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        if ([UIScreen andy_isPad]) {
+            self.minuteValueSize = 200.0f;
+            self.minuteTitleSize = 50.0f;
+        } else {
+            self.minuteValueSize = 95.0f;
+            self.minuteTitleSize = 14.0f;
+        }
+
         self.backgroundColor = [UIColor clearColor];
         self.completeMode = completeMode;
         self.angle = 0;
@@ -234,15 +249,23 @@
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat baseSize;
         if (aLabel.text.length == 5) {
-            baseSize = MINUTE_VALUE_SIZE; // 95.0f [00:00]
+            baseSize = self.minuteValueSize;
         } else if (aLabel.text.length == 4) {
-            baseSize = 100.0f;
+            if ([UIScreen andy_isPad]) {
+                baseSize = 220.0f;
+            } else {
+                baseSize = 100.0f;
+            }
         } else {
-            baseSize = 120.0f;
+            if ([UIScreen andy_isPad]) {
+                baseSize = 280.0f;
+            } else {
+                baseSize = 120.0f;
+            }
         }
         
         if (self.isCompleteMode) {
-            baseSize = 95.0f;
+            baseSize = self.minuteValueSize;
         }
         
         CGFloat fontSize = floor(baseSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));

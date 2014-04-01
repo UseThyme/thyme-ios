@@ -207,6 +207,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
         CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
+        if ([UIScreen andy_isPad]) {
+            topMargin += 10.0f;
+        }
         CGFloat height = CGRectGetHeight(self.titleLabel.frame);
         UIFont *font;
         if ([UIScreen andy_isPad]) {
