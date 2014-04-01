@@ -39,6 +39,14 @@
 
 @implementation HYPTimerControl
 
+#pragma mark - Dealloc
+
+- (void)dealloc
+{
+    [self.minutesValueLabel removeObserver:self forKeyPath:@"text"];
+    [self stopTimer];
+}
+
 #pragma mark - Getters
 
 - (UILabel *)hoursLabel
@@ -211,8 +219,36 @@
             [self addSubview:self.minutesTitleLabel];
             [self addSubview:self.hoursLabel];
         }
+        
+        [self.minutesValueLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([object isEqual:self.minutesValueLabel]) {
+        UILabel *aLabel = (UILabel *)object;
+        
+        //Define the Font
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat baseSize;
+        if (aLabel.text.length == 5) {
+            baseSize = MINUTE_VALUE_SIZE; // 95.0f [00:00]
+        } else if (aLabel.text.length == 4) {
+            baseSize = 100.0f;
+        } else {
+            baseSize = 120.0f;
+        }
+        
+        if (self.isCompleteMode) {
+            baseSize = 95.0f;
+        }
+        
+        CGFloat fontSize = floor(baseSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+        UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
+        self.minutesValueLabel.font = font;
+    }
 }
 
 #pragma mark - Drawing
@@ -529,11 +565,6 @@
     [self startTimer];
     NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
-}
-
-- (void)dealloc
-{
-    [self stopTimer];
 }
 
 @end
