@@ -14,11 +14,11 @@
 #import "HYPLocalNotificationManager.h"
 #import <HockeySDK/HockeySDK.h>
 
-#define IOS6_SHORT_TOP_MARGIN 0
-#define IOS6_TALL_TOP_MARGIN 30
+#define IOS6_SHORT_TOP_MARGIN -10.0f
+#define IOS6_TALL_TOP_MARGIN 30.0f
 
-#define SHORT_TOP_MARGIN 10
-#define TALL_TOP_MARGIN 50
+#define SHORT_TOP_MARGIN 10.0f
+#define TALL_TOP_MARGIN 50.0f
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
@@ -73,6 +73,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
             y -= 10.0f;
+            if ([UIScreen andy_isSmallScreen]) {
+                y -= 10.0f;
+            }
         }
         _feedbackButton.frame = CGRectMake(x, y, 44.0f, 44.0f);
         _feedbackButton.tintColor = [UIColor whiteColor];
@@ -125,7 +128,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
                 if ([HYPUtils isTallPhone]) {
                     topMargin = image.size.height + 110.0f;
                 } else {
-                    topMargin = image.size.height + 50.0f;
+                    topMargin = image.size.height + 60.0f;
                 }
             } else {
                 if ([HYPUtils isTallPhone]) {
