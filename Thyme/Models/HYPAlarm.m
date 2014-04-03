@@ -62,11 +62,6 @@
         } else {
             NSInteger m = [maxMinutesLeft integerValue] / 10.0f;
             NSInteger miniMinutes = [maxMinutesLeft integerValue] - (m * 10);
-            NSLog(@"miniMinutes: %ld", (long)miniMinutes);
-            NSLog(@"maxMinutesLeft: %@", maxMinutesLeft);
-            NSLog(@"minutes: %ld", (long)minutes);
-            NSLog(@" ");
-
             if ([maxMinutesLeft integerValue] < 10) {
                 message = [NSString stringWithFormat:@"IN %ld MINUTES", (long)[maxMinutesLeft integerValue]];
             } else {
