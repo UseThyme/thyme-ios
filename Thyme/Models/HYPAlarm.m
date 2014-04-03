@@ -10,8 +10,6 @@
 
 @implementation HYPAlarm
 
-#define A_DEFAULT_TEXT @"------------------SWIPE CLOCKWISE TO SET TIMER------------------"
-#define B_DEFAULT_TEXT @"------------------RELEASE TO SET TIMER------------------"
 #define ALARM_ID @"THYME_ALARM_ID_0"
 
 - (void)setIndexPath:(NSIndexPath *)indexPath
@@ -87,12 +85,12 @@
 
 + (NSString *)messageForSetAlarm
 {
-    return A_DEFAULT_TEXT;
+    return @"------------------SWIPE CLOCKWISE TO SET TIMER------------------";
 }
 
 + (NSString *)messageForReleaseToSetAlarm
 {
-    return B_DEFAULT_TEXT;
+    return @"------------------RELEASE TO SET TIMER------------------";
 }
 
 - (NSString *)title
