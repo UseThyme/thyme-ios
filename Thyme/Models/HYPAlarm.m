@@ -60,12 +60,29 @@
                 message = [NSString stringWithFormat:@"IN ABOUT %ld HOURS %ld MINUTES", (long)hoursLeft, (long)minutes];
             }
         } else {
-            if (minutes == 60) {
-                message = [NSString stringWithFormat:@"IN ABOUT 1 HOUR"];
-            } else if (minutes > 10) {
-                message = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)minutes];
-            } else {
+            NSInteger m = [maxMinutesLeft integerValue] / 10.0f;
+            NSInteger miniMinutes = [maxMinutesLeft integerValue] - (m * 10);
+            NSLog(@"miniMinutes: %ld", (long)miniMinutes);
+            NSLog(@"maxMinutesLeft: %@", maxMinutesLeft);
+            NSLog(@"minutes: %ld", (long)minutes);
+            NSLog(@" ");
+
+            if ([maxMinutesLeft integerValue] < 10) {
                 message = [NSString stringWithFormat:@"IN %ld MINUTES", (long)[maxMinutesLeft integerValue]];
+            } else {
+                if (miniMinutes < 3 || (miniMinutes >= 5 && miniMinutes < 8)) {
+                    if (miniMinutes >= 5) {
+                        message = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)(m * 10) + 5];
+                    } else {
+                        message = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)(m * 10)];
+                    }
+                } else {
+                    if ([maxMinutesLeft integerValue] >= 58) {
+                        message =  [NSString stringWithFormat:@"IN ABOUT 1 HOUR"];
+                    } else {
+                        message = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)minutes];
+                    }
+                }
             }
         }
     }
