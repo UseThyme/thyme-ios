@@ -65,11 +65,16 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (UIButton *)feedbackButton
 {
     if (!_feedbackButton) {
-        _feedbackButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        _feedbackButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
         [_feedbackButton addTarget:self action:@selector(feedbackButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
-        _feedbackButton.frame = CGRectMake(15.0f, y, 44.0f, 44.0f);
+        CGFloat x = 5.0f;
+
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            y -= 10.0f;
+        }
+        _feedbackButton.frame = CGRectMake(x, y, 44.0f, 44.0f);
         _feedbackButton.tintColor = [UIColor whiteColor];
     }
     return _feedbackButton;
@@ -294,7 +299,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         if ([UIScreen andy_isPad]) {
             topMargin = self.topMargin + 475.0f;
         } else {
-            topMargin = self.topMargin + 270.0f;
+            topMargin = self.topMargin + 260.0f;
         }
 
         CGRect bounds = [[UIScreen mainScreen] bounds];

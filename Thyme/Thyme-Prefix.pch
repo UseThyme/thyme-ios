@@ -16,6 +16,5 @@
     #import "UIScreen+ANDYResolutions.h"
 #endif
 
-
 #define IS_PRE_RELEASE_VERSION 1
 #define SYSTEM_VERSION_LESS_THAN(v) ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
