@@ -10,7 +10,7 @@
 #import "HYPHomeViewController.h"
 #import "HYPTimerViewController.h"
 #import <HockeySDK/HockeySDK.h>
-#import <AVFoundation/AVAudioPlayer.h>
+@import AVFoundation;
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 
@@ -59,6 +59,7 @@ static inline BOOL IsUnitTesting()
 #endif
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
