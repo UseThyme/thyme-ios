@@ -20,12 +20,12 @@
 
 + (NSString *)titleForHomescreen
 {
-    return @"IT'S TIME TO GET COOKING";
+    return NSLocalizedString(@"IT'S TIME TO GET COOKING", @"IT'S TIME TO GET COOKING");
 }
 
 + (NSString *)subtitleForHomescreen
 {
-    return @"TAP A PLATE TO SET A TIMER";
+    return NSLocalizedString(@"TAP A PLATE TO SET A TIMER", @"TAP A PLATE TO SET A TIMER");
 }
 
 + (NSString *)subtitleForHomescreenUsingMinutes:(NSNumber *)maxMinutesLeft
@@ -33,7 +33,7 @@
     NSString *message;
 
     if ([maxMinutesLeft doubleValue] == 0.0f) {
-        message = @"IN LESS THAN A MINUTE";
+        message = NSLocalizedString(@"IN LESS THAN A MINUTE", @"IN LESS THAN A MINUTE");
     } else {
         NSInteger hoursLeft = floor([maxMinutesLeft integerValue]/60.0f);
         if (hoursLeft > 0) {
@@ -49,31 +49,31 @@
                 minutes = 0;
             }
             if (hoursLeft == 1 && minutes == 0) {
-                message = [NSString stringWithFormat:@"IN ABOUT 1 HOUR"];
+                message = [NSString stringWithFormat:NSLocalizedString(@"IN ABOUT 1 HOUR", @"IN ABOUT 1 HOUR")];
             } else if (hoursLeft == 1 && minutes > 0) {
-                message = [NSString stringWithFormat:@"IN ABOUT 1 HOUR %ld MINUTES", (long)minutes];
+                message = [NSString stringWithFormat:NSLocalizedString(@"IN ABOUT 1 HOUR %ld MINUTES", @"IN ABOUT 1 HOUR %ld MINUTES"), (long)minutes];
             } else if (minutes == 0) {
-                message = [NSString stringWithFormat:@"IN ABOUT %ld HOURS", (long)hoursLeft];
+                message = [NSString stringWithFormat:NSLocalizedString(@"IN ABOUT %ld HOURS", @"IN ABOUT %ld HOURS"), (long)hoursLeft];
             } else {
-                message = [NSString stringWithFormat:@"IN ABOUT %ld HOURS %ld MINUTES", (long)hoursLeft, (long)minutes];
+                message = [NSString stringWithFormat:NSLocalizedString(@"IN ABOUT %ld HOURS %ld MINUTES", @"IN ABOUT %ld HOURS %ld MINUTES"), (long)hoursLeft, (long)minutes];
             }
         } else {
             NSInteger m = [maxMinutesLeft integerValue] / 10.0f;
             NSInteger miniMinutes = [maxMinutesLeft integerValue] - (m * 10);
             if ([maxMinutesLeft integerValue] < 10) {
-                message = [NSString stringWithFormat:@"IN %ld MINUTES", (long)[maxMinutesLeft integerValue]];
+                message = [NSString stringWithFormat:NSLocalizedString(@"IN %ld MINUTES", @"IN %ld MINUTES"), (long)[maxMinutesLeft integerValue]];
             } else {
                 if (miniMinutes < 3 || (miniMinutes >= 5 && miniMinutes < 8)) {
                     if (miniMinutes >= 5) {
-                        message = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)(m * 10) + 5];
+                        message = [NSString stringWithFormat:NSLocalizedString(@"IN ABOUT %ld MINUTES", @"IN ABOUT %ld MINUTES"), (long)(m * 10) + 5];
                     } else {
-                        message = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)(m * 10)];
+                        message = [NSString stringWithFormat:NSLocalizedString(@"IN ABOUT %ld MINUTES", @"IN ABOUT %ld MINUTES"), (long)(m * 10)];
                     }
                 } else {
                     if ([maxMinutesLeft integerValue] >= 58) {
-                        message =  [NSString stringWithFormat:@"IN ABOUT 1 HOUR"];
+                        message =  [NSString stringWithFormat:NSLocalizedString(@"IN ABOUT 1 HOUR", @"IN ABOUT 1 HOUR")];
                     } else {
-                        message = [NSString stringWithFormat:@"IN ABOUT %ld MINUTES", (long)minutes];
+                        message = [NSString stringWithFormat:NSLocalizedString(@"IN ABOUT %ld MINUTES", @"IN ABOUT %ld MINUTES"), (long)minutes];
                     }
                 }
             }
@@ -85,36 +85,36 @@
 
 + (NSString *)messageForSetAlarm
 {
-    return @"------------------SWIPE CLOCKWISE TO SET TIMER------------------";
+    return NSLocalizedString(@"------------------SWIPE CLOCKWISE TO SET TIMER------------------", @"------------------SWIPE CLOCKWISE TO SET TIMER------------------");
 }
 
 + (NSString *)messageForReleaseToSetAlarm
 {
-    return @"------------------RELEASE TO SET TIMER------------------";
+    return NSLocalizedString(@"------------------RELEASE TO SET TIMER------------------", @"------------------RELEASE TO SET TIMER------------------");
 }
 
 - (NSString *)title
 {
     if (self.isOven) {
-        return @"OVEN";
+        return NSLocalizedString(@"OVEN", @"OVEN");
     }
 
     NSString *leading;
 
     if (self.indexPath.row == 0) {
-        leading = @"TOP";
+        leading = NSLocalizedString(@"TOP", @"TOP");
     } else {
-        leading = @"BOTTOM";
+        leading = NSLocalizedString(@"BOTTOM", @"BOTTOM");
     }
 
     NSString *position;
     if (self.indexPath.section == 0) {
-        position = @"LEFT";
+        position = NSLocalizedString(@"LEFT", @"LEFT");
     } else {
-        position = @"RIGHT";
+        position = NSLocalizedString(@"RIGHT", @"RIGHT");
     }
 
-    return [NSString stringWithFormat:@"%@ %@ PLATE", leading, position];
+    return [NSString stringWithFormat:NSLocalizedString(@"%@ %@ PLATE", @"%@ %@ PLATE"), leading, position];
 }
 
 - (NSString *)timerTitle

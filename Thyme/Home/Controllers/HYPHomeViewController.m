@@ -50,9 +50,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     _maxMinutesLeft = maxMinutesLeft;
     
     if (_maxMinutesLeft) {
-        self.titleLabel.text = @"YOUR DISH WILL BE DONE";
+        self.titleLabel.text = NSLocalizedString(@"YOUR DISH WILL BE DONE", @"YOUR DISH WILL BE DONE");
         if ([_maxMinutesLeft doubleValue] == 0.0f) {
-            self.subtitleLabel.text = @"IN LESS THAN A MINUTE";
+            self.subtitleLabel.text = NSLocalizedString(@"IN LESS THAN A MINUTE", @"IN LESS THAN A MINUTE");
         } else {
             self.subtitleLabel.text = [HYPAlarm subtitleForHomescreenUsingMinutes:_maxMinutesLeft];
         }

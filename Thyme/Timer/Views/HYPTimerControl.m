@@ -192,9 +192,9 @@
     } else {
         self.hoursLabel.hidden = NO;
         if (_hours == 1) {
-            self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOUR", (long)_hours];
+            self.hoursLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%ld HOUR", @"%ld HOUR"), (long)_hours];
         } else {
-            self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)_hours];
+            self.hoursLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%ld HOURS", @"%ld HOURS"), (long)_hours];
         }
     }
 }
@@ -592,8 +592,8 @@
 
     self.seconds = 0;
     [self startTimer];
-    NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
-    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
+    NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ just finished", @"%@ just finished"), [[self.alarm title] capitalizedString]];
+    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:NSLocalizedString(@"View Details", @"View Details") alarmID:self.alarmID];
 }
 
 @end
