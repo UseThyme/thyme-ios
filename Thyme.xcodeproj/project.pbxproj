@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
 		44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088056184C803300935802 /* HYPLocalNotificationManager.m */; };
 		4408805A184C808500935802 /* HYPAlarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088059184C808500935802 /* HYPAlarm.m */; };
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
@@ -85,6 +86,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14CEFBAF18FFD6FB000952EC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		14E2236018FFD74D00E33389 /* nb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		44088055184C803300935802 /* HYPLocalNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPLocalNotificationManager.h; sourceTree = "<group>"; };
 		44088056184C803300935802 /* HYPLocalNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPLocalNotificationManager.m; sourceTree = "<group>"; };
 		44088058184C808500935802 /* HYPAlarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAlarm.h; sourceTree = "<group>"; };
@@ -199,6 +203,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14CEFBAB18FFD697000952EC /* Localizations */ = {
+			isa = PBXGroup;
+			children = (
+				14CEFBB018FFD6FB000952EC /* Localizable.strings */,
+			);
+			path = Localizations;
+			sourceTree = "<group>";
+		};
 		442B13F9184614FC00D52AE1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +469,7 @@
 		44AAE4181844C0690096BF52 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				14CEFBAB18FFD697000952EC /* Localizations */,
 				44AAE4191844C0690096BF52 /* Thyme-Info.plist */,
 				44AAE41A1844C0690096BF52 /* InfoPlist.strings */,
 				44AAE41D1844C0690096BF52 /* main.m */,
@@ -562,6 +575,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
+				nb,
 			);
 			mainGroup = 44AAE4051844C0690096BF52;
 			productRefGroup = 44AAE40F1844C0690096BF52 /* Products */;
@@ -601,6 +616,7 @@
 				4454E98D18EB3D9B00CB1C87 /* Icon-76.png in Resources */,
 				444B1F6B18EB2624004BAB33 /* Icon-Small@2x.png in Resources */,
 				444B1F6F18EB2624004BAB33 /* iTunesArtwork@2x.png in Resources */,
+				14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */,
 				449143CF1847676F008A80F0 /* README.md in Resources */,
 				449143C91847676F008A80F0 /* CHANGELOG in Resources */,
 				4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */,
@@ -670,6 +686,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		14CEFBB018FFD6FB000952EC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				14CEFBAF18FFD6FB000952EC /* en */,
+				14E2235F18FFD74700E33389 /* es */,
+				14E2236018FFD74D00E33389 /* nb */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		44AAE41A1844C0690096BF52 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
