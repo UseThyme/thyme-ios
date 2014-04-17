@@ -16,6 +16,7 @@
 #import <CoreText/CoreText.h>
 #import "HYPTimerControl+DrawingMethods.h"
 #import <AVFoundation/AVAudioPlayer.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 /** Parameters **/
 #define CIRCLE_SIZE_FACTOR 0.8f
@@ -171,6 +172,9 @@
 
 - (void)setMinutes:(NSInteger)minutes
 {
+    if (minutes != _minutes && self.touchesAreActive) {
+        [self playInputClick];
+    }
     _minutes = minutes;
     self.angle = minutes * 6;
     [self setNeedsDisplay];
@@ -486,7 +490,6 @@
     } else if (self.isHoursMode && [self pointIsComingFromFirstQuadrand:currentPoint]) {
         self.hours--;
     }
-
     self.minutes = angle / 6;
     self.angle = angle;
     [self setNeedsDisplay];
@@ -594,6 +597,11 @@
     [self startTimer];
     NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ just finished", @"%@ just finished"), [[self.alarm title] capitalizedString]];
     [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:NSLocalizedString(@"View Details", @"View Details") alarmID:self.alarmID];
+}
+
+- (void)playInputClick
+{
+    [[UIDevice currentDevice] playInputClick];
 }
 
 @end
