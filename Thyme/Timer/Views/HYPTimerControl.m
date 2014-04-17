@@ -124,14 +124,14 @@
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat fontSize = floor(self.minuteTitleSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
-        NSString *sampleString = @"MINUTES LEFT";
+        NSString *minutesLeftText = NSLocalizedString(@"MINUTES LEFT", @"MINUTES LEFT");
         NSDictionary *attributes = @{ NSFontAttributeName:font };
 
         CGSize textSize;
-        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
-            textSize = [sampleString sizeWithAttributes:attributes];
+        if ([minutesLeftText respondsToSelector:@selector(sizeWithAttributes:)]) {
+            textSize = [minutesLeftText sizeWithAttributes:attributes];
         } else {
-            textSize = [sampleString sizeWithFont:font];
+            textSize = [minutesLeftText sizeWithFont:font];
         }
         CGFloat x = 0;
         CGFloat factor = 5.0f;
@@ -146,7 +146,7 @@
         _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
         _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
         _minutesTitleLabel.font = font;
-        _minutesTitleLabel.text = sampleString;
+        _minutesTitleLabel.text = minutesLeftText;
     }
     return _minutesTitleLabel;
 }

@@ -1,66 +1,68 @@
 ﻿/* %@ %@ PLATE */
-"%@ %@ PLATE" = "%1$@ %2$@ PLATE";
+"%@ %@ PLATE" = "HORNILLA %1$@ %2$@";
 
 /* %@ just finished */
-"%@ just finished" = "%@ just finished";
+"%@ just finished" = "%@ ha terminado";
 
 /* %ld HOUR */
-"%ld HOUR" = "%ld HOUR";
+"%ld HOUR" = "%ld HORA";
 
 /* %ld HOURS */
-"%ld HOURS" = "%ld HOURS";
+"%ld HOURS" = "%ld HORAS";
 
 /* ------------------RELEASE TO SET TIMER------------------ */
-"------------------RELEASE TO SET TIMER------------------" = "------------------RELEASE TO SET TIMER------------------";
+"------------------RELEASE TO SET TIMER------------------" = "------------------SUELTA PARA EMPEZAR------------------";
 
 /* ------------------SWIPE CLOCKWISE TO SET TIMER------------------ */
-"------------------SWIPE CLOCKWISE TO SET TIMER------------------" = "------------------SWIPE CLOCKWISE TO SET TIMER------------------";
+"------------------SWIPE CLOCKWISE TO SET TIMER------------------" = "------------------DESLIZA EN SENTIDO HORARIO------------------";
 
-/* BOTTOM */
-"BOTTOM" = "BOTTOM";
+/* MINUTES LEFT */
+"MINUTES LEFT" = "MINUTOS RESTANTES";
 
 /* IN %ld MINUTES */
-"IN %ld MINUTES" = "IN %ld MINUTES";
+"IN %ld MINUTES" = "EN %ld MINUTOS";
 
 /* IN ABOUT %ld HOURS */
-"IN ABOUT %ld HOURS" = "IN ABOUT %ld HOURS";
+"IN ABOUT %ld HOURS" = "EN ALREDEDOR %ld HORAS";
 
 /* IN ABOUT %ld HOURS %ld MINUTES */
-"IN ABOUT %ld HOURS %ld MINUTES" = "IN ABOUT %1$ld HOURS %2$ld MINUTES";
+"IN ABOUT %ld HOURS %ld MINUTES" = "EN ALREDEDOR %1$ld HORAS %2$ld MINUTOS";
 
 /* IN ABOUT %ld MINUTES */
-"IN ABOUT %ld MINUTES" = "IN ABOUT %ld MINUTES";
+"IN ABOUT %ld MINUTES" = "EN ALREDEDOR %ld MINUTOS";
 
 /* IN ABOUT 1 HOUR */
-"IN ABOUT 1 HOUR" = "IN ABOUT 1 HOUR";
+"IN ABOUT 1 HOUR" = "EN ALREDEDOR 1 HORA";
 
 /* IN ABOUT 1 HOUR %ld MINUTES */
-"IN ABOUT 1 HOUR %ld MINUTES" = "IN ABOUT 1 HOUR %ld MINUTES";
+"IN ABOUT 1 HOUR %ld MINUTES" = "EN ALREDEDOR 1 HORA %ld MINUTOS";
 
 /* IN LESS THAN A MINUTE */
-"IN LESS THAN A MINUTE" = "IN LESS THAN A MINUTE";
+"IN LESS THAN A MINUTE" = "EN MENOS DE UN MINUTO";
 
 /* IT'S TIME TO GET COOKING */
-"IT'S TIME TO GET COOKING" = "IT'S TIME TO GET COOKING";
-
-/* LEFT */
-"LEFT" = "LEFT";
-
-/* OVEN */
-"OVEN" = "OVEN";
-
-/* RIGHT */
-"RIGHT" = "RIGHT";
-
-/* TAP A PLATE TO SET A TIMER */
-"TAP A PLATE TO SET A TIMER" = "TAP A PLATE TO SET A TIMER";
+"IT'S TIME TO GET COOKING" = "ES TIEMPO DE COCINAR";
 
 /* TOP */
-"TOP" = "TOP";
+"TOP" = "SUPERIOR";
+
+/* BOTTOM */
+"BOTTOM" = "INFERIOR";
+
+/* LEFT */
+"LEFT" = "IZQUIERDA";
+
+/* RIGHT */
+"RIGHT" = "DERECHA";
+
+/* OVEN */
+"OVEN" = "HORNO";
+
+/* TAP A PLATE TO SET A TIMER */
+"TAP A PLATE TO SET A TIMER" = "SELECCIONA UNA HORNILLA";
 
 /* View Details */
-"View Details" = "View Details";
+"View Details" = "Ver Detalles";
 
 /* YOUR DISH WILL BE DONE */
-"YOUR DISH WILL BE DONE" = "YOUR DISH WILL BE DONE";
-
+"YOUR DISH WILL BE DONE" = "TU PLATILLO ESTARA LISTO";

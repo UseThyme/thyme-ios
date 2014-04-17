@@ -16,8 +16,8 @@
 /* ------------------SWIPE CLOCKWISE TO SET TIMER------------------ */
 "------------------SWIPE CLOCKWISE TO SET TIMER------------------" = "------------------SWIPE CLOCKWISE TO SET TIMER------------------";
 
-/* BOTTOM */
-"BOTTOM" = "BOTTOM";
+/* MINUTES LEFT */
+"MINUTES LEFT" = "MINUTES LEFT";
 
 /* IN %ld MINUTES */
 "IN %ld MINUTES" = "IN %ld MINUTES";
@@ -43,24 +43,26 @@
 /* IT'S TIME TO GET COOKING */
 "IT'S TIME TO GET COOKING" = "IT'S TIME TO GET COOKING";
 
+/* TOP */
+"TOP" = "TOP";
+
+/* BOTTOM */
+"BOTTOM" = "BOTTOM";
+
 /* LEFT */
 "LEFT" = "LEFT";
-
-/* OVEN */
-"OVEN" = "OVEN";
 
 /* RIGHT */
 "RIGHT" = "RIGHT";
 
+/* OVEN */
+"OVEN" = "OVEN";
+
 /* TAP A PLATE TO SET A TIMER */
 "TAP A PLATE TO SET A TIMER" = "TAP A PLATE TO SET A TIMER";
-
-/* TOP */
-"TOP" = "TOP";
 
 /* View Details */
 "View Details" = "View Details";
 
 /* YOUR DISH WILL BE DONE */
 "YOUR DISH WILL BE DONE" = "YOUR DISH WILL BE DONE";
-
