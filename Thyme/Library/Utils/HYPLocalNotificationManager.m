@@ -61,4 +61,13 @@
     return nil;
 }
 
++ (void)cancelAllLocalNotifications
+{
+    for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+        if ([notification.userInfo objectForKey:ALARM_ID_KEY]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        }
+    }
+}
+
 @end

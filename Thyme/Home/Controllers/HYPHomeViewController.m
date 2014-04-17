@@ -22,7 +22,7 @@
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
-@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HYPTimerControllerDelegate>
+@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HYPTimerControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) CGFloat topMargin;
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -38,6 +38,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 @property (nonatomic, strong) UIButton *feedbackButton;
 @property (nonatomic, strong) NSNumber *maxMinutesLeft;
+
+@property (nonatomic) BOOL deleteTimersMessageIsBeingDisplayed;
 
 @end
 
@@ -329,6 +331,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appWasShaked:)
+                                                 name:@"appWasShaked"
+                                               object:nil];
+
     if ([UIScreen andy_isPad]) {
         self.topMargin = 70.0f;
     } else {
@@ -522,6 +529,32 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [cell.timerControl restartTimer];
         [cell.timerControl stopTimer];
     }
+}
+
+#pragma mark - Shake Support
+
+- (void)appWasShaked:(NSNotification *)notification
+{
+    if (self.deleteTimersMessageIsBeingDisplayed) {
+        return;
+    }
+
+    if ([[notification name] isEqualToString:@"appWasShaked"]) {
+        [[[UIAlertView alloc] initWithTitle:@"Would you like to cancel all the timers?" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
+        self.deleteTimersMessageIsBeingDisplayed = YES;
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    BOOL accepted = (buttonIndex == 1);
+    if (accepted) {
+        [HYPLocalNotificationManager cancelAllLocalNotifications];
+        [self.collectionView reloadData];
+    }
+    self.deleteTimersMessageIsBeingDisplayed = NO;
 }
 
 @end

@@ -57,6 +57,7 @@ static inline BOOL IsUnitTesting()
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
+    application.applicationSupportsShakeToEdit = YES;
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
@@ -114,6 +115,16 @@ static inline BOOL IsUnitTesting()
     UILocalNotification *notification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarmID];
     if (notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
+}
+
+#pragma mark - Shake Support
+
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake) {
+        NSLog(@"motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"appWasShaked" object:nil];
     }
 }
 
