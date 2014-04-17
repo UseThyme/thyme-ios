@@ -244,17 +244,17 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
         CGFloat cellWidth;
         if ([UIScreen andy_isPad]) {
-            cellWidth = 185.0f;
+            cellWidth = 175.0f;
         } else {
             cellWidth = 100.0f;
         }
 
-        [flowLayout setItemSize:CGSizeMake(cellWidth + 17.0f, cellWidth)];//10.0f
+        [flowLayout setItemSize:CGSizeMake(cellWidth + 10.0f, cellWidth)];
         [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
         CGFloat sideMargin;
         if ([UIScreen andy_isPad]) {
-            sideMargin = 150.0f;//182.0f;
+            sideMargin = 200.0f;
         } else {
             sideMargin = 50.0f;
         }
@@ -264,11 +264,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor redColor];
+        _collectionView.backgroundColor = [UIColor clearColor];
 
         CGFloat factor;
         if ([UIScreen andy_isPad]) {
-            factor = 0.32f;
+            factor = 0.36f;
         } else {
             factor = 0.30f;
         }
@@ -330,7 +330,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [super viewDidLoad];
 
     if ([UIScreen andy_isPad]) {
-        self.topMargin = 44.0f;
+        self.topMargin = 70.0f;
     } else {
         if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
             if ([HYPUtils isTallPhone]) {

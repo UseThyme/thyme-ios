@@ -223,7 +223,7 @@
             self.minuteTitleSize = 14.0f;
         }
 
-        self.backgroundColor = [UIColor yellowColor];
+        self.backgroundColor = [UIColor clearColor];
         self.completeMode = completeMode;
         self.angle = 0;
         self.title = [HYPAlarm messageForSetAlarm];
