@@ -1,68 +1,68 @@
 ﻿/* %@ %@ PLATE */
-"%@ %@ PLATE" = "%1$@ %2$@ PLATE";
+"%@ %@ PLATE" = "%1$@ %2$@ KOKEPLATEN";
 
 /* %@ just finished */
-"%@ just finished" = "%@ just finished";
+"%@ just finished" = "%@ er ferdig";
 
 /* %ld HOUR */
-"%ld HOUR" = "%ld HOUR";
+"%ld HOUR" = "%ld TIME";
 
 /* %ld HOURS */
-"%ld HOURS" = "%ld HOURS";
+"%ld HOURS" = "%ld TIMER";
 
 /* ------------------RELEASE TO SET TIMER------------------ */
-"------------------RELEASE TO SET TIMER------------------" = "------------------RELEASE TO SET TIMER------------------";
+"------------------RELEASE TO SET TIMER------------------" = "------------------SLIPP FOR Å SETTE TIDEN------------------";
 
 /* ------------------SWIPE CLOCKWISE TO SET TIMER------------------ */
-"------------------SWIPE CLOCKWISE TO SET TIMER------------------" = "------------------SWIPE CLOCKWISE TO SET TIMER------------------";
+"------------------SWIPE CLOCKWISE TO SET TIMER------------------" = "------------------SVEIP MED KLOKKEN FOR Å SETTE TIDEN------------------";
 
 /* MINUTES LEFT */
-"MINUTES LEFT" = "MINUTES LEFT";
+"MINUTES LEFT" = "MINUTTER IGJEN";
 
 /* IN %ld MINUTES */
-"IN %ld MINUTES" = "IN %ld MINUTES";
+"IN %ld MINUTES" = "OM %ld MINUTTER";
 
 /* IN ABOUT %ld HOURS */
-"IN ABOUT %ld HOURS" = "IN ABOUT %ld HOURS";
+"IN ABOUT %ld HOURS" = "OM CA. %ld TIMER";
 
 /* IN ABOUT %ld HOURS %ld MINUTES */
-"IN ABOUT %ld HOURS %ld MINUTES" = "IN ABOUT %1$ld HOURS %2$ld MINUTES";
+"IN ABOUT %ld HOURS %ld MINUTES" = "OM CA. %1$ld TIMER %2$ld MINUTTER";
 
 /* IN ABOUT %ld MINUTES */
-"IN ABOUT %ld MINUTES" = "IN ABOUT %ld MINUTES";
+"IN ABOUT %ld MINUTES" = "OM CA. %ld MINUTTER";
 
 /* IN ABOUT 1 HOUR */
-"IN ABOUT 1 HOUR" = "IN ABOUT 1 HOUR";
+"IN ABOUT 1 HOUR" = "OM CA. 1 TIME";
 
 /* IN ABOUT 1 HOUR %ld MINUTES */
-"IN ABOUT 1 HOUR %ld MINUTES" = "IN ABOUT 1 HOUR %ld MINUTES";
+"IN ABOUT 1 HOUR %ld MINUTES" = "OM CA. 1 TIME %ld MINUTTER";
 
 /* IN LESS THAN A MINUTE */
-"IN LESS THAN A MINUTE" = "IN LESS THAN A MINUTE";
+"IN LESS THAN A MINUTE" = "OM UNDER ETT MINUTT";
 
 /* IT'S TIME TO GET COOKING */
-"IT'S TIME TO GET COOKING" = "IT'S TIME TO GET COOKING";
+"IT'S TIME TO GET COOKING" = "PÅ TIDE Å STARTE KOKKELERINGEN";
 
 /* TOP */
-"TOP" = "TOP";
+"TOP" = "ØVERST";
 
 /* BOTTOM */
-"BOTTOM" = "BOTTOM";
+"BOTTOM" = "NEDERST";
 
 /* LEFT */
-"LEFT" = "LEFT";
+"LEFT" = "TIL VENSTRE";
 
 /* RIGHT */
-"RIGHT" = "RIGHT";
+"RIGHT" = "TIL HØYRE";
 
 /* OVEN */
-"OVEN" = "OVEN";
+"OVEN" = "STEKEOVNEN";
 
 /* TAP A PLATE TO SET A TIMER */
-"TAP A PLATE TO SET A TIMER" = "TAP A PLATE TO SET A TIMER";
+"TAP A PLATE TO SET A TIMER" = "VELG ET ELEMENT FOR Å SETTE EN ALARM";
 
 /* View Details */
-"View Details" = "View Details";
+"View Details" = "Se detaljer";
 
 /* YOUR DISH WILL BE DONE */
-"YOUR DISH WILL BE DONE" = "YOUR DISH WILL BE DONE";
+"YOUR DISH WILL BE DONE" = "MATEN ER FERDIG";
