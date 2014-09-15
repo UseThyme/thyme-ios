@@ -89,7 +89,6 @@
 /* Begin PBXFileReference section */
 		14CEFBAF18FFD6FB000952EC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		14E2236018FFD74D00E33389 /* nb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14F3768118FFF7EA00359D38 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		44088055184C803300935802 /* HYPLocalNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPLocalNotificationManager.h; sourceTree = "<group>"; };
 		44088056184C803300935802 /* HYPLocalNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPLocalNotificationManager.m; sourceTree = "<group>"; };
@@ -580,7 +579,6 @@
 			knownRegions = (
 				en,
 				es,
-				nb,
 			);
 			mainGroup = 44AAE4051844C0690096BF52;
 			productRefGroup = 44AAE40F1844C0690096BF52 /* Products */;
@@ -695,7 +693,6 @@
 			children = (
 				14CEFBAF18FFD6FB000952EC /* en */,
 				14E2235F18FFD74700E33389 /* es */,
-				14E2236018FFD74D00E33389 /* nb */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
