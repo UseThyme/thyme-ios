@@ -36,7 +36,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic, strong) NSMutableArray *alarms;
 @property (nonatomic, strong) NSMutableArray *ovenAlarms;
 
-@property (nonatomic, strong) UIButton *feedbackButton;
 @property (nonatomic, strong) NSNumber *maxMinutesLeft;
 
 @property (nonatomic) BOOL deleteTimersMessageIsBeingDisplayed;
@@ -62,27 +61,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         self.titleLabel.text = [HYPAlarm titleForHomescreen];
         self.subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
     }
-}
-
-- (UIButton *)feedbackButton
-{
-    if (!_feedbackButton) {
-        _feedbackButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-        [_feedbackButton addTarget:self action:@selector(feedbackButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
-        CGFloat x = 5.0f;
-
-        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-            y -= 10.0f;
-            if ([UIScreen andy_isSmallScreen]) {
-                y -= 10.0f;
-            }
-        }
-        _feedbackButton.frame = CGRectMake(x, y, 44.0f, 44.0f);
-        _feedbackButton.tintColor = [UIColor whiteColor];
-    }
-    return _feedbackButton;
 }
 
 - (NSMutableArray *)alarms
@@ -363,10 +341,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
     [self.view addSubview:self.ovenShineImageView];
-
-#if IS_PRE_RELEASE_VERSION
-    [self.view addSubview:self.feedbackButton];
-#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -450,17 +424,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     } else if ([self.maxMinutesLeft floatValue] == 0.0f && timerControl.minutes == 59.0f) {
         self.maxMinutesLeft = nil;
     }
-}
-
-#pragma mark - Feedback Action
-
-- (void)feedbackButtonPressed:(UIButton *)button
-{
-    BITFeedbackManager *manager = [[BITFeedbackManager alloc] init];
-    BITFeedbackComposeViewController *feedbackCompose = [manager feedbackComposeViewController];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:feedbackCompose];
-    navController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark - Helpers

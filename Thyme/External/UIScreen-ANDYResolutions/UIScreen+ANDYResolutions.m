@@ -27,13 +27,4 @@
     return NO;
 }
 
-+ (BOOL)andy_isSmallScreen
-{
-    BOOL isPhone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
-    if (isPhone && [[UIScreen mainScreen] bounds].size.height == 480.0f) {
-        return YES;
-    }
-    return NO;
-}
-
 @end

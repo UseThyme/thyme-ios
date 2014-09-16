@@ -6,7 +6,8 @@
 //
 
 @interface UIScreen (ANDYResolutions)
+
 + (BOOL)andy_isPhone;
 + (BOOL)andy_isPad;
-+ (BOOL)andy_isSmallScreen;
+
 @end
