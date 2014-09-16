@@ -91,215 +91,223 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 - (UIImageView *)ovenBackgroundImageView
 {
-    if (!_ovenBackgroundImageView) {
-        UIImage *image;
-        if ([UIScreen andy_isPad]) {
-            image = [UIImage imageNamed:@"ovenBackground~iPad"];
-        } else {
-            image = [UIImage imageNamed:@"ovenBackground"];
-        }
+    if (_ovenBackgroundImageView) return _ovenBackgroundImageView;
 
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat topMargin;
-        if ([UIScreen andy_isPad]) {
-            topMargin = image.size.height + 175.0f;
-        } else {
-            if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-                if ([HYPUtils isTallPhone]) {
-                    topMargin = image.size.height + 110.0f;
-                } else {
-                    topMargin = image.size.height + 60.0f;
-                }
+    UIImage *image;
+    if ([UIScreen andy_isPad]) {
+        image = [UIImage imageNamed:@"ovenBackground~iPad"];
+    } else {
+        image = [UIImage imageNamed:@"ovenBackground"];
+    }
+
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat topMargin;
+    if ([UIScreen andy_isPad]) {
+        topMargin = image.size.height + 175.0f;
+    } else {
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = image.size.height + 110.0f;
             } else {
-                if ([HYPUtils isTallPhone]) {
-                    topMargin = image.size.height + 90.0f;
-                } else {
-                    topMargin = image.size.height + 40.0f;
-                }
+                topMargin = image.size.height + 60.0f;
+            }
+        } else {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = image.size.height + 90.0f;
+            } else {
+                topMargin = image.size.height + 40.0f;
             }
         }
-
-        CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
-        CGFloat y = CGRectGetHeight(bounds) - topMargin;
-        _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, image.size.width, image.size.height)];
-        _ovenBackgroundImageView.image = image;
     }
+
+    CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+    CGFloat y = CGRectGetHeight(bounds) - topMargin;
+    CGRect imageRect = CGRectMake(x, y, image.size.width, image.size.height);
+    _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:imageRect];
+    _ovenBackgroundImageView.image = image;
+    
     return _ovenBackgroundImageView;
 }
 
 - (UIImageView *)ovenShineImageView
 {
-    if (!_ovenShineImageView) {
-        _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
-        UIImage *image;
-        if ([UIScreen andy_isPad]) {
-            image = [UIImage imageNamed:@"ovenShine~iPad"];
-            _ovenShineImageView.hidden = YES;
-        } else {
-            image = [UIImage imageNamed:@"ovenShine"];
-        }
+    if (_ovenShineImageView) return _ovenShineImageView;
 
-        _ovenShineImageView.image = image;
+    _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
+    UIImage *image;
+    if ([UIScreen andy_isPad]) {
+        image = [UIImage imageNamed:@"ovenShine~iPad"];
+        _ovenShineImageView.hidden = YES;
+    } else {
+        image = [UIImage imageNamed:@"ovenShine"];
     }
+
+    _ovenShineImageView.image = image;
+
     return _ovenShineImageView;
 }
 
 - (UILabel *)titleLabel
 {
-    if (!_titleLabel) {
-        CGFloat sideMargin = 20.0f;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    if (_titleLabel) return _titleLabel;
 
-        CGFloat topMargin;
+    CGFloat sideMargin = 20.0f;
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
 
-        if ([UIScreen andy_isPad]) {
-            topMargin = 115.0f;
-        } else {
-            if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-                if ([HYPUtils isTallPhone]) {
-                    topMargin = 40.0f;
-                } else {
-                    topMargin = 20.0f;
-                }
+    CGFloat topMargin;
+
+    if ([UIScreen andy_isPad]) {
+        topMargin = 115.0f;
+    } else {
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 40.0f;
             } else {
-                if ([HYPUtils isTallPhone]) {
-                    topMargin = 60.0f;
-                } else {
-                    topMargin = 40.0f;
-                }
+                topMargin = 20.0f;
+            }
+        } else {
+            if ([HYPUtils isTallPhone]) {
+                topMargin = 60.0f;
+            } else {
+                topMargin = 40.0f;
             }
         }
-
-        CGFloat height = 25.0f;
-        UIFont *font;
-        if ([UIScreen andy_isPad]) {
-            font = [HYPUtils avenirLightWithSize:20.0f];
-        } else {
-            font = [HYPUtils avenirLightWithSize:15.0f];
-        }
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _titleLabel.font = font;
-        _titleLabel.text = [HYPAlarm titleForHomescreen];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.adjustsFontSizeToFitWidth = YES;
     }
+
+    CGFloat height = 25.0f;
+    UIFont *font;
+    if ([UIScreen andy_isPad]) {
+        font = [HYPUtils avenirLightWithSize:20.0f];
+    } else {
+        font = [HYPUtils avenirLightWithSize:15.0f];
+    }
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
+    _titleLabel.font = font;
+    _titleLabel.text = [HYPAlarm titleForHomescreen];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.textColor = [UIColor whiteColor];
+    _titleLabel.backgroundColor = [UIColor clearColor];
+    _titleLabel.adjustsFontSizeToFitWidth = YES;
+
     return _titleLabel;
 }
 
 - (UILabel *)subtitleLabel
 {
-    if (!_subtitleLabel) {
-        CGFloat sideMargin = CGRectGetMinX(self.titleLabel.frame);
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
-        if ([UIScreen andy_isPad]) {
-            topMargin += 10.0f;
-        }
-        CGFloat height = CGRectGetHeight(self.titleLabel.frame);
-        UIFont *font;
-        if ([UIScreen andy_isPad]) {
-            font = [HYPUtils avenirBlackWithSize:25.0f];
-        } else {
-            font = [HYPUtils avenirBlackWithSize:19.0f];
-        }
-        _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _subtitleLabel.font = font;
-        _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
-        _subtitleLabel.textAlignment = NSTextAlignmentCenter;
-        _subtitleLabel.textColor = [UIColor whiteColor];
-        _subtitleLabel.backgroundColor = [UIColor clearColor];
-        _subtitleLabel.adjustsFontSizeToFitWidth = YES;
+    if (_subtitleLabel) return _subtitleLabel;
+
+    CGFloat sideMargin = CGRectGetMinX(self.titleLabel.frame);
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
+    if ([UIScreen andy_isPad]) {
+        topMargin += 10.0f;
     }
+    CGFloat height = CGRectGetHeight(self.titleLabel.frame);
+    UIFont *font;
+    if ([UIScreen andy_isPad]) {
+        font = [HYPUtils avenirBlackWithSize:25.0f];
+    } else {
+        font = [HYPUtils avenirBlackWithSize:19.0f];
+    }
+    _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
+    _subtitleLabel.font = font;
+    _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
+    _subtitleLabel.textAlignment = NSTextAlignmentCenter;
+    _subtitleLabel.textColor = [UIColor whiteColor];
+    _subtitleLabel.backgroundColor = [UIColor clearColor];
+    _subtitleLabel.adjustsFontSizeToFitWidth = YES;
+
     return _subtitleLabel;
 }
 
 - (UICollectionView *)collectionView
 {
-    if (!_collectionView) {
+    if (_collectionView) return _collectionView;
 
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth;
-        if ([UIScreen andy_isPad]) {
-            cellWidth = 175.0f;
-        } else {
-            cellWidth = 100.0f;
-        }
-
-        [flowLayout setItemSize:CGSizeMake(cellWidth + 10.0f, cellWidth)];
-        [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-
-        CGFloat sideMargin;
-        if ([UIScreen andy_isPad]) {
-            sideMargin = 200.0f;
-        } else {
-            sideMargin = 50.0f;
-        }
-        CGFloat topMargin = self.topMargin;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor clearColor];
-
-        CGFloat factor;
-        if ([UIScreen andy_isPad]) {
-            factor = 0.36f;
-        } else {
-            factor = 0.30f;
-        }
-        [self applyTransformToLayer:_collectionView.layer usingFactor:factor];
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    CGFloat cellWidth;
+    if ([UIScreen andy_isPad]) {
+        cellWidth = 175.0f;
+    } else {
+        cellWidth = 100.0f;
     }
+
+    [flowLayout setItemSize:CGSizeMake(cellWidth + 10.0f, cellWidth)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+
+    CGFloat sideMargin;
+    if ([UIScreen andy_isPad]) {
+        sideMargin = 200.0f;
+    } else {
+        sideMargin = 50.0f;
+    }
+    CGFloat topMargin = self.topMargin;
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)
+                                         collectionViewLayout:flowLayout];
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _collectionView.backgroundColor = [UIColor clearColor];
+
+    CGFloat factor;
+    if ([UIScreen andy_isPad]) {
+        factor = 0.36f;
+    } else {
+        factor = 0.30f;
+    }
+    [self applyTransformToLayer:_collectionView.layer usingFactor:factor];
+
     return _collectionView;
 }
 
 - (UICollectionView *)ovenCollectionView
 {
-    if (!_ovenCollectionView) {
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth;
-        if ([UIScreen andy_isPad]) {
-            cellWidth = 220.0f;
-        } else {
-            cellWidth = 120.0f;
-        }
+    if (_ovenCollectionView) return _ovenCollectionView;
 
-        [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
-        [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-
-        CGFloat sideMargin;
-        if ([UIScreen andy_isPad]) {
-            sideMargin = 274.0f;
-        } else {
-            sideMargin = 100.0f;
-        }
-
-        CGFloat topMargin;
-        if ([UIScreen andy_isPad]) {
-            topMargin = self.topMargin + 475.0f;
-        } else {
-            topMargin = self.topMargin + 260.0f;
-        }
-
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
-        _ovenCollectionView.dataSource = self;
-        _ovenCollectionView.delegate = self;
-        _ovenCollectionView.backgroundColor = [UIColor clearColor];
-
-        CGFloat factor;
-        if ([UIScreen andy_isPad]) {
-            factor = 0.29f;
-        } else {
-            factor = 0.25f;
-        }
-        [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:factor];
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    CGFloat cellWidth;
+    if ([UIScreen andy_isPad]) {
+        cellWidth = 220.0f;
+    } else {
+        cellWidth = 120.0f;
     }
+
+    [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+
+    CGFloat sideMargin;
+    if ([UIScreen andy_isPad]) {
+        sideMargin = 274.0f;
+    } else {
+        sideMargin = 100.0f;
+    }
+
+    CGFloat topMargin;
+    if ([UIScreen andy_isPad]) {
+        topMargin = self.topMargin + 475.0f;
+    } else {
+        topMargin = self.topMargin + 260.0f;
+    }
+
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)
+                                             collectionViewLayout:flowLayout];
+    _ovenCollectionView.dataSource = self;
+    _ovenCollectionView.delegate = self;
+    _ovenCollectionView.backgroundColor = [UIColor clearColor];
+
+    CGFloat factor;
+    if ([UIScreen andy_isPad]) {
+        factor = 0.29f;
+    } else {
+        factor = 0.25f;
+    }
+    [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:factor];
+
     return _ovenCollectionView;
 }
 
@@ -346,12 +354,17 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissedTimerController:) name:UIApplicationDidBecomeActiveNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dismissedTimerController:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -383,17 +396,22 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 - (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
+    HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier
+                                                                   forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath collectionView:collectionView];
+
     return cell;
 }
 
-- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView;
+- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath
+       collectionView:(UICollectionView *)collectionView;
 {
     HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
     alarm.indexPath = indexPath;
     cell.timerControl.active = alarm.active;
-    [cell.timerControl addTarget:self action:@selector(timerControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [cell.timerControl addTarget:self
+                          action:@selector(timerControlChangedValue:)
+                forControlEvents:UIControlEventValueChanged];
     [self refreshTimerInCell:cell forCurrentAlarm:alarm];
 }
 
@@ -503,7 +521,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     }
 
     if ([[notification name] isEqualToString:@"appWasShaked"]) {
-        [[[UIAlertView alloc] initWithTitle:@"Would you like to cancel all the timers?" message:nil delegate:self cancelButtonTitle:@"No" otherButtonTitles:@"Yes", nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Would you like to cancel all the timers?"
+                                    message:nil
+                                   delegate:self
+                          cancelButtonTitle:@"No"
+                          otherButtonTitles:@"Yes", nil] show];
         self.deleteTimersMessageIsBeingDisplayed = YES;
     }
 }

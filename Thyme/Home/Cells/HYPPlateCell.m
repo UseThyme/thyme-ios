@@ -18,11 +18,13 @@
 
 - (HYPTimerControl *)timerControl
 {
-    if (!_timerControl) {
-        _timerControl = [[HYPTimerControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.frame), CGRectGetWidth(self.frame))];
-        _timerControl.userInteractionEnabled = NO;
-        _timerControl.backgroundColor = [UIColor clearColor];
-    }
+    if (_timerControl) return _timerControl;
+
+    CGRect frame = CGRectMake(0.0f, 0.0f, CGRectGetWidth(self.frame), CGRectGetWidth(self.frame));
+    _timerControl = [[HYPTimerControl alloc] initWithFrame:frame];
+    _timerControl.userInteractionEnabled = NO;
+    _timerControl.backgroundColor = [UIColor clearColor];
+
     return _timerControl;
 }
 

@@ -173,7 +173,8 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGContextRestoreGState(context);
 }
 
-- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius angle:(NSInteger)angle containerRect:(CGRect)containerRect
+- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius
+                       angle:(NSInteger)angle containerRect:(CGRect)containerRect
 {
     CGContextSaveGState(context);
 
@@ -192,7 +193,8 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGContextRestoreGState(context);
 }
 
-- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color andRadius:(CGFloat)radius containerRect:(CGRect)containerRect
+- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color
+                   andRadius:(CGFloat)radius containerRect:(CGRect)containerRect
 {
     CGContextSaveGState(context);
 
