@@ -26,6 +26,7 @@
 #define MINUTES_INDICATOR_COLOR [UIColor whiteColor]
 
 @interface HYPTimerControl ()
+
 @property (nonatomic, strong) UILabel *hoursLabel;
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;

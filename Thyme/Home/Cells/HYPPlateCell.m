@@ -11,6 +11,7 @@
 #import "UIColor+HYPExtensions.h"
 
 @interface HYPPlateCell ()
+
 @end
 
 @implementation HYPPlateCell

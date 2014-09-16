@@ -17,12 +17,14 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface HYPTimerViewController ()
+
 @property (nonatomic, strong) HYPTimerControl *timerControl;
 @property (nonatomic, strong) UIButton *kitchenButton;
 @property (nonatomic, strong) UIImageView *fingerView;
 @property (nonatomic) CGRect startRect;
 @property (nonatomic) CGRect finalRect;
 @property (nonatomic, strong) NSTimer *timer;
+
 @end
 
 @implementation HYPTimerViewController

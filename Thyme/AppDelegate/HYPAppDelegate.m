@@ -26,7 +26,9 @@ static inline BOOL IsUnitTesting()
 #endif
 
 @interface HYPAppDelegate () <BITHockeyManagerDelegate, UIAlertViewDelegate>
+
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+
 @end
 
 @implementation HYPAppDelegate
@@ -105,13 +107,18 @@ static inline BOOL IsUnitTesting()
         [self.audioPlayer prepareToPlay];
         [self.audioPlayer play];
     }
-    [[[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+    [[[UIAlertView alloc] initWithTitle:notification.alertBody
+                                message:nil
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil, nil] show];
 }
 
 - (void)cleanUpLocalNotificationWithAlarmID:(NSString *)alarmID
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    
     UILocalNotification *notification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarmID];
     if (notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
