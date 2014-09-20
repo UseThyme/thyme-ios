@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1461778319CDBF1F00E46B1D /* Images.xcassets */; };
+		149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */; };
 		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
 		14F3768218FFF7EA00359D38 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F3768118FFF7EA00359D38 /* AudioToolbox.framework */; };
 		44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088056184C803300935802 /* HYPLocalNotificationManager.m */; };
@@ -20,7 +21,6 @@
 		44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */; };
 		4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */; };
 		4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */; };
-		4454E98A18EB3BFF00CB1C87 /* background~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98918EB3BFF00CB1C87 /* background~iPad@2x.png */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
 		446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E241844C4E2005FD797 /* HYPAppDelegate.m */; };
 		446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */; };
@@ -37,7 +37,6 @@
 		449143D5184767A1008A80F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D4184767A1008A80F0 /* Security.framework */; };
 		449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D6184767A7008A80F0 /* SystemConfiguration.framework */; };
 		44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A54150184E1FCC00964F58 /* ovenBackground@2x.png */; };
-		44A691AD1844E02D005D4C5A /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A691AC1844E02D005D4C5A /* background@2x.png */; };
 		44A691B21844E0F1005D4C5A /* HYPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B11844E0F1005D4C5A /* HYPViewController.m */; };
 		44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B51844E2A1005D4C5A /* HYPUtils.m */; };
 		44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691BB1844EF68005D4C5A /* UIColor+HYPExtensions.m */; };
@@ -71,6 +70,8 @@
 
 /* Begin PBXFileReference section */
 		1461778319CDBF1F00E46B1D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKEAnimatedGradientView.h; sourceTree = "<group>"; };
+		149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKEAnimatedGradientView.m; sourceTree = "<group>"; };
 		14CEFBAF18FFD6FB000952EC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14F3768118FFF7EA00359D38 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -89,7 +90,6 @@
 		44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HYPTimerControl+DrawingMethods.m"; sourceTree = "<group>"; };
 		4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground~iPad@2x.png"; sourceTree = "<group>"; };
 		4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenShine~iPad@2x.png"; sourceTree = "<group>"; };
-		4454E98918EB3BFF00CB1C87 /* background~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background~iPad@2x.png"; sourceTree = "<group>"; };
 		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
 		446C9E231844C4E2005FD797 /* HYPAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAppDelegate.h; sourceTree = "<group>"; };
 		446C9E241844C4E2005FD797 /* HYPAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPAppDelegate.m; sourceTree = "<group>"; };
@@ -111,7 +111,6 @@
 		449143D4184767A1008A80F0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		449143D6184767A7008A80F0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		44A54150184E1FCC00964F58 /* ovenBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@2x.png"; sourceTree = "<group>"; };
-		44A691AC1844E02D005D4C5A /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
 		44A691B01844E0F1005D4C5A /* HYPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPViewController.h; sourceTree = "<group>"; };
 		44A691B11844E0F1005D4C5A /* HYPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPViewController.m; sourceTree = "<group>"; };
 		44A691B41844E2A1005D4C5A /* HYPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPUtils.h; sourceTree = "<group>"; };
@@ -171,6 +170,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */ = {
+			isa = PBXGroup;
+			children = (
+				149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */,
+				149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */,
+			);
+			path = BKEAnimatedGradientView;
+			sourceTree = "<group>";
+		};
 		14CEFBAB18FFD697000952EC /* Localizations */ = {
 			isa = PBXGroup;
 			children = (
@@ -303,8 +311,6 @@
 				442CD148184F7A0900CE9031 /* ovenShine@2x.png */,
 				4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */,
 				441B5819184E14F600839331 /* kitchenImage@2x.png */,
-				44A691AC1844E02D005D4C5A /* background@2x.png */,
-				4454E98918EB3BFF00CB1C87 /* background~iPad@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -446,6 +452,7 @@
 		44F8DA6B18467C390007E083 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */,
 				44909B4F18EB1937002C812E /* UIScreen-ANDYResolutions */,
 				449143BF1847676F008A80F0 /* HockeySDK */,
 			);
@@ -544,12 +551,10 @@
 				449143CF1847676F008A80F0 /* README.md in Resources */,
 				449143C91847676F008A80F0 /* CHANGELOG in Resources */,
 				4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */,
-				44A691AD1844E02D005D4C5A /* background@2x.png in Resources */,
 				449143CE1847676F008A80F0 /* LICENSE in Resources */,
 				441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */,
 				44AE6686184F4E1C00148398 /* 1-0@2x.png in Resources */,
 				449143CD1847676F008A80F0 /* HockeySDKResources.bundle in Resources */,
-				4454E98A18EB3BFF00CB1C87 /* background~iPad@2x.png in Resources */,
 				4465EE93184772F9006C145F /* alarm.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,6 +586,7 @@
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
 				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
 				44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */,
+				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
 				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
