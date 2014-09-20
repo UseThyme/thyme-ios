@@ -226,7 +226,7 @@ typedef NS_ENUM(NSUInteger, BITAuthenticatorAppRestrictionEnforcementFrequency) 
  * URL to query the device's id via external webpage
  * Built with the baseURL set in `webpageURL`.
  */
-- (NSURL*) deviceAuthenticationURL;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSURL *deviceAuthenticationURL;
 
 /**
  * The url-scheme used to idenfify via `BITAuthenticatorIdentificationTypeDevice`
@@ -370,7 +370,7 @@ typedef NS_ENUM(NSUInteger, BITAuthenticatorAppRestrictionEnforcementFrequency) 
  *
  * @see identificationType
  */
-- (NSString*) publicInstallationIdentifier;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *publicInstallationIdentifier;
 @end
 
 #pragma mark - Protocol

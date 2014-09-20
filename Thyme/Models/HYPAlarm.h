@@ -23,8 +23,8 @@
 + (NSString *)subtitleForHomescreenUsingMinutes:(NSNumber *)minutes;
 + (NSString *)messageForSetAlarm;
 + (NSString *)messageForReleaseToSetAlarm;
-- (NSString *)title;
-- (NSString *)timerTitle;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *title;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *timerTitle;
 + (NSString *)defaultAlarmID;
 
 @end

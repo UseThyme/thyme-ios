@@ -31,7 +31,7 @@
 // NO: No alarm was set for this timer
 @property (nonatomic, getter = isActive) BOOL active;
 
-- (id)initCompleteModeWithFrame:(CGRect)frame;
+- (instancetype)initCompleteModeWithFrame:(CGRect)frame;
 - (void)restartTimer;
 - (void)startTimer;
 - (void)stopTimer;

@@ -100,7 +100,7 @@ static inline BOOL IsUnitTesting()
 
 - (void)handleLocalNotification:(UILocalNotification *)notification playingSound:(BOOL)playingSound
 {
-    NSString *alarmID = [notification.userInfo objectForKey:ALARM_ID_KEY];
+    NSString *alarmID = (notification.userInfo)[ALARM_ID_KEY];
     [self cleanUpLocalNotificationWithAlarmID:alarmID];
 
     if (playingSound) {

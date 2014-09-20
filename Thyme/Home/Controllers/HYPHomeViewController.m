@@ -49,7 +49,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (void)setMaxMinutesLeft:(NSNumber *)maxMinutesLeft
 {
     _maxMinutesLeft = maxMinutesLeft;
-    
+
     if (_maxMinutesLeft) {
         self.titleLabel.text = NSLocalizedString(@"YOUR DISH WILL BE DONE", @"YOUR DISH WILL BE DONE");
         if ([_maxMinutesLeft doubleValue] == 0.0f) {
@@ -65,27 +65,29 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 - (NSMutableArray *)alarms
 {
-    if (!_alarms) {
-        _alarms = [NSMutableArray array];
-        HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
-        HYPAlarm *alarm2 = [[HYPAlarm alloc] init];
-        HYPAlarm *alarm3 = [[HYPAlarm alloc] init];
-        HYPAlarm *alarm4 = [[HYPAlarm alloc] init];
-        [_alarms addObject:@[alarm1, alarm2]];
-        [_alarms addObject:@[alarm3, alarm4]];
-    }
+    if (_alarms) return _alarms;
+
+    _alarms = [NSMutableArray array];
+    HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
+    HYPAlarm *alarm2 = [[HYPAlarm alloc] init];
+    HYPAlarm *alarm3 = [[HYPAlarm alloc] init];
+    HYPAlarm *alarm4 = [[HYPAlarm alloc] init];
+    [_alarms addObject:@[alarm1, alarm2]];
+    [_alarms addObject:@[alarm3, alarm4]];
+
     return _alarms;
 }
 
 - (NSMutableArray *)ovenAlarms
 {
-    if (!_ovenAlarms) {
-        _ovenAlarms = [NSMutableArray array];
+    if (_ovenAlarms) return _ovenAlarms;
 
-        HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
-        alarm1.oven = YES;
-        [_ovenAlarms addObject:@[alarm1]];
-    }
+    _ovenAlarms = [NSMutableArray array];
+
+    HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
+    alarm1.oven = YES;
+    [_ovenAlarms addObject:@[alarm1]];
+
     return _ovenAlarms;
 }
 
@@ -125,7 +127,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGRect imageRect = CGRectMake(x, y, image.size.width, image.size.height);
     _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:imageRect];
     _ovenBackgroundImageView.image = image;
-    
+
     return _ovenBackgroundImageView;
 }
 
@@ -384,12 +386,12 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if ([collectionView isEqual:self.collectionView]) {
-        NSArray *array = [self.alarms objectAtIndex:0];
+        NSArray *array = (self.alarms)[0];
         NSInteger rows = [array count];
         return rows;
     }
 
-    NSArray *array = [self.ovenAlarms objectAtIndex:0];
+    NSArray *array = (self.ovenAlarms)[0];
     NSInteger rows = [array count];
     return rows;
 }
@@ -450,11 +452,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     NSArray *row;
     if ([collectionView isEqual:self.collectionView]) {
-        row = [self.alarms objectAtIndex:indexPath.section];
+        row = (self.alarms)[indexPath.section];
     } else {
-        row = [self.ovenAlarms objectAtIndex:indexPath.section];
+        row = (self.ovenAlarms)[indexPath.section];
     }
-    HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
+    HYPAlarm *alarm = row[indexPath.row];
     return alarm;
 }
 
@@ -472,8 +474,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarm.alarmID];
 
     if (existingNotification) {
-        NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];
-        NSNumber *numberOfSeconds = [existingNotification.userInfo objectForKey:ALARM_FIRE_INTERVAL_KEY];
+        NSDate *firedDate = (existingNotification.userInfo)[ALARM_FIRE_DATE_KEY];
+        NSNumber *numberOfSeconds = (existingNotification.userInfo)[ALARM_FIRE_INTERVAL_KEY];
 
         // Fired date + amount of seconds = target date
         NSTimeInterval secondsPassed = [[NSDate date] timeIntervalSinceDate:firedDate];

@@ -206,17 +206,17 @@
 
 #pragma mark - Initializators
 
-- (id)initCompleteModeWithFrame:(CGRect)frame
+- (instancetype)initCompleteModeWithFrame:(CGRect)frame
 {
     return [self initWithFrame:frame completeMode:YES];
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     return [self initWithFrame:frame completeMode:NO];
 }
 
-- (id)initWithFrame:(CGRect)frame completeMode:(BOOL)completeMode
+- (instancetype)initWithFrame:(CGRect)frame completeMode:(BOOL)completeMode
 {
     self = [super initWithFrame:frame];
     if (self) {

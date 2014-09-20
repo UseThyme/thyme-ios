@@ -233,8 +233,8 @@
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:self.alarm.alarmID];
 
     if (existingNotification) {
-        NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];
-        NSNumber *numberOfSeconds = [existingNotification.userInfo objectForKey:ALARM_FIRE_INTERVAL_KEY];
+        NSDate *firedDate = (existingNotification.userInfo)[ALARM_FIRE_DATE_KEY];
+        NSNumber *numberOfSeconds = (existingNotification.userInfo)[ALARM_FIRE_INTERVAL_KEY];
 
         // Fired date + amount of seconds = target date
         NSTimeInterval secondsPassed = [[NSDate date] timeIntervalSinceDate:firedDate];
