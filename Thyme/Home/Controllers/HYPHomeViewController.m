@@ -521,11 +521,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     }
 
     if ([[notification name] isEqualToString:@"appWasShaked"]) {
-        [[[UIAlertView alloc] initWithTitle:@"Would you like to cancel all the timers?"
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Would you like to cancel all the timers?", nil)
                                     message:nil
                                    delegate:self
-                          cancelButtonTitle:@"No"
-                          otherButtonTitles:@"Yes", nil] show];
+                          cancelButtonTitle:NSLocalizedString(@"No", nil)
+                          otherButtonTitles:NSLocalizedString(@"Ok", nil), nil] show];
         self.deleteTimersMessageIsBeingDisplayed = YES;
     }
 }
