@@ -341,8 +341,8 @@
     CGFloat saturationBase = 0.20f;
     CGFloat saturationBasedOnAngle = saturationBase * (self.angle/360.0f) + saturationBaseOffset;
 
-    UIColor *normalCircleColor = [UIColor colorWithHue:167.0f/360.0f saturation:0.20f brightness:0.96f alpha:1.0f];
-    UIColor *calculatedColor = [UIColor colorWithHue:167.0f/360.0f
+    UIColor *normalCircleColor = [UIColor colorWithHue:167.0f / 360.0f saturation:0.20f brightness:0.96f alpha:1.0f];
+    UIColor *calculatedColor = [UIColor colorWithHue:167.0f / 360.0f
                                           saturation:saturationBasedOnAngle brightness:0.96f alpha:1.0f];
     UIColor *unactiveCircleColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
 

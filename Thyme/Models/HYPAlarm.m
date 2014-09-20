@@ -35,7 +35,7 @@
     if ([maxMinutesLeft doubleValue] == 0.0f) {
         message = NSLocalizedString(@"IN LESS THAN A MINUTE", @"IN LESS THAN A MINUTE");
     } else {
-        NSInteger hoursLeft = floor([maxMinutesLeft integerValue]/60.0f);
+        NSInteger hoursLeft = floor([maxMinutesLeft integerValue] / 60.0f);
         if (hoursLeft > 0) {
             maxMinutesLeft = @([maxMinutesLeft integerValue] - (hoursLeft * 60));
         }

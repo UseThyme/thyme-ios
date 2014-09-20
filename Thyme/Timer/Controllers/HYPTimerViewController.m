@@ -240,8 +240,8 @@
         NSTimeInterval secondsPassed = [[NSDate date] timeIntervalSinceDate:firedDate];
         NSInteger secondsLeft = ([numberOfSeconds integerValue] - secondsPassed);
         NSTimeInterval currentSecond = secondsLeft % 60;
-        NSTimeInterval minutesLeft = floor(secondsLeft/60.0f);
-        NSTimeInterval hoursLeft = floor(minutesLeft/60.0f);
+        NSTimeInterval minutesLeft = floor(secondsLeft / 60.0f);
+        NSTimeInterval hoursLeft = floor(minutesLeft / 60.0f);
         if (hoursLeft > 0) {
             minutesLeft = minutesLeft - (hoursLeft * 60);
         }
