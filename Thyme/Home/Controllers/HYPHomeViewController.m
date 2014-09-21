@@ -13,6 +13,7 @@
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 #import <HockeySDK/HockeySDK.h>
+#import "HYPSettingsViewController.h"
 
 #define IOS6_SHORT_TOP_MARGIN -10.0f
 #define IOS6_TALL_TOP_MARGIN 30.0f
@@ -29,6 +30,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic, strong) UILabel *subtitleLabel;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UICollectionView *ovenCollectionView;
+@property (nonatomic, strong) UIButton *settingsButton;
 
 @property (nonatomic, strong) UIImageView *ovenBackgroundImageView;
 @property (nonatomic, strong) UIImageView *ovenShineImageView;
@@ -125,7 +127,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
                 topMargin = image.size.height + 90.0f;
 
             } else if (deviceHeight == 667.0f) {
-                
+
                 topMargin = image.size.height + 150.0f;
 
             } else if (deviceHeight == 736.0f) {
@@ -336,7 +338,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         } else if (deviceWidth == 414.0f) {
 
             cellWidth = 142.0f;
-            
+
         }
     }
 
@@ -402,6 +404,31 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     return _ovenCollectionView;
 }
 
+- (UIButton *)settingsButton
+{
+    if (_settingsButton) return _settingsButton;
+
+    _settingsButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [_settingsButton addTarget:self action:@selector(settingsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
+    CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
+    CGFloat x = 5.0f;
+
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+        y -= 10.0f;
+        if (deviceHeight == 480.0f) {
+            y -= 10.0f;
+        }
+    }
+    _settingsButton.frame = CGRectMake(x, y, 44.0f, 44.0f);
+    _settingsButton.tintColor = [UIColor whiteColor];
+
+    return _settingsButton;
+}
+
 #pragma mark - View Lifecycle
 
 - (void)viewDidLoad
@@ -440,6 +467,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
     [self.view addSubview:self.ovenShineImageView];
+    [self.view addSubview:self.settingsButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -631,6 +659,14 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [self.collectionView reloadData];
     }
     self.deleteTimersMessageIsBeingDisplayed = NO;
+}
+
+#pragma mark - Actions
+
+- (void)settingsButtonPressed
+{
+    HYPSettingsViewController *settingsController = [[HYPSettingsViewController alloc] init];
+    
 }
 
 @end
