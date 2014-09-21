@@ -95,6 +95,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     if (_ovenBackgroundImageView) return _ovenBackgroundImageView;
 
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
     UIImage *image;
     if ([UIScreen andy_isPad]) {
         image = [UIImage imageNamed:@"ovenBackground~iPad"];
@@ -102,8 +105,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         image = [UIImage imageNamed:@"ovenBackground"];
     }
 
-    CGRect bounds = [[UIScreen mainScreen] bounds];
-    CGFloat topMargin;
+    CGFloat topMargin = 0.0;
     if ([UIScreen andy_isPad]) {
         topMargin = image.size.height + 175.0f;
     } else {
@@ -114,10 +116,21 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
                 topMargin = image.size.height + 60.0f;
             }
         } else {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = image.size.height + 90.0f;
-            } else {
+            if (deviceHeight == 480.0f) {
+
                 topMargin = image.size.height + 40.0f;
+
+            } else if (deviceHeight == 568.0f) {
+
+                topMargin = image.size.height + 90.0f;
+
+            } else if (deviceHeight == 667.0f) {
+                
+                topMargin = image.size.height + 150.0f;
+
+            } else if (deviceHeight == 736.0f) {
+
+                topMargin = image.size.height + 180.0f;
             }
         }
     }
@@ -228,25 +241,59 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     if (_collectionView) return _collectionView;
 
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceWidth = bounds.size.width;
+
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat cellWidth;
+
+    CGFloat cellWidth = 0.0f;
+
     if ([UIScreen andy_isPad]) {
+
         cellWidth = 175.0f;
+
     } else {
-        cellWidth = 100.0f;
+        if (deviceWidth == 320.0f) {
+
+            cellWidth = 100.0f;
+
+        } else if (deviceWidth == 375.0f) {
+
+            cellWidth = 113.0f;
+
+        } else if (deviceWidth == 414.0f) {
+
+            cellWidth = 122.0f;
+
+        }
     }
 
     [flowLayout setItemSize:CGSizeMake(cellWidth + 10.0f, cellWidth)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-    CGFloat sideMargin;
+    CGFloat sideMargin = 0.0f;
+
     if ([UIScreen andy_isPad]) {
+
         sideMargin = 200.0f;
+
     } else {
-        sideMargin = 50.0f;
+        if (deviceWidth == 320.0f) {
+
+            sideMargin = 50.0f;
+
+        } else if (deviceWidth == 375.0f) {
+
+            sideMargin = 65.0f;
+
+        } else if (deviceWidth == 414.0f) {
+
+            sideMargin = 75.0f;
+
+        }
     }
+
     CGFloat topMargin = self.topMargin;
-    CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
     _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)
                                          collectionViewLayout:flowLayout];
@@ -269,32 +316,74 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     if (_ovenCollectionView) return _ovenCollectionView;
 
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceWidth = bounds.size.width;
+    CGFloat deviceHeight = bounds.size.height;
+
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat cellWidth;
+    CGFloat cellWidth = 0.0f;
     if ([UIScreen andy_isPad]) {
         cellWidth = 220.0f;
     } else {
-        cellWidth = 120.0f;
+        if (deviceWidth == 320.0f) {
+
+            cellWidth = 120.0f;
+
+        } else if (deviceWidth == 375.0f) {
+
+            cellWidth = 133.0f;
+
+        } else if (deviceWidth == 414.0f) {
+
+            cellWidth = 142.0f;
+            
+        }
     }
 
     [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
-    CGFloat sideMargin;
+    CGFloat sideMargin = 0.0f;
     if ([UIScreen andy_isPad]) {
         sideMargin = 274.0f;
     } else {
-        sideMargin = 100.0f;
+        if (deviceWidth == 320.0f) {
+
+            sideMargin = 100.0f;
+
+        } else if (deviceWidth == 375.0f) {
+
+            sideMargin = 120.0f;
+
+        } else if (deviceWidth == 414.0f) {
+
+            sideMargin = 135.0f;
+
+        }
     }
 
-    CGFloat topMargin;
+    CGFloat topMargin = 0.0f;
     if ([UIScreen andy_isPad]) {
         topMargin = self.topMargin + 475.0f;
     } else {
-        topMargin = self.topMargin + 260.0f;
+        if (deviceHeight == 480.0f) {
+
+            topMargin = self.topMargin + 260.0f;
+
+        } else if (deviceHeight == 568.0f) {
+
+            topMargin = self.topMargin + 260.0f;
+
+        } else if (deviceHeight == 667.0f) {
+
+            topMargin = self.topMargin + 280.0f;
+
+        } else if (deviceHeight == 736.0f) {
+
+            topMargin = self.topMargin + 310.0f;
+        }
     }
 
-    CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
     _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)
                                              collectionViewLayout:flowLayout];
