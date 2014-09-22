@@ -10,7 +10,9 @@
 		1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1461778319CDBF1F00E46B1D /* Images.xcassets */; };
 		146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 146489DC19CF276300C5A85C /* ovenBackground@3x.png */; };
 		146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */; };
+		1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */; };
 		149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */; };
+		14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7EB2219CFA29D0076920E /* HYPSetting.m */; };
 		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
 		14F3768218FFF7EA00359D38 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F3768118FFF7EA00359D38 /* AudioToolbox.framework */; };
 		44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088056184C803300935802 /* HYPLocalNotificationManager.m */; };
@@ -75,8 +77,12 @@
 		146489DC19CF276300C5A85C /* ovenBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@3x.png"; sourceTree = "<group>"; };
 		146489E219CF2B8600C5A85C /* HYPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSettingsViewController.h; sourceTree = "<group>"; };
 		146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPSettingsViewController.m; sourceTree = "<group>"; };
+		1491334419CF65B100BA3587 /* UIViewController+HYPContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HYPContainer.h"; sourceTree = "<group>"; };
+		1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HYPContainer.m"; sourceTree = "<group>"; };
 		149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKEAnimatedGradientView.h; sourceTree = "<group>"; };
 		149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKEAnimatedGradientView.m; sourceTree = "<group>"; };
+		14A7EB2119CFA29D0076920E /* HYPSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSetting.h; sourceTree = "<group>"; };
+		14A7EB2219CFA29D0076920E /* HYPSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPSetting.m; sourceTree = "<group>"; };
 		14CEFBAF18FFD6FB000952EC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14F3768118FFF7EA00359D38 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -208,6 +214,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		1491334319CF65B100BA3587 /* UIViewController-HYPContainer */ = {
+			isa = PBXGroup;
+			children = (
+				1491334419CF65B100BA3587 /* UIViewController+HYPContainer.h */,
+				1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */,
+			);
+			path = "UIViewController-HYPContainer";
+			sourceTree = "<group>";
+		};
 		149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,6 +243,8 @@
 		442B13F9184614FC00D52AE1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				14A7EB2119CFA29D0076920E /* HYPSetting.h */,
+				14A7EB2219CFA29D0076920E /* HYPSetting.m */,
 				44088058184C808500935802 /* HYPAlarm.h */,
 				44088059184C808500935802 /* HYPAlarm.m */,
 			);
@@ -492,6 +509,7 @@
 		44F8DA6B18467C390007E083 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				1491334319CF65B100BA3587 /* UIViewController-HYPContainer */,
 				149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */,
 				44909B4F18EB1937002C812E /* UIScreen-ANDYResolutions */,
 				449143BF1847676F008A80F0 /* HockeySDK */,
@@ -621,6 +639,8 @@
 				4408805A184C808500935802 /* HYPAlarm.m in Sources */,
 				44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */,
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
+				14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */,
+				1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */,
 				446C9E251844C4E2005FD797 /* HYPAppDelegate.m in Sources */,
 				44AAE41E1844C0690096BF52 /* main.m in Sources */,
 				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,

@@ -14,6 +14,7 @@
 #import "HYPLocalNotificationManager.h"
 #import <HockeySDK/HockeySDK.h>
 #import "HYPSettingsViewController.h"
+#import "UIViewController+HYPContainer.h"
 
 #define IOS6_SHORT_TOP_MARGIN -10.0f
 #define IOS6_TALL_TOP_MARGIN 30.0f
@@ -665,8 +666,18 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 - (void)settingsButtonPressed
 {
-    HYPSettingsViewController *settingsController = [[HYPSettingsViewController alloc] init];
-    
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGRect frame = bounds;
+    frame.size.width = 230.0f;
+    frame.origin.x = -200.0f;
+
+    HYPSettingsViewController *settingsController = [[HYPSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self hyp_addViewController:settingsController inFrame:frame];
+
+    frame.origin.x = 0.0f;
+    [UIView animateWithDuration:0.30f animations:^{
+        settingsController.view.frame = frame;
+    }];
 }
 
 @end
