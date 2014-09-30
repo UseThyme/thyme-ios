@@ -14,6 +14,7 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "UIScreen+ANDYResolutions.h"
+    #import "UIColor+ANDYHex.h"
 #endif
 
 #define IS_PRE_RELEASE_VERSION 1

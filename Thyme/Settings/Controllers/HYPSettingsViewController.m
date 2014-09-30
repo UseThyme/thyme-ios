@@ -8,6 +8,7 @@
 
 #import "HYPSettingsViewController.h"
 #import "HYPSetting.h"
+#import "HYPSettingTableViewCell.h"
 
 @interface HYPSettingsViewController ()
 
@@ -16,8 +17,6 @@
 @end
 
 @implementation HYPSettingsViewController
-
-static NSString * const HYPCellIdentifier = @"HYPCellIdentifier";
 
 #pragma mark - Getters
 
@@ -75,7 +74,12 @@ static NSString * const HYPCellIdentifier = @"HYPCellIdentifier";
 {
     [super viewDidLoad];
 
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:HYPCellIdentifier];
+    UIImageView *backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sc"]];
+    self.tableView.backgroundView = backgroundImageView;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    [self.tableView registerClass:[HYPSettingTableViewCell class] forCellReuseIdentifier:HYPSettingTableViewCellIdentitifer];
+    self.tableView.contentInset = UIEdgeInsetsMake(30.0f, 0.0f, 0.0f, 0.0f);
 }
 
 #pragma mark - Table view data source
@@ -93,20 +97,21 @@ static NSString * const HYPCellIdentifier = @"HYPCellIdentifier";
     return items.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (HYPSettingTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HYPCellIdentifier forIndexPath:indexPath];
+    HYPSettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HYPSettingTableViewCellIdentitifer
+                                                            forIndexPath:indexPath];
 
     [self configureCell:cell atIndexPath:indexPath];
 
     return cell;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(HYPSettingTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *sectionBody = self.dataSource[indexPath.section];
     HYPSetting *setting = sectionBody[@"items"][indexPath.row];
-    cell.textLabel.text = setting.title;
+    cell.setting = setting;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,6 +135,9 @@ static NSString * const HYPCellIdentifier = @"HYPCellIdentifier";
 
     UILabel *sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 0.0f, 0.0f)];
     sectionLabel.text = [[NSString alloc] initWithFormat:@"   %@", title];
+    sectionLabel.font = [UIFont fontWithName:@"Avenir-Heavy" size:18.0f];
+    sectionLabel.textColor = [UIColor colorFromHex:@"EE4A64"];
+    sectionLabel.backgroundColor = [UIColor clearColor];
 
     return sectionLabel;
 }

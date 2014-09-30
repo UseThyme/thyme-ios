@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 14117C7819DB1F1F0070010C /* UIColor+ANDYHex.m */; };
+		14117C7B19DB26790070010C /* sc.png in Resources */ = {isa = PBXBuildFile; fileRef = 14117C7A19DB26790070010C /* sc.png */; };
+		14117C7E19DB31AD0070010C /* HYPSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14117C7D19DB31AD0070010C /* HYPSettingTableViewCell.m */; };
 		1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1461778319CDBF1F00E46B1D /* Images.xcassets */; };
 		146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 146489DC19CF276300C5A85C /* ovenBackground@3x.png */; };
 		146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */; };
@@ -73,6 +76,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14117C7719DB1F1F0070010C /* UIColor+ANDYHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ANDYHex.h"; sourceTree = "<group>"; };
+		14117C7819DB1F1F0070010C /* UIColor+ANDYHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ANDYHex.m"; sourceTree = "<group>"; };
+		14117C7A19DB26790070010C /* sc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sc.png; sourceTree = "<group>"; };
+		14117C7C19DB31AD0070010C /* HYPSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSettingTableViewCell.h; sourceTree = "<group>"; };
+		14117C7D19DB31AD0070010C /* HYPSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPSettingTableViewCell.m; sourceTree = "<group>"; };
 		1461778319CDBF1F00E46B1D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		146489DC19CF276300C5A85C /* ovenBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@3x.png"; sourceTree = "<group>"; };
 		146489E219CF2B8600C5A85C /* HYPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSettingsViewController.h; sourceTree = "<group>"; };
@@ -181,6 +189,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14117C7619DB1F1F0070010C /* UIColor-ANDYHex */ = {
+			isa = PBXGroup;
+			children = (
+				14117C7719DB1F1F0070010C /* UIColor+ANDYHex.h */,
+				14117C7819DB1F1F0070010C /* UIColor+ANDYHex.m */,
+			);
+			path = "UIColor-ANDYHex";
+			sourceTree = "<group>";
+		};
 		146489DE19CF2B6700C5A85C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +211,8 @@
 		146489DF19CF2B7B00C5A85C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				14117C7C19DB31AD0070010C /* HYPSettingTableViewCell.h */,
+				14117C7D19DB31AD0070010C /* HYPSettingTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -355,6 +374,7 @@
 		44A691AB1844E02D005D4C5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				14117C7A19DB26790070010C /* sc.png */,
 				4473616B1856008B004274DF /* fingerImage@2x.png */,
 				44AE6680184F4E1C00148398 /* 1-1@2x.png */,
 				44AE6681184F4E1C00148398 /* 1-0@2x.png */,
@@ -509,6 +529,7 @@
 		44F8DA6B18467C390007E083 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				14117C7619DB1F1F0070010C /* UIColor-ANDYHex */,
 				1491334319CF65B100BA3587 /* UIViewController-HYPContainer */,
 				149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */,
 				44909B4F18EB1937002C812E /* UIScreen-ANDYResolutions */,
@@ -609,6 +630,7 @@
 				449143CF1847676F008A80F0 /* README.md in Resources */,
 				449143C91847676F008A80F0 /* CHANGELOG in Resources */,
 				4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */,
+				14117C7B19DB26790070010C /* sc.png in Resources */,
 				449143CE1847676F008A80F0 /* LICENSE in Resources */,
 				441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */,
 				146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */,
@@ -646,7 +668,9 @@
 				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
 				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
+				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
 				44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */,
+				14117C7E19DB31AD0070010C /* HYPSettingTableViewCell.m in Sources */,
 				146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */,
 				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
 				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,

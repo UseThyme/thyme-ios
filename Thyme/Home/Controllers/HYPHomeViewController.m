@@ -15,6 +15,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import "HYPSettingsViewController.h"
 #import "UIViewController+HYPContainer.h"
+#import "HYPAppDelegate.h"
 
 #define IOS6_SHORT_TOP_MARGIN -10.0f
 #define IOS6_TALL_TOP_MARGIN 30.0f
@@ -671,8 +672,10 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     frame.size.width = 230.0f;
     frame.origin.x = -200.0f;
 
+    HYPAppDelegate *appDelegate = (HYPAppDelegate *)[[UIApplication sharedApplication] delegate];
     HYPSettingsViewController *settingsController = [[HYPSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self hyp_addViewController:settingsController inFrame:frame];
+    [appDelegate.window addSubview:settingsController.view];
 
     frame.origin.x = 0.0f;
     [UIView animateWithDuration:0.30f animations:^{
