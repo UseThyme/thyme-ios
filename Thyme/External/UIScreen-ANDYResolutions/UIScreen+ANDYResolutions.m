@@ -11,29 +11,12 @@
 
 + (BOOL)andy_isPhone
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        return YES;
-    }
-
-    return NO;
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
 }
 
 + (BOOL)andy_isPad
 {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        return YES;
-    }
-
-    return NO;
-}
-
-+ (BOOL)andy_isSmallScreen
-{
-    BOOL isPhone = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone);
-    if (isPhone && [[UIScreen mainScreen] bounds].size.height == 480.0f) {
-        return YES;
-    }
-    return NO;
+    return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 }
 
 @end

@@ -225,6 +225,6 @@ typedef NS_ENUM(NSUInteger, BITCrashManagerStatus) {
  *
  *  @return BOOL if the debugger is attached on app startup
  */
-- (BOOL)isDebuggerAttached;
+@property (NS_NONATOMIC_IOSONLY, getter=isDebuggerAttached, readonly) BOOL debuggerAttached;
 
 @end

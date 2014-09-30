@@ -10,7 +10,7 @@
 #import "HYPHomeViewController.h"
 #import "HYPTimerViewController.h"
 #import <HockeySDK/HockeySDK.h>
-#import <AVFoundation/AVAudioPlayer.h>
+@import AVFoundation;
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 
@@ -26,7 +26,9 @@ static inline BOOL IsUnitTesting()
 #endif
 
 @interface HYPAppDelegate () <BITHockeyManagerDelegate, UIAlertViewDelegate>
+
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+
 @end
 
 @implementation HYPAppDelegate
@@ -57,8 +59,10 @@ static inline BOOL IsUnitTesting()
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
+    application.applicationSupportsShakeToEdit = YES;
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
@@ -96,23 +100,38 @@ static inline BOOL IsUnitTesting()
 
 - (void)handleLocalNotification:(UILocalNotification *)notification playingSound:(BOOL)playingSound
 {
-    NSString *alarmID = [notification.userInfo objectForKey:ALARM_ID_KEY];
+    NSString *alarmID = (notification.userInfo)[ALARM_ID_KEY];
     [self cleanUpLocalNotificationWithAlarmID:alarmID];
 
     if (playingSound) {
         [self.audioPlayer prepareToPlay];
         [self.audioPlayer play];
     }
-    [[[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+    [[[UIAlertView alloc] initWithTitle:notification.alertBody
+                                message:nil
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil, nil] show];
 }
 
 - (void)cleanUpLocalNotificationWithAlarmID:(NSString *)alarmID
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+    
     UILocalNotification *notification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarmID];
     if (notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
+}
+
+#pragma mark - Shake Support
+
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    if (motion == UIEventSubtypeMotionShake) {
+        NSLog(@"motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event");
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"appWasShaked" object:nil];
     }
 }
 

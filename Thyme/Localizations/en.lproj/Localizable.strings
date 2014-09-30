@@ -1,0 +1,74 @@
+﻿/* %@ %@ PLATE */
+"%@ %@ PLATE" = "%1$@ %2$@ PLATE";
+
+/* %@ just finished */
+"%@ just finished" = "%@ just finished";
+
+/* %ld HOUR */
+"%ld HOUR" = "%ld HOUR";
+
+/* %ld HOURS */
+"%ld HOURS" = "%ld HOURS";
+
+/* ------------------RELEASE TO SET TIMER------------------ */
+"------------------RELEASE TO SET TIMER------------------" = "------------------RELEASE TO SET TIMER------------------";
+
+/* ------------------SWIPE CLOCKWISE TO SET TIMER------------------ */
+"------------------SWIPE CLOCKWISE TO SET TIMER------------------" = "------------------SWIPE CLOCKWISE TO SET TIMER------------------";
+
+/* MINUTES LEFT */
+"MINUTES LEFT" = "MINUTES LEFT";
+
+/* IN %ld MINUTES */
+"IN %ld MINUTES" = "IN %ld MINUTES";
+
+/* IN ABOUT %ld HOURS */
+"IN ABOUT %ld HOURS" = "IN ABOUT %ld HOURS";
+
+/* IN ABOUT %ld HOURS %ld MINUTES */
+"IN ABOUT %ld HOURS %ld MINUTES" = "IN ABOUT %1$ld HOURS %2$ld MINUTES";
+
+/* IN ABOUT %ld MINUTES */
+"IN ABOUT %ld MINUTES" = "IN ABOUT %ld MINUTES";
+
+/* IN ABOUT 1 HOUR */
+"IN ABOUT 1 HOUR" = "IN ABOUT 1 HOUR";
+
+/* IN ABOUT 1 HOUR %ld MINUTES */
+"IN ABOUT 1 HOUR %ld MINUTES" = "IN ABOUT 1 HOUR %ld MINUTES";
+
+/* IN LESS THAN A MINUTE */
+"IN LESS THAN A MINUTE" = "IN LESS THAN A MINUTE";
+
+/* IT'S TIME TO GET COOKING */
+"IT'S TIME TO GET COOKING" = "IT'S TIME TO GET COOKING";
+
+/* TOP */
+"TOP" = "TOP";
+
+/* BOTTOM */
+"BOTTOM" = "BOTTOM";
+
+/* LEFT */
+"LEFT" = "LEFT";
+
+/* RIGHT */
+"RIGHT" = "RIGHT";
+
+/* OVEN */
+"OVEN" = "OVEN";
+
+/* TAP A PLATE TO SET A TIMER */
+"TAP A PLATE TO SET A TIMER" = "TAP A PLATE TO SET A TIMER";
+
+/* View Details */
+"View Details" = "View Details";
+
+/* YOUR DISH WILL BE DONE */
+"YOUR DISH WILL BE DONE" = "YOUR DISH WILL BE DONE";
+
+"Would you like to cancel all the timers?" = "Would you like to cancel all the timers?";
+
+"No" = "No";
+
+"Ok" = "Ok";

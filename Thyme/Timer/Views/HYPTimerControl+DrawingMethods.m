@@ -115,7 +115,13 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 			// Center this glyph by moving left by half its width.
 			CGFloat glyphWidth = glyphArcInfo[runGlyphIndex + glyphOffset].width;
 			CGFloat halfGlyphWidth = glyphWidth / 2.0;
-			CGPoint positionForThisGlyph = CGPointMake(textPosition.x - halfGlyphWidth, textPosition.y + 140);
+            CGFloat offset;
+            if ([UIScreen andy_isPad]) {
+                offset = 210.0f;
+            } else {
+                offset = 140.0f;
+            }
+			CGPoint positionForThisGlyph = CGPointMake(textPosition.x - halfGlyphWidth, textPosition.y + offset);
 
 			// Glyphs are positioned relative to the text position for the line, so offset text position leftwards by this glyph's width in preparation for the next glyph.
 			textPosition.x -= glyphWidth;
@@ -144,7 +150,13 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 - (NSAttributedString *)attributedString
 {
 	// Create our attributes.
-	NSDictionary *attributes = @{NSFontAttributeName: TEXT_FONT, NSForegroundColorAttributeName : TEXT_COLOR};
+    UIFont *font;
+    if ([UIScreen andy_isPad]) {
+        font = [HYPUtils avenirLightWithSize:20.0f];
+    } else {
+        font = [HYPUtils avenirLightWithSize:14.0f];
+    }
+	NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName : TEXT_COLOR};
 
 	// Create the attributed string.
 	NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:self.title attributes:attributes];
@@ -161,7 +173,8 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGContextRestoreGState(context);
 }
 
-- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius angle:(NSInteger)angle containerRect:(CGRect)containerRect
+- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius
+                       angle:(NSInteger)angle containerRect:(CGRect)containerRect
 {
     CGContextSaveGState(context);
 
@@ -180,7 +193,8 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGContextRestoreGState(context);
 }
 
-- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color andRadius:(CGFloat)radius containerRect:(CGRect)containerRect
+- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color
+                   andRadius:(CGFloat)radius containerRect:(CGRect)containerRect
 {
     CGContextSaveGState(context);
 

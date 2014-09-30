@@ -13,22 +13,25 @@
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 #import <HockeySDK/HockeySDK.h>
+#import "HYPSettingsViewController.h"
+#import "UIViewController+HYPContainer.h"
 
-#define IOS6_SHORT_TOP_MARGIN 0
-#define IOS6_TALL_TOP_MARGIN 30
+#define IOS6_SHORT_TOP_MARGIN -10.0f
+#define IOS6_TALL_TOP_MARGIN 30.0f
 
-#define SHORT_TOP_MARGIN 10
-#define TALL_TOP_MARGIN 50
+#define SHORT_TOP_MARGIN 10.0f
+#define TALL_TOP_MARGIN 50.0f
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
-@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HYPTimerControllerDelegate>
+@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HYPTimerControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) CGFloat topMargin;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *subtitleLabel;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UICollectionView *ovenCollectionView;
+@property (nonatomic, strong) UIButton *settingsButton;
 
 @property (nonatomic, strong) UIImageView *ovenBackgroundImageView;
 @property (nonatomic, strong) UIImageView *ovenShineImageView;
@@ -36,8 +39,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @property (nonatomic, strong) NSMutableArray *alarms;
 @property (nonatomic, strong) NSMutableArray *ovenAlarms;
 
-@property (nonatomic, strong) UIButton *feedbackButton;
 @property (nonatomic, strong) NSNumber *maxMinutesLeft;
+
+@property (nonatomic) BOOL deleteTimersMessageIsBeingDisplayed;
 
 @end
 
@@ -48,11 +52,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (void)setMaxMinutesLeft:(NSNumber *)maxMinutesLeft
 {
     _maxMinutesLeft = maxMinutesLeft;
-    
+
     if (_maxMinutesLeft) {
-        self.titleLabel.text = @"YOUR DISH WILL BE DONE";
+        self.titleLabel.text = NSLocalizedString(@"YOUR DISH WILL BE DONE", @"YOUR DISH WILL BE DONE");
         if ([_maxMinutesLeft doubleValue] == 0.0f) {
-            self.subtitleLabel.text = @"IN LESS THAN A MINUTE";
+            self.subtitleLabel.text = NSLocalizedString(@"IN LESS THAN A MINUTE", @"IN LESS THAN A MINUTE");
         } else {
             self.subtitleLabel.text = [HYPAlarm subtitleForHomescreenUsingMinutes:_maxMinutesLeft];
         }
@@ -62,93 +66,118 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     }
 }
 
-- (UIButton *)feedbackButton
-{
-    if (!_feedbackButton) {
-        _feedbackButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        [_feedbackButton addTarget:self action:@selector(feedbackButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
-        _feedbackButton.frame = CGRectMake(15.0f, y, 44.0f, 44.0f);
-        _feedbackButton.tintColor = [UIColor whiteColor];
-    }
-    return _feedbackButton;
-}
-
 - (NSMutableArray *)alarms
 {
-    if (!_alarms) {
-        _alarms = [NSMutableArray array];
-        HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
-        HYPAlarm *alarm2 = [[HYPAlarm alloc] init];
-        HYPAlarm *alarm3 = [[HYPAlarm alloc] init];
-        HYPAlarm *alarm4 = [[HYPAlarm alloc] init];
-        [_alarms addObject:@[alarm1, alarm2]];
-        [_alarms addObject:@[alarm3, alarm4]];
-    }
+    if (_alarms) return _alarms;
+
+    _alarms = [NSMutableArray array];
+    HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
+    HYPAlarm *alarm2 = [[HYPAlarm alloc] init];
+    HYPAlarm *alarm3 = [[HYPAlarm alloc] init];
+    HYPAlarm *alarm4 = [[HYPAlarm alloc] init];
+    [_alarms addObject:@[alarm1, alarm2]];
+    [_alarms addObject:@[alarm3, alarm4]];
+
     return _alarms;
 }
 
 - (NSMutableArray *)ovenAlarms
 {
-    if (!_ovenAlarms) {
-        _ovenAlarms = [NSMutableArray array];
+    if (_ovenAlarms) return _ovenAlarms;
 
-        HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
-        alarm1.oven = YES;
-        [_ovenAlarms addObject:@[alarm1]];
-    }
+    _ovenAlarms = [NSMutableArray array];
+
+    HYPAlarm *alarm1 = [[HYPAlarm alloc] init];
+    alarm1.oven = YES;
+    [_ovenAlarms addObject:@[alarm1]];
+
     return _ovenAlarms;
 }
 
 - (UIImageView *)ovenBackgroundImageView
 {
-    if (!_ovenBackgroundImageView) {
-        UIImage *image = [UIImage imageNamed:@"ovenBackground"];
-        CGRect bounds = [[UIScreen mainScreen] bounds];
+    if (_ovenBackgroundImageView) return _ovenBackgroundImageView;
 
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
 
-        CGFloat topMargin;
+    UIImage *image;
+    if ([UIScreen andy_isPad]) {
+        image = [UIImage imageNamed:@"ovenBackground~iPad"];
+    } else {
+        image = [UIImage imageNamed:@"ovenBackground"];
+    }
+
+    CGFloat topMargin = 0.0;
+    if ([UIScreen andy_isPad]) {
+        topMargin = image.size.height + 175.0f;
+    } else {
         if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
             if ([HYPUtils isTallPhone]) {
                 topMargin = image.size.height + 110.0f;
             } else {
-                topMargin = image.size.height + 50.0f;
+                topMargin = image.size.height + 60.0f;
             }
         } else {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = image.size.height + 90.0f;
-            } else {
+            if (deviceHeight == 480.0f) {
+
                 topMargin = image.size.height + 40.0f;
+
+            } else if (deviceHeight == 568.0f) {
+
+                topMargin = image.size.height + 90.0f;
+
+            } else if (deviceHeight == 667.0f) {
+
+                topMargin = image.size.height + 150.0f;
+
+            } else if (deviceHeight == 736.0f) {
+
+                topMargin = image.size.height + 180.0f;
             }
         }
-
-        CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
-        CGFloat y = CGRectGetHeight(bounds) - topMargin;
-        _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, image.size.width, image.size.height)];
-        _ovenBackgroundImageView.image = image;
     }
+
+    CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+    CGFloat y = CGRectGetHeight(bounds) - topMargin;
+    CGRect imageRect = CGRectMake(x, y, image.size.width, image.size.height);
+    _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:imageRect];
+    _ovenBackgroundImageView.image = image;
+
     return _ovenBackgroundImageView;
 }
 
 - (UIImageView *)ovenShineImageView
 {
-    if (!_ovenShineImageView) {
-        _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
-        _ovenShineImageView.image = [UIImage imageNamed:@"ovenShine"];
+    if (_ovenShineImageView) return _ovenShineImageView;
+
+    _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
+    UIImage *image;
+    if ([UIScreen andy_isPad]) {
+        image = [UIImage imageNamed:@"ovenShine~iPad"];
+        _ovenShineImageView.hidden = YES;
+    } else {
+        image = [UIImage imageNamed:@"ovenShine"];
     }
+
+    _ovenShineImageView.image = image;
+
     return _ovenShineImageView;
 }
 
 - (UILabel *)titleLabel
 {
-    if (!_titleLabel) {
-        CGFloat sideMargin = 20.0f;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    if (_titleLabel) return _titleLabel;
 
-        CGFloat topMargin;
+    CGFloat sideMargin = 20.0f;
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
 
+    CGFloat topMargin;
+
+    if ([UIScreen andy_isPad]) {
+        topMargin = 115.0f;
+    } else {
         if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
             if ([HYPUtils isTallPhone]) {
                 topMargin = 40.0f;
@@ -162,80 +191,243 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
                 topMargin = 40.0f;
             }
         }
-
-        CGFloat height = 25.0f;
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
-        _titleLabel.text = [HYPAlarm titleForHomescreen];
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
-        _titleLabel.textColor = [UIColor whiteColor];
-        _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.adjustsFontSizeToFitWidth = YES;
     }
+
+    CGFloat height = 25.0f;
+    UIFont *font;
+    if ([UIScreen andy_isPad]) {
+        font = [HYPUtils avenirLightWithSize:20.0f];
+    } else {
+        font = [HYPUtils avenirLightWithSize:15.0f];
+    }
+    _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
+    _titleLabel.font = font;
+    _titleLabel.text = [HYPAlarm titleForHomescreen];
+    _titleLabel.textAlignment = NSTextAlignmentCenter;
+    _titleLabel.textColor = [UIColor whiteColor];
+    _titleLabel.backgroundColor = [UIColor clearColor];
+    _titleLabel.adjustsFontSizeToFitWidth = YES;
+
     return _titleLabel;
 }
 
 - (UILabel *)subtitleLabel
 {
-    if (!_subtitleLabel) {
-        CGFloat sideMargin = CGRectGetMinX(self.titleLabel.frame);
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
-        CGFloat height = CGRectGetHeight(self.titleLabel.frame);
-        _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
-        _subtitleLabel.font = [HYPUtils avenirBlackWithSize:19.0f];
-        _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
-        _subtitleLabel.textAlignment = NSTextAlignmentCenter;
-        _subtitleLabel.textColor = [UIColor whiteColor];
-        _subtitleLabel.backgroundColor = [UIColor clearColor];
-        _subtitleLabel.adjustsFontSizeToFitWidth = YES;
+    if (_subtitleLabel) return _subtitleLabel;
+
+    CGFloat sideMargin = CGRectGetMinX(self.titleLabel.frame);
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
+    if ([UIScreen andy_isPad]) {
+        topMargin += 10.0f;
     }
+    CGFloat height = CGRectGetHeight(self.titleLabel.frame);
+    UIFont *font;
+    if ([UIScreen andy_isPad]) {
+        font = [HYPUtils avenirBlackWithSize:25.0f];
+    } else {
+        font = [HYPUtils avenirBlackWithSize:19.0f];
+    }
+    _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
+    _subtitleLabel.font = font;
+    _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
+    _subtitleLabel.textAlignment = NSTextAlignmentCenter;
+    _subtitleLabel.textColor = [UIColor whiteColor];
+    _subtitleLabel.backgroundColor = [UIColor clearColor];
+    _subtitleLabel.adjustsFontSizeToFitWidth = YES;
+
     return _subtitleLabel;
 }
 
 - (UICollectionView *)collectionView
 {
-    if (!_collectionView) {
+    if (_collectionView) return _collectionView;
 
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 100.0f;
-        [flowLayout setItemSize:CGSizeMake(cellWidth + 10, cellWidth)];
-        [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceWidth = bounds.size.width;
 
-        CGFloat sideMargin = 50.0f;
-        CGFloat topMargin = self.topMargin;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin + 1, topMargin, width, width) collectionViewLayout:flowLayout];
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        _collectionView.backgroundColor = [UIColor clearColor];
-        [self applyTransformToLayer:_collectionView.layer usingFactor:0.30];
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+
+    CGFloat cellWidth = 0.0f;
+
+    if ([UIScreen andy_isPad]) {
+
+        cellWidth = 175.0f;
+
+    } else {
+        if (deviceWidth == 320.0f) {
+
+            cellWidth = 100.0f;
+
+        } else if (deviceWidth == 375.0f) {
+
+            cellWidth = 113.0f;
+
+        } else if (deviceWidth == 414.0f) {
+
+            cellWidth = 122.0f;
+
+        }
     }
+
+    [flowLayout setItemSize:CGSizeMake(cellWidth + 10.0f, cellWidth)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+
+    CGFloat sideMargin = 0.0f;
+
+    if ([UIScreen andy_isPad]) {
+
+        sideMargin = 200.0f;
+
+    } else {
+        if (deviceWidth == 320.0f) {
+
+            sideMargin = 50.0f;
+
+        } else if (deviceWidth == 375.0f) {
+
+            sideMargin = 65.0f;
+
+        } else if (deviceWidth == 414.0f) {
+
+            sideMargin = 75.0f;
+
+        }
+    }
+
+    CGFloat topMargin = self.topMargin;
+    CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)
+                                         collectionViewLayout:flowLayout];
+    _collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _collectionView.backgroundColor = [UIColor clearColor];
+
+    CGFloat factor;
+    if ([UIScreen andy_isPad]) {
+        factor = 0.36f;
+    } else {
+        factor = 0.30f;
+    }
+    [self applyTransformToLayer:_collectionView.layer usingFactor:factor];
+
     return _collectionView;
 }
 
 - (UICollectionView *)ovenCollectionView
 {
-    if (!_ovenCollectionView) {
-        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        CGFloat cellWidth = 120.0f;
-        [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
-        [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    if (_ovenCollectionView) return _ovenCollectionView;
 
-        CGFloat sideMargin = 100.0f;
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceWidth = bounds.size.width;
+    CGFloat deviceHeight = bounds.size.height;
 
-        CGFloat topMargin = self.topMargin + 270.0f;
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-        _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width) collectionViewLayout:flowLayout];
-        _ovenCollectionView.dataSource = self;
-        _ovenCollectionView.delegate = self;
-        _ovenCollectionView.backgroundColor = [UIColor clearColor];
-        [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:0.25];
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    CGFloat cellWidth = 0.0f;
+    if ([UIScreen andy_isPad]) {
+        cellWidth = 220.0f;
+    } else {
+        if (deviceWidth == 320.0f) {
+
+            cellWidth = 120.0f;
+
+        } else if (deviceWidth == 375.0f) {
+
+            cellWidth = 133.0f;
+
+        } else if (deviceWidth == 414.0f) {
+
+            cellWidth = 142.0f;
+
+        }
     }
+
+    [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+
+    CGFloat sideMargin = 0.0f;
+    if ([UIScreen andy_isPad]) {
+        sideMargin = 274.0f;
+    } else {
+        if (deviceWidth == 320.0f) {
+
+            sideMargin = 100.0f;
+
+        } else if (deviceWidth == 375.0f) {
+
+            sideMargin = 120.0f;
+
+        } else if (deviceWidth == 414.0f) {
+
+            sideMargin = 135.0f;
+
+        }
+    }
+
+    CGFloat topMargin = 0.0f;
+    if ([UIScreen andy_isPad]) {
+        topMargin = self.topMargin + 475.0f;
+    } else {
+        if (deviceHeight == 480.0f) {
+
+            topMargin = self.topMargin + 260.0f;
+
+        } else if (deviceHeight == 568.0f) {
+
+            topMargin = self.topMargin + 260.0f;
+
+        } else if (deviceHeight == 667.0f) {
+
+            topMargin = self.topMargin + 280.0f;
+
+        } else if (deviceHeight == 736.0f) {
+
+            topMargin = self.topMargin + 310.0f;
+        }
+    }
+
+    CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)
+                                             collectionViewLayout:flowLayout];
+    _ovenCollectionView.dataSource = self;
+    _ovenCollectionView.delegate = self;
+    _ovenCollectionView.backgroundColor = [UIColor clearColor];
+
+    CGFloat factor;
+    if ([UIScreen andy_isPad]) {
+        factor = 0.29f;
+    } else {
+        factor = 0.25f;
+    }
+    [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:factor];
+
     return _ovenCollectionView;
+}
+
+- (UIButton *)settingsButton
+{
+    if (_settingsButton) return _settingsButton;
+
+    _settingsButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [_settingsButton addTarget:self action:@selector(settingsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
+    CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
+    CGFloat x = 5.0f;
+
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+        y -= 10.0f;
+        if (deviceHeight == 480.0f) {
+            y -= 10.0f;
+        }
+    }
+    _settingsButton.frame = CGRectMake(x, y, 44.0f, 44.0f);
+    _settingsButton.tintColor = [UIColor whiteColor];
+
+    return _settingsButton;
 }
 
 #pragma mark - View Lifecycle
@@ -244,17 +436,26 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 {
     [super viewDidLoad];
 
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        if ([HYPUtils isTallPhone]) {
-            self.topMargin = IOS6_TALL_TOP_MARGIN;
-        } else {
-            self.topMargin = IOS6_SHORT_TOP_MARGIN;
-        }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appWasShaked:)
+                                                 name:@"appWasShaked"
+                                               object:nil];
+
+    if ([UIScreen andy_isPad]) {
+        self.topMargin = 70.0f;
     } else {
-        if ([HYPUtils isTallPhone]) {
-            self.topMargin = TALL_TOP_MARGIN;
+        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if ([HYPUtils isTallPhone]) {
+                self.topMargin = IOS6_TALL_TOP_MARGIN;
+            } else {
+                self.topMargin = IOS6_SHORT_TOP_MARGIN;
+            }
         } else {
-            self.topMargin = SHORT_TOP_MARGIN;
+            if ([HYPUtils isTallPhone]) {
+                self.topMargin = TALL_TOP_MARGIN;
+            } else {
+                self.topMargin = SHORT_TOP_MARGIN;
+            }
         }
     }
 
@@ -267,21 +468,23 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
     [self.view addSubview:self.ovenShineImageView];
-
-#if IS_PRE_RELEASE_VERSION
-    [self.view addSubview:self.feedbackButton];
-#endif
+    [self.view addSubview:self.settingsButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissedTimerController:) name:UIApplicationDidBecomeActiveNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dismissedTimerController:)
+                                                 name:UIApplicationDidBecomeActiveNotification
+                                               object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -301,29 +504,34 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if ([collectionView isEqual:self.collectionView]) {
-        NSArray *array = [self.alarms objectAtIndex:0];
+        NSArray *array = (self.alarms)[0];
         NSInteger rows = [array count];
         return rows;
     }
 
-    NSArray *array = [self.ovenAlarms objectAtIndex:0];
+    NSArray *array = (self.ovenAlarms)[0];
     NSInteger rows = [array count];
     return rows;
 }
 
 - (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier forIndexPath:indexPath];
+    HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier
+                                                                   forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath collectionView:collectionView];
+
     return cell;
 }
 
-- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView;
+- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath
+       collectionView:(UICollectionView *)collectionView;
 {
     HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
     alarm.indexPath = indexPath;
     cell.timerControl.active = alarm.active;
-    [cell.timerControl addTarget:self action:@selector(timerControlChangedValue:) forControlEvents:UIControlEventValueChanged];
+    [cell.timerControl addTarget:self
+                          action:@selector(timerControlChangedValue:)
+                forControlEvents:UIControlEventValueChanged];
     [self refreshTimerInCell:cell forCurrentAlarm:alarm];
 }
 
@@ -356,28 +564,17 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     }
 }
 
-#pragma mark - Feedback Action
-
-- (void)feedbackButtonPressed:(UIButton *)button
-{
-    BITFeedbackManager *manager = [[BITFeedbackManager alloc] init];
-    BITFeedbackComposeViewController *feedbackCompose = [manager feedbackComposeViewController];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:feedbackCompose];
-    navController.modalPresentationStyle = UIModalPresentationFormSheet;
-    [self presentViewController:navController animated:YES completion:nil];
-}
-
 #pragma mark - Helpers
 
 - (HYPAlarm *)alarmAtIndexPath:(NSIndexPath *)indexPath collectionView:(UICollectionView *)collectionView
 {
     NSArray *row;
     if ([collectionView isEqual:self.collectionView]) {
-        row = [self.alarms objectAtIndex:indexPath.section];
+        row = (self.alarms)[indexPath.section];
     } else {
-        row = [self.ovenAlarms objectAtIndex:indexPath.section];
+        row = (self.ovenAlarms)[indexPath.section];
     }
-    HYPAlarm *alarm = [row objectAtIndex:indexPath.row];
+    HYPAlarm *alarm = row[indexPath.row];
     return alarm;
 }
 
@@ -395,8 +592,8 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarm.alarmID];
 
     if (existingNotification) {
-        NSDate *firedDate = [existingNotification.userInfo objectForKey:ALARM_FIRE_DATE_KEY];
-        NSNumber *numberOfSeconds = [existingNotification.userInfo objectForKey:ALARM_FIRE_INTERVAL_KEY];
+        NSDate *firedDate = (existingNotification.userInfo)[ALARM_FIRE_DATE_KEY];
+        NSNumber *numberOfSeconds = (existingNotification.userInfo)[ALARM_FIRE_INTERVAL_KEY];
 
         // Fired date + amount of seconds = target date
         NSTimeInterval secondsPassed = [[NSDate date] timeIntervalSinceDate:firedDate];
@@ -433,6 +630,54 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         [cell.timerControl restartTimer];
         [cell.timerControl stopTimer];
     }
+}
+
+#pragma mark - Shake Support
+
+- (void)appWasShaked:(NSNotification *)notification
+{
+    if (self.deleteTimersMessageIsBeingDisplayed) {
+        return;
+    }
+
+    if ([[notification name] isEqualToString:@"appWasShaked"]) {
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Would you like to cancel all the timers?", nil)
+                                    message:nil
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"No", nil)
+                          otherButtonTitles:NSLocalizedString(@"Ok", nil), nil] show];
+        self.deleteTimersMessageIsBeingDisplayed = YES;
+    }
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    BOOL accepted = (buttonIndex == 1);
+    if (accepted) {
+        [HYPLocalNotificationManager cancelAllLocalNotifications];
+        [self.collectionView reloadData];
+    }
+    self.deleteTimersMessageIsBeingDisplayed = NO;
+}
+
+#pragma mark - Actions
+
+- (void)settingsButtonPressed
+{
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGRect frame = bounds;
+    frame.size.width = 230.0f;
+    frame.origin.x = -200.0f;
+
+    HYPSettingsViewController *settingsController = [[HYPSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self hyp_addViewController:settingsController inFrame:frame];
+
+    frame.origin.x = 0.0f;
+    [UIView animateWithDuration:0.30f animations:^{
+        settingsController.view.frame = frame;
+    }];
 }
 
 @end

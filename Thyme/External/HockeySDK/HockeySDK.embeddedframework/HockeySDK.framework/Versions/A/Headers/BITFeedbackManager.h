@@ -260,7 +260,7 @@ typedef NS_ENUM(NSInteger, BITFeedbackUserDataElement) {
  @return `BITFeedbackComposeViewController` The compose feedback view controller,
  e.g. to push it onto a navigation stack.
  */
-- (BITFeedbackComposeViewController *)feedbackComposeViewController;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) BITFeedbackComposeViewController *feedbackComposeViewController;
 
 
 @end
