@@ -21,7 +21,8 @@
     self.textLabel.font = [UIFont fontWithName:@"Avenir-Book" size:16.0f];
     self.backgroundColor = [UIColor clearColor];
     self.textLabel.textColor = [UIColor colorFromHex:@"B5B4B5"];
-
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return self;
 }
 

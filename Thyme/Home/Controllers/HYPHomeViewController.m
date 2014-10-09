@@ -28,6 +28,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 @interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HYPTimerControllerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) CGFloat topMargin;
+
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *subtitleLabel;
 @property (nonatomic, strong) UICollectionView *collectionView;
