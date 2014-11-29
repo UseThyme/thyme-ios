@@ -1,10 +1,3 @@
-//
-//  UIViewController+HYPContainer.m
-//
-//  Created by Elvis Nunez on 29/08/14.
-//  Copyright (c) 2014 Hyper. All rights reserved.
-//
-
 #import "UIViewController+HYPContainer.h"
 
 @implementation UIViewController (HYPContainer)
