@@ -1,11 +1,3 @@
-//
-//  BITFeedbackComposeViewControllerDelegate.h
-//  HockeySDK
-//
-//  Created by Andreas Linde on 15.10.12.
-//
-//
-
 #import <Foundation/Foundation.h>
 
 /**

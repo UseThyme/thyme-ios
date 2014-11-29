@@ -1,11 +1,3 @@
-//
-//  BITFeedbackManagerDelegate.h
-//  HockeySDK
-//
-//  Created by Stephan Diederich on 26.07.13.
-//
-//
-
 #import <Foundation/Foundation.h>
 
 @class BITFeedbackManager;

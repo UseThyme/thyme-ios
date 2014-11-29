@@ -1,11 +1,3 @@
-//
-//  HYPTimerControl+DrawingMethods.h
-//  Thyme
-//
-//  Created by Elvis Nunez on 03/12/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
 #import "HYPTimerControl.h"
 
 @interface HYPTimerControl (DrawingMethods)
