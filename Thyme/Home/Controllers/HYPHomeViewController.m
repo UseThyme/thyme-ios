@@ -17,9 +17,6 @@
 #import "UIViewController+HYPContainer.h"
 #import "HYPAppDelegate.h"
 
-#define IOS6_SHORT_TOP_MARGIN -10.0f
-#define IOS6_TALL_TOP_MARGIN 30.0f
-
 #define SHORT_TOP_MARGIN 10.0f
 #define TALL_TOP_MARGIN 50.0f
 
@@ -114,13 +111,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if ([UIScreen andy_isPad]) {
         topMargin = image.size.height + 175.0f;
     } else {
-        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = image.size.height + 110.0f;
-            } else {
-                topMargin = image.size.height + 60.0f;
-            }
-        } else {
             if (deviceHeight == 480.0f) {
 
                 topMargin = image.size.height + 40.0f;
@@ -137,7 +127,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
                 topMargin = image.size.height + 180.0f;
             }
-        }
     }
 
     CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
@@ -180,19 +169,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if ([UIScreen andy_isPad]) {
         topMargin = 115.0f;
     } else {
-        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = 40.0f;
-            } else {
-                topMargin = 20.0f;
-            }
-        } else {
             if ([HYPUtils isTallPhone]) {
                 topMargin = 60.0f;
             } else {
                 topMargin = 40.0f;
             }
-        }
     }
 
     CGFloat height = 25.0f;
@@ -420,12 +401,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
     CGFloat x = 5.0f;
 
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        y -= 10.0f;
-        if (deviceHeight == 480.0f) {
-            y -= 10.0f;
-        }
-    }
     _settingsButton.frame = CGRectMake(x, y, 44.0f, 44.0f);
     _settingsButton.tintColor = [UIColor whiteColor];
 
@@ -446,19 +421,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if ([UIScreen andy_isPad]) {
         self.topMargin = 70.0f;
     } else {
-        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-            if ([HYPUtils isTallPhone]) {
-                self.topMargin = IOS6_TALL_TOP_MARGIN;
-            } else {
-                self.topMargin = IOS6_SHORT_TOP_MARGIN;
-            }
-        } else {
             if ([HYPUtils isTallPhone]) {
                 self.topMargin = TALL_TOP_MARGIN;
             } else {
                 self.topMargin = SHORT_TOP_MARGIN;
             }
-        }
     }
 
     [self.view addSubview:self.titleLabel];
@@ -470,7 +437,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
     [self.view addSubview:self.ovenShineImageView];
-    [self.view addSubview:self.settingsButton];
+    // [self.view addSubview:self.settingsButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -91,18 +91,10 @@
     if ([UIScreen andy_isPad]) {
         topMargin = 330.0f;
     } else {
-        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = 160.0f;
-            } else {
-                topMargin = 130.0f;
-            }
+        if ([HYPUtils isTallPhone]) {
+            topMargin = 140.0f;
         } else {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = 140.0f;
-            } else {
-                topMargin = 110.0f;
-            }
+            topMargin = 110.0f;
         }
     }
 
@@ -130,18 +122,10 @@
     if ([UIScreen andy_isPad]) {
         topMargin = 140.0f;
     } else {
-        if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = 40.0f;
-            } else {
-                topMargin = 20.0f;
-            }
+        if ([HYPUtils isTallPhone]) {
+            topMargin = 60.0f;
         } else {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = 60.0f;
-            } else {
-                topMargin = 30.0f;
-            }
+            topMargin = 30.0f;
         }
     }
 
@@ -260,7 +244,7 @@
     if ([self.delegate respondsToSelector:@selector(dismissedTimerController:)]) {
         [self.delegate dismissedTimerController:self];
     }
-    
+
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
