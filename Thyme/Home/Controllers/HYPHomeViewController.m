@@ -117,7 +117,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         } else if (deviceHeight == 736.0f) {
 
-            topMargin = image.size.height + 180.0f;
+            topMargin = image.size.height + 150.0f;
         }
     }
 
@@ -358,7 +358,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
         } else if (deviceHeight == 736.0f) {
 
-            topMargin = self.topMargin + 310.0f;
+            topMargin = self.topMargin + 340.0f;
         }
     }
 
