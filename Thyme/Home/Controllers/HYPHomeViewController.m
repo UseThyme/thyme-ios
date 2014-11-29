@@ -388,7 +388,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [_settingsButton addTarget:self action:@selector(settingsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 
     CGRect bounds = [[UIScreen mainScreen] bounds];
-    CGFloat deviceHeight = bounds.size.height;
 
     CGFloat y = CGRectGetHeight(bounds) - 44.0f - 15.0f;
     CGFloat x = 5.0f;
