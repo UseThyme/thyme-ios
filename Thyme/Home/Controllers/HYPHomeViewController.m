@@ -103,22 +103,22 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if ([UIScreen andy_isPad]) {
         topMargin = image.size.height + 175.0f;
     } else {
-            if (deviceHeight == 480.0f) {
+        if (deviceHeight == 480.0f) {
 
-                topMargin = image.size.height + 40.0f;
+            topMargin = image.size.height + 40.0f;
 
-            } else if (deviceHeight == 568.0f) {
+        } else if (deviceHeight == 568.0f) {
 
-                topMargin = image.size.height + 90.0f;
+            topMargin = image.size.height + 90.0f;
 
-            } else if (deviceHeight == 667.0f) {
+        } else if (deviceHeight == 667.0f) {
 
-                topMargin = image.size.height + 150.0f;
+            topMargin = image.size.height + 150.0f;
 
-            } else if (deviceHeight == 736.0f) {
+        } else if (deviceHeight == 736.0f) {
 
-                topMargin = image.size.height + 180.0f;
-            }
+            topMargin = image.size.height + 180.0f;
+        }
     }
 
     CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
@@ -161,11 +161,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if ([UIScreen andy_isPad]) {
         topMargin = 115.0f;
     } else {
-            if ([HYPUtils isTallPhone]) {
-                topMargin = 60.0f;
-            } else {
-                topMargin = 40.0f;
-            }
+        if ([HYPUtils isTallPhone]) {
+            topMargin = 60.0f;
+        } else {
+            topMargin = 40.0f;
+        }
     }
 
     CGFloat height = 25.0f;
@@ -412,11 +412,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if ([UIScreen andy_isPad]) {
         self.topMargin = 70.0f;
     } else {
-            if ([HYPUtils isTallPhone]) {
-                self.topMargin = TALL_TOP_MARGIN;
-            } else {
-                self.topMargin = SHORT_TOP_MARGIN;
-            }
+        if ([HYPUtils isTallPhone]) {
+            self.topMargin = TALL_TOP_MARGIN;
+        } else {
+            self.topMargin = SHORT_TOP_MARGIN;
+        }
     }
 
     [self.view addSubview:self.titleLabel];
@@ -427,7 +427,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.ovenCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
-    [self.view addSubview:self.ovenShineImageView];
+    //[self.view addSubview:self.ovenShineImageView];
     // [self.view addSubview:self.settingsButton];
 }
 
@@ -630,12 +630,12 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGRect frame = bounds;
     frame.size.width = 230.0f;
     frame.origin.x = -200.0f;
-
+    
     HYPAppDelegate *appDelegate = (HYPAppDelegate *)[[UIApplication sharedApplication] delegate];
     HYPSettingsViewController *settingsController = [[HYPSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self hyp_addViewController:settingsController inFrame:frame];
     [appDelegate.window addSubview:settingsController.view];
-
+    
     frame.origin.x = 0.0f;
     [UIView animateWithDuration:0.30f animations:^{
         settingsController.view.frame = frame;
