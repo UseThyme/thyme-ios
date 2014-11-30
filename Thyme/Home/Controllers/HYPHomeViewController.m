@@ -100,30 +100,41 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     }
 
     CGFloat topMargin = 0.0;
+    CGFloat x = 0.0f;
+    CGFloat width = 0.0f;
+    CGFloat height = 0.0f;
+
     if ([UIScreen andy_isPad]) {
         topMargin = image.size.height + 175.0f;
+        x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+        width = image.size.width;
+        height = image.size.height;
     } else {
         if (deviceHeight == 480.0f) {
-
             topMargin = image.size.height + 40.0f;
-
+            x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+            width = image.size.width;
+            height = image.size.height;
         } else if (deviceHeight == 568.0f) {
-
             topMargin = image.size.height + 90.0f;
-
+            x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+            width = image.size.width;
+            height = image.size.height;
         } else if (deviceHeight == 667.0f) {
-
-            topMargin = image.size.height + 150.0f;
-
+            topMargin = image.size.height + 128.0f;
+            x = 50.0f;
+            width = 280.0f;
+            height = 164.0f;
         } else if (deviceHeight == 736.0f) {
-
-            topMargin = image.size.height + 150.0f;
+            topMargin = image.size.height + 128.0f;
+            x = 50.0f;
+            width = 280.0f;
+            height = 164.0f;
         }
     }
 
-    CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
     CGFloat y = CGRectGetHeight(bounds) - topMargin;
-    CGRect imageRect = CGRectMake(x, y, image.size.width, image.size.height);
+    CGRect imageRect = CGRectMake(x, y, width, height);
     _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:imageRect];
     _ovenBackgroundImageView.image = image;
 
@@ -155,6 +166,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGFloat sideMargin = 20.0f;
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    CGFloat deviceWidth = bounds.size.width;
 
     CGFloat topMargin;
 
@@ -162,7 +174,13 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         topMargin = 115.0f;
     } else {
         if ([HYPUtils isTallPhone]) {
-            topMargin = 60.0f;
+            if (deviceWidth == 320.0f) {
+                topMargin = 60.0f;
+            } else if (deviceWidth == 375.0f) {
+                topMargin = 74.0f;
+            } else {
+                topMargin = 60.0f;
+            }
         } else {
             topMargin = 40.0f;
         }
@@ -173,7 +191,17 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if ([UIScreen andy_isPad]) {
         font = [HYPUtils avenirLightWithSize:20.0f];
     } else {
-        font = [HYPUtils avenirLightWithSize:15.0f];
+        if ([HYPUtils isTallPhone]) {
+            if (deviceWidth == 320.0f) {
+                font = [HYPUtils avenirLightWithSize:15.0f];
+            } else if (deviceWidth == 375.0f) {
+                font = [HYPUtils avenirLightWithSize:18.0f];
+            } else {
+                font = [HYPUtils avenirLightWithSize:18.0f];
+            }
+        } else {
+            font = [HYPUtils avenirLightWithSize:15.0f];
+        }
     }
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
     _titleLabel.font = font;
@@ -193,17 +221,39 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGFloat sideMargin = CGRectGetMinX(self.titleLabel.frame);
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
+    CGFloat deviceWidth = bounds.size.width;
     CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
     if ([UIScreen andy_isPad]) {
         topMargin += 10.0f;
+    } else {
+        if ([HYPUtils isTallPhone]) {
+            if (deviceWidth == 375.0f) {
+                topMargin += 4.0f;
+            } else {
+                topMargin += 4.0f;
+            }
+        }
     }
+
     CGFloat height = CGRectGetHeight(self.titleLabel.frame);
+
     UIFont *font;
     if ([UIScreen andy_isPad]) {
         font = [HYPUtils avenirBlackWithSize:25.0f];
     } else {
-        font = [HYPUtils avenirBlackWithSize:19.0f];
+        if ([HYPUtils isTallPhone]) {
+            if (deviceWidth == 320.0f) {
+                font = [HYPUtils avenirBlackWithSize:19.0f];
+            } else if (deviceWidth == 375.0f) {
+                font = [HYPUtils avenirBlackWithSize:22.0f];
+            } else {
+                font = [HYPUtils avenirBlackWithSize:19.0f];
+            }
+        } else {
+            font = [HYPUtils avenirBlackWithSize:19.0f];
+        }
     }
+
     _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
     _subtitleLabel.font = font;
     _subtitleLabel.text = [HYPAlarm subtitleForHomescreen];
@@ -227,22 +277,14 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGFloat cellWidth = 0.0f;
 
     if ([UIScreen andy_isPad]) {
-
         cellWidth = 175.0f;
-
     } else {
         if (deviceWidth == 320.0f) {
-
             cellWidth = 100.0f;
-
         } else if (deviceWidth == 375.0f) {
-
             cellWidth = 113.0f;
-
         } else if (deviceWidth == 414.0f) {
-
             cellWidth = 122.0f;
-
         }
     }
 
@@ -252,22 +294,14 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGFloat sideMargin = 0.0f;
 
     if ([UIScreen andy_isPad]) {
-
         sideMargin = 200.0f;
-
     } else {
         if (deviceWidth == 320.0f) {
-
             sideMargin = 50.0f;
-
         } else if (deviceWidth == 375.0f) {
-
             sideMargin = 65.0f;
-
         } else if (deviceWidth == 414.0f) {
-
             sideMargin = 75.0f;
-
         }
     }
 
@@ -304,17 +338,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         cellWidth = 220.0f;
     } else {
         if (deviceWidth == 320.0f) {
-
             cellWidth = 120.0f;
-
         } else if (deviceWidth == 375.0f) {
-
             cellWidth = 133.0f;
-
         } else if (deviceWidth == 414.0f) {
-
             cellWidth = 142.0f;
-
         }
     }
 
@@ -326,17 +354,11 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         sideMargin = 274.0f;
     } else {
         if (deviceWidth == 320.0f) {
-
             sideMargin = 100.0f;
-
         } else if (deviceWidth == 375.0f) {
-
             sideMargin = 120.0f;
-
         } else if (deviceWidth == 414.0f) {
-
             sideMargin = 135.0f;
-
         }
     }
 
@@ -345,19 +367,12 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         topMargin = self.topMargin + 475.0f;
     } else {
         if (deviceHeight == 480.0f) {
-
             topMargin = self.topMargin + 260.0f;
-
         } else if (deviceHeight == 568.0f) {
-
             topMargin = self.topMargin + 260.0f;
-
         } else if (deviceHeight == 667.0f) {
-
-            topMargin = self.topMargin + 280.0f;
-
+            topMargin = self.topMargin + 300.0f;
         } else if (deviceHeight == 736.0f) {
-
             topMargin = self.topMargin + 340.0f;
         }
     }
@@ -409,13 +424,20 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
                                                  name:@"appWasShaked"
                                                object:nil];
 
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
     if ([UIScreen andy_isPad]) {
         self.topMargin = 70.0f;
     } else {
-        if ([HYPUtils isTallPhone]) {
-            self.topMargin = TALL_TOP_MARGIN;
-        } else {
-            self.topMargin = SHORT_TOP_MARGIN;
+        if (deviceHeight == 480.0f) {
+            self.topMargin = 10.0f;
+        } else if (deviceHeight == 568.0f) {
+            self.topMargin = 50.0f;
+        } else if (deviceHeight == 667.0f) {
+            self.topMargin = 68.0f;
+        } else if (deviceHeight == 736.0f) {
+            self.topMargin = 50.0f;
         }
     }
 
@@ -427,7 +449,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self.ovenCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
-    //[self.view addSubview:self.ovenShineImageView];
+    // [self.view addSubview:self.ovenShineImageView];
     // [self.view addSubview:self.settingsButton];
 }
 
