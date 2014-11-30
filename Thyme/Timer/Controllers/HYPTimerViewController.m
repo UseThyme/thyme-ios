@@ -57,8 +57,32 @@
     CGFloat width = image.size.width;
     CGFloat height = image.size.height;
 
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+    CGFloat xOffset;
+    CGFloat yOffset;
+
+    if ([UIScreen andy_isPad]) {
+        xOffset = 61.0f;
+        yOffset = 18.0f;
+    } else {
+        if (deviceHeight == 480.0f) {
+            xOffset = 61.0f;
+            yOffset = 18.0f;
+        } else if (deviceHeight == 568.0f) {
+            xOffset = 61.0f;
+            yOffset = 18.0f;
+        } else if (deviceHeight == 667.0f) {
+            xOffset = 70.0f;
+            yOffset = 35.0f;
+        } else {
+            xOffset = 80.0f;
+            yOffset = 45.0f;
+        }
+    }
+
     self.startRect = CGRectMake(x, y, width, height);
-    self.finalRect = CGRectMake(x + 61, y + 18, width, height);
+    self.finalRect = CGRectMake(x + xOffset, y + yOffset, width, height);
     _fingerView.frame = self.startRect;
     _fingerView.hidden = YES;
 
