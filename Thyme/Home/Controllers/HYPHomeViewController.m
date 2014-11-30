@@ -223,15 +223,20 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
     CGFloat deviceWidth = bounds.size.width;
     CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
+
+    CGFloat deviceHeight = bounds.size.height;
+
     if ([UIScreen andy_isPad]) {
         topMargin += 10.0f;
     } else {
-        if ([HYPUtils isTallPhone]) {
-            if (deviceWidth == 375.0f) {
-                topMargin += 4.0f;
-            } else {
-                topMargin += 4.0f;
-            }
+        if (deviceHeight == 480.0f) {
+
+        } else if (deviceHeight == 568.0f) {
+
+        } else if (deviceHeight == 667.0f) {
+            topMargin += 4.0f;
+        } else if (deviceHeight == 736.0f) {
+
         }
     }
 
