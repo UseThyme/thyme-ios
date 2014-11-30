@@ -92,43 +92,32 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGFloat sideMargin = 20.0f;
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-    CGFloat deviceWidth = bounds.size.width;
+    CGFloat deviceHeight = bounds.size.height;
 
-    CGFloat topMargin;
+    CGFloat topMargin = 0.0f;
+    UIFont *font;
 
     if ([UIScreen andy_isPad]) {
         topMargin = 115.0f;
+        font = [HYPUtils avenirLightWithSize:20.0f];
     } else {
-        if ([HYPUtils isTallPhone]) {
-            if (deviceWidth == 320.0f) {
-                topMargin = 60.0f;
-            } else if (deviceWidth == 375.0f) {
-                topMargin = 74.0f;
-            } else {
-                topMargin = 60.0f;
-            }
+        if (deviceHeight == 480.0f) {
+            topMargin = 60.0f;
+            font = [HYPUtils avenirLightWithSize:15.0f];
+        } else if (deviceHeight == 568.0f) {
+            topMargin = 60.0f;
+            font = [HYPUtils avenirLightWithSize:15.0f];
+        } else if (deviceHeight == 667.0f) {
+            topMargin = 74.0f;
+            font = [HYPUtils avenirLightWithSize:18.0f];
         } else {
-            topMargin = 40.0f;
+            topMargin = 82.0f;
+            font = [HYPUtils avenirLightWithSize:19.0f];
         }
     }
 
     CGFloat height = 25.0f;
-    UIFont *font;
-    if ([UIScreen andy_isPad]) {
-        font = [HYPUtils avenirLightWithSize:20.0f];
-    } else {
-        if ([HYPUtils isTallPhone]) {
-            if (deviceWidth == 320.0f) {
-                font = [HYPUtils avenirLightWithSize:15.0f];
-            } else if (deviceWidth == 375.0f) {
-                font = [HYPUtils avenirLightWithSize:18.0f];
-            } else {
-                font = [HYPUtils avenirLightWithSize:18.0f];
-            }
-        } else {
-            font = [HYPUtils avenirLightWithSize:15.0f];
-        }
-    }
+
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
     _titleLabel.font = font;
     _titleLabel.text = [HYPAlarm titleForHomescreen];
@@ -147,43 +136,29 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGFloat sideMargin = CGRectGetMinX(self.titleLabel.frame);
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
-    CGFloat deviceWidth = bounds.size.width;
-    CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
-
     CGFloat deviceHeight = bounds.size.height;
+
+    CGFloat topMargin = CGRectGetMaxY(self.titleLabel.frame);
+    UIFont *font;
 
     if ([UIScreen andy_isPad]) {
         topMargin += 10.0f;
+        font = [HYPUtils avenirBlackWithSize:25.0f];
     } else {
         if (deviceHeight == 480.0f) {
-
+            font = [HYPUtils avenirBlackWithSize:19.0f];
         } else if (deviceHeight == 568.0f) {
-
+            font = [HYPUtils avenirBlackWithSize:19.0f];
         } else if (deviceHeight == 667.0f) {
             topMargin += 4.0f;
-        } else if (deviceHeight == 736.0f) {
-
+            font = [HYPUtils avenirBlackWithSize:22.0f];
+        } else {
+            topMargin += 7.0f;
+            font = [HYPUtils avenirBlackWithSize:24.0f];
         }
     }
 
     CGFloat height = CGRectGetHeight(self.titleLabel.frame);
-
-    UIFont *font;
-    if ([UIScreen andy_isPad]) {
-        font = [HYPUtils avenirBlackWithSize:25.0f];
-    } else {
-        if ([HYPUtils isTallPhone]) {
-            if (deviceWidth == 320.0f) {
-                font = [HYPUtils avenirBlackWithSize:19.0f];
-            } else if (deviceWidth == 375.0f) {
-                font = [HYPUtils avenirBlackWithSize:22.0f];
-            } else {
-                font = [HYPUtils avenirBlackWithSize:19.0f];
-            }
-        } else {
-            font = [HYPUtils avenirBlackWithSize:19.0f];
-        }
-    }
 
     _subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, height)];
     _subtitleLabel.font = font;
@@ -260,53 +235,40 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     if (_ovenCollectionView) return _ovenCollectionView;
 
     CGRect bounds = [[UIScreen mainScreen] bounds];
-    CGFloat deviceWidth = bounds.size.width;
     CGFloat deviceHeight = bounds.size.height;
 
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+
+    CGFloat topMargin = 0.0f;
+    CGFloat sideMargin = 0.0f;
     CGFloat cellWidth = 0.0f;
+
     if ([UIScreen andy_isPad]) {
+        topMargin = self.topMargin + 475.0f;
+        sideMargin = 274.0f;
         cellWidth = 220.0f;
     } else {
-        if (deviceWidth == 320.0f) {
+        if (deviceHeight == 480.0f) {
+            topMargin = self.topMargin + 260.0f;
+            sideMargin = 100.0f;
             cellWidth = 120.0f;
-        } else if (deviceWidth == 375.0f) {
+        } else if (deviceHeight == 568.0f) {
+            topMargin = self.topMargin + 260.0f;
+            sideMargin = 100.0f;
+            cellWidth = 120.0f;
+        } else if (deviceHeight == 667.0f) {
+            topMargin = self.topMargin + 300.0f;
+            sideMargin = 120.0f;
             cellWidth = 133.0f;
-        } else if (deviceWidth == 414.0f) {
-            cellWidth = 142.0f;
+        } else if (deviceHeight == 736.0f) {
+            topMargin = self.topMargin + 328.0f;
+            sideMargin = 130.0f;
+            cellWidth = 152.0f;
         }
     }
 
     [flowLayout setItemSize:CGSizeMake(cellWidth, cellWidth)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-
-    CGFloat sideMargin = 0.0f;
-    if ([UIScreen andy_isPad]) {
-        sideMargin = 274.0f;
-    } else {
-        if (deviceWidth == 320.0f) {
-            sideMargin = 100.0f;
-        } else if (deviceWidth == 375.0f) {
-            sideMargin = 120.0f;
-        } else if (deviceWidth == 414.0f) {
-            sideMargin = 135.0f;
-        }
-    }
-
-    CGFloat topMargin = 0.0f;
-    if ([UIScreen andy_isPad]) {
-        topMargin = self.topMargin + 475.0f;
-    } else {
-        if (deviceHeight == 480.0f) {
-            topMargin = self.topMargin + 260.0f;
-        } else if (deviceHeight == 568.0f) {
-            topMargin = self.topMargin + 260.0f;
-        } else if (deviceHeight == 667.0f) {
-            topMargin = self.topMargin + 300.0f;
-        } else if (deviceHeight == 736.0f) {
-            topMargin = self.topMargin + 340.0f;
-        }
-    }
 
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
     _ovenCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(sideMargin, topMargin, width, width)
@@ -368,9 +330,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
             height = 164.0f;
         } else if (deviceHeight == 736.0f) {
             topMargin = image.size.height + 128.0f;
-            x = 50.0f;
-            width = 280.0f;
-            height = 164.0f;
+            x = 54.0f;
+            width = 304.0f;
+            height = 173.0f;
         }
     }
 
@@ -442,7 +404,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         } else if (deviceHeight == 667.0f) {
             self.topMargin = 68.0f;
         } else if (deviceHeight == 736.0f) {
-            self.topMargin = 50.0f;
+            self.topMargin = 75.0f;
         }
     }
 
