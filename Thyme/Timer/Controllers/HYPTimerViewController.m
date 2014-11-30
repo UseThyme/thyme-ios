@@ -78,24 +78,55 @@
         image = [UIImage imageNamed:imageName];
     }
     CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
     CGFloat topMargin;
+    CGFloat x;
+    CGFloat y;
+    CGFloat width;
+    CGFloat height;
 
     if ([UIScreen andy_isPad]) {
         topMargin = 330.0f;
+        x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+        y = CGRectGetHeight(bounds) - topMargin;
+        width = image.size.width;
+        height = image.size.height;
     } else {
-        if ([HYPUtils isTallPhone]) {
-            topMargin = 140.0f;
-        } else {
+        if (deviceHeight == 480.0f) {
             topMargin = 110.0f;
+            x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+            y = CGRectGetHeight(bounds) - topMargin;
+            width = image.size.width;
+            height = image.size.height;
+        } else if (deviceHeight == 568.0f) {
+            topMargin = 140.0f;
+            x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+            y = CGRectGetHeight(bounds) - topMargin;
+            width = image.size.width;
+            height = image.size.height;
+        } else if (deviceHeight == 667.0f) {
+            topMargin = 164.0f;
+            x = 150.0f;
+            y = CGRectGetHeight(bounds) - topMargin;
+            width = 75.0f;
+            height = 75.0f;
+        } else {
+            topMargin = 181.0f;
+            x = 166.0f;
+            y = CGRectGetHeight(bounds) - topMargin;
+            width = 83.0f;
+            height = 83.0f;
         }
     }
 
-    CGFloat x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
-    CGFloat y = CGRectGetHeight(bounds) - topMargin;
-    _kitchenButton.frame = CGRectMake(x, y, image.size.width, image.size.height);
-    [_kitchenButton setImage:image forState:UIControlStateNormal];
-    [_kitchenButton setImage:image forState:UIControlStateHighlighted];
-    [_kitchenButton setImage:image forState:UIControlStateSelected];
+    _kitchenButton.frame = CGRectMake(x, y, width, height);
+    _kitchenButton.contentMode = UIViewContentModeScaleAspectFit;
+    _kitchenButton.imageEdgeInsets = UIEdgeInsetsZero;
+
+    [_kitchenButton setBackgroundImage:image forState:UIControlStateNormal];
+    [_kitchenButton setBackgroundImage:image forState:UIControlStateHighlighted];
+    [_kitchenButton setBackgroundImage:image forState:UIControlStateSelected];
     [_kitchenButton addTarget:self action:@selector(kitchenButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 
     return _kitchenButton;
@@ -110,18 +141,25 @@
         sideMargin = 140.0f;
     }
 
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
     CGFloat topMargin;
+
     if ([UIScreen andy_isPad]) {
         topMargin = 140.0f;
     } else {
-        if ([HYPUtils isTallPhone]) {
-            topMargin = 60.0f;
-        } else {
+        if (deviceHeight == 480.0f) {
             topMargin = 30.0f;
+        } else if (deviceHeight == 568.0f) {
+            topMargin = 60.0f;
+        } else if (deviceHeight == 667.0f) {
+            topMargin = 70.0f;
+        } else {
+            topMargin = 78.0f;
         }
     }
 
-    CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat width = CGRectGetWidth(bounds) - 2 * sideMargin;
     _timerControl = [[HYPTimerControl alloc] initCompleteModeWithFrame:CGRectMake(sideMargin, topMargin, width, width)];
     _timerControl.active = YES;

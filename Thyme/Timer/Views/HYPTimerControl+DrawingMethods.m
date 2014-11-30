@@ -107,12 +107,9 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 			// Center this glyph by moving left by half its width.
 			CGFloat glyphWidth = glyphArcInfo[runGlyphIndex + glyphOffset].width;
 			CGFloat halfGlyphWidth = glyphWidth / 2.0;
-            CGFloat offset;
-            if ([UIScreen andy_isPad]) {
-                offset = 210.0f;
-            } else {
-                offset = 140.0f;
-            }
+
+            CGFloat offset = [self curvedTextBottomMargin];
+
 			CGPoint positionForThisGlyph = CGPointMake(textPosition.x - halfGlyphWidth, textPosition.y + offset);
 
 			// Glyphs are positioned relative to the text position for the line, so offset text position leftwards by this glyph's width in preparation for the next glyph.
@@ -139,15 +136,50 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 	CFRelease(line);	
 }
 
+- (CGFloat)curvedTextBottomMargin
+{
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+    CGFloat offset;
+
+    if ([UIScreen andy_isPad]) {
+        offset = 210.0f;
+    } else {
+        if (deviceHeight == 480.0f) {
+            offset = 140.0f;
+        } else if (deviceHeight == 568.0f) {
+            offset = 140.0f;
+        } else if (deviceHeight == 667.0f) {
+            offset = 163.0f;
+        } else {
+            offset = 182.0f;
+        }
+    }
+
+    return offset;
+}
+
 - (NSAttributedString *)attributedString
 {
-	// Create our attributes.
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
     UIFont *font;
+
     if ([UIScreen andy_isPad]) {
         font = [HYPUtils avenirLightWithSize:20.0f];
     } else {
-        font = [HYPUtils avenirLightWithSize:14.0f];
+        if (deviceHeight == 480.0f) {
+            font = [HYPUtils avenirLightWithSize:14.0f];
+        } else if (deviceHeight == 568.0f) {
+            font = [HYPUtils avenirLightWithSize:14.0f];
+        } else if (deviceHeight == 667.0f) {
+            font = [HYPUtils avenirLightWithSize:16.0f];
+        } else {
+            font = [HYPUtils avenirLightWithSize:17.0f];
+        }
     }
+
+	// Create our attributes.
 	NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName : TEXT_COLOR};
 
 	// Create the attributed string.
