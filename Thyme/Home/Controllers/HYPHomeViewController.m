@@ -85,80 +85,6 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     return _ovenAlarms;
 }
 
-- (UIImageView *)ovenBackgroundImageView
-{
-    if (_ovenBackgroundImageView) return _ovenBackgroundImageView;
-
-    CGRect bounds = [[UIScreen mainScreen] bounds];
-    CGFloat deviceHeight = bounds.size.height;
-
-    UIImage *image;
-    if ([UIScreen andy_isPad]) {
-        image = [UIImage imageNamed:@"ovenBackground~iPad"];
-    } else {
-        image = [UIImage imageNamed:@"ovenBackground"];
-    }
-
-    CGFloat topMargin = 0.0;
-    CGFloat x = 0.0f;
-    CGFloat width = 0.0f;
-    CGFloat height = 0.0f;
-
-    if ([UIScreen andy_isPad]) {
-        topMargin = image.size.height + 175.0f;
-        x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
-        width = image.size.width;
-        height = image.size.height;
-    } else {
-        if (deviceHeight == 480.0f) {
-            topMargin = image.size.height + 40.0f;
-            x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
-            width = image.size.width;
-            height = image.size.height;
-        } else if (deviceHeight == 568.0f) {
-            topMargin = image.size.height + 90.0f;
-            x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
-            width = image.size.width;
-            height = image.size.height;
-        } else if (deviceHeight == 667.0f) {
-            topMargin = image.size.height + 128.0f;
-            x = 50.0f;
-            width = 280.0f;
-            height = 164.0f;
-        } else if (deviceHeight == 736.0f) {
-            topMargin = image.size.height + 128.0f;
-            x = 50.0f;
-            width = 280.0f;
-            height = 164.0f;
-        }
-    }
-
-    CGFloat y = CGRectGetHeight(bounds) - topMargin;
-    CGRect imageRect = CGRectMake(x, y, width, height);
-    _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:imageRect];
-    _ovenBackgroundImageView.image = image;
-
-    return _ovenBackgroundImageView;
-}
-
-- (UIImageView *)ovenShineImageView
-{
-    if (_ovenShineImageView) return _ovenShineImageView;
-
-    _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
-    UIImage *image;
-    if ([UIScreen andy_isPad]) {
-        image = [UIImage imageNamed:@"ovenShine~iPad"];
-        _ovenShineImageView.hidden = YES;
-    } else {
-        image = [UIImage imageNamed:@"ovenShine"];
-    }
-
-    _ovenShineImageView.image = image;
-
-    return _ovenShineImageView;
-}
-
 - (UILabel *)titleLabel
 {
     if (_titleLabel) return _titleLabel;
@@ -266,7 +192,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     _subtitleLabel.textColor = [UIColor whiteColor];
     _subtitleLabel.backgroundColor = [UIColor clearColor];
     _subtitleLabel.adjustsFontSizeToFitWidth = YES;
-
+    
     return _subtitleLabel;
 }
 
@@ -398,6 +324,80 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [self applyTransformToLayer:_ovenCollectionView.layer usingFactor:factor];
 
     return _ovenCollectionView;
+}
+
+- (UIImageView *)ovenBackgroundImageView
+{
+    if (_ovenBackgroundImageView) return _ovenBackgroundImageView;
+
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
+    UIImage *image;
+    if ([UIScreen andy_isPad]) {
+        image = [UIImage imageNamed:@"ovenBackground~iPad"];
+    } else {
+        image = [UIImage imageNamed:@"ovenBackground"];
+    }
+
+    CGFloat topMargin = 0.0;
+    CGFloat x = 0.0f;
+    CGFloat width = 0.0f;
+    CGFloat height = 0.0f;
+
+    if ([UIScreen andy_isPad]) {
+        topMargin = image.size.height + 175.0f;
+        x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+        width = image.size.width;
+        height = image.size.height;
+    } else {
+        if (deviceHeight == 480.0f) {
+            topMargin = image.size.height + 40.0f;
+            x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+            width = image.size.width;
+            height = image.size.height;
+        } else if (deviceHeight == 568.0f) {
+            topMargin = image.size.height + 90.0f;
+            x = CGRectGetWidth(bounds) / 2 - image.size.width / 2;
+            width = image.size.width;
+            height = image.size.height;
+        } else if (deviceHeight == 667.0f) {
+            topMargin = image.size.height + 128.0f;
+            x = 50.0f;
+            width = 280.0f;
+            height = 164.0f;
+        } else if (deviceHeight == 736.0f) {
+            topMargin = image.size.height + 128.0f;
+            x = 50.0f;
+            width = 280.0f;
+            height = 164.0f;
+        }
+    }
+
+    CGFloat y = CGRectGetHeight(bounds) - topMargin;
+    CGRect imageRect = CGRectMake(x, y, width, height);
+    _ovenBackgroundImageView = [[UIImageView alloc] initWithFrame:imageRect];
+    _ovenBackgroundImageView.image = image;
+
+    return _ovenBackgroundImageView;
+}
+
+- (UIImageView *)ovenShineImageView
+{
+    if (_ovenShineImageView) return _ovenShineImageView;
+
+    _ovenShineImageView = [[UIImageView alloc] initWithFrame:self.ovenBackgroundImageView.frame];
+    UIImage *image;
+    if ([UIScreen andy_isPad]) {
+        image = [UIImage imageNamed:@"ovenShine~iPad"];
+        _ovenShineImageView.hidden = YES;
+    } else {
+        image = [UIImage imageNamed:@"ovenShine"];
+    }
+
+    _ovenShineImageView.image = image;
+
+    return _ovenShineImageView;
 }
 
 - (UIButton *)settingsButton
