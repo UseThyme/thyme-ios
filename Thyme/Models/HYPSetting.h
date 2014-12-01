@@ -1,3 +1,5 @@
+@import Foundation;
+
 @interface HYPSetting : NSObject
 
 @property (nonatomic, strong) NSString *title;

@@ -2,6 +2,7 @@
 #import <CoreText/CoreText.h>
 #import "HYPUtils.h"
 #import "HYPMathHelpers.h"
+#import "UIScreen+ANDYResolutions.h"
 
 #define DEFAULT_RADIUS 0
 #define TEXT_COLOR [UIColor whiteColor]
@@ -126,14 +127,14 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 
             CTRunDraw(run, context, glyphRange);
 		}
-        
+
 		glyphOffset += runGlyphCount;
 	}
-    
+
 	CGContextRestoreGState(context);
-    
+
 	free(glyphArcInfo);
-	CFRelease(line);	
+	CFRelease(line);
 }
 
 - (CGFloat)curvedTextBottomMargin

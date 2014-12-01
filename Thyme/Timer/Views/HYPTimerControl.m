@@ -9,6 +9,7 @@
 #import "HYPTimerControl+DrawingMethods.h"
 #import <AVFoundation/AVAudioPlayer.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "UIScreen+ANDYResolutions.h"
 
 /** Parameters **/
 #define CIRCLE_SIZE_FACTOR 0.8f
@@ -134,7 +135,7 @@
 - (void)setAngle:(NSInteger)angle
 {
     _angle = angle;
-    
+
     if (!self.isCompleteMode && self.isHoursMode) {
         NSInteger minute = (long)self.angle/6;
         if (minute < 10) {
@@ -213,7 +214,7 @@
             [self addSubview:self.minutesTitleLabel];
             [self addSubview:self.hoursLabel];
         }
-        
+
         [self.minutesValueLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
@@ -224,7 +225,7 @@
 {
     if ([object isEqual:self.minutesValueLabel]) {
         UILabel *aLabel = (UILabel *)object;
-        
+
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat baseSize;
@@ -247,7 +248,7 @@
                 baseSize = 120.0f;
             }
         }
-        
+
         if (self.isCompleteMode) {
             if ([UIScreen andy_isPad]) {
                 baseSize = 250.0f;
@@ -255,7 +256,7 @@
                 baseSize = self.minuteValueSize;
             }
         }
-        
+
         CGFloat fontSize = floor(baseSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
         self.minutesValueLabel.font = font;
@@ -381,7 +382,7 @@
         (self.angle == 0 && self.hours == 0) ||
         (self.minutes == 0 && self.hours == 0)) {
         self.angle = 0;
-        self.touchesAreActive = NO;  
+        self.touchesAreActive = NO;
         self.title = [HYPAlarm messageForSetAlarm];
         [self cancelCurrentLocalNotification];
         [self setNeedsDisplay];
@@ -499,12 +500,12 @@
         self.angle = (self.minutes - 1) * 6;
         self.seconds = 59;
         self.minutes--;
-        
+
         if (self.minutes < 0 && self.hours > 0) {
             self.minutes = 59;
             self.hours--;
         }
-        
+
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 
@@ -572,7 +573,7 @@
     if (!self.alarmID) {
         abort();
     }
-    
+
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:self.alarmID];
     if (existingNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];

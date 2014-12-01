@@ -1,5 +1,6 @@
 #import "HYPSettingTableViewCell.h"
 #import "HYPSetting.h"
+#import "UIColor+ANDYHex.h"
 
 @implementation HYPSettingTableViewCell
 
@@ -14,7 +15,7 @@
     self.backgroundColor = [UIColor clearColor];
     self.textLabel.textColor = [UIColor colorFromHex:@"B5B4B5"];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+
     return self;
 }
 

@@ -13,6 +13,7 @@
 		1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1461778319CDBF1F00E46B1D /* Images.xcassets */; };
 		146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 146489DC19CF276300C5A85C /* ovenBackground@3x.png */; };
 		146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */; };
+		1477CA511A2D2B6D00816544 /* HYPWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1477CA501A2D2B6D00816544 /* HYPWelcomeViewController.m */; };
 		1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */; };
 		149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */; };
 		14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7EB2219CFA29D0076920E /* HYPSetting.m */; };
@@ -85,6 +86,8 @@
 		146489DC19CF276300C5A85C /* ovenBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@3x.png"; sourceTree = "<group>"; };
 		146489E219CF2B8600C5A85C /* HYPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSettingsViewController.h; sourceTree = "<group>"; };
 		146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPSettingsViewController.m; sourceTree = "<group>"; };
+		1477CA4F1A2D2B6D00816544 /* HYPWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPWelcomeViewController.h; sourceTree = "<group>"; };
+		1477CA501A2D2B6D00816544 /* HYPWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPWelcomeViewController.m; sourceTree = "<group>"; };
 		1491334419CF65B100BA3587 /* UIViewController+HYPContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HYPContainer.h"; sourceTree = "<group>"; };
 		1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HYPContainer.m"; sourceTree = "<group>"; };
 		149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKEAnimatedGradientView.h; sourceTree = "<group>"; };
@@ -318,6 +321,8 @@
 		446C9E281844C562005FD797 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1477CA4F1A2D2B6D00816544 /* HYPWelcomeViewController.h */,
+				1477CA501A2D2B6D00816544 /* HYPWelcomeViewController.m */,
 				446C9E291844C91A005FD797 /* HYPHomeViewController.h */,
 				446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */,
 			);
@@ -658,6 +663,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1477CA511A2D2B6D00816544 /* HYPWelcomeViewController.m in Sources */,
 				446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */,
 				44A691B21844E0F1005D4C5A /* HYPViewController.m in Sources */,
 				446C9E2B1844C91A005FD797 /* HYPHomeViewController.m in Sources */,

@@ -41,14 +41,6 @@ static inline BOOL IsUnitTesting()
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
-        UIUserNotificationType types = UIUserNotificationTypeAlert |
-                                       UIUserNotificationTypeBadge |
-                                       UIUserNotificationTypeSound;
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-        [application registerUserNotificationSettings:settings];
-    }
-
 #ifdef DEBUG
     if (IsUnitTesting()) {
         return YES;
@@ -118,7 +110,7 @@ static inline BOOL IsUnitTesting()
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
-    
+
     UILocalNotification *notification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarmID];
     if (notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];

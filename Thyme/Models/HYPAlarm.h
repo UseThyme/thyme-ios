@@ -1,4 +1,6 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
+
 #define ALARM_ID_KEY @"HYPAlarmID"
 #define ALARM_FIRE_DATE_KEY @"HYPAlarmFireDate"
 #define ALARM_FIRE_INTERVAL_KEY @"HYPAlarmFireInterval"

@@ -8,6 +8,7 @@
 #import "HYPSettingsViewController.h"
 #import "UIViewController+HYPContainer.h"
 #import "HYPAppDelegate.h"
+#import "UIScreen+ANDYResolutions.h"
 
 #define SHORT_TOP_MARGIN 10.0f
 #define TALL_TOP_MARGIN 50.0f
@@ -167,7 +168,7 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     _subtitleLabel.textColor = [UIColor whiteColor];
     _subtitleLabel.backgroundColor = [UIColor clearColor];
     _subtitleLabel.adjustsFontSizeToFitWidth = YES;
-    
+
     return _subtitleLabel;
 }
 
@@ -430,6 +431,22 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
                                                object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]) {
+        UIUserNotificationSettings *registeredSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+
+        if (registeredSettings.types != types) {
+            // present register view
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        }
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -619,12 +636,12 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     CGRect frame = bounds;
     frame.size.width = 230.0f;
     frame.origin.x = -200.0f;
-    
+
     HYPAppDelegate *appDelegate = (HYPAppDelegate *)[[UIApplication sharedApplication] delegate];
     HYPSettingsViewController *settingsController = [[HYPSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self hyp_addViewController:settingsController inFrame:frame];
     [appDelegate.window addSubview:settingsController.view];
-    
+
     frame.origin.x = 0.0f;
     [UIView animateWithDuration:0.30f animations:^{
         settingsController.view.frame = frame;

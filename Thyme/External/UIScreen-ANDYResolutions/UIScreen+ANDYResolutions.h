@@ -1,3 +1,5 @@
+@import UIKit;
+
 @interface UIScreen (ANDYResolutions)
 
 + (BOOL)andy_isPhone;

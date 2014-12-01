@@ -1,6 +1,8 @@
 #import "HYPSettingsViewController.h"
+
 #import "HYPSetting.h"
 #import "HYPSettingTableViewCell.h"
+#import "UIColor+ANDYHex.h"
 
 @interface HYPSettingsViewController ()
 

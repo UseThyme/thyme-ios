@@ -1,4 +1,4 @@
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "HYPViewController.h"
 
 @interface HYPHomeViewController : HYPViewController
