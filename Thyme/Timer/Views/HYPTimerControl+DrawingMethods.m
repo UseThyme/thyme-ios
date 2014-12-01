@@ -1,5 +1,5 @@
 #import "HYPTimerControl+DrawingMethods.h"
-#import <CoreText/CoreText.h>
+@import CoreText;
 #import "HYPUtils.h"
 #import "HYPMathHelpers.h"
 #import "UIScreen+ANDYResolutions.h"

@@ -1,14 +1,14 @@
 #import "HYPTimerControl.h"
-#import <QuartzCore/QuartzCore.h>
+@import QuartzCore;
 #import "UIColor+HYPExtensions.h"
 #import "HYPUtils.h"
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 #import "HYPMathHelpers.h"
-#import <CoreText/CoreText.h>
+@import CoreText;
 #import "HYPTimerControl+DrawingMethods.h"
-#import <AVFoundation/AVAudioPlayer.h>
-#import <AudioToolbox/AudioToolbox.h>
+@import AVFoundation;
+@import AudioToolbox;
 #import "UIScreen+ANDYResolutions.h"
 
 /** Parameters **/

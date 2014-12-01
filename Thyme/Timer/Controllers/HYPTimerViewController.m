@@ -6,7 +6,7 @@
 
 #import "HYPAlarm.h"
 #import "HYPMathHelpers.h"
-#import <QuartzCore/QuartzCore.h>
+@import QuartzCore;
 #import "UIScreen+ANDYResolutions.h"
 
 @interface HYPTimerViewController ()

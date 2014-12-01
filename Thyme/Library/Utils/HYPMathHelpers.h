@@ -1,4 +1,4 @@
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /** Helper Functions **/
 #define DegToRad(deg)                 ( (M_PI * (deg)) / 180.0 )
