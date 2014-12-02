@@ -1,13 +1,15 @@
 #import "HYPHomeViewController.h"
+
 #import "HYPPlateCell.h"
 #import "HYPUtils.h"
 #import "HYPTimerViewController.h"
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
-#import <HockeySDK/HockeySDK.h>
 #import "HYPSettingsViewController.h"
-#import "UIViewController+HYPContainer.h"
 #import "HYPAppDelegate.h"
+#import "HYPWelcomeViewController.h"
+
+#import "UIViewController+HYPContainer.h"
 #import "UIScreen+ANDYResolutions.h"
 
 #define SHORT_TOP_MARGIN 10.0f
@@ -15,7 +17,8 @@
 
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
-@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, HYPTimerControllerDelegate, UIAlertViewDelegate>
+@interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate,
+HYPTimerControllerDelegate, UIAlertViewDelegate, HYPWelcomeViewControllerDelegate>
 
 @property (nonatomic) CGFloat topMargin;
 
@@ -440,9 +443,9 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
         UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
 
         if (registeredSettings.types != types) {
-            // present register view
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+            HYPWelcomeViewController *welcomeController = [[HYPWelcomeViewController alloc] init];
+            welcomeController.delegate = self;
+            [self presentViewController:welcomeController animated:YES completion:nil];
         }
     }
 }
@@ -646,6 +649,20 @@ static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
     [UIView animateWithDuration:0.30f animations:^{
         settingsController.view.frame = frame;
     }];
+}
+
+#pragma mark - HYPWelcomeViewControllerDelegate
+
+- (void)welcomeViewControlerDidPressAcceptButton:(HYPWelcomeViewController *)welcomeViewController
+{
+    UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+}
+
+- (void)registeredForNotifications
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

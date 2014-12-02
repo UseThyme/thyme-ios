@@ -20,6 +20,7 @@ static inline BOOL IsUnitTesting()
 @interface HYPAppDelegate () <BITHockeyManagerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) HYPHomeViewController *homeController;
 
 @end
 
@@ -37,6 +38,15 @@ static inline BOOL IsUnitTesting()
         }
     }
     return _audioPlayer;
+}
+
+- (HYPHomeViewController *)homeController
+{
+    if (_homeController) return _homeController;
+
+    _homeController = [[HYPHomeViewController alloc] init];
+
+    return _homeController;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -63,8 +73,7 @@ static inline BOOL IsUnitTesting()
         [self handleLocalNotification:notification playingSound:NO];
     }
 
-    HYPHomeViewController *homeController = [[HYPHomeViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.homeController];
     navController.navigationBarHidden = YES;
     self.window.rootViewController = navController;
 
@@ -114,6 +123,16 @@ static inline BOOL IsUnitTesting()
     UILocalNotification *notification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarmID];
     if (notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+    if (notificationSettings.types != types) {
+        NSLog(@"Guy pressed no, what to do?");
+    } else {
+        [self.homeController registeredForNotifications];
     }
 }
 

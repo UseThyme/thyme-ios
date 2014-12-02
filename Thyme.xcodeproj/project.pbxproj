@@ -14,6 +14,9 @@
 		146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 146489DC19CF276300C5A85C /* ovenBackground@3x.png */; };
 		146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */; };
 		1477CA511A2D2B6D00816544 /* HYPWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1477CA501A2D2B6D00816544 /* HYPWelcomeViewController.m */; };
+		1477CA541A2D2FE000816544 /* welcomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA521A2D2FE000816544 /* welcomeIcon.png */; };
+		1477CA551A2D2FE000816544 /* welcomeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA531A2D2FE000816544 /* welcomeIcon@2x.png */; };
+		1477CA571A2D3CF600816544 /* welcomeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA561A2D3CF600816544 /* welcomeIcon@3x.png */; };
 		1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */; };
 		149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */; };
 		14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7EB2219CFA29D0076920E /* HYPSetting.m */; };
@@ -88,6 +91,9 @@
 		146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPSettingsViewController.m; sourceTree = "<group>"; };
 		1477CA4F1A2D2B6D00816544 /* HYPWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPWelcomeViewController.h; sourceTree = "<group>"; };
 		1477CA501A2D2B6D00816544 /* HYPWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPWelcomeViewController.m; sourceTree = "<group>"; };
+		1477CA521A2D2FE000816544 /* welcomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcomeIcon.png; sourceTree = "<group>"; };
+		1477CA531A2D2FE000816544 /* welcomeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcomeIcon@2x.png"; sourceTree = "<group>"; };
+		1477CA561A2D3CF600816544 /* welcomeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcomeIcon@3x.png"; sourceTree = "<group>"; };
 		1491334419CF65B100BA3587 /* UIViewController+HYPContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HYPContainer.h"; sourceTree = "<group>"; };
 		1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HYPContainer.m"; sourceTree = "<group>"; };
 		149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKEAnimatedGradientView.h; sourceTree = "<group>"; };
@@ -392,6 +398,9 @@
 				442CD148184F7A0900CE9031 /* ovenShine@2x.png */,
 				4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */,
 				441B5819184E14F600839331 /* kitchenImage@2x.png */,
+				1477CA521A2D2FE000816544 /* welcomeIcon.png */,
+				1477CA531A2D2FE000816544 /* welcomeIcon@2x.png */,
+				1477CA561A2D3CF600816544 /* welcomeIcon@3x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -625,8 +634,10 @@
 			files = (
 				44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */,
 				1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */,
+				1477CA571A2D3CF600816544 /* welcomeIcon@3x.png in Resources */,
 				441B5818184E061200839331 /* tick.caf in Resources */,
 				4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */,
+				1477CA551A2D2FE000816544 /* welcomeIcon@2x.png in Resources */,
 				442CD149184F7A0900CE9031 /* ovenShine@2x.png in Resources */,
 				44AE6687184F4E1C00148398 /* 0-1@2x.png in Resources */,
 				44AE6685184F4E1C00148398 /* 1-1@2x.png in Resources */,
@@ -642,6 +653,7 @@
 				449143CE1847676F008A80F0 /* LICENSE in Resources */,
 				441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */,
 				146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */,
+				1477CA541A2D2FE000816544 /* welcomeIcon.png in Resources */,
 				44AE6686184F4E1C00148398 /* 1-0@2x.png in Resources */,
 				449143CD1847676F008A80F0 /* HockeySDKResources.bundle in Resources */,
 				4465EE93184772F9006C145F /* alarm.caf in Resources */,

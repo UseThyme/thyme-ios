@@ -3,5 +3,7 @@
 
 @interface HYPHomeViewController : HYPViewController
 
+- (void)registeredForNotifications;
+
 @end
 
