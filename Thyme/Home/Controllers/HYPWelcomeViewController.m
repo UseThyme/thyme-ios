@@ -9,8 +9,9 @@ static const NSInteger HYPTitleLabelTopMargin = 240.0f;
 static const NSInteger HYPTitleLabelHeight = 60.0f;
 
 static const NSInteger HYPMessageTextViewHorizontalMargin = 20.0f;
-static const NSInteger HYPMessageTextViewHeight = 100.0f;
+static const NSInteger HYPMessageTextViewHeight = 150.0f;
 
+static const NSInteger HYPAcceptButtonBottomMargin = 30.0f;
 static const NSInteger HYPAcceptButtonHorizontalMargin = 30.0f;
 static const NSInteger HYPAcceptButtonHeight = 44.0f;
 
@@ -62,6 +63,13 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     titleLabel.textColor = [UIColor colorFromHex:@"0896A2"];
     titleLabel.textAlignment = NSTextAlignmentCenter;
 
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
+    if (deviceHeight >= 667.0f) {
+        titleLabel.font = [HYPUtils avenirBookWithSize:40.0f];
+    }
+
     return titleLabel;
 }
 
@@ -72,8 +80,15 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     messageTextView.font = [HYPUtils avenirLightWithSize:15.0f];
     messageTextView.textColor = [UIColor colorFromHex:@"0896A2"];
     messageTextView.textAlignment = NSTextAlignmentCenter;
-    messageTextView.backgroundColor = [UIColor colorFromHex:@"F2F2F2"];
+    messageTextView.backgroundColor = [UIColor clearColor];
     messageTextView.editable = NO;
+
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+
+    if (deviceHeight >= 667.0f) {
+        messageTextView.font = [HYPUtils avenirLightWithSize:18.0f];
+    }
 
     return messageTextView;
 }
@@ -128,7 +143,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     if (deviceHeight == 667.0f) {
         y += 20.0f;
     } else if (deviceHeight == 736.0f) {
-        y += 70.0f;
+        y += 80.0f;
     }
 
     return CGRectMake(HYPMessageTextViewHorizontalMargin,
@@ -139,16 +154,9 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 
 - (CGRect)acceptButtonFrame
 {
-    CGFloat y = HYPTitleLabelTopMargin + HYPTitleLabelHeight + HYPMessageTextViewHeight;
-
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat deviceHeight = bounds.size.height;
-
-    if (deviceHeight == 667.0f) {
-        y += 60.0f;
-    } else if (deviceHeight == 736.0f) {
-        y += 120.0f;
-    }
+    CGFloat y = deviceHeight - HYPAcceptButtonHeight - HYPAcceptButtonBottomMargin;
 
     return CGRectMake(HYPAcceptButtonHorizontalMargin,
                       y,
