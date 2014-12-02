@@ -25,6 +25,7 @@
 		1477CA651A2D4E7600816544 /* instructionsC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5D1A2D4E7600816544 /* instructionsC@2x.png */; };
 		1477CA661A2D4E7600816544 /* instructionsD.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5E1A2D4E7600816544 /* instructionsD.png */; };
 		1477CA671A2D4E7600816544 /* instructionsD@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5F1A2D4E7600816544 /* instructionsD@2x.png */; };
+		1477CA6A1A2D4EA400816544 /* HYPInstructionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1477CA691A2D4EA400816544 /* HYPInstructionsViewController.m */; };
 		1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */; };
 		149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */; };
 		14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7EB2219CFA29D0076920E /* HYPSetting.m */; };
@@ -110,6 +111,8 @@
 		1477CA5D1A2D4E7600816544 /* instructionsC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructionsC@2x.png"; sourceTree = "<group>"; };
 		1477CA5E1A2D4E7600816544 /* instructionsD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructionsD.png; sourceTree = "<group>"; };
 		1477CA5F1A2D4E7600816544 /* instructionsD@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructionsD@2x.png"; sourceTree = "<group>"; };
+		1477CA681A2D4EA400816544 /* HYPInstructionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPInstructionsViewController.h; sourceTree = "<group>"; };
+		1477CA691A2D4EA400816544 /* HYPInstructionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPInstructionsViewController.m; sourceTree = "<group>"; };
 		1491334419CF65B100BA3587 /* UIViewController+HYPContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HYPContainer.h"; sourceTree = "<group>"; };
 		1491334519CF65B100BA3587 /* UIViewController+HYPContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HYPContainer.m"; sourceTree = "<group>"; };
 		149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKEAnimatedGradientView.h; sourceTree = "<group>"; };
@@ -345,6 +348,8 @@
 			children = (
 				1477CA4F1A2D2B6D00816544 /* HYPWelcomeViewController.h */,
 				1477CA501A2D2B6D00816544 /* HYPWelcomeViewController.m */,
+				1477CA681A2D4EA400816544 /* HYPInstructionsViewController.h */,
+				1477CA691A2D4EA400816544 /* HYPInstructionsViewController.m */,
 				446C9E291844C91A005FD797 /* HYPHomeViewController.h */,
 				446C9E2A1844C91A005FD797 /* HYPHomeViewController.m */,
 			);
@@ -720,6 +725,7 @@
 				44AAE41E1844C0690096BF52 /* main.m in Sources */,
 				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
+				1477CA6A1A2D4EA400816544 /* HYPInstructionsViewController.m in Sources */,
 				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
 				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
 				44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */,
