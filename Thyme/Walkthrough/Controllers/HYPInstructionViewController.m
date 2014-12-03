@@ -88,7 +88,9 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat deviceHeight = bounds.size.height;
 
-    if (deviceHeight >= 667.0f) {
+    if (deviceHeight == 568.0f) {
+        messageTextView.font = [HYPUtils avenirLightWithSize:16.0f];
+    } else if (deviceHeight >= 667.0f) {
         messageTextView.font = [HYPUtils avenirLightWithSize:18.0f];
     }
 

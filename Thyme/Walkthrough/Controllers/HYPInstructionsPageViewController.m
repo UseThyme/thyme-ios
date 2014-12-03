@@ -25,7 +25,7 @@ HYPInstructionViewControllerDelegate>
 
     HYPInstructionViewController *instructionControllerA = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsA"]
                                                                                                          title:@"Settings"
-                                                                                                       message:@"Seems that you have disabled notifications, you need to re-enable them before start using Thyme. \n\nFirst open the Settings app."
+                                                                                                       message:@"Seems that you have disabled notifications, you need to re-enable them before start using Thyme.\n\nFirst open the Settings app."
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO];
     instructionControllerA.view.tag = 0;
@@ -49,7 +49,7 @@ HYPInstructionViewControllerDelegate>
 
     HYPInstructionViewController *instructionControllerD = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsD"]
                                                                                                          title:@"Allow notifications"
-                                                                                                       message:@"Make sure that you have activated all the options (all toogles in green). When you're finished come back and press \"Ok, got it!\""
+                                                                                                       message:@"Make sure that you have activated all the options (all toogles in green).\n\nWhen you're finished come back and press \"Ok, got it!\""
                                                                                                      hasAction:YES
                                                                                                      isWelcome:NO];
     instructionControllerD.delegate = self;
