@@ -61,14 +61,16 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 {
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:[self titleLabelFrame]];
     titleLabel.text = self.title;
-    titleLabel.font = [HYPUtils avenirBookWithSize:35.0f];
+    titleLabel.font = [HYPUtils avenirBookWithSize:30.0f];
     titleLabel.textColor = [UIColor colorFromHex:@"0896A2"];
     titleLabel.textAlignment = NSTextAlignmentCenter;
 
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat deviceHeight = bounds.size.height;
 
-    if (deviceHeight >= 667.0f) {
+    if (deviceHeight == 568.0f) {
+        titleLabel.font = [HYPUtils avenirBookWithSize:35.0f];
+    } else if (deviceHeight >= 667.0f) {
         titleLabel.font = [HYPUtils avenirBookWithSize:40.0f];
     }
 
@@ -120,16 +122,23 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
         iconImageViewFrame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(imageView.frame)) / 2.0f;
         iconImageViewFrame.origin.y = HYPIconImageViewTopMargin;
     } else {
-        iconImageViewFrame.size.width = 640.0f/4.0f;
-        iconImageViewFrame.size.height = 780.0f/4.0f;
-        iconImageViewFrame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(iconImageViewFrame)) / 2.0f;
         iconImageViewFrame.origin.y = HYPIconImageViewTopMargin;
 
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat deviceHeight = bounds.size.height;
         if (deviceHeight == 480.0f) {
-            iconImageViewFrame.origin.y -= 10.0f;
+            iconImageViewFrame.origin.y -= 25.0f;
         }
+
+        if (deviceHeight == 568.0f || deviceHeight == 480.0f) {
+            iconImageViewFrame.size.width = 640.0f/4.0f;
+            iconImageViewFrame.size.height = 780.0f/4.0f;
+        } else if (deviceHeight >= 667.0f) {
+            iconImageViewFrame.size.width = 640.0f/3.0f;
+            iconImageViewFrame.size.height = 780.0f/3.0f;
+        }
+
+        iconImageViewFrame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(iconImageViewFrame)) / 2.0f;
     }
 
     return iconImageViewFrame;
@@ -142,7 +151,9 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat deviceHeight = bounds.size.height;
 
-    if (deviceHeight == 667.0f) {
+    if (deviceHeight == 480.0f) {
+        if (!self.isWelcome) y -= 40.0f;
+    } else if (deviceHeight == 667.0f) {
         y += 20.0f;
     } else if (deviceHeight == 736.0f) {
         y += 70.0f;
@@ -162,7 +173,9 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat deviceHeight = bounds.size.height;
 
-    if (deviceHeight == 667.0f) {
+    if (deviceHeight == 480.0f) {
+        if (!self.isWelcome) y -= 50.0f;
+    } else if (deviceHeight == 667.0f) {
         y += 20.0f;
     } else if (deviceHeight == 736.0f) {
         y += 80.0f;
