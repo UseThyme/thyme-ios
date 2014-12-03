@@ -24,32 +24,32 @@ HYPInstructionViewControllerDelegate>
     NSMutableArray *instructions = [NSMutableArray new];
 
     HYPInstructionViewController *instructionControllerA = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsA"]
-                                                                                                         title:@"Settings"
-                                                                                                       message:@"Seems that you have disabled notifications, you need to re-enable them before start using Thyme.\n\nFirst open the Settings app."
+                                                                                                         title:NSLocalizedString(@"InstructionTitleA", nil)
+                                                                                                       message:NSLocalizedString(@"InstructionMessageA", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO];
     instructionControllerA.view.tag = 0;
     [instructions addObject:instructionControllerA];
 
     HYPInstructionViewController *instructionControllerB = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsB"]
-                                                                                                         title:@"Notifications"
-                                                                                                       message:@"Select the Notifications option, the one on the bottom."
+                                                                                                         title:NSLocalizedString(@"InstructionTitleB", nil)
+                                                                                                       message:NSLocalizedString(@"InstructionMessageB", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO];
     instructionControllerB.view.tag = 1;
     [instructions addObject:instructionControllerB];
 
     HYPInstructionViewController *instructionControllerC = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsC"]
-                                                                                                         title:@"Thyme"
-                                                                                                       message:@"Look for the Thyme app in the list and select it."
+                                                                                                         title:NSLocalizedString(@"InstructionTitleC", nil)
+                                                                                                       message:NSLocalizedString(@"InstructionMessageC", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO];
     instructionControllerC.view.tag = 2;
     [instructions addObject:instructionControllerC];
 
     HYPInstructionViewController *instructionControllerD = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsD"]
-                                                                                                         title:@"Allow notifications"
-                                                                                                       message:@"Make sure that you have activated all the options (all toogles in green).\n\nWhen you're finished come back and press \"Ok, got it!\""
+                                                                                                         title:NSLocalizedString(@"InstructionTitleD", nil)
+                                                                                                       message:NSLocalizedString(@"InstructionMessageD", nil)
                                                                                                      hasAction:YES
                                                                                                      isWelcome:NO];
     instructionControllerD.delegate = self;

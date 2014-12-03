@@ -72,3 +72,17 @@
 "No" = "No";
 
 "Ok" = "Ok";
+
+"InstructionAction" = "Ok, entendido!";
+
+"InstructionTitleA" = "Ajustes";
+"InstructionMessageA" = "Al parecer has desactivado notificationes, necesitas re-activarlas antes de usar Thyme.\n\nPrimero abre Ajustes.";
+
+"InstructionTitleB" = "Notificaciones";
+"InstructionMessageB" = "Selecciona la opción Notificaciones, la que se encuentra debajo en la imagen ejemplo.";
+
+"InstructionTitleC" = "Thyme";
+"InstructionMessageC" = "Busca la app Thyme en la lista y seleccionala.";
+
+"InstructionTitleD" = "Permitir Notificaciones";
+"InstructionMessageD" = "Asegurate de activar todas las opciones (todo en verde).\n\nCuando hayas terminado regresa y presiona \"Ok, entendido!\"";

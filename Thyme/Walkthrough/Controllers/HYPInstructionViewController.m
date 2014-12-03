@@ -22,6 +22,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic) BOOL hasAction;
 @property (nonatomic) BOOL isWelcome;
+@property (nonatomic) BOOL isHidden;
 
 @end
 
@@ -61,7 +62,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 {
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:[self titleLabelFrame]];
     titleLabel.text = self.title;
-    titleLabel.font = [HYPUtils avenirBookWithSize:30.0f];
+    titleLabel.font = [HYPUtils avenirBookWithSize:27.0f];
     titleLabel.textColor = [UIColor colorFromHex:@"0896A2"];
     titleLabel.textAlignment = NSTextAlignmentCenter;
 
@@ -81,7 +82,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 {
     UITextView *messageTextView = [[UITextView alloc] initWithFrame:[self messageTextViewFrame]];
     messageTextView.text = self.message;
-    messageTextView.font = [HYPUtils avenirLightWithSize:15.0f];
+    messageTextView.font = [HYPUtils avenirLightWithSize:14.0f];
     messageTextView.textColor = [UIColor colorFromHex:@"0896A2"];
     messageTextView.textAlignment = NSTextAlignmentCenter;
     messageTextView.backgroundColor = [UIColor clearColor];
@@ -105,7 +106,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     acceptButton.backgroundColor = [UIColor colorFromHex:@"FF5C5C"];
     acceptButton.layer.cornerRadius = 5.0f;
     acceptButton.frame = [self acceptButtonFrame];
-    [acceptButton setTitle:@"Ok, got it!" forState:UIControlStateNormal];
+    [acceptButton setTitle:NSLocalizedString(@"InstructionAction", nil) forState:UIControlStateNormal];
     acceptButton.titleLabel.font = [HYPUtils avenirHeavyWithSize:15.0f];
     [acceptButton addTarget:self action:@selector(acceptButtonAction) forControlEvents:UIControlEventTouchUpInside];
 
@@ -230,6 +231,13 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+
+    self.isHidden = YES;
+}
+
 #pragma mark - Actions
 
 - (void)acceptButtonAction
@@ -243,13 +251,13 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 
 - (void)canceledNotifications
 {
-    if (self.isWelcome) {
-        HYPInstructionsPageViewController *instructionsController = [[HYPInstructionsPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
-                                                                                                                 navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
-                                                                                                                               options:nil];
+    if (self.isHidden) return;
 
-        [self.navigationController pushViewController:instructionsController animated:YES];
-    }
+    HYPInstructionsPageViewController *instructionsController = [[HYPInstructionsPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
+                                                                                                             navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
+                                                                                                                           options:nil];
+
+    [self.navigationController pushViewController:instructionsController animated:YES];
 }
 
 @end

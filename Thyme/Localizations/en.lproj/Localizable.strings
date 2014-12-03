@@ -72,3 +72,17 @@
 "No" = "No";
 
 "Ok" = "Ok";
+
+"InstructionAction" = "Ok, got it!";
+
+"InstructionTitleA" = "Settings";
+"InstructionMessageA" = "Seems that you have disabled notifications, you need to re-enable them before start using Thyme.\n\nFirst open the Settings app.";
+
+"InstructionTitleB" = "Notifications";
+"InstructionMessageB" = "Select the Notifications option, the one on the bottom.";
+
+"InstructionTitleC" = "Thyme";
+"InstructionMessageC" = "Look for the Thyme app in the list and select it.";
+
+"InstructionTitleD" = "Allow notifications";
+"InstructionMessageD" = "Make sure that you have activated all the options (all toogles in green).\n\nWhen you're finished come back and press \"Ok, got it!\"";
