@@ -5,6 +5,7 @@
 @import AVFoundation;
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
+#import "UIColor+ANDYHex.h"
 
 #ifdef DEBUG
 /// Tests if .xctest bundle is loaded, so returns YES if the app is running with XCTest framework.
@@ -61,6 +62,12 @@ static inline BOOL IsUnitTesting()
     [[BITHockeyManager sharedHockeyManager] configureWithIdentifier:@"2cf664c4f20eed78d8ef3fe53f27fe3b" delegate:self];
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
+
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor colorFromHex:@"FF5C5C"];
+    pageControl.backgroundColor = [UIColor colorFromHex:@"F2F2F2"];
+
     application.applicationSupportsShakeToEdit = YES;
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -130,7 +137,7 @@ static inline BOOL IsUnitTesting()
 {
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
     if (notificationSettings.types != types) {
-        NSLog(@"Guy pressed no, what to do?");
+        [self.homeController canceledNotifications];
     } else {
         [self.homeController registeredForNotifications];
     }

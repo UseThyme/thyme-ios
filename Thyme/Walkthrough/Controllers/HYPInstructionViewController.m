@@ -1,7 +1,8 @@
-#import "HYPWelcomeViewController.h"
+#import "HYPInstructionViewController.h"
 
 #import "UIColor+ANDYHex.h"
 #import "HYPUtils.h"
+#import "HYPInstructionsPageViewController.h"
 
 static const NSInteger HYPIconImageViewTopMargin = 50.0f;
 
@@ -15,41 +16,42 @@ static const NSInteger HYPAcceptButtonBottomMargin = 30.0f;
 static const NSInteger HYPAcceptButtonHorizontalMargin = 30.0f;
 static const NSInteger HYPAcceptButtonHeight = 44.0f;
 
-@interface HYPWelcomeViewController ()
+@interface HYPInstructionViewController ()
+
+@property (nonatomic, copy) UIImage *image;
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic) BOOL hasAction;
+@property (nonatomic) BOOL isWelcome;
 
 @end
 
-@implementation HYPWelcomeViewController
+@implementation HYPInstructionViewController
 
 #pragma mark - Initializers
 
-- (instancetype)init
+- (instancetype)initWithImage:(UIImage *)image
+                        title:(NSString *)title
+                      message:(NSString *)message
+                    hasAction:(BOOL)hasAction
+                    isWelcome:(BOOL)isWelcome
 {
     self = [super init];
     if (!self) return nil;
 
-    self.view.backgroundColor = [UIColor colorFromHex:@"F2F2F2"];
-
-    UIImageView *iconImageView = [self iconImageView];
-    [self.view addSubview:iconImageView];
-
-    UILabel *titleLabel = [self titleLabel];
-    [self.view addSubview:titleLabel];
-
-    UITextView *messageTextView = [self messageTextView];
-    [self.view addSubview:messageTextView];
-
-    UIButton *acceptButton = [self acceptButton];
-    [self.view addSubview:acceptButton];
+    _image = image;
+    self.title = title;
+    _message = message;
+    _hasAction = hasAction;
+    _isWelcome = isWelcome;
 
     return self;
 }
 
-#pragma mark - Views
+#pragma mark - Getters
 
 - (UIImageView *)iconImageView
 {
-    UIImageView *iconImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"welcomeIcon"]];
+    UIImageView *iconImageView = [[UIImageView alloc] initWithImage:self.image];
     iconImageView.frame = [self iconImageViewFrameForImageView:iconImageView];
 
     return iconImageView;
@@ -58,7 +60,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 - (UILabel *)titleLabel
 {
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:[self titleLabelFrame]];
-    titleLabel.text = @"Hello there!";
+    titleLabel.text = self.title;
     titleLabel.font = [HYPUtils avenirBookWithSize:35.0f];
     titleLabel.textColor = [UIColor colorFromHex:@"0896A2"];
     titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -76,7 +78,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 - (UITextView *)messageTextView
 {
     UITextView *messageTextView = [[UITextView alloc] initWithFrame:[self messageTextViewFrame]];
-    messageTextView.text = @"Thyme is a timer app and needs the ability to pop up a notification and alert you with a sound when it's done.";
+    messageTextView.text = self.message;
     messageTextView.font = [HYPUtils avenirLightWithSize:15.0f];
     messageTextView.textColor = [UIColor colorFromHex:@"0896A2"];
     messageTextView.textAlignment = NSTextAlignmentCenter;
@@ -111,8 +113,22 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 - (CGRect)iconImageViewFrameForImageView:(UIImageView *)imageView
 {
     CGRect iconImageViewFrame = imageView.frame;
-    iconImageViewFrame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(imageView.frame)) / 2.0f;
-    iconImageViewFrame.origin.y = HYPIconImageViewTopMargin;
+
+    if (self.isWelcome) {
+        iconImageViewFrame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(imageView.frame)) / 2.0f;
+        iconImageViewFrame.origin.y = HYPIconImageViewTopMargin;
+    } else {
+        iconImageViewFrame.size.width = 640.0f/4.0f;
+        iconImageViewFrame.size.height = 780.0f/4.0f;
+        iconImageViewFrame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(iconImageViewFrame)) / 2.0f;
+        iconImageViewFrame.origin.y = HYPIconImageViewTopMargin;
+
+        CGRect bounds = [[UIScreen mainScreen] bounds];
+        CGFloat deviceHeight = bounds.size.height;
+        if (deviceHeight == 480.0f) {
+            iconImageViewFrame.origin.y -= 10.0f;
+        }
+    }
 
     return iconImageViewFrame;
 }
@@ -128,6 +144,10 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
         y += 20.0f;
     } else if (deviceHeight == 736.0f) {
         y += 70.0f;
+    }
+
+    if (!self.isWelcome) {
+        y += 20.0f;
     }
 
     return CGRectMake(0.0f, y, CGRectGetWidth(self.view.frame), HYPTitleLabelHeight);
@@ -146,6 +166,10 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
         y += 80.0f;
     }
 
+    if (!self.isWelcome) {
+        y += 20.0f;
+    }
+
     return CGRectMake(HYPMessageTextViewHorizontalMargin,
                       y,
                       CGRectGetWidth(self.view.frame) - HYPMessageTextViewHorizontalMargin * 2.0f,
@@ -158,18 +182,58 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     CGFloat deviceHeight = bounds.size.height;
     CGFloat y = deviceHeight - HYPAcceptButtonHeight - HYPAcceptButtonBottomMargin;
 
+    if (!self.isWelcome) {
+        y -= 15.0f;
+    }
+
     return CGRectMake(HYPAcceptButtonHorizontalMargin,
                       y,
                       CGRectGetWidth(self.view.frame) - HYPAcceptButtonHorizontalMargin * 2.0f,
                       HYPAcceptButtonHeight);
 }
 
+#pragma mark - View lifycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.view.backgroundColor = [UIColor colorFromHex:@"F2F2F2"];
+
+    UIImageView *iconImageView = [self iconImageView];
+    [self.view addSubview:iconImageView];
+
+    UILabel *titleLabel = [self titleLabel];
+    [self.view addSubview:titleLabel];
+
+    UITextView *messageTextView = [self messageTextView];
+    [self.view addSubview:messageTextView];
+
+    if (self.hasAction) {
+        UIButton *acceptButton = [self acceptButton];
+        [self.view addSubview:acceptButton];
+    }
+}
+
 #pragma mark - Actions
 
 - (void)acceptButtonAction
 {
-    if ([self.delegate respondsToSelector:@selector(welcomeViewControlerDidPressAcceptButton:)]) {
-        [self.delegate welcomeViewControlerDidPressAcceptButton:self];
+    if ([self.delegate respondsToSelector:@selector(instructionViewControlerDidPressAcceptButton:)]) {
+        [self.delegate instructionViewControlerDidPressAcceptButton:self];
+    }
+}
+
+#pragma mark - Public methods
+
+- (void)canceledNotifications
+{
+    if (self.isWelcome) {
+        HYPInstructionsPageViewController *instructionsController = [[HYPInstructionsPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
+                                                                                                                 navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
+                                                                                                                               options:nil];
+
+        [self.navigationController pushViewController:instructionsController animated:YES];
     }
 }
 

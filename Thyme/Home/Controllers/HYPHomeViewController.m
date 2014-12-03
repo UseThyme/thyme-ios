@@ -7,7 +7,7 @@
 #import "HYPLocalNotificationManager.h"
 #import "HYPSettingsViewController.h"
 #import "HYPAppDelegate.h"
-#import "HYPWelcomeViewController.h"
+#import "HYPInstructionViewController.h"
 
 #import "UIViewController+HYPContainer.h"
 #import "UIScreen+ANDYResolutions.h"
@@ -18,7 +18,7 @@
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 @interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate,
-HYPTimerControllerDelegate, UIAlertViewDelegate, HYPWelcomeViewControllerDelegate>
+HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDelegate>
 
 @property (nonatomic) CGFloat topMargin;
 
@@ -37,6 +37,8 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPWelcomeViewControllerDelegat
 @property (nonatomic, strong) NSNumber *maxMinutesLeft;
 
 @property (nonatomic) BOOL deleteTimersMessageIsBeingDisplayed;
+
+@property (nonatomic, strong) HYPInstructionViewController *welcomeController;
 
 @end
 
@@ -384,6 +386,20 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPWelcomeViewControllerDelegat
     return _settingsButton;
 }
 
+- (HYPInstructionViewController *)welcomeController
+{
+    if (_welcomeController) return _welcomeController;
+
+    _welcomeController = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"welcomeIcon"]
+                                                                       title:@"Hello there!"
+                                                                     message:@"Thyme is a timer app and needs the ability to pop up a notification and alert you with a sound when it's done."
+                                                                   hasAction:YES
+                                                                   isWelcome:YES];
+    _welcomeController.delegate = self;
+
+    return _welcomeController;
+}
+
 #pragma mark - View Lifecycle
 
 - (void)viewDidLoad
@@ -443,9 +459,9 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPWelcomeViewControllerDelegat
         UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
 
         if (registeredSettings.types != types) {
-            HYPWelcomeViewController *welcomeController = [[HYPWelcomeViewController alloc] init];
-            welcomeController.delegate = self;
-            [self presentViewController:welcomeController animated:YES completion:nil];
+            UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.welcomeController];
+            navController.navigationBarHidden = YES;
+            [self presentViewController:navController animated:YES completion:nil];
         }
     }
 }
@@ -651,9 +667,9 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPWelcomeViewControllerDelegat
     }];
 }
 
-#pragma mark - HYPWelcomeViewControllerDelegate
+#pragma mark - HYPInstructionViewControllerDelegate
 
-- (void)welcomeViewControlerDidPressAcceptButton:(HYPWelcomeViewController *)welcomeViewController
+- (void)instructionViewControlerDidPressAcceptButton:(HYPInstructionViewController *)instructionViewController
 {
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
@@ -663,6 +679,11 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPWelcomeViewControllerDelegat
 - (void)registeredForNotifications
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)canceledNotifications
+{
+    [self.welcomeController canceledNotifications];
 }
 
 @end
