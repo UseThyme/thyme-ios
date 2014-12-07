@@ -1,5 +1,5 @@
 ﻿/* %@ %@ PLATE */
-"%@ %@ PLATE" = "HORNILLA %1$@ %2$@";
+"%@ %@ PLATE" = "PLACA %1$@ %2$@";
 
 /* %@ just finished */
 "%@ just finished" = "%@ ha terminado";
@@ -59,7 +59,7 @@
 "OVEN" = "HORNO";
 
 /* TAP A PLATE TO SET A TIMER */
-"TAP A PLATE TO SET A TIMER" = "SELECCIONA UNA HORNILLA";
+"TAP A PLATE TO SET A TIMER" = "SELECCIONA UNA PLACA";
 
 /* View Details */
 "View Details" = "Ver Detalles";
