@@ -73,6 +73,9 @@
 
 "Ok" = "Ok";
 
+"WelcomeTitle" = "Hello there!";
+"WelcomeMessage" = "Thyme is a timer app and needs the ability to pop up a notification and alert you with a sound when it's done.";
+
 "InstructionAction" = "Ok, got it!";
 
 "InstructionTitleA" = "Settings";

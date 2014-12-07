@@ -391,8 +391,8 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDel
     if (_welcomeController) return _welcomeController;
 
     _welcomeController = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"welcomeIcon"]
-                                                                       title:@"Hello there!"
-                                                                     message:@"Thyme is a timer app and needs the ability to pop up a notification and alert you with a sound when it's done."
+                                                                       title:NSLocalizedString(@"WelcomeTitle", nil)
+                                                                     message:NSLocalizedString(@"WelcomeMessage", nil)
                                                                    hasAction:YES
                                                                    isWelcome:YES];
     _welcomeController.delegate = self;

@@ -73,7 +73,10 @@
 
 "Ok" = "Ok";
 
-"InstructionAction" = "Ok, entendido!";
+"WelcomeTitle" = "¡Bienvenido!";
+"WelcomeMessage" = "Antes de continuar Thyme necesita tu permiso para poder mandarte notificaciones y alertas cuando tus platillos esten listos.";
+
+"InstructionAction" = "Ok, entendido";
 
 "InstructionTitleA" = "Ajustes";
 "InstructionMessageA" = "Al parecer has desactivado notificationes, necesitas re-activarlas antes de usar Thyme.\n\nPrimero abre Ajustes.";
@@ -85,4 +88,4 @@
 "InstructionMessageC" = "Busca la app Thyme en la lista y seleccionala.";
 
 "InstructionTitleD" = "Permitir Notificaciones";
-"InstructionMessageD" = "Asegurate de activar todas las opciones (todo en verde).\n\nCuando hayas terminado regresa y presiona \"Ok, entendido!\"";
+"InstructionMessageD" = "Asegurate de activar todas las opciones (todo en verde).\n\nCuando hayas terminado regresa y presiona \"Ok, entendido\"";
