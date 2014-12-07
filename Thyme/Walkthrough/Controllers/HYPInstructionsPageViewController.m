@@ -28,6 +28,7 @@ HYPInstructionViewControllerDelegate>
                                                                                                        message:NSLocalizedString(@"InstructionMessageA", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO];
+    instructionControllerA.delegate = self;
     instructionControllerA.view.tag = 0;
     [instructions addObject:instructionControllerA];
 
@@ -36,6 +37,7 @@ HYPInstructionViewControllerDelegate>
                                                                                                        message:NSLocalizedString(@"InstructionMessageB", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO];
+    instructionControllerB.delegate = self;
     instructionControllerB.view.tag = 1;
     [instructions addObject:instructionControllerB];
 
@@ -44,6 +46,7 @@ HYPInstructionViewControllerDelegate>
                                                                                                        message:NSLocalizedString(@"InstructionMessageC", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO];
+    instructionControllerC.delegate = self;
     instructionControllerC.view.tag = 2;
     [instructions addObject:instructionControllerC];
 
@@ -105,7 +108,8 @@ HYPInstructionViewControllerDelegate>
 {
     if (viewController.view.tag == 0) return nil;
 
-    UIViewController *controller = self.instructions[viewController.view.tag - 1];
+    self.index = viewController.view.tag - 1;
+    UIViewController *controller = self.instructions[self.index];
     return controller;
 }
 
@@ -114,7 +118,8 @@ HYPInstructionViewControllerDelegate>
 {
     if (viewController.view.tag == self.instructions.count - 1) return nil;
 
-    UIViewController *controller = self.instructions[viewController.view.tag + 1];
+    self.index = viewController.view.tag + 1;
+    UIViewController *controller = self.instructions[self.index];
     return controller;
 }
 
@@ -125,7 +130,7 @@ HYPInstructionViewControllerDelegate>
 
 - (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
 {
-    return 0;
+    return self.index;
 }
 
 #pragma mark - HYPInstructionViewControllerDelegate
@@ -135,6 +140,26 @@ HYPInstructionViewControllerDelegate>
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+}
+
+- (void)instructionViewControlerDidPressPreviousButton:(HYPInstructionViewController *)instructionViewController
+{
+    UIViewController *controller = self.instructions[instructionViewController.view.tag - 1];
+
+    [self setViewControllers:@[controller]
+                   direction:UIPageViewControllerNavigationDirectionReverse
+                    animated:YES
+                  completion:nil];
+}
+
+- (void)instructionViewControlerDidPressNextButton:(HYPInstructionViewController *)instructionViewController
+{
+    UIViewController *controller = self.instructions[instructionViewController.view.tag + 1];
+
+    [self setViewControllers:@[controller]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:YES
+                  completion:nil];
 }
 
 @end

@@ -18,6 +18,9 @@
 
 @protocol HYPInstructionViewControllerDelegate <NSObject>
 
+@optional
 - (void)instructionViewControlerDidPressAcceptButton:(HYPInstructionViewController *)instructionViewController;
+- (void)instructionViewControlerDidPressNextButton:(HYPInstructionViewController *)instructionViewController;
+- (void)instructionViewControlerDidPressPreviousButton:(HYPInstructionViewController *)instructionViewController;
 
 @end

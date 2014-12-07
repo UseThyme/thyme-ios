@@ -244,7 +244,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 {
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat width = 80.0f;
-    CGFloat x = CGRectGetWidth(bounds) - width;
+    CGFloat x = CGRectGetWidth(bounds) - width - 10.0f;
 
     return CGRectMake(x, 10.0f, 80.0f, 50.0f);
 }
@@ -303,6 +303,20 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 {
     if ([self.delegate respondsToSelector:@selector(instructionViewControlerDidPressAcceptButton:)]) {
         [self.delegate instructionViewControlerDidPressAcceptButton:self];
+    }
+}
+
+- (void)previousButtonAction
+{
+    if ([self.delegate respondsToSelector:@selector(instructionViewControlerDidPressPreviousButton:)]) {
+        [self.delegate instructionViewControlerDidPressPreviousButton:self];
+    }
+}
+
+- (void)nextButtonAction
+{
+    if ([self.delegate respondsToSelector:@selector(instructionViewControlerDidPressNextButton:)]) {
+        [self.delegate instructionViewControlerDidPressNextButton:self];
     }
 }
 
