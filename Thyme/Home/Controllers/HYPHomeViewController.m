@@ -448,6 +448,13 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDel
                                              selector:@selector(dismissedTimerController:)
                                                  name:UIApplicationDidBecomeActiveNotification
                                                object:nil];
+
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
