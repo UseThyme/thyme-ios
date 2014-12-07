@@ -1,8 +1,10 @@
 #import "HYPInstructionViewController.h"
 
-#import "UIColor+ANDYHex.h"
 #import "HYPUtils.h"
 #import "HYPInstructionsPageViewController.h"
+
+#import "UIColor+ANDYHex.h"
+#import "UIButton+ANDYHighlighted.h"
 
 static const NSInteger HYPIconImageViewTopMargin = 50.0f;
 
@@ -104,6 +106,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 {
     UIButton *acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
     acceptButton.backgroundColor = [UIColor colorFromHex:@"FF5C5C"];
+    acceptButton.highlightedBackgroundColor = [UIColor colorFromHex:@"E94F4F"];
     acceptButton.layer.cornerRadius = 5.0f;
     acceptButton.frame = [self acceptButtonFrame];
     [acceptButton setTitle:NSLocalizedString(@"InstructionAction", nil) forState:UIControlStateNormal];

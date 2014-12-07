@@ -12,3 +12,9 @@
 #define COCOAPODS_VERSION_MINOR_HockeySDK 6
 #define COCOAPODS_VERSION_PATCH_HockeySDK 2
 
+// UIButton-ANDYHighlighted
+#define COCOAPODS_POD_AVAILABLE_UIButton_ANDYHighlighted
+#define COCOAPODS_VERSION_MAJOR_UIButton_ANDYHighlighted 0
+#define COCOAPODS_VERSION_MINOR_UIButton_ANDYHighlighted 1
+#define COCOAPODS_VERSION_PATCH_UIButton_ANDYHighlighted 0
+
