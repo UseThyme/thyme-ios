@@ -54,66 +54,90 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 
 - (UIImageView *)iconImageView
 {
-    UIImageView *iconImageView = [[UIImageView alloc] initWithImage:self.image];
-    iconImageView.frame = [self iconImageViewFrameForImageView:iconImageView];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
+    imageView.frame = [self iconImageViewFrameForImageView:imageView];
 
-    return iconImageView;
+    return imageView;
 }
 
 - (UILabel *)titleLabel
 {
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:[self titleLabelFrame]];
-    titleLabel.text = self.title;
-    titleLabel.font = [HYPUtils avenirBookWithSize:27.0f];
-    titleLabel.textColor = [UIColor colorFromHex:@"0896A2"];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
+    UILabel *label = [[UILabel alloc] initWithFrame:[self titleLabelFrame]];
+    label.text = self.title;
+    label.font = [HYPUtils avenirBookWithSize:27.0f];
+    label.textColor = [UIColor colorFromHex:@"0896A2"];
+    label.textAlignment = NSTextAlignmentCenter;
 
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat deviceHeight = bounds.size.height;
 
     if (deviceHeight == 568.0f) {
-        titleLabel.font = [HYPUtils avenirBookWithSize:35.0f];
+        label.font = [HYPUtils avenirBookWithSize:35.0f];
     } else if (deviceHeight >= 667.0f) {
-        titleLabel.font = [HYPUtils avenirBookWithSize:40.0f];
+        label.font = [HYPUtils avenirBookWithSize:40.0f];
     }
 
-    return titleLabel;
+    return label;
 }
 
 - (UITextView *)messageTextView
 {
-    UITextView *messageTextView = [[UITextView alloc] initWithFrame:[self messageTextViewFrame]];
-    messageTextView.text = self.message;
-    messageTextView.font = [HYPUtils avenirLightWithSize:14.0f];
-    messageTextView.textColor = [UIColor colorFromHex:@"0896A2"];
-    messageTextView.textAlignment = NSTextAlignmentCenter;
-    messageTextView.backgroundColor = [UIColor clearColor];
-    messageTextView.editable = NO;
+    UITextView *textView = [[UITextView alloc] initWithFrame:[self messageTextViewFrame]];
+    textView.text = self.message;
+    textView.font = [HYPUtils avenirLightWithSize:14.0f];
+    textView.textColor = [UIColor colorFromHex:@"0896A2"];
+    textView.textAlignment = NSTextAlignmentCenter;
+    textView.backgroundColor = [UIColor clearColor];
+    textView.editable = NO;
 
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat deviceHeight = bounds.size.height;
 
     if (deviceHeight == 568.0f) {
-        messageTextView.font = [HYPUtils avenirLightWithSize:16.0f];
+        textView.font = [HYPUtils avenirLightWithSize:16.0f];
     } else if (deviceHeight >= 667.0f) {
-        messageTextView.font = [HYPUtils avenirLightWithSize:18.0f];
+        textView.font = [HYPUtils avenirLightWithSize:18.0f];
     }
 
-    return messageTextView;
+    return textView;
 }
 
 - (UIButton *)acceptButton
 {
-    UIButton *acceptButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    acceptButton.backgroundColor = [UIColor colorFromHex:@"FF5C5C"];
-    acceptButton.highlightedBackgroundColor = [UIColor colorFromHex:@"E94F4F"];
-    acceptButton.layer.cornerRadius = 5.0f;
-    acceptButton.frame = [self acceptButtonFrame];
-    [acceptButton setTitle:NSLocalizedString(@"InstructionAction", nil) forState:UIControlStateNormal];
-    acceptButton.titleLabel.font = [HYPUtils avenirHeavyWithSize:15.0f];
-    [acceptButton addTarget:self action:@selector(acceptButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.backgroundColor = [UIColor colorFromHex:@"FF5C5C"];
+    button.highlightedBackgroundColor = [UIColor colorFromHex:@"E94F4F"];
+    button.layer.cornerRadius = 5.0f;
+    button.frame = [self acceptButtonFrame];
+    button.titleLabel.font = [HYPUtils avenirHeavyWithSize:15.0f];
+    [button setTitle:NSLocalizedString(@"InstructionAction", nil) forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(acceptButtonAction) forControlEvents:UIControlEventTouchUpInside];
 
-    return acceptButton;
+    return button;
+}
+
+- (UIButton *)previousButton
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = [self previousButtonFrame];
+    button.titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
+    [button setTitleColor:[UIColor colorFromHex:@"FA5A58"] forState:UIControlStateNormal];
+    [button setTitle:NSLocalizedString(@"Previous", nil) forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(previousButtonAction) forControlEvents:UIControlEventTouchUpInside];
+
+    return button;
+}
+
+- (UIButton *)nextButton
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = [self nextButtonFrame];
+    button.titleLabel.font = [HYPUtils avenirLightWithSize:15.0f];
+    [button setTitleColor:[UIColor colorFromHex:@"FA5A58"] forState:UIControlStateNormal];
+    [button setTitle:NSLocalizedString(@"Next", nil) forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(nextButtonAction) forControlEvents:UIControlEventTouchUpInside];
+
+    return button;
 }
 
 #pragma mark - Frames
@@ -211,6 +235,20 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
                       HYPAcceptButtonHeight);
 }
 
+- (CGRect)previousButtonFrame
+{
+    return CGRectMake(10.0f, 10.0f, 80.0f, 50.0f);
+}
+
+- (CGRect)nextButtonFrame
+{
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat width = 80.0f;
+    CGFloat x = CGRectGetWidth(bounds) - width;
+
+    return CGRectMake(x, 10.0f, 80.0f, 50.0f);
+}
+
 #pragma mark - View lifycle
 
 - (void)viewDidLoad
@@ -228,10 +266,28 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     UITextView *messageTextView = [self messageTextView];
     [self.view addSubview:messageTextView];
 
+    UIButton *previousButton = [self previousButton];
+    [self.view addSubview:previousButton];
+
+    UIButton *nextButton = [self nextButton];
+    [self.view addSubview:nextButton];
+
     if (self.hasAction) {
         UIButton *acceptButton = [self acceptButton];
         [self.view addSubview:acceptButton];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
