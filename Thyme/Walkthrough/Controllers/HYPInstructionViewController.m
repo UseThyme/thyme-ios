@@ -155,7 +155,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     if (deviceHeight == 480.0f) {
         if (!self.isWelcome) y -= 40.0f;
     } else if (deviceHeight == 667.0f) {
-        y += 20.0f;
+        y += 60.0f;
     } else if (deviceHeight == 736.0f) {
         y += 70.0f;
     }
@@ -177,7 +177,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     if (deviceHeight == 480.0f) {
         if (!self.isWelcome) y -= 50.0f;
     } else if (deviceHeight == 667.0f) {
-        y += 20.0f;
+        y += 60.0f;
     } else if (deviceHeight == 736.0f) {
         y += 80.0f;
     }
