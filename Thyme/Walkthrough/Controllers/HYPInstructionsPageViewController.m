@@ -70,7 +70,7 @@ HYPInstructionViewControllerDelegate>
     self = [super initWithTransitionStyle:style navigationOrientation:navigationOrientation options:options];
     if (!self) return nil;
 
-    self.view.backgroundColor = [UIColor colorFromHex:@"F2F2F2"];
+    self.view.backgroundColor = [UIColor colorFromHex:@"EDFFFF"];
 
     self.dataSource = self;
     self.delegate = self;

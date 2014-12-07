@@ -64,9 +64,9 @@ static inline BOOL IsUnitTesting()
 #endif
 
     UIPageControl *pageControl = [UIPageControl appearance];
-    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    pageControl.pageIndicatorTintColor = [UIColor colorFromHex:@"D0E8E8"];
     pageControl.currentPageIndicatorTintColor = [UIColor colorFromHex:@"FF5C5C"];
-    pageControl.backgroundColor = [UIColor colorFromHex:@"F2F2F2"];
+    pageControl.backgroundColor = [UIColor colorFromHex:@"EDFFFF"];
 
     application.applicationSupportsShakeToEdit = YES;
 

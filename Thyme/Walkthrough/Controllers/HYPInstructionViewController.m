@@ -214,7 +214,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 {
     [super viewDidLoad];
 
-    self.view.backgroundColor = [UIColor colorFromHex:@"F2F2F2"];
+    self.view.backgroundColor = [UIColor colorFromHex:@"EDFFFF"];
 
     UIImageView *iconImageView = [self iconImageView];
     [self.view addSubview:iconImageView];
