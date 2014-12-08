@@ -25,7 +25,7 @@
 "No" = "No";
 "Ok" = "Ok";
 "WelcomeTitle" = "Hello there!";
-"WelcomeMessage" = "Thyme is a timer app and needs the ability to pop up a notification and alert you with a sound when it's done.";
+"WelcomeMessage" = "Thyme is a timer app and needs your permission to show notifications and alerts when your dish is ready.";
 "InstructionAction" = "Ok, got it!";
 "InstructionTitle" = "Whoops!";
 "InstructionMessage" = "Seems that you have disabled notifications, you need to re-enable them before start using Thyme.";
@@ -34,7 +34,7 @@
 "InstructionTitleB" = "Notifications";
 "InstructionMessageB" = "Select the Notifications option, the one on the bottom.";
 "InstructionTitleC" = "Thyme";
-"InstructionMessageC" = "Look for the Thyme app in the list and select it.";
+"InstructionMessageC" = "Look for Thyme in the list and select it.";
 "InstructionTitleD" = "Allow notifications";
 "InstructionMessageD" = "Make sure that you have activated all the options (all toogles in green).\n\nWhen you're finished come back and press \"Ok, got it!\"";
 "Next" = "Next";
