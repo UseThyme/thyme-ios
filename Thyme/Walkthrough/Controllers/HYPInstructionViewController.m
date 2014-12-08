@@ -70,6 +70,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     label.font = [HYPUtils avenirBookWithSize:27.0f];
     label.textColor = [UIColor colorFromHex:@"0896A2"];
     label.textAlignment = NSTextAlignmentCenter;
+    label.adjustsFontSizeToFitWidth = YES;
 
     CGRect bounds = [[UIScreen mainScreen] bounds];
     CGFloat deviceHeight = bounds.size.height;
@@ -194,7 +195,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
         y += 20.0f;
     }
 
-    return CGRectMake(0.0f, y, CGRectGetWidth(self.view.frame), HYPTitleLabelHeight);
+    return CGRectMake(10.0f, y, CGRectGetWidth(self.view.frame) - 20.0f, HYPTitleLabelHeight);
 }
 
 - (CGRect)messageTextViewFrame
