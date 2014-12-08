@@ -150,7 +150,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 {
     CGRect iconImageViewFrame = imageView.frame;
 
-    if (self.isWelcome) {
+    if (self.isWelcome || self.index == 0) {
         iconImageViewFrame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(imageView.frame)) / 2.0f;
         iconImageViewFrame.origin.y = HYPIconImageViewTopMargin;
     } else {
@@ -275,7 +275,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
         [self.view addSubview:previousButton];
     }
 
-    if (self.index >= 0 && self.index < 3) {
+    if (self.index >= 0 && self.index < 4) {
         UIButton *nextButton = [self nextButton];
         [self.view addSubview:nextButton];
     }

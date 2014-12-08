@@ -23,14 +23,24 @@ HYPInstructionViewControllerDelegate>
 
     NSMutableArray *instructions = [NSMutableArray new];
 
+    HYPInstructionViewController *instructionController = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructions"]
+                                                                                                         title:NSLocalizedString(@"InstructionTitle", nil)
+                                                                                                       message:NSLocalizedString(@"InstructionMessage", nil)
+                                                                                                     hasAction:NO
+                                                                                                     isWelcome:NO
+                                                                                                         index:0];
+    instructionController.delegate = self;
+    instructionController.view.tag = 0;
+    [instructions addObject:instructionController];
+
     HYPInstructionViewController *instructionControllerA = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsA"]
                                                                                                          title:NSLocalizedString(@"InstructionTitleA", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageA", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO
-                                                                                                         index:0];
+                                                                                                         index:1];
     instructionControllerA.delegate = self;
-    instructionControllerA.view.tag = 0;
+    instructionControllerA.view.tag = 1;
     [instructions addObject:instructionControllerA];
 
     HYPInstructionViewController *instructionControllerB = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsB"]
@@ -38,9 +48,9 @@ HYPInstructionViewControllerDelegate>
                                                                                                        message:NSLocalizedString(@"InstructionMessageB", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO
-                                                                                                         index:1];
+                                                                                                         index:2];
     instructionControllerB.delegate = self;
-    instructionControllerB.view.tag = 1;
+    instructionControllerB.view.tag = 2;
     [instructions addObject:instructionControllerB];
 
     HYPInstructionViewController *instructionControllerC = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsC"]
@@ -48,9 +58,9 @@ HYPInstructionViewControllerDelegate>
                                                                                                        message:NSLocalizedString(@"InstructionMessageC", nil)
                                                                                                      hasAction:NO
                                                                                                      isWelcome:NO
-                                                                                                         index:2];
+                                                                                                         index:3];
     instructionControllerC.delegate = self;
-    instructionControllerC.view.tag = 2;
+    instructionControllerC.view.tag = 3;
     [instructions addObject:instructionControllerC];
 
     HYPInstructionViewController *instructionControllerD = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsD"]
@@ -58,9 +68,9 @@ HYPInstructionViewControllerDelegate>
                                                                                                        message:NSLocalizedString(@"InstructionMessageD", nil)
                                                                                                      hasAction:YES
                                                                                                      isWelcome:NO
-                                                                                                         index:3];
+                                                                                                         index:4];
     instructionControllerD.delegate = self;
-    instructionControllerD.view.tag = 3;
+    instructionControllerD.view.tag = 4;
     [instructions addObject:instructionControllerD];
 
     _instructions = [instructions copy];
