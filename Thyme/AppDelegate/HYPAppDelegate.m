@@ -68,7 +68,7 @@ static inline BOOL IsUnitTesting()
     pageControl.currentPageIndicatorTintColor = [UIColor colorFromHex:@"FF5C5C"];
     pageControl.backgroundColor = [UIColor colorFromHex:@"EDFFFF"];
 
-    application.applicationSupportsShakeToEdit = YES;
+//    application.applicationSupportsShakeToEdit = YES;
 
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
@@ -85,6 +85,7 @@ static inline BOOL IsUnitTesting()
     self.window.rootViewController = navController;
 
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -143,14 +144,14 @@ static inline BOOL IsUnitTesting()
     }
 }
 
-#pragma mark - Shake Support
-
-- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
-{
-    if (motion == UIEventSubtypeMotionShake) {
-        NSLog(@"motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event");
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"appWasShaked" object:nil];
-    }
-}
+//#pragma mark - Shake Support
+//
+//- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+//{
+//    if (motion == UIEventSubtypeMotionShake) {
+//        NSLog(@"motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event");
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"appWasShaked" object:nil];
+//    }
+//}
 
 @end
