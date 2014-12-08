@@ -162,12 +162,16 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
             iconImageViewFrame.origin.y -= 25.0f;
         }
 
-        if (deviceHeight == 568.0f || deviceHeight == 480.0f) {
-            iconImageViewFrame.size.width = 640.0f/4.0f;
-            iconImageViewFrame.size.height = 780.0f/4.0f;
-        } else if (deviceHeight >= 667.0f) {
-            iconImageViewFrame.size.width = 640.0f/3.0f;
-            iconImageViewFrame.size.height = 780.0f/3.0f;
+        if (self.index == 1) {
+            iconImageViewFrame.origin.y += 45.0f;
+        } else {
+            if (deviceHeight == 568.0f || deviceHeight == 480.0f) {
+                iconImageViewFrame.size.width = 640.0f/4.0f;
+                iconImageViewFrame.size.height = 780.0f/4.0f;
+            } else if (deviceHeight >= 667.0f) {
+                iconImageViewFrame.size.width = 640.0f/3.0f;
+                iconImageViewFrame.size.height = 780.0f/3.0f;
+            }
         }
 
         iconImageViewFrame.origin.x = (CGRectGetWidth(self.view.frame) - CGRectGetWidth(iconImageViewFrame)) / 2.0f;
