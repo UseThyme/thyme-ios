@@ -85,7 +85,7 @@ static inline BOOL IsUnitTesting()
     self.window.rootViewController = navController;
 
     [self.window makeKeyAndVisible];
-    
+
     return YES;
 }
 
