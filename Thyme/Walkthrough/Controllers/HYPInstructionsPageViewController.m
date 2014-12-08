@@ -27,7 +27,8 @@ HYPInstructionViewControllerDelegate>
                                                                                                          title:NSLocalizedString(@"InstructionTitleA", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageA", nil)
                                                                                                      hasAction:NO
-                                                                                                     isWelcome:NO];
+                                                                                                     isWelcome:NO
+                                                                                                         index:0];
     instructionControllerA.delegate = self;
     instructionControllerA.view.tag = 0;
     [instructions addObject:instructionControllerA];
@@ -36,7 +37,8 @@ HYPInstructionViewControllerDelegate>
                                                                                                          title:NSLocalizedString(@"InstructionTitleB", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageB", nil)
                                                                                                      hasAction:NO
-                                                                                                     isWelcome:NO];
+                                                                                                     isWelcome:NO
+                                                                                                         index:1];
     instructionControllerB.delegate = self;
     instructionControllerB.view.tag = 1;
     [instructions addObject:instructionControllerB];
@@ -45,7 +47,8 @@ HYPInstructionViewControllerDelegate>
                                                                                                          title:NSLocalizedString(@"InstructionTitleC", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageC", nil)
                                                                                                      hasAction:NO
-                                                                                                     isWelcome:NO];
+                                                                                                     isWelcome:NO
+                                                                                                         index:2];
     instructionControllerC.delegate = self;
     instructionControllerC.view.tag = 2;
     [instructions addObject:instructionControllerC];
@@ -54,7 +57,8 @@ HYPInstructionViewControllerDelegate>
                                                                                                          title:NSLocalizedString(@"InstructionTitleD", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageD", nil)
                                                                                                      hasAction:YES
-                                                                                                     isWelcome:NO];
+                                                                                                     isWelcome:NO
+                                                                                                         index:3];
     instructionControllerD.delegate = self;
     instructionControllerD.view.tag = 3;
     [instructions addObject:instructionControllerD];
@@ -144,7 +148,11 @@ HYPInstructionViewControllerDelegate>
 
 - (void)instructionViewControlerDidPressPreviousButton:(HYPInstructionViewController *)instructionViewController
 {
-    UIViewController *controller = self.instructions[instructionViewController.view.tag - 1];
+    if (self.index == 0) return;
+
+    self.index = instructionViewController.view.tag - 1;
+
+    UIViewController *controller = self.instructions[self.index];
 
     [self setViewControllers:@[controller]
                    direction:UIPageViewControllerNavigationDirectionReverse
@@ -154,7 +162,11 @@ HYPInstructionViewControllerDelegate>
 
 - (void)instructionViewControlerDidPressNextButton:(HYPInstructionViewController *)instructionViewController
 {
-    UIViewController *controller = self.instructions[instructionViewController.view.tag + 1];
+    if (self.index == self.instructions.count - 1) return;
+
+    self.index = instructionViewController.view.tag + 1;
+
+    UIViewController *controller = self.instructions[self.index];
 
     [self setViewControllers:@[controller]
                    direction:UIPageViewControllerNavigationDirectionForward

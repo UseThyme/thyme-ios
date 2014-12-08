@@ -25,6 +25,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 @property (nonatomic) BOOL hasAction;
 @property (nonatomic) BOOL isWelcome;
 @property (nonatomic) BOOL isHidden;
+@property (nonatomic) NSInteger index;
 
 @end
 
@@ -37,6 +38,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
                       message:(NSString *)message
                     hasAction:(BOOL)hasAction
                     isWelcome:(BOOL)isWelcome
+                        index:(NSInteger)index
 {
     self = [super init];
     if (!self) return nil;
@@ -46,6 +48,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     _message = message;
     _hasAction = hasAction;
     _isWelcome = isWelcome;
+    _index = index;
 
     return self;
 }
@@ -237,7 +240,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
 
 - (CGRect)previousButtonFrame
 {
-    return CGRectMake(10.0f, 10.0f, 80.0f, 50.0f);
+    return CGRectMake(10.0f, 0.0f, 80.0f, 44.0f);
 }
 
 - (CGRect)nextButtonFrame
@@ -246,7 +249,7 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     CGFloat width = 80.0f;
     CGFloat x = CGRectGetWidth(bounds) - width - 10.0f;
 
-    return CGRectMake(x, 10.0f, 80.0f, 50.0f);
+    return CGRectMake(x, 0.0f, 80.0f, 44.0f);
 }
 
 #pragma mark - View lifycle
@@ -266,11 +269,15 @@ static const NSInteger HYPAcceptButtonHeight = 44.0f;
     UITextView *messageTextView = [self messageTextView];
     [self.view addSubview:messageTextView];
 
-    UIButton *previousButton = [self previousButton];
-    [self.view addSubview:previousButton];
+    if (self.index > 0) {
+        UIButton *previousButton = [self previousButton];
+        [self.view addSubview:previousButton];
+    }
 
-    UIButton *nextButton = [self nextButton];
-    [self.view addSubview:nextButton];
+    if (self.index >= 0 && self.index < 3) {
+        UIButton *nextButton = [self nextButton];
+        [self.view addSubview:nextButton];
+    }
 
     if (self.hasAction) {
         UIButton *acceptButton = [self acceptButton];

@@ -394,7 +394,8 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDel
                                                                        title:NSLocalizedString(@"WelcomeTitle", nil)
                                                                      message:NSLocalizedString(@"WelcomeMessage", nil)
                                                                    hasAction:YES
-                                                                   isWelcome:YES];
+                                                                   isWelcome:YES
+                                                                       index:-1];
     _welcomeController.delegate = self;
 
     return _welcomeController;

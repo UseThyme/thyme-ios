@@ -8,9 +8,12 @@
                         title:(NSString *)title
                       message:(NSString *)message
                     hasAction:(BOOL)hasAction
-                    isWelcome:(BOOL)isWelcome;
+                    isWelcome:(BOOL)isWelcome
+                        index:(NSInteger)index;
 
 @property (nonatomic, weak) id <HYPInstructionViewControllerDelegate> delegate;
+@property (nonatomic) BOOL isFirst;
+@property (nonatomic) BOOL isLast;
 
 - (void)canceledNotifications;
 
