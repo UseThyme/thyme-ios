@@ -36,6 +36,6 @@
 "InstructionTitleC" = "Thyme";
 "InstructionMessageC" = "Busca Thyme en la lista y selecciónala.";
 "InstructionTitleD" = "Permitir Notificaciones";
-"InstructionMessageD" = "Asegurate de activar todas las opciones (todo en verde).\n\nCuando hayas terminado regresa y presiona \"Ok, entendido\"";
+"InstructionMessageD" = "Asegurate de activar todas las opciones.\n\nCuando hayas terminado regresa y presiona \"Ok, entendido\"";
 "Next" = "Siguiente";
 "Previous" = "Anterior";

@@ -36,6 +36,6 @@
 "InstructionTitleC" = "Thyme";
 "InstructionMessageC" = "Look for Thyme in the list and select it.";
 "InstructionTitleD" = "Allow notifications";
-"InstructionMessageD" = "Make sure that you have activated all the options (all toogles in green).\n\nWhen you're finished come back and press \"Ok, got it!\"";
+"InstructionMessageD" = "Make sure that you have activated all the options.\n\nWhen you're finished come back and press \"Ok, got it!\"";
 "Next" = "Next";
 "Previous" = "Previous";
