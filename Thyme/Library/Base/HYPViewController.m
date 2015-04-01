@@ -1,12 +1,6 @@
-//
-//  HYPViewController.m
-//  Thyme
-//
-//  Created by Elvis Nunez on 26/11/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
 #import "HYPViewController.h"
+#import "BKEAnimatedGradientView.h"
+#import "UIColor+HYPExtensions.h"
 
 @interface HYPViewController ()
 
@@ -22,8 +16,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     self.view.userInteractionEnabled = YES;
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background"]];
+
+    BKEAnimatedGradientView *gradientView = [[BKEAnimatedGradientView alloc] initWithFrame:self.view.frame];
+    [gradientView setGradientColors:@[[UIColor colorFromHexString:@"3bf5e6"], [UIColor colorFromHexString:@"00979b"]]];
+    [self.view addSubview:gradientView];
+
+    //[gradientView changeGradientWithAnimation:@[[UIColor redColor], [UIColor orangeColor]] delay:1.0f duration:5.0f];
 }
 
 @end

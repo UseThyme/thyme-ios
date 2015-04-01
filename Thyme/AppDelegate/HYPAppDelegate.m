@@ -1,18 +1,11 @@
-//
-//  HYPAppDelegate.m
-//  Thyme
-//
-//  Created by Elvis Nunez on 26/11/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
 #import "HYPAppDelegate.h"
 #import "HYPHomeViewController.h"
 #import "HYPTimerViewController.h"
 #import <HockeySDK/HockeySDK.h>
-#import <AVFoundation/AVAudioPlayer.h>
+@import AVFoundation;
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
+#import "UIColor+ANDYHex.h"
 
 #ifdef DEBUG
 /// Tests if .xctest bundle is loaded, so returns YES if the app is running with XCTest framework.
@@ -26,7 +19,10 @@ static inline BOOL IsUnitTesting()
 #endif
 
 @interface HYPAppDelegate () <BITHockeyManagerDelegate, UIAlertViewDelegate>
+
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) HYPHomeViewController *homeController;
+
 @end
 
 @implementation HYPAppDelegate
@@ -45,6 +41,15 @@ static inline BOOL IsUnitTesting()
     return _audioPlayer;
 }
 
+- (HYPHomeViewController *)homeController
+{
+    if (_homeController) return _homeController;
+
+    _homeController = [[HYPHomeViewController alloc] init];
+
+    return _homeController;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef DEBUG
@@ -58,7 +63,15 @@ static inline BOOL IsUnitTesting()
     [[BITHockeyManager sharedHockeyManager] startManager];
 #endif
 
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor colorFromHex:@"D0E8E8"];
+    pageControl.currentPageIndicatorTintColor = [UIColor colorFromHex:@"FF5C5C"];
+    pageControl.backgroundColor = [UIColor colorFromHex:@"EDFFFF"];
+
+//    application.applicationSupportsShakeToEdit = YES;
+
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
@@ -67,12 +80,12 @@ static inline BOOL IsUnitTesting()
         [self handleLocalNotification:notification playingSound:NO];
     }
 
-    HYPHomeViewController *homeController = [[HYPHomeViewController alloc] init];
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:homeController];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:self.homeController];
     navController.navigationBarHidden = YES;
     self.window.rootViewController = navController;
 
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 
@@ -96,24 +109,49 @@ static inline BOOL IsUnitTesting()
 
 - (void)handleLocalNotification:(UILocalNotification *)notification playingSound:(BOOL)playingSound
 {
-    NSString *alarmID = [notification.userInfo objectForKey:ALARM_ID_KEY];
+    NSString *alarmID = (notification.userInfo)[ALARM_ID_KEY];
     [self cleanUpLocalNotificationWithAlarmID:alarmID];
 
     if (playingSound) {
         [self.audioPlayer prepareToPlay];
         [self.audioPlayer play];
     }
-    [[[UIAlertView alloc] initWithTitle:notification.alertBody message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil] show];
+    [[[UIAlertView alloc] initWithTitle:notification.alertBody
+                                message:nil
+                               delegate:self
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil, nil] show];
 }
 
 - (void)cleanUpLocalNotificationWithAlarmID:(NSString *)alarmID
 {
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 1];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+
     UILocalNotification *notification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarmID];
     if (notification) {
         [[UIApplication sharedApplication] cancelLocalNotification:notification];
     }
 }
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+    if (notificationSettings.types != types) {
+        [self.homeController canceledNotifications];
+    } else {
+        [self.homeController registeredForNotifications];
+    }
+}
+
+//#pragma mark - Shake Support
+//
+//- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+//{
+//    if (motion == UIEventSubtypeMotionShake) {
+//        NSLog(@"motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event");
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"appWasShaked" object:nil];
+//    }
+//}
 
 @end

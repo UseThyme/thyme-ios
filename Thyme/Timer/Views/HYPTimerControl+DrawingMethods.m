@@ -1,15 +1,8 @@
-//
-//  HYPTimerControl+DrawingMethods.m
-//  Thyme
-//
-//  Created by Elvis Nunez on 03/12/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
 #import "HYPTimerControl+DrawingMethods.h"
-#import <CoreText/CoreText.h>
+@import CoreText;
 #import "HYPUtils.h"
 #import "HYPMathHelpers.h"
+#import "UIScreen+ANDYResolutions.h"
 
 #define DEFAULT_RADIUS 0
 #define TEXT_COLOR [UIColor whiteColor]
@@ -115,7 +108,10 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 			// Center this glyph by moving left by half its width.
 			CGFloat glyphWidth = glyphArcInfo[runGlyphIndex + glyphOffset].width;
 			CGFloat halfGlyphWidth = glyphWidth / 2.0;
-			CGPoint positionForThisGlyph = CGPointMake(textPosition.x - halfGlyphWidth, textPosition.y + 140);
+
+            CGFloat offset = [self curvedTextBottomMargin];
+
+			CGPoint positionForThisGlyph = CGPointMake(textPosition.x - halfGlyphWidth, textPosition.y + offset);
 
 			// Glyphs are positioned relative to the text position for the line, so offset text position leftwards by this glyph's width in preparation for the next glyph.
 			textPosition.x -= glyphWidth;
@@ -131,20 +127,61 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 
             CTRunDraw(run, context, glyphRange);
 		}
-        
+
 		glyphOffset += runGlyphCount;
 	}
-    
+
 	CGContextRestoreGState(context);
-    
+
 	free(glyphArcInfo);
-	CFRelease(line);	
+	CFRelease(line);
+}
+
+- (CGFloat)curvedTextBottomMargin
+{
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+    CGFloat offset;
+
+    if ([UIScreen andy_isPad]) {
+        offset = 210.0f;
+    } else {
+        if (deviceHeight == 480.0f) {
+            offset = 140.0f;
+        } else if (deviceHeight == 568.0f) {
+            offset = 140.0f;
+        } else if (deviceHeight == 667.0f) {
+            offset = 163.0f;
+        } else {
+            offset = 182.0f;
+        }
+    }
+
+    return offset;
 }
 
 - (NSAttributedString *)attributedString
 {
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat deviceHeight = bounds.size.height;
+    UIFont *font;
+
+    if ([UIScreen andy_isPad]) {
+        font = [HYPUtils avenirLightWithSize:20.0f];
+    } else {
+        if (deviceHeight == 480.0f) {
+            font = [HYPUtils avenirLightWithSize:14.0f];
+        } else if (deviceHeight == 568.0f) {
+            font = [HYPUtils avenirLightWithSize:14.0f];
+        } else if (deviceHeight == 667.0f) {
+            font = [HYPUtils avenirLightWithSize:16.0f];
+        } else {
+            font = [HYPUtils avenirLightWithSize:17.0f];
+        }
+    }
+
 	// Create our attributes.
-	NSDictionary *attributes = @{NSFontAttributeName: TEXT_FONT, NSForegroundColorAttributeName : TEXT_COLOR};
+	NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName : TEXT_COLOR};
 
 	// Create the attributed string.
 	NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:self.title attributes:attributes];
@@ -161,7 +198,8 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGContextRestoreGState(context);
 }
 
-- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius angle:(NSInteger)angle containerRect:(CGRect)containerRect
+- (void)drawMinutesIndicator:(CGContextRef)context withColor:(UIColor *)color radius:(CGFloat)radius
+                       angle:(NSInteger)angle containerRect:(CGRect)containerRect
 {
     CGContextSaveGState(context);
 
@@ -180,7 +218,8 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGContextRestoreGState(context);
 }
 
-- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color andRadius:(CGFloat)radius containerRect:(CGRect)containerRect
+- (void)drawSecondsIndicator:(CGContextRef)context withColor:(UIColor *)color
+                   andRadius:(CGFloat)radius containerRect:(CGRect)containerRect
 {
     CGContextSaveGState(context);
 

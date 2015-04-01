@@ -1,12 +1,4 @@
-//
-//  HYPTimerControl.h
-//  Thyme
-//
-//  Created by Elvis Nunez on 27/11/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @class HYPAlarm;
 
@@ -31,7 +23,7 @@
 // NO: No alarm was set for this timer
 @property (nonatomic, getter = isActive) BOOL active;
 
-- (id)initCompleteModeWithFrame:(CGRect)frame;
+- (instancetype)initCompleteModeWithFrame:(CGRect)frame;
 - (void)restartTimer;
 - (void)startTimer;
 - (void)stopTimer;

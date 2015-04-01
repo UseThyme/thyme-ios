@@ -1,32 +1,25 @@
-//
-//  HYPTimerControl.m
-//  Thyme
-//
-//  Created by Elvis Nunez on 27/11/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
 #import "HYPTimerControl.h"
-#import <QuartzCore/QuartzCore.h>
+@import QuartzCore;
 #import "UIColor+HYPExtensions.h"
 #import "HYPUtils.h"
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 #import "HYPMathHelpers.h"
-#import <CoreText/CoreText.h>
+@import CoreText;
 #import "HYPTimerControl+DrawingMethods.h"
-#import <AVFoundation/AVAudioPlayer.h>
+@import AVFoundation;
+@import AudioToolbox;
+#import "UIScreen+ANDYResolutions.h"
 
 /** Parameters **/
 #define CIRCLE_SIZE_FACTOR 0.8f
-#define MINUTE_VALUE_SIZE 95.0f
-#define MINUTE_TITLE_SIZE 14.0f
 
 #define UNACTIVE_SECONDS_INDICATOR_COLOR [UIColor whiteColor]
 #define ACTIVE_SECONDS_INDICATOR_COLOR [UIColor colorFromHexString:@"ff5c5c"]
 #define MINUTES_INDICATOR_COLOR [UIColor whiteColor]
 
 @interface HYPTimerControl ()
+
 @property (nonatomic, strong) UILabel *hoursLabel;
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
@@ -35,6 +28,9 @@
 @property (nonatomic) NSInteger angle;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic) CGPoint lastPoint;
+
+@property (nonatomic) CGFloat minuteValueSize;
+@property (nonatomic) CGFloat minuteTitleSize;
 @end
 
 @implementation HYPTimerControl
@@ -51,98 +47,86 @@
 
 - (UILabel *)hoursLabel
 {
-    if (!_hoursLabel) {
+    if (_hoursLabel) return _hoursLabel;
 
-        //Define the Font
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat defaultSize = (self.isCompleteMode) ? MINUTE_TITLE_SIZE : MINUTE_TITLE_SIZE * 1.5;
-        CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
-        UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
-        NSString *sampleString = @"2 HOURS";
-        NSDictionary *attributes = @{ NSFontAttributeName:font };
+    //Define the Font
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat defaultSize = (self.isCompleteMode) ? self.minuteTitleSize : self.minuteTitleSize * 1.5;
+    CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+    UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
+    NSString *sampleString = @"2 HOURS";
+    NSDictionary *attributes = @{ NSFontAttributeName:font };
 
-        CGSize textSize;
-        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
-            textSize = [sampleString sizeWithAttributes:attributes];
-        } else {
-            textSize = [sampleString sizeWithFont:font];
-        }
+    CGSize textSize = [sampleString sizeWithAttributes:attributes];
+    CGFloat yOffset = self.minutesValueLabel.frame.origin.y - 8.0f;
+    CGFloat x = 0;
+    CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
+    CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
+    _hoursLabel = [[UILabel alloc] initWithFrame:rect];
+    _hoursLabel.backgroundColor = [UIColor clearColor];
+    _hoursLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+    _hoursLabel.textAlignment = NSTextAlignmentCenter;
+    _hoursLabel.font = font;
+    _hoursLabel.text = sampleString;
+    _hoursLabel.hidden = YES;
 
-        CGFloat yOffset = self.minutesValueLabel.frame.origin.y - 8.0f;
-        CGFloat x = 0;
-        CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
-        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
-        _hoursLabel = [[UILabel alloc] initWithFrame:rect];
-        _hoursLabel.backgroundColor = [UIColor clearColor];
-        _hoursLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
-        _hoursLabel.textAlignment = NSTextAlignmentCenter;
-        _hoursLabel.font = font;
-        _hoursLabel.text = sampleString;
-        _hoursLabel.hidden = YES;
-    }
     return _hoursLabel;
 }
 
 - (UILabel *)minutesValueLabel
 {
-    if (!_minutesValueLabel) {
+    if (_minutesValueLabel) return _minutesValueLabel;
 
-        //Define the Font
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat defaultSize = (self.isCompleteMode) ? MINUTE_VALUE_SIZE : MINUTE_VALUE_SIZE * 0.9;
-        CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
-        UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
-        NSString *sampleString = @"10:00";
-        NSDictionary *attributes = @{ NSFontAttributeName:font };
+    //Define the Font
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat defaultSize = (self.isCompleteMode) ? self.minuteValueSize : self.minuteValueSize * 0.9;
+    CGFloat fontSize = floor(defaultSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+    UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
+    NSString *sampleString = @"10:00";
+    NSDictionary *attributes = @{ NSFontAttributeName:font };
 
-        CGSize textSize;
-        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
-            textSize = [sampleString sizeWithAttributes:attributes];
-        } else {
-            textSize = [sampleString sizeWithFont:font];
-        }
-        CGFloat yOffset = 20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds);
-        CGFloat x = 0;
-        CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
-        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
-        _minutesValueLabel = [[UILabel alloc] initWithFrame:rect];
-        _minutesValueLabel.backgroundColor = [UIColor clearColor];
-        _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
-        _minutesValueLabel.textAlignment = NSTextAlignmentCenter;
-        _minutesValueLabel.font = font;
-        _minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle];
-    }
+    CGSize textSize = [sampleString sizeWithAttributes:attributes];
+    CGFloat yOffset = 20.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds);
+    CGFloat x = 0;
+    CGFloat y = (self.frame.size.height - textSize.height) / 2 - yOffset;
+    CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
+    _minutesValueLabel = [[UILabel alloc] initWithFrame:rect];
+    _minutesValueLabel.backgroundColor = [UIColor clearColor];
+    _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+    _minutesValueLabel.textAlignment = NSTextAlignmentCenter;
+    _minutesValueLabel.font = font;
+    _minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle];
+
     return _minutesValueLabel;
 }
 
 - (UILabel *)minutesTitleLabel
 {
-    if (!_minutesTitleLabel) {
+    if (_minutesTitleLabel) return _minutesTitleLabel;
 
-        //Define the Font
-        CGRect bounds = [[UIScreen mainScreen] bounds];
-        CGFloat fontSize = floor(MINUTE_TITLE_SIZE * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
-        UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
-        NSString *sampleString = @"MINUTES LEFT";
-        NSDictionary *attributes = @{ NSFontAttributeName:font };
+    //Define the Font
+    CGRect bounds = [[UIScreen mainScreen] bounds];
+    CGFloat fontSize = floor(self.minuteTitleSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+    UIFont *font = [HYPUtils avenirLightWithSize:fontSize];
+    NSString *minutesLeftText = NSLocalizedString(@"MINUTES LEFT", @"MINUTES LEFT");
+    NSDictionary *attributes = @{ NSFontAttributeName:font };
 
-        CGSize textSize;
-        if ([sampleString respondsToSelector:@selector(sizeWithAttributes:)]) {
-            textSize = [sampleString sizeWithAttributes:attributes];
-        } else {
-            textSize = [sampleString sizeWithFont:font];
-        }
-        CGFloat x = 0;
-        CGFloat yOffset = floor(5.0f * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
-        CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
-        CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
-        _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
-        _minutesTitleLabel.backgroundColor = [UIColor clearColor];
-        _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
-        _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
-        _minutesTitleLabel.font = font;
-        _minutesTitleLabel.text = sampleString;
+    CGSize textSize = [minutesLeftText sizeWithAttributes:attributes];
+    CGFloat x = 0;
+    CGFloat factor = 5.0f;
+    CGFloat yOffset = floor(factor * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
+    if ([UIScreen andy_isPad]) {
+        yOffset = -10;
     }
+    CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
+    CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
+    _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
+    _minutesTitleLabel.backgroundColor = [UIColor clearColor];
+    _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+    _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
+    _minutesTitleLabel.font = font;
+    _minutesTitleLabel.text = minutesLeftText;
+
     return _minutesTitleLabel;
 }
 
@@ -151,7 +135,7 @@
 - (void)setAngle:(NSInteger)angle
 {
     _angle = angle;
-    
+
     if (!self.isCompleteMode && self.isHoursMode) {
         NSInteger minute = (long)self.angle/6;
         if (minute < 10) {
@@ -166,6 +150,9 @@
 
 - (void)setMinutes:(NSInteger)minutes
 {
+    if (minutes != _minutes && self.touchesAreActive) {
+        [self playInputClick];
+    }
     _minutes = minutes;
     self.angle = minutes * 6;
     [self setNeedsDisplay];
@@ -187,29 +174,37 @@
     } else {
         self.hoursLabel.hidden = NO;
         if (_hours == 1) {
-            self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOUR", (long)_hours];
+            self.hoursLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%ld HOUR", @"%ld HOUR"), (long)_hours];
         } else {
-            self.hoursLabel.text = [NSString stringWithFormat:@"%ld HOURS", (long)_hours];
+            self.hoursLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%ld HOURS", @"%ld HOURS"), (long)_hours];
         }
     }
 }
 
 #pragma mark - Initializators
 
-- (id)initCompleteModeWithFrame:(CGRect)frame
+- (instancetype)initCompleteModeWithFrame:(CGRect)frame
 {
     return [self initWithFrame:frame completeMode:YES];
 }
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     return [self initWithFrame:frame completeMode:NO];
 }
 
-- (id)initWithFrame:(CGRect)frame completeMode:(BOOL)completeMode
+- (instancetype)initWithFrame:(CGRect)frame completeMode:(BOOL)completeMode
 {
     self = [super initWithFrame:frame];
     if (self) {
+        if ([UIScreen andy_isPad]) {
+            self.minuteValueSize = 200.0f;
+            self.minuteTitleSize = 35.0f;
+        } else {
+            self.minuteValueSize = 95.0f;
+            self.minuteTitleSize = 14.0f;
+        }
+
         self.backgroundColor = [UIColor clearColor];
         self.completeMode = completeMode;
         self.angle = 0;
@@ -219,32 +214,49 @@
             [self addSubview:self.minutesTitleLabel];
             [self addSubview:self.hoursLabel];
         }
-        
+
         [self.minutesValueLabel addObserver:self forKeyPath:@"text" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context
 {
     if ([object isEqual:self.minutesValueLabel]) {
         UILabel *aLabel = (UILabel *)object;
-        
+
         //Define the Font
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat baseSize;
         if (aLabel.text.length == 5) {
-            baseSize = MINUTE_VALUE_SIZE; // 95.0f [00:00]
+            if ([UIScreen andy_isPad]) {
+                baseSize = 200.0f;
+            } else {
+                baseSize = self.minuteValueSize;
+            }
         } else if (aLabel.text.length == 4) {
-            baseSize = 100.0f;
+            if ([UIScreen andy_isPad]) {
+                baseSize = 220.0f;
+            } else {
+                baseSize = 100.0f;
+            }
         } else {
-            baseSize = 120.0f;
+            if ([UIScreen andy_isPad]) {
+                baseSize = 280.0f;
+            } else {
+                baseSize = 120.0f;
+            }
         }
-        
+
         if (self.isCompleteMode) {
-            baseSize = 95.0f;
+            if ([UIScreen andy_isPad]) {
+                baseSize = 250.0f;
+            } else {
+                baseSize = self.minuteValueSize;
+            }
         }
-        
+
         CGFloat fontSize = floor(baseSize * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
         UIFont *font = [HYPUtils helveticaNeueUltraLightWithSize:fontSize];
         self.minutesValueLabel.font = font;
@@ -270,13 +282,20 @@
     if (self.isActive) {
         CGFloat radius = CGRectGetWidth(circleRect) / 2;
         UIColor *minutesColor = MINUTES_INDICATOR_COLOR;
-        [self drawMinutesIndicator:context withColor:minutesColor radius:radius angle:self.angle containerRect:circleRect];
+        [self drawMinutesIndicator:context
+                         withColor:minutesColor
+                            radius:radius
+                             angle:self.angle
+                     containerRect:circleRect];
 
         UIColor *secondsColor = ACTIVE_SECONDS_INDICATOR_COLOR;
         BOOL shouldShowSeconds = (self.timer && [self.timer isValid]);
         if (shouldShowSeconds) {
             CGFloat factor = (self.isCompleteMode) ? 0.1f : 0.2f;
-            [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * factor containerRect:circleRect];
+            [self drawSecondsIndicator:context
+                             withColor:secondsColor
+                             andRadius:sideMargin * factor
+                         containerRect:circleRect];
         }
 
         if (self.isCompleteMode) {
@@ -284,7 +303,10 @@
         }
     } else {
         UIColor *secondsColor = UNACTIVE_SECONDS_INDICATOR_COLOR;
-        [self drawSecondsIndicator:context withColor:secondsColor andRadius:sideMargin * 0.2 containerRect:circleRect];
+        [self drawSecondsIndicator:context
+                         withColor:secondsColor
+                         andRadius:sideMargin * 0.2
+                     containerRect:circleRect];
     }
 }
 
@@ -296,8 +318,9 @@
     CGFloat saturationBase = 0.20f;
     CGFloat saturationBasedOnAngle = saturationBase * (self.angle/360.0f) + saturationBaseOffset;
 
-    UIColor *normalCircleColor = [UIColor colorWithHue:167.0f/360.0f saturation:0.20f brightness:0.96f alpha:1.0f];
-    UIColor *calculatedColor = [UIColor colorWithHue:167.0f/360.0f saturation:saturationBasedOnAngle brightness:0.96f alpha:1.0f];
+    UIColor *normalCircleColor = [UIColor colorWithHue:167.0f / 360.0f saturation:0.20f brightness:0.96f alpha:1.0f];
+    UIColor *calculatedColor = [UIColor colorWithHue:167.0f / 360.0f
+                                          saturation:saturationBasedOnAngle brightness:0.96f alpha:1.0f];
     UIColor *unactiveCircleColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
 
     UIColor *circleColor;
@@ -355,9 +378,11 @@
     [super endTrackingWithTouch:touch withEvent:event];
 
     CGPoint currentPoint = [touch locationInView:self];
-    if (([self pointIsComingFromFirstQuadrand:currentPoint] && self.hours == 0) || (self.angle == 0 && self.hours == 0) || (self.minutes == 0 && self.hours == 0)) {
+    if (([self pointIsComingFromFirstQuadrand:currentPoint] && self.hours == 0) ||
+        (self.angle == 0 && self.hours == 0) ||
+        (self.minutes == 0 && self.hours == 0)) {
         self.angle = 0;
-        self.touchesAreActive = NO;  
+        self.touchesAreActive = NO;
         self.title = [HYPAlarm messageForSetAlarm];
         [self cancelCurrentLocalNotification];
         [self setNeedsDisplay];
@@ -435,14 +460,20 @@
 - (CGRect)firstQuadrandRect
 {
     CGFloat topMargin = CGRectGetMinY(self.frame);
-    CGRect firstQuadrandRect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, - topMargin, CGRectGetMaxX(self.circleRect), CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
+    CGRect firstQuadrandRect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f,
+                                          - topMargin,
+                                          CGRectGetMaxX(self.circleRect),
+                                          CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
     return firstQuadrandRect;
 }
 
 - (CGRect)secondQuadrandRect
 {
     CGFloat topMargin = CGRectGetMinY(self.frame);
-    CGRect secondQuadrandRect = CGRectMake(0.0f, - topMargin, CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f, CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
+    CGRect secondQuadrandRect = CGRectMake(0.0f,
+                                           - topMargin,
+                                           CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0f,
+                                           CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0f + topMargin);
     return secondQuadrandRect;
 }
 
@@ -457,7 +488,6 @@
     } else if (self.isHoursMode && [self pointIsComingFromFirstQuadrand:currentPoint]) {
         self.hours--;
     }
-
     self.minutes = angle / 6;
     self.angle = angle;
     [self setNeedsDisplay];
@@ -470,12 +500,12 @@
         self.angle = (self.minutes - 1) * 6;
         self.seconds = 59;
         self.minutes--;
-        
+
         if (self.minutes < 0 && self.hours > 0) {
             self.minutes = 59;
             self.hours--;
         }
-        
+
         [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 
@@ -522,7 +552,11 @@
 - (void)startTimer
 {
     if (!self.timer) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(updateSeconds:) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                      target:self
+                                                    selector:@selector(updateSeconds:)
+                                                    userInfo:nil
+                                                     repeats:YES];
     }
 }
 
@@ -539,7 +573,7 @@
     if (!self.alarmID) {
         abort();
     }
-    
+
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:self.alarmID];
     if (existingNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
@@ -563,8 +597,16 @@
 
     self.seconds = 0;
     [self startTimer];
-    NSString *title = [NSString stringWithFormat:@"%@ just finished", [[self.alarm title] capitalizedString]];
-    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds message:title actionTitle:@"View Details" alarmID:self.alarmID];
+    NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ just finished", @"%@ just finished"), [[self.alarm title] capitalizedString]];
+    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds
+                                                                message:title
+                                                            actionTitle:NSLocalizedString(@"View Details", @"View Details")
+                                                                alarmID:self.alarmID];
+}
+
+- (void)playInputClick
+{
+    [[UIDevice currentDevice] playInputClick];
 }
 
 @end

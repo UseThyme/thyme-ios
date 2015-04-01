@@ -1,12 +1,4 @@
-//
-//  HYPMathHelpers.h
-//  Thyme
-//
-//  Created by Elvis Nunez on 02/12/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 /** Helper Functions **/
 #define DegToRad(deg)                 ( (M_PI * (deg)) / 180.0 )

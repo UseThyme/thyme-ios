@@ -1,17 +1,12 @@
-//
-//  HYPUtils.h
-//  Thyme
-//
-//  Created by Elvis Nunez on 26/11/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import UIKit;
 
 @interface HYPUtils : NSObject
 
 + (UIFont *)avenirLightWithSize:(CGFloat)size;
++ (UIFont *)avenirBookWithSize:(CGFloat)size;
 + (UIFont *)avenirBlackWithSize:(CGFloat)size;
++ (UIFont *)avenirHeavyWithSize:(CGFloat)size;
 + (UIFont *)helveticaNeueUltraLightWithSize:(CGFloat)size;
 + (BOOL)isTallPhone;
 

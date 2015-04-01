@@ -1,0 +1,5 @@
+#include "Pods-UIButton-ANDYHighlighted.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/UIButton-ANDYHighlighted" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/HockeySDK" "${PODS_ROOT}/Headers/Public/UIButton-ANDYHighlighted"
+OTHER_LDFLAGS = ${PODS_UIBUTTON_ANDYHIGHLIGHTED_OTHER_LDFLAGS} -ObjC
+PODS_ROOT = ${SRCROOT}

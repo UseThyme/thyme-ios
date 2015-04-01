@@ -1,11 +1,3 @@
-//
-//  HYPLocalNotificationManager.m
-//  Thyme
-//
-//  Created by Elvis Nunez on 02/12/13.
-//  Copyright (c) 2013 Hyper. All rights reserved.
-//
-
 #import "HYPLocalNotificationManager.h"
 #import "HYPAlarm.h"
 
@@ -42,9 +34,9 @@
     }
 
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    [userInfo setObject:alarmID forKey:ALARM_ID_KEY];
-    [userInfo setObject:[NSDate date] forKey:ALARM_FIRE_DATE_KEY];
-    [userInfo setObject:@(numberOfSeconds) forKey:ALARM_FIRE_INTERVAL_KEY];
+    userInfo[ALARM_ID_KEY] = alarmID;
+    userInfo[ALARM_FIRE_DATE_KEY] = [NSDate date];
+    userInfo[ALARM_FIRE_INTERVAL_KEY] = @(numberOfSeconds);
     notification.userInfo = userInfo;
 
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
@@ -53,12 +45,21 @@
 + (UILocalNotification *)existingNotificationWithAlarmID:(NSString *)alarmID
 {
     for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
-        if ([[notification.userInfo objectForKey:ALARM_ID_KEY] isEqualToString:alarmID]) {
+        if ([(notification.userInfo)[ALARM_ID_KEY] isEqualToString:alarmID]) {
             return notification;
         }
     }
 
     return nil;
+}
+
++ (void)cancelAllLocalNotifications
+{
+    for (UILocalNotification *notification in [[UIApplication sharedApplication] scheduledLocalNotifications]) {
+        if ((notification.userInfo)[ALARM_ID_KEY]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:notification];
+        }
+    }
 }
 
 @end

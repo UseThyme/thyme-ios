@@ -1,0 +1,7 @@
+FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/HockeySDK/Vendor"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 $(inherited) BITHOCKEY_VERSION="@\"3.6.2\"" BITHOCKEY_C_VERSION="\"3.6.2\"" BITHOCKEY_BUILD="@\"35\"" BITHOCKEY_C_BUILD="\"35\""
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/HockeySDK" "${PODS_ROOT}/Headers/Public/UIButton-ANDYHighlighted"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/HockeySDK" -isystem "${PODS_ROOT}/Headers/Public/UIButton-ANDYHighlighted"
+OTHER_LDFLAGS = -ObjC -l"Pods-HockeySDK" -l"Pods-UIButton-ANDYHighlighted" -framework "AssetsLibrary" -framework "CoreGraphics" -framework "CoreText" -framework "CrashReporter" -framework "MobileCoreServices" -framework "QuartzCore" -framework "QuickLook" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
+OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+PODS_ROOT = ${SRCROOT}/Pods
