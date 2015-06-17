@@ -6,11 +6,11 @@
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 #import "HYPSettingsViewController.h"
-#import "HYPAppDelegate.h"
 #import "HYPInstructionViewController.h"
 
 #import "UIViewController+HYPContainer.h"
 #import "UIScreen+ANDYResolutions.h"
+#import "Thyme-Swift.h"
 
 #define SHORT_TOP_MARGIN 10.0f
 #define TALL_TOP_MARGIN 50.0f
@@ -664,7 +664,7 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDel
     frame.size.width = 230.0f;
     frame.origin.x = -200.0f;
 
-    HYPAppDelegate *appDelegate = (HYPAppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     HYPSettingsViewController *settingsController = [[HYPSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self hyp_addViewController:settingsController inFrame:frame];
     [appDelegate.window addSubview:settingsController.view];
