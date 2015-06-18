@@ -228,7 +228,7 @@ public class InstructionController: UIViewController {
   public func cancelledNotifications() {
     if isHidden == true { return }
 
-    let instructionsPageViewController = HYPInstructionsPageViewController(transitionStyle: .Scroll,
+    let instructionsPageViewController = InstructionsPageController(transitionStyle: .Scroll,
       navigationOrientation: .Horizontal,
       options: nil)
 
