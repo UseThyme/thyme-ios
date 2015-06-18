@@ -2,6 +2,8 @@ import UIKit
 import AVFoundation
 
 let ThymeAlarmIDKey = "HYPAlarmID"
+let ThymeAlarmFireDataKey = "HYPAlarmFireDate"
+let ThymeAlarmFireInterval = "HYPAlarmFireInterval"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate, UIAlertViewDelegate {
