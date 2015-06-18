@@ -72,6 +72,7 @@
 		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
 		BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */; };
 		BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF14A1B32CC8100D00AC2 /* ViewController.swift */; };
+		BD8CF14C1B32D00A00D00AC2 /* HYPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B11844E0F1005D4C5A /* HYPViewController.m */; };
 		BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE46D11B3150D100E2896B /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -735,9 +736,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD8CF14C1B32D00A00D00AC2 /* HYPViewController.m in Sources */,
 				BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */,
 				BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */,
-				44A691B21844E0F1005D4C5A /* HYPViewController.m in Sources */,
 				146997401A2E856D00171115 /* HYPHomeViewController.m in Sources */,
 				4408805A184C808500935802 /* HYPAlarm.m in Sources */,
 				44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */,
