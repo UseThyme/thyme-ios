@@ -147,14 +147,14 @@ InstructionDelegate>
 
 #pragma mark - HYPInstructionViewControllerDelegate
 
-- (void)instructionViewControlerDidTapAcceptButton:(InstructionController *)instructionViewController
+- (void)instructionControllerDidTapAcceptButton:(InstructionController *)instructionViewController
 {
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
 }
 
-- (void)instructionViewControlerDidTapPreviousButton:(InstructionController *)instructionViewController
+- (void)instructionControllerDidTapPreviousButton:(InstructionController *)instructionViewController
 {
     if (self.index == 0) return;
 
@@ -168,7 +168,7 @@ InstructionDelegate>
                   completion:nil];
 }
 
-- (void)instructionViewControlerDidTapNextButton:(InstructionController *)instructionViewController
+- (void)instructionControllerDidTapNextButton:(InstructionController *)instructionViewController
 {
     if (self.index == self.instructions.count - 1) return;
 
