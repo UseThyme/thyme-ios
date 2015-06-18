@@ -44,7 +44,6 @@
 		4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */; };
 		4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
-		446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */; };
 		4473616C1856008B004274DF /* fingerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4473616B1856008B004274DF /* fingerImage@2x.png */; };
 		44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44909B5118EB1937002C812E /* UIScreen+ANDYResolutions.m */; };
 		449143D118476786008A80F0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D018476786008A80F0 /* CoreText.framework */; };
@@ -72,6 +71,7 @@
 		44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA691846586C0007E083 /* HYPTimerControl.m */; };
 		7FF53A6DE5D435465CD0DEEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA495F7987D5467EEE452B3F /* libPods.a */; };
 		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
+		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
 		BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE46D11B3150D100E2896B /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -137,8 +137,6 @@
 		4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground~iPad@2x.png"; sourceTree = "<group>"; };
 		4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenShine~iPad@2x.png"; sourceTree = "<group>"; };
 		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
-		446C9E2E1844CA4A005FD797 /* HYPPlateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPPlateCell.h; sourceTree = "<group>"; };
-		446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPPlateCell.m; sourceTree = "<group>"; };
 		4473616B1856008B004274DF /* fingerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingerImage@2x.png"; sourceTree = "<group>"; };
 		44909B5018EB1937002C812E /* UIScreen+ANDYResolutions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+ANDYResolutions.h"; sourceTree = "<group>"; };
 		44909B5118EB1937002C812E /* UIScreen+ANDYResolutions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+ANDYResolutions.m"; sourceTree = "<group>"; };
@@ -175,6 +173,7 @@
 		A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BA495F7987D5467EEE452B3F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlatCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDBE46D01B3150D100E2896B /* Thyme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDBE46D11B3150D100E2896B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -367,8 +366,7 @@
 		446C9E2D1844CA21005FD797 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				446C9E2E1844CA4A005FD797 /* HYPPlateCell.h */,
-				446C9E2F1844CA4A005FD797 /* HYPPlateCell.m */,
+				BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -737,8 +735,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */,
 				BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */,
-				446C9E301844CA4A005FD797 /* HYPPlateCell.m in Sources */,
 				44A691B21844E0F1005D4C5A /* HYPViewController.m in Sources */,
 				146997401A2E856D00171115 /* HYPHomeViewController.m in Sources */,
 				4408805A184C808500935802 /* HYPAlarm.m in Sources */,

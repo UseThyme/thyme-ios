@@ -1,6 +1,5 @@
 #import "HYPHomeViewController.h"
 
-#import "HYPPlateCell.h"
 #import "HYPUtils.h"
 #import "HYPTimerViewController.h"
 #import "HYPAlarm.h"
@@ -432,8 +431,8 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, InstructionDelegate>
     [self.view addSubview:self.subtitleLabel];
     [self.view addSubview:self.ovenBackgroundImageView];
 
-    [self.collectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
-    [self.ovenCollectionView registerClass:[HYPPlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
+    [self.collectionView registerClass:[PlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
+    [self.ovenCollectionView registerClass:[PlateCell class] forCellWithReuseIdentifier:HYPPlateCellIdentifier];
     [self.view addSubview:self.collectionView];
     [self.view addSubview:self.ovenCollectionView];
     // [self.view addSubview:self.ovenShineImageView];
@@ -506,16 +505,16 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, InstructionDelegate>
     return rows;
 }
 
-- (HYPPlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (PlateCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    HYPPlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier
+    PlateCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:HYPPlateCellIdentifier
                                                                    forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath collectionView:collectionView];
 
     return cell;
 }
 
-- (void)configureCell:(HYPPlateCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(PlateCell *)cell atIndexPath:(NSIndexPath *)indexPath
        collectionView:(UICollectionView *)collectionView;
 {
     HYPAlarm *alarm = [self alarmAtIndexPath:indexPath collectionView:collectionView];
@@ -579,7 +578,7 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, InstructionDelegate>
     layer.transform = rotationAndPerspectiveTransform;
 }
 
-- (void)refreshTimerInCell:(HYPPlateCell *)cell forCurrentAlarm:(HYPAlarm *)alarm
+- (void)refreshTimerInCell:(PlateCell *)cell forCurrentAlarm:(HYPAlarm *)alarm
 {
     UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:alarm.alarmID];
 

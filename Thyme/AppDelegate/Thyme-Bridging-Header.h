@@ -11,3 +11,4 @@
 #import "HYPInstructionsPageViewController.h"
 #import "HYPUtils.h"
 #import "UIButton+ANDYHighlighted.h"
+#import "HYPTimerControl.h"
