@@ -4,6 +4,24 @@ class HomeViewController: HYPViewController {
 
   let plateCellIdentifier = "HYPPlateCellIdentifier"
 
+  var maxMinutesLeft: NSNumber? {
+    didSet(newValue) {
+      if newValue != nil {
+        self.titleLabel.text = NSLocalizedString("YOUR DISH WILL BE DONE",
+          comment: "YOUR DISH WILL BE DONE");
+        if (newValue == 0.0) {
+          self.subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
+            comment: "IN LESS THAN A MINUTE")
+        } else {
+          self.subtitleLabel.text = HYPAlarm.subtitleForHomescreenUsingMinutes(newValue)
+        }
+      } else {
+        self.titleLabel.text = HYPAlarm.titleForHomescreen()
+        self.subtitleLabel.text = HYPAlarm.subtitleForHomescreen()
+      }
+    }
+  }
+
   lazy var topMargin: CGFloat = {
     let margin: CGFloat
 
@@ -323,22 +341,17 @@ class HomeViewController: HYPViewController {
     let registredSettings = UIApplication.sharedApplication().currentUserNotificationSettings()
     let types: UIUserNotificationType = .Alert | .Badge | .Sound
 
-    //TODO: Enable this code
-//    if registredSettings.types != types {
-//      let navigationController = UINavigationController(rootViewController: welcomeController)
-//      navigationController.navigationBarHidden = true
-//      presentViewController(navigationController,
-//        animated: true,
-//        completion: nil)
-//    }
+    if registredSettings.types != types {
+      let navigationController = UINavigationController(rootViewController: welcomeController)
+      navigationController.navigationBarHidden = true
+      presentViewController(navigationController,
+        animated: true,
+        completion: nil)
+    }
   }
 
   override func prefersStatusBarHidden() -> Bool {
     return false
-  }
-  
-  func setMaxMinutesLeft() {
-    //TODO: Implement this feature
   }
 
   func settingsButtonAction() {
@@ -384,8 +397,48 @@ class HomeViewController: HYPViewController {
   }
 
   func refreshTimerInCell(cell: PlateCell, alarm: HYPAlarm) {
-    if let existingNotification = HYPLocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID) {
+    if let existingNotification = HYPLocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID),
+      userinfo = existingNotification.userInfo,
+      firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
+      numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber
+    {
+      let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
+      let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
+      let currentSecond = secondsLeft % 60
+      var minutesLeft = floor(secondsLeft/60)
+      let hoursLeft = floor(minutesLeft/60)
       
+
+      if let maxMinutes = self.maxMinutesLeft
+        where minutesLeft > maxMinutes.doubleValue {
+          maxMinutesLeft = minutesLeft
+      }
+
+      if hoursLeft > 0 {
+        minutesLeft = minutesLeft - (hoursLeft * 60)
+      }
+
+      if minutesLeft < 0 {
+        UIApplication.sharedApplication().cancelLocalNotification(existingNotification)
+      }
+
+      alarm.active = true
+      cell.timerControl.active = true
+      cell.timerControl.alarmID = alarm.alarmID
+      cell.timerControl.seconds = Int(currentSecond)
+      cell.timerControl.hours = Int(hoursLeft)
+      cell.timerControl.minutes = Int(minutesLeft)
+      cell.timerControl.startTimer()
+
+      let defaults = NSUserDefaults.standardUserDefaults()
+      defaults.setBool(true, forKey: "presentedClue")
+      defaults.synchronize()
+
+    } else {
+      alarm.active = false
+      cell.timerControl.active = false
+      cell.timerControl.restartTimer()
+      cell.timerControl.stopTimer()
     }
   }
 }
@@ -443,10 +496,18 @@ extension HomeViewController: InstructionDelegate {
 extension HomeViewController: HYPTimerControllerDelegate {
 
   func dismissedTimerController(timerController: HYPTimerViewController!) {
-
+    maxMinutesLeft = nil
+    collectionView.reloadData()
+    ovenCollectionView.reloadData()
   }
 
-  func timerControllerChangedValue(timerControl: HYPTimerControl) {
-
+  func timerControlChangedValue(timerControl: HYPTimerControl) {
+    if let maxMinutes = self.maxMinutesLeft
+      where maxMinutes.intValue - 1 == timerControl.minutes {
+        self.maxMinutesLeft = timerControl.minutes
+    } else if let maxMinutes = self.maxMinutesLeft
+      where maxMinutes.floatValue == Float(0) {
+        self.maxMinutesLeft = nil
+    }
   }
 }
