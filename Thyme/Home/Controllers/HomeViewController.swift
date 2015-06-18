@@ -376,12 +376,9 @@ class HomeViewController: HYPViewController {
   }
 
   func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> HYPAlarm {
-    let row: [HYPAlarm]
-    if collectionView.isEqual(self.collectionView) {
-      row = self.alarms[indexPath.section]
-    } else {
-      row = self.ovenAlarms[indexPath.section]
-    }
+    let row: [HYPAlarm] = collectionView.isEqual(self.collectionView)
+      ? self.alarms[indexPath.section]
+      : self.ovenAlarms[indexPath.section]
 
     return row[indexPath.row]
   }
