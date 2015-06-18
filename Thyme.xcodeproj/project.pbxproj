@@ -50,7 +50,6 @@
 		449143D5184767A1008A80F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D4184767A1008A80F0 /* Security.framework */; };
 		449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D6184767A7008A80F0 /* SystemConfiguration.framework */; };
 		44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A54150184E1FCC00964F58 /* ovenBackground@2x.png */; };
-		44A691B21844E0F1005D4C5A /* HYPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B11844E0F1005D4C5A /* HYPViewController.m */; };
 		44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B51844E2A1005D4C5A /* HYPUtils.m */; };
 		44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691BB1844EF68005D4C5A /* UIColor+HYPExtensions.m */; };
 		44AAE4121844C0690096BF52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4111844C0690096BF52 /* Foundation.framework */; };
@@ -72,6 +71,7 @@
 		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
 		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
 		BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */; };
+		BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF14A1B32CC8100D00AC2 /* ViewController.swift */; };
 		BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE46D11B3150D100E2896B /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +173,7 @@
 		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlatCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BD8CF14A1B32CC8100D00AC2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDBE46D01B3150D100E2896B /* Thyme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDBE46D11B3150D100E2896B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -426,6 +427,7 @@
 			children = (
 				44A691B01844E0F1005D4C5A /* HYPViewController.h */,
 				44A691B11844E0F1005D4C5A /* HYPViewController.m */,
+				BD8CF14A1B32CC8100D00AC2 /* ViewController.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -751,6 +753,7 @@
 				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
 				44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */,
 				146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */,
+				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
 				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
 				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,
 			);
