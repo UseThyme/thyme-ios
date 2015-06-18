@@ -20,8 +20,8 @@ public class InstructionController: UIViewController {
   let index: NSInteger?
 
   var isHidden: Bool? = false
-  var isFirst: Bool?
-  var isLast: Bool?
+  var isFirst: Bool? = false
+  var isLast: Bool? = false
 
   // MARK: Lazy loading
 
@@ -181,7 +181,7 @@ public class InstructionController: UIViewController {
 
   lazy var nextButton: UIButton = {
     let button = UIButton.buttonWithType(.Custom) as! UIButton
-    button.frame = self.previousButtonFrame
+    button.frame = self.nextButtonFrame
     button.titleLabel?.font = HYPUtils.avenirHeavyWithSize(15)
     button.setTitleColor(UIColor(fromHex: "FA5A58"), forState: .Normal)
     button.setTitle(NSLocalizedString("Next", comment: ""), forState: .Normal)
