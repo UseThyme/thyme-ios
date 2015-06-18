@@ -6,7 +6,6 @@
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 #import "HYPSettingsViewController.h"
-#import "HYPInstructionViewController.h"
 
 #import "UIViewController+HYPContainer.h"
 #import "UIScreen+ANDYResolutions.h"
@@ -18,7 +17,7 @@
 static NSString * const HYPPlateCellIdentifier = @"HYPPlateCellIdentifier";
 
 @interface HYPHomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate,
-HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDelegate>
+HYPTimerControllerDelegate, UIAlertViewDelegate, InstructionDelegate>
 
 @property (nonatomic) CGFloat topMargin;
 
@@ -38,7 +37,7 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDel
 
 @property (nonatomic) BOOL deleteTimersMessageIsBeingDisplayed;
 
-@property (nonatomic, strong) HYPInstructionViewController *welcomeController;
+@property (nonatomic, strong) InstructionController *welcomeController;
 
 @end
 
@@ -386,11 +385,11 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDel
     return _settingsButton;
 }
 
-- (HYPInstructionViewController *)welcomeController
+- (InstructionController *)welcomeController
 {
     if (_welcomeController) return _welcomeController;
 
-    _welcomeController = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"welcomeIcon"]
+    _welcomeController = [[InstructionController alloc] initWithImage:[UIImage imageNamed:@"welcomeIcon"]
                                                                        title:NSLocalizedString(@"WelcomeTitle", nil)
                                                                      message:NSLocalizedString(@"WelcomeMessage", nil)
                                                                    hasAction:YES
@@ -677,7 +676,7 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDel
 
 #pragma mark - HYPInstructionViewControllerDelegate
 
-- (void)instructionViewControlerDidPressAcceptButton:(HYPInstructionViewController *)instructionViewController
+- (void)instructionControllerDidTapAcceptButton:(InstructionController *)instructionViewController
 {
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
@@ -691,7 +690,7 @@ HYPTimerControllerDelegate, UIAlertViewDelegate, HYPInstructionViewControllerDel
 
 - (void)canceledNotifications
 {
-    [self.welcomeController canceledNotifications];
+    [self.welcomeController cancelledNotifications];
 }
 
 @end

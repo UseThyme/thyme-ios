@@ -1,11 +1,9 @@
 #import "HYPInstructionsPageViewController.h"
-
-#import "HYPInstructionViewController.h"
-
+#import "Thyme-Swift.h"
 #import "UIColor+ANDYHex.h"
 
 @interface HYPInstructionsPageViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource,
-HYPInstructionViewControllerDelegate>
+InstructionDelegate>
 
 @property (nonatomic, strong) NSArray *instructions;
 
@@ -23,7 +21,7 @@ HYPInstructionViewControllerDelegate>
 
     NSMutableArray *instructions = [NSMutableArray new];
 
-    HYPInstructionViewController *instructionController = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructions"]
+    InstructionController *instructionController = [[InstructionController alloc] initWithImage:[UIImage imageNamed:@"instructions"]
                                                                                                          title:NSLocalizedString(@"InstructionTitle", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessage", nil)
                                                                                                      hasAction:NO
@@ -33,7 +31,7 @@ HYPInstructionViewControllerDelegate>
     instructionController.view.tag = 0;
     [instructions addObject:instructionController];
 
-    HYPInstructionViewController *instructionControllerA = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsA"]
+    InstructionController *instructionControllerA = [[InstructionController alloc] initWithImage:[UIImage imageNamed:@"instructionsA"]
                                                                                                          title:NSLocalizedString(@"InstructionTitleA", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageA", nil)
                                                                                                      hasAction:NO
@@ -43,7 +41,7 @@ HYPInstructionViewControllerDelegate>
     instructionControllerA.view.tag = 1;
     [instructions addObject:instructionControllerA];
 
-    HYPInstructionViewController *instructionControllerB = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsB"]
+    InstructionController *instructionControllerB = [[InstructionController alloc] initWithImage:[UIImage imageNamed:@"instructionsB"]
                                                                                                          title:NSLocalizedString(@"InstructionTitleB", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageB", nil)
                                                                                                      hasAction:NO
@@ -53,7 +51,7 @@ HYPInstructionViewControllerDelegate>
     instructionControllerB.view.tag = 2;
     [instructions addObject:instructionControllerB];
 
-    HYPInstructionViewController *instructionControllerC = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsC"]
+    InstructionController *instructionControllerC = [[InstructionController alloc] initWithImage:[UIImage imageNamed:@"instructionsC"]
                                                                                                          title:NSLocalizedString(@"InstructionTitleC", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageC", nil)
                                                                                                      hasAction:NO
@@ -63,7 +61,7 @@ HYPInstructionViewControllerDelegate>
     instructionControllerC.view.tag = 3;
     [instructions addObject:instructionControllerC];
 
-    HYPInstructionViewController *instructionControllerD = [[HYPInstructionViewController alloc] initWithImage:[UIImage imageNamed:@"instructionsD"]
+    InstructionController *instructionControllerD = [[InstructionController alloc] initWithImage:[UIImage imageNamed:@"instructionsD"]
                                                                                                          title:NSLocalizedString(@"InstructionTitleD", nil)
                                                                                                        message:NSLocalizedString(@"InstructionMessageD", nil)
                                                                                                      hasAction:YES
@@ -149,14 +147,14 @@ HYPInstructionViewControllerDelegate>
 
 #pragma mark - HYPInstructionViewControllerDelegate
 
-- (void)instructionViewControlerDidPressAcceptButton:(HYPInstructionViewController *)instructionViewController
+- (void)instructionViewControlerDidTapAcceptButton:(InstructionController *)instructionViewController
 {
     UIUserNotificationType types = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
 }
 
-- (void)instructionViewControlerDidPressPreviousButton:(HYPInstructionViewController *)instructionViewController
+- (void)instructionViewControlerDidTapPreviousButton:(InstructionController *)instructionViewController
 {
     if (self.index == 0) return;
 
@@ -170,7 +168,7 @@ HYPInstructionViewControllerDelegate>
                   completion:nil];
 }
 
-- (void)instructionViewControlerDidPressNextButton:(HYPInstructionViewController *)instructionViewController
+- (void)instructionViewControlerDidTapNextButton:(InstructionController *)instructionViewController
 {
     if (self.index == self.instructions.count - 1) return;
 

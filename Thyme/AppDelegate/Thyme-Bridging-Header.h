@@ -8,3 +8,6 @@
 #import "HYPAlarm.h"
 #import "HYPLocalNotificationManager.h"
 #import "UIColor+ANDYHex.h"
+#import "HYPInstructionsPageViewController.h"
+#import "HYPUtils.h"
+#import "UIButton+ANDYHighlighted.h"

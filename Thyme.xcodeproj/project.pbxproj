@@ -15,7 +15,6 @@
 		146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */; };
 		1469973A1A2E7FB100171115 /* HYPInstructionsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146997381A2E7FB100171115 /* HYPInstructionsPageViewController.m */; };
 		146997401A2E856D00171115 /* HYPHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1469973F1A2E856D00171115 /* HYPHomeViewController.m */; };
-		146997431A2E858000171115 /* HYPInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146997421A2E858000171115 /* HYPInstructionViewController.m */; };
 		1477CA541A2D2FE000816544 /* welcomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA521A2D2FE000816544 /* welcomeIcon.png */; };
 		1477CA551A2D2FE000816544 /* welcomeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA531A2D2FE000816544 /* welcomeIcon@2x.png */; };
 		1477CA571A2D3CF600816544 /* welcomeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA561A2D3CF600816544 /* welcomeIcon@3x.png */; };
@@ -72,6 +71,7 @@
 		44AE6689184F4E1C00148398 /* oven@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6684184F4E1C00148398 /* oven@2x.png */; };
 		44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA691846586C0007E083 /* HYPTimerControl.m */; };
 		7FF53A6DE5D435465CD0DEEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA495F7987D5467EEE452B3F /* libPods.a */; };
+		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
 		BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE46D11B3150D100E2896B /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,8 +99,6 @@
 		146997381A2E7FB100171115 /* HYPInstructionsPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPInstructionsPageViewController.m; sourceTree = "<group>"; };
 		1469973E1A2E856D00171115 /* HYPHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPHomeViewController.h; sourceTree = "<group>"; };
 		1469973F1A2E856D00171115 /* HYPHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPHomeViewController.m; sourceTree = "<group>"; };
-		146997411A2E858000171115 /* HYPInstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPInstructionViewController.h; sourceTree = "<group>"; };
-		146997421A2E858000171115 /* HYPInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPInstructionViewController.m; sourceTree = "<group>"; };
 		1477CA521A2D2FE000816544 /* welcomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcomeIcon.png; sourceTree = "<group>"; };
 		1477CA531A2D2FE000816544 /* welcomeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcomeIcon@2x.png"; sourceTree = "<group>"; };
 		1477CA561A2D3CF600816544 /* welcomeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcomeIcon@3x.png"; sourceTree = "<group>"; };
@@ -176,6 +174,7 @@
 		44F8DA691846586C0007E083 /* HYPTimerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerControl.m; sourceTree = "<group>"; };
 		A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BA495F7987D5467EEE452B3F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDBE46D01B3150D100E2896B /* Thyme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDBE46D11B3150D100E2896B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -267,10 +266,9 @@
 		146997341A2E7FB100171115 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				146997411A2E858000171115 /* HYPInstructionViewController.h */,
-				146997421A2E858000171115 /* HYPInstructionViewController.m */,
 				146997371A2E7FB100171115 /* HYPInstructionsPageViewController.h */,
 				146997381A2E7FB100171115 /* HYPInstructionsPageViewController.m */,
+				BD7626CE1B32A1BF000A317A /* InstructionController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -621,6 +619,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = HYP;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Hyper;
 				TargetAttributes = {
@@ -745,8 +744,8 @@
 				4408805A184C808500935802 /* HYPAlarm.m in Sources */,
 				44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */,
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
+				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */,
-				146997431A2E858000171115 /* HYPInstructionViewController.m in Sources */,
 				1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */,
 				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
