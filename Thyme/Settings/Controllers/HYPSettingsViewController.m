@@ -1,8 +1,8 @@
 #import "HYPSettingsViewController.h"
 
 #import "HYPSetting.h"
-#import "HYPSettingTableViewCell.h"
 #import "UIColor+ANDYHex.h"
+#import "Thyme-Swift.h"
 
 @interface HYPSettingsViewController ()
 
@@ -72,7 +72,7 @@
     self.tableView.backgroundView = backgroundImageView;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    [self.tableView registerClass:[HYPSettingTableViewCell class] forCellReuseIdentifier:HYPSettingTableViewCellIdentitifer];
+    [self.tableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:[SettingTableViewCell reuseIdentifier]];
     self.tableView.contentInset = UIEdgeInsetsMake(30.0f, 0.0f, 0.0f, 0.0f);
 }
 
@@ -91,9 +91,9 @@
     return items.count;
 }
 
-- (HYPSettingTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (SettingTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HYPSettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:HYPSettingTableViewCellIdentitifer
+    SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SettingTableViewCell.reuseIdentifier
                                                             forIndexPath:indexPath];
 
     [self configureCell:cell atIndexPath:indexPath];
@@ -101,7 +101,7 @@
     return cell;
 }
 
-- (void)configureCell:(HYPSettingTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureCell:(SettingTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *sectionBody = self.dataSource[indexPath.section];
     HYPSetting *setting = sectionBody[@"items"][indexPath.row];

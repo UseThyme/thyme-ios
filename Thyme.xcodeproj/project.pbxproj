@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 14117C7819DB1F1F0070010C /* UIColor+ANDYHex.m */; };
 		14117C7B19DB26790070010C /* sc.png in Resources */ = {isa = PBXBuildFile; fileRef = 14117C7A19DB26790070010C /* sc.png */; };
-		14117C7E19DB31AD0070010C /* HYPSettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 14117C7D19DB31AD0070010C /* HYPSettingTableViewCell.m */; };
 		1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1461778319CDBF1F00E46B1D /* Images.xcassets */; };
 		146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 146489DC19CF276300C5A85C /* ovenBackground@3x.png */; };
 		146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */; };
@@ -72,6 +71,7 @@
 		7FF53A6DE5D435465CD0DEEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA495F7987D5467EEE452B3F /* libPods.a */; };
 		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
 		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
+		BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */; };
 		BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE46D11B3150D100E2896B /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,8 +89,6 @@
 		14117C7719DB1F1F0070010C /* UIColor+ANDYHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ANDYHex.h"; sourceTree = "<group>"; };
 		14117C7819DB1F1F0070010C /* UIColor+ANDYHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ANDYHex.m"; sourceTree = "<group>"; };
 		14117C7A19DB26790070010C /* sc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sc.png; sourceTree = "<group>"; };
-		14117C7C19DB31AD0070010C /* HYPSettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSettingTableViewCell.h; sourceTree = "<group>"; };
-		14117C7D19DB31AD0070010C /* HYPSettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPSettingTableViewCell.m; sourceTree = "<group>"; };
 		1461778319CDBF1F00E46B1D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		146489DC19CF276300C5A85C /* ovenBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@3x.png"; sourceTree = "<group>"; };
 		146489E219CF2B8600C5A85C /* HYPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSettingsViewController.h; sourceTree = "<group>"; };
@@ -174,6 +172,7 @@
 		BA495F7987D5467EEE452B3F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlatCell.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDBE46D01B3150D100E2896B /* Thyme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDBE46D11B3150D100E2896B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -232,8 +231,7 @@
 		146489DF19CF2B7B00C5A85C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				14117C7C19DB31AD0070010C /* HYPSettingTableViewCell.h */,
-				14117C7D19DB31AD0070010C /* HYPSettingTableViewCell.m */,
+				BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -744,6 +742,7 @@
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */,
+				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
 				1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */,
 				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
@@ -751,7 +750,6 @@
 				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
 				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
 				44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */,
-				14117C7E19DB31AD0070010C /* HYPSettingTableViewCell.m in Sources */,
 				146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */,
 				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
 				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,

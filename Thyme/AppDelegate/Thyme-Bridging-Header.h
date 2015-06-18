@@ -12,3 +12,4 @@
 #import "HYPUtils.h"
 #import "UIButton+ANDYHighlighted.h"
 #import "HYPTimerControl.h"
+#import "HYPSetting.h"
