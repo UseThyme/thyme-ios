@@ -217,7 +217,7 @@ class HomeViewController: HYPViewController {
     layout.scrollDirection = .Horizontal
 
     let width: CGFloat = self.deviceWidth - 2 * sideMargin
-    let collectionViewWidth = CGRectMake(sideMargin, topMargin, self.deviceWidth, self.deviceHeight)
+    let collectionViewWidth = CGRectMake(sideMargin, topMargin, width, width)
     
     let collectionView = UICollectionView(frame: collectionViewWidth,
       collectionViewLayout: layout)
