@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   }()
 
   lazy var homeController = {
-    return HYPHomeViewController()
+    return HomeViewController()
     }()
 
   lazy var isUnitTesting: Bool = {
@@ -91,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
     let types: UIUserNotificationType = .Alert | .Badge | .Sound
     if notificationSettings.types != types {
-      self.homeController.canceledNotifications()
+      self.homeController.cancelledNotifications()
     } else {
       self.homeController.registeredForNotifications()
     }

@@ -67,6 +67,7 @@
 		44AE6689184F4E1C00148398 /* oven@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6684184F4E1C00148398 /* oven@2x.png */; };
 		44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA691846586C0007E083 /* HYPTimerControl.m */; };
 		7FF53A6DE5D435465CD0DEEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA495F7987D5467EEE452B3F /* libPods.a */; };
+		BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1579731B32E58A00812247 /* HomeViewController.swift */; };
 		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
 		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
 		BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */; };
@@ -169,6 +170,7 @@
 		44F8DA691846586C0007E083 /* HYPTimerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerControl.m; sourceTree = "<group>"; };
 		A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BA495F7987D5467EEE452B3F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD1579731B32E58A00812247 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlatCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -357,6 +359,7 @@
 			children = (
 				1469973E1A2E856D00171115 /* HYPHomeViewController.h */,
 				1469973F1A2E856D00171115 /* HYPHomeViewController.m */,
+				BD1579731B32E58A00812247 /* HomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 				4408805A184C808500935802 /* HYPAlarm.m in Sources */,
 				44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */,
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
+				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
