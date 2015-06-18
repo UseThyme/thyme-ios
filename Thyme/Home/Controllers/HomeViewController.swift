@@ -203,7 +203,7 @@ class HomeViewController: HYPViewController {
         sideMargin = 100
         topMargin += 260
       } else if self.deviceHeight == 667 {
-        cellWidth = 113
+        cellWidth = 133
         sideMargin = 120
         topMargin += 300
       } else {
