@@ -67,7 +67,8 @@ public class InstructionController: UIViewController {
     }
 
     return CGRectMake(self.textViewHorizontalMargin, y,
-      CGRectGetWidth(self.view.frame) - 20, self.textViewHeight)
+      CGRectGetWidth(self.view.frame) - self.textViewHorizontalMargin * 2,
+      self.textViewHeight)
     }()
 
   lazy var acceptButtonFrame: CGRect = {
