@@ -371,7 +371,21 @@ class HomeViewController: HYPViewController {
   }
 
   func settingsButtonAction() {
-    //TODO: Implement this feature
+    var frame = UIScreen.mainScreen().bounds
+    frame.size.width = 230
+    frame.origin.x = -200
+
+    let applicationDelegate = UIApplication.sharedApplication().delegate
+    let settingsController = HYPSettingsViewController(style: .Grouped)
+    hyp_addViewController(settingsController, inFrame: frame)
+    if let window = applicationDelegate?.window {
+      window?.addSubview(settingsController.view)
+    }
+
+    frame.origin.x = 0
+    UIView.animateWithDuration(0.3, animations: {
+      settingsController.view.frame = frame
+    })
   }
   
   func registeredForNotifications() {
