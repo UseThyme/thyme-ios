@@ -386,7 +386,7 @@ class HomeViewController: ViewController {
     UIView.animateWithDuration(0.3, animations: {
       self.settingsController.view.frame = frame
     }) { _ in
-      self.hyp_removeViewController(self.settingsController)
+      self.removeViewController(self.settingsController)
 
       let applicationDelegate = UIApplication.sharedApplication().delegate
       if let window = applicationDelegate?.window {
@@ -402,7 +402,7 @@ class HomeViewController: ViewController {
     frame.origin.x = -230
 
     let applicationDelegate = UIApplication.sharedApplication().delegate
-    hyp_addViewController(settingsController, inFrame: frame)
+    addViewController(settingsController, inFrame: frame)
     if let window = applicationDelegate?.window {
       window?.addSubview(settingsController.view)
     }

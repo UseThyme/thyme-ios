@@ -75,7 +75,7 @@ import UIKit
 
 extension UIViewController {
 
-  func addViewController(viewController controller: UIViewController, frame: CGRect = CGRectZero) {
+  func addViewController(controller: UIViewController, inFrame frame: CGRect = CGRectZero) {
     addChildViewController(controller)
 
     if !CGRectIsEmpty(frame) {
@@ -86,13 +86,13 @@ extension UIViewController {
     controller.didMoveToParentViewController(self)
   }
 
-  func removeViewController(viewController controller: UIViewController) {
+  func removeViewController(controller: UIViewController) {
     controller.willMoveToParentViewController(nil)
     controller.view.removeFromSuperview()
     controller.removeFromParentViewController()
   }
 
-  func transitionToViewController(viewController controller: UIViewController, duration: NSTimeInterval, animations: (() -> Void), completion: ((Bool) -> Void)?) {
+  func transitionToViewController(controller: UIViewController, duration: NSTimeInterval, animations: (() -> Void), completion: ((Bool) -> Void)?) {
     controller.willMoveToParentViewController(nil)
     addChildViewController(self)
 

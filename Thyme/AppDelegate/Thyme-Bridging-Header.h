@@ -10,4 +10,3 @@
 #import "HYPTimerControl.h"
 #import "BKEAnimatedGradientView.h"
 #import "UIScreen+ANDYResolutions.h"
-#import "UIViewController+HYPContainer.h"
