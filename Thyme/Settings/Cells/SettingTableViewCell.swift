@@ -4,7 +4,7 @@ public class SettingTableViewCell: UITableViewCell {
 
   static let reuseIdentifier = "SettingTableViewCellIdentitifer"
 
-  var setting: HYPSetting? {
+  var setting: Setting? {
     willSet(newValue) {
       self.textLabel?.text = newValue?.title
     }

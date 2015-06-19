@@ -7,15 +7,15 @@ class SettingsViewController: UITableViewController {
     var sounds = NSMutableArray()
     var themes = NSMutableArray()
 
-    themes.addObject( HYPSetting(title: "Thyme", action: {
+    themes.addObject( Setting(title: "Thyme", action: {
       let colorOptions = ["from":"3bf5e6", "to": "00979b", "textColor" : "30cec6", "duration" : 0.5]
       NSNotificationCenter.defaultCenter().postNotificationName("changeBackground", object: nil, userInfo: colorOptions)
     }))
-    themes.addObject( HYPSetting(title: "Swift", action: {
+    themes.addObject( Setting(title: "Swift", action: {
       let colorOptions = ["from":"F32E23", "to": "F3862E", "textColor" : "FFD200", "duration" : 0.5]
       NSNotificationCenter.defaultCenter().postNotificationName("changeBackground", object: nil, userInfo: colorOptions)
     }))
-    themes.addObject( HYPSetting(title: "Form", action: {
+    themes.addObject( Setting(title: "Form", action: {
       let colorOptions = ["from":"32E0D5", "to": "5C2B9A", "textColor" : "5C2B9A", "duration" : 0.5]
       NSNotificationCenter.defaultCenter().postNotificationName("changeBackground", object: nil, userInfo: colorOptions)
     }))
@@ -49,7 +49,7 @@ extension SettingsViewController: UITableViewDataSource {
 
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if let section = data[section] as? [String : AnyObject],
-      items = section["items"] as? [HYPSetting] {
+      items = section["items"] as? [Setting] {
       return items.count
     }
     return 0
@@ -66,7 +66,7 @@ extension SettingsViewController: UITableViewDataSource {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     let section: AnyObject = data[indexPath.section]
     if let items = section["items"] as? [AnyObject],
-      setting = items[indexPath.row] as? HYPSetting {
+      setting = items[indexPath.row] as? Setting {
         let method = setting.action
         method()
     }
@@ -92,7 +92,7 @@ extension SettingsViewController: UITableViewDataSource {
   func configure(cell: SettingTableViewCell, indexPath: NSIndexPath) {
     let section: AnyObject = data[indexPath.section]
     if let items = section["items"] as? [AnyObject],
-      setting = items[indexPath.row] as? HYPSetting {
+      setting = items[indexPath.row] as? Setting {
         cell.setting = setting
     }
   }

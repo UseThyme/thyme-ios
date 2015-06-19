@@ -8,7 +8,6 @@
 #import "HYPUtils.h"
 #import "UIButton+ANDYHighlighted.h"
 #import "HYPTimerControl.h"
-#import "HYPSetting.h"
 #import "BKEAnimatedGradientView.h"
 #import "UIScreen+ANDYResolutions.h"
 #import "UIViewController+HYPContainer.h"

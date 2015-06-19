@@ -26,7 +26,6 @@
 		149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */; };
 		14A6A2961A35404500879F61 /* instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A6A2941A35404500879F61 /* instructions.png */; };
 		14A6A2971A35404500879F61 /* instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A6A2951A35404500879F61 /* instructions@2x.png */; };
-		14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A7EB2219CFA29D0076920E /* HYPSetting.m */; };
 		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
 		14F3768218FFF7EA00359D38 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F3768118FFF7EA00359D38 /* AudioToolbox.framework */; };
 		4408805A184C808500935802 /* HYPAlarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088059184C808500935802 /* HYPAlarm.m */; };
@@ -74,6 +73,7 @@
 		BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */; };
 		BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE89E201B33FD130010A6ED /* TimerViewController.swift */; };
 		BDFD4B4F1B342E7B008AEAEF /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */; };
+		BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87EE1B347B3200F0DCE6 /* Setting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +109,6 @@
 		149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKEAnimatedGradientView.m; sourceTree = "<group>"; };
 		14A6A2941A35404500879F61 /* instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructions.png; sourceTree = "<group>"; };
 		14A6A2951A35404500879F61 /* instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructions@2x.png"; sourceTree = "<group>"; };
-		14A7EB2119CFA29D0076920E /* HYPSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSetting.h; sourceTree = "<group>"; };
-		14A7EB2219CFA29D0076920E /* HYPSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPSetting.m; sourceTree = "<group>"; };
 		14CEFBAF18FFD6FB000952EC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14F3768118FFF7EA00359D38 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -171,6 +169,7 @@
 		BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDE89E201B33FD130010A6ED /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BDFD87EE1B347B3200F0DCE6 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; tabWidth = 2; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,7 +218,6 @@
 			children = (
 				146489DF19CF2B7B00C5A85C /* Cells */,
 				146489E019CF2B7B00C5A85C /* Controllers */,
-				146489E119CF2B7B00C5A85C /* Views */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -238,13 +236,6 @@
 				BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		146489E119CF2B7B00C5A85C /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		146997331A2E7FB100171115 /* Walkthrough */ = {
@@ -293,10 +284,9 @@
 		442B13F9184614FC00D52AE1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				14A7EB2119CFA29D0076920E /* HYPSetting.h */,
-				14A7EB2219CFA29D0076920E /* HYPSetting.m */,
 				44088058184C808500935802 /* HYPAlarm.h */,
 				44088059184C808500935802 /* HYPAlarm.m */,
+				BDFD87EE1B347B3200F0DCE6 /* Setting.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -738,10 +728,10 @@
 				4408805A184C808500935802 /* HYPAlarm.m in Sources */,
 				44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */,
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
+				BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
 				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
-				14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
 				BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */,
 				1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */,
