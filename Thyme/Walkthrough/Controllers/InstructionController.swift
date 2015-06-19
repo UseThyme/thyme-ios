@@ -36,7 +36,7 @@ public class InstructionController: UIViewController {
   lazy var titleLabelFrame: CGRect = {
     var y = self.titleLabelTopMargin
 
-    if (self.deviceHeight == 480) {
+    if (self.deviceHeight == 480 || self.deviceHeight == 568) {
       if self.isWelcome == false { y -= 40 }
     } else if (self.deviceHeight == 667) {
       y += 60
