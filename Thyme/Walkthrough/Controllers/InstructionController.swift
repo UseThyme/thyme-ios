@@ -161,7 +161,7 @@ public class InstructionController: UIViewController {
   lazy var acceptButton: UIButton = {
     let button = UIButton.buttonWithType(.Custom) as! UIButton
     button.backgroundColor = UIColor(fromHex: "FF5C5C")
-    button.highlightedBackgroundColor = UIColor(fromHex: "E94F4F");
+    button.highlightedBackgroundColor = UIColor(fromHex: "E94F4F")
     button.layer.cornerRadius = 5
     button.frame = self.acceptButtonFrame
     button.titleLabel?.font = HYPUtils.avenirHeavyWithSize(15)
