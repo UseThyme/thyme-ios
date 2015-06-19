@@ -253,7 +253,7 @@ class TimerViewController: ViewController {
   }
 
   func refreshTimerForCurrentAlarm() {
-    if let existingNotification = HYPLocalNotificationManager.existingNotificationWithAlarmID(self.alarm.alarmID),
+    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(self.alarm.alarmID),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
       numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber

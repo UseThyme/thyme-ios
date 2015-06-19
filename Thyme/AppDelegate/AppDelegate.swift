@@ -129,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     UIApplication.sharedApplication().applicationIconBadgeNumber = 1
     UIApplication.sharedApplication().applicationIconBadgeNumber = 0
 
-    if let notification = HYPLocalNotificationManager.existingNotificationWithAlarmID(alarmID) {
+    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarmID) {
       UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
   }

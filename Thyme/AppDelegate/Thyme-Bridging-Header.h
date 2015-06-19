@@ -4,7 +4,6 @@
 
 #import <HockeySDK/HockeySDK.h>
 #import "HYPAlarm.h"
-#import "HYPLocalNotificationManager.h"
 #import "UIColor+ANDYHex.h"
 #import "HYPUtils.h"
 #import "UIButton+ANDYHighlighted.h"

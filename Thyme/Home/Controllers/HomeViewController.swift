@@ -424,7 +424,7 @@ class HomeViewController: ViewController {
   }
 
   func refreshTimerInCell(cell: PlateCell, alarm: HYPAlarm) {
-    if let existingNotification = HYPLocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID),
+    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
       numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber
@@ -493,6 +493,8 @@ extension HomeViewController: UICollectionViewDataSource {
   }
 }
 
+// MARK: - UICollectionViewDelegate
+
 extension HomeViewController: UICollectionViewDelegate {
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -522,7 +524,7 @@ extension HomeViewController: UIAlertViewDelegate {
   func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
     let accepted: Bool = buttonIndex == 1
     if accepted == true {
-      HYPLocalNotificationManager.cancelAllLocalNotifications()
+      LocalNotificationManager.cancelAllLocalNotifications()
       maxMinutesLeft = nil
       collectionView.reloadData()
       ovenCollectionView.reloadData()

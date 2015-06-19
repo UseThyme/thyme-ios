@@ -3,13 +3,13 @@
 #import "UIColor+HYPExtensions.h"
 #import "HYPUtils.h"
 #import "HYPAlarm.h"
-#import "HYPLocalNotificationManager.h"
 #import "HYPMathHelpers.h"
 @import CoreText;
 #import "HYPTimerControl+DrawingMethods.h"
 @import AVFoundation;
 @import AudioToolbox;
 #import "UIScreen+ANDYResolutions.h"
+#import "Thyme-Swift.h"
 
 /** Parameters **/
 #define CIRCLE_SIZE_FACTOR 0.8f
@@ -574,7 +574,7 @@
         abort();
     }
 
-    UILocalNotification *existingNotification = [HYPLocalNotificationManager existingNotificationWithAlarmID:self.alarmID];
+    UILocalNotification *existingNotification = [LocalNotificationManager existingNotificationWithAlarmID:self.alarmID];
     if (existingNotification) {
         [[UIApplication sharedApplication] cancelLocalNotification:existingNotification];
     }
@@ -598,10 +598,10 @@
     self.seconds = 0;
     [self startTimer];
     NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%@ just finished", @"%@ just finished"), [[self.alarm title] capitalizedString]];
-    [HYPLocalNotificationManager createNotificationUsingNumberOfSeconds:numberOfSeconds
-                                                                message:title
-                                                            actionTitle:NSLocalizedString(@"View Details", @"View Details")
-                                                                alarmID:self.alarmID];
+    [LocalNotificationManager createNotification:numberOfSeconds
+                                         message:title
+                                           title:NSLocalizedString(@"View Details", @"View Details")
+                                         alarmID:self.alarmID];
 }
 
 - (void)playInputClick
