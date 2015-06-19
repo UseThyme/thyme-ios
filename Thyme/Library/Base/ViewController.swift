@@ -71,5 +71,39 @@ import UIKit
       defaults.synchronize()
     }
   }
+}
 
+extension UIViewController {
+
+  func addViewController(viewController controller: UIViewController, frame: CGRect = CGRectZero) {
+    addChildViewController(controller)
+
+    if !CGRectIsEmpty(frame) {
+      controller.view.frame = frame
+    }
+
+    view.addSubview(controller.view)
+    controller.didMoveToParentViewController(self)
+  }
+
+  func removeViewController(viewController controller: UIViewController) {
+    controller.willMoveToParentViewController(nil)
+    controller.view.removeFromSuperview()
+    controller.removeFromParentViewController()
+  }
+
+  func transitionToViewController(viewController controller: UIViewController, duration: NSTimeInterval, animations: (() -> Void), completion: ((Bool) -> Void)?) {
+    controller.willMoveToParentViewController(nil)
+    addChildViewController(self)
+
+    transitionFromViewController(self,
+      toViewController: controller,
+      duration: duration,
+      options: UIViewAnimationOptions.Autoreverse,
+      animations: animations) { (finished) -> Void in
+        self.removeFromParentViewController()
+        controller.didMoveToParentViewController(self)
+        completion?(finished)
+    }
+  }
 }
