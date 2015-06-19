@@ -1,6 +1,6 @@
 import UIKit
 
-class HomeViewController: HYPViewController {
+class HomeViewController: ViewController {
 
   let plateCellIdentifier = "HYPPlateCellIdentifier"
 
@@ -497,9 +497,8 @@ extension HomeViewController: UICollectionViewDelegate {
 
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let alarm = alarmAtIndexPath(indexPath, collectionView: collectionView)
-    let timerController = HYPTimerViewController()
+    let timerController = TimerViewController(alarm: alarm)
     timerController.delegate = self
-    timerController.alarm = alarm
     
     presentViewController(timerController, animated: true, completion: nil)
   }
@@ -534,9 +533,9 @@ extension HomeViewController: UIAlertViewDelegate {
 
 // MARK: - HYPTimerControllerDelegate
 
-extension HomeViewController: HYPTimerControllerDelegate {
+extension HomeViewController: TimerControllerDelegate {
 
-  func dismissedTimerController(timerController: HYPTimerViewController!) {
+  func dismissedTimerController(timerController: TimerViewController!) {
     maxMinutesLeft = nil
     collectionView.reloadData()
     ovenCollectionView.reloadData()

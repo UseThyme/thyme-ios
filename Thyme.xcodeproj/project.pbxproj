@@ -35,7 +35,6 @@
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
 		441B5818184E061200839331 /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = 441B5817184E059800839331 /* tick.caf */; };
 		441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 441B5819184E14F600839331 /* kitchenImage@2x.png */; };
-		442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 442B140618462A8000D52AE1 /* HYPTimerViewController.m */; };
 		442CD149184F7A0900CE9031 /* ovenShine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442CD148184F7A0900CE9031 /* ovenShine@2x.png */; };
 		44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */; };
 		4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */; };
@@ -74,6 +73,7 @@
 		BD8CF14C1B32D00A00D00AC2 /* HYPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B11844E0F1005D4C5A /* HYPViewController.m */; };
 		BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF14D1B32D05C00D00AC2 /* InstructionsPageController.swift */; };
 		BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE46D11B3150D100E2896B /* AppDelegate.swift */; };
+		BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE89E201B33FD130010A6ED /* TimerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,8 +124,6 @@
 		440D8FDD184CE5ED00BB5392 /* HYPMathHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYPMathHelpers.h; sourceTree = "<group>"; };
 		441B5817184E059800839331 /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tick.caf; sourceTree = "<group>"; };
 		441B5819184E14F600839331 /* kitchenImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kitchenImage@2x.png"; sourceTree = "<group>"; };
-		442B140518462A8000D52AE1 /* HYPTimerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPTimerViewController.h; sourceTree = "<group>"; };
-		442B140618462A8000D52AE1 /* HYPTimerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerViewController.m; sourceTree = "<group>"; };
 		442CD148184F7A0900CE9031 /* ovenShine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenShine@2x.png"; sourceTree = "<group>"; };
 		44522B38184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HYPTimerControl+DrawingMethods.h"; sourceTree = "<group>"; };
 		44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HYPTimerControl+DrawingMethods.m"; sourceTree = "<group>"; };
@@ -175,6 +173,7 @@
 		BD8CF14D1B32D05C00D00AC2 /* InstructionsPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionsPageController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDBE46D01B3150D100E2896B /* Thyme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDBE46D11B3150D100E2896B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BDE89E201B33FD130010A6ED /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -309,8 +308,7 @@
 		442B140418462A8000D52AE1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				442B140518462A8000D52AE1 /* HYPTimerViewController.h */,
-				442B140618462A8000D52AE1 /* HYPTimerViewController.m */,
+				BDE89E201B33FD130010A6ED /* TimerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -746,12 +744,12 @@
 				1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */,
 				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
-				442B140718462A8000D52AE1 /* HYPTimerViewController.m in Sources */,
 				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
 				44088057184C803300935802 /* HYPLocalNotificationManager.m in Sources */,
 				146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */,
 				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
 				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
+				BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */,
 				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
