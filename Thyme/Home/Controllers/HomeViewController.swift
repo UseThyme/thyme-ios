@@ -4,6 +4,8 @@ class HomeViewController: HYPViewController {
 
   let plateCellIdentifier = "HYPPlateCellIdentifier"
 
+  var deleteTimersMessageIsBeingDisplayed: Bool = false
+
   var maxMinutesLeft: NSNumber? {
     didSet(newValue) {
       if maxMinutesLeft != nil {
@@ -309,7 +311,10 @@ class HomeViewController: HYPViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWasShaked:", name: "appWasShaked", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self,
+      selector: "appWasShaked:",
+      name: "appWasShaked",
+      object: nil)
 
     view.addSubview(titleLabel)
     view.addSubview(subtitleLabel)
@@ -352,6 +357,17 @@ class HomeViewController: HYPViewController {
 
   override func prefersStatusBarHidden() -> Bool {
     return false
+  }
+
+  func appWasShaked(notification: NSNotification) {
+    if notification.name == "appWasShaked" && deleteTimersMessageIsBeingDisplayed == false {
+      UIAlertView(title: NSLocalizedString("Would you like to cancel all the timers?", comment: ""),
+        message: "",
+        delegate: self,
+        cancelButtonTitle: NSLocalizedString("No", comment: ""),
+        otherButtonTitles: NSLocalizedString("Ok", comment: "")).show()
+      deleteTimersMessageIsBeingDisplayed = true
+    }
   }
 
   func settingsButtonAction() {
@@ -484,6 +500,20 @@ extension HomeViewController: InstructionDelegate {
     let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
     UIApplication.sharedApplication().registerUserNotificationSettings(settings)
   }
+}
+
+// MARK: - UIAlertViewDelegate
+
+extension HomeViewController: UIAlertViewDelegate {
+
+  func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+    let accepted: Bool = buttonIndex == 1
+    if accepted == true {
+      HYPLocalNotificationManager.cancelAllLocalNotifications()
+    }
+    self.deleteTimersMessageIsBeingDisplayed = false
+  }
+
 }
 
 // MARK: - HYPTimerControllerDelegate

@@ -134,4 +134,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     }
   }
 
+  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent) {
+    if motion == .MotionShake {
+      NSNotificationCenter.defaultCenter().postNotificationName("appWasShaked", object: nil)
+    }
+  }
+
 }
