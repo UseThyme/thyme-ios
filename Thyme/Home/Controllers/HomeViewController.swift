@@ -530,7 +530,6 @@ extension HomeViewController: UIAlertViewDelegate {
     }
     self.deleteTimersMessageIsBeingDisplayed = false
   }
-
 }
 
 // MARK: - HYPTimerControllerDelegate
