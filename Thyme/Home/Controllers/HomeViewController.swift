@@ -510,6 +510,9 @@ extension HomeViewController: UIAlertViewDelegate {
     let accepted: Bool = buttonIndex == 1
     if accepted == true {
       HYPLocalNotificationManager.cancelAllLocalNotifications()
+      maxMinutesLeft = nil
+      collectionView.reloadData()
+      ovenCollectionView.reloadData()
     }
     self.deleteTimersMessageIsBeingDisplayed = false
   }
