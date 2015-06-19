@@ -64,7 +64,12 @@
     CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
     _hoursLabel = [[UILabel alloc] initWithFrame:rect];
     _hoursLabel.backgroundColor = [UIColor clearColor];
-    _hoursLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+    NSString *customColor = [[NSUserDefaults standardUserDefaults] stringForKey:@"TextColor"];
+    if (customColor) {
+        _hoursLabel.textColor = [UIColor colorFromHexString:customColor];
+    } else {
+        _hoursLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+    }
     _hoursLabel.textAlignment = NSTextAlignmentCenter;
     _hoursLabel.font = font;
     _hoursLabel.text = sampleString;
@@ -92,7 +97,14 @@
     CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
     _minutesValueLabel = [[UILabel alloc] initWithFrame:rect];
     _minutesValueLabel.backgroundColor = [UIColor clearColor];
-    _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+
+    NSString *customColor = [[NSUserDefaults standardUserDefaults] stringForKey:@"TextColor"];
+    if (customColor) {
+        _minutesValueLabel.textColor = [UIColor colorFromHexString:customColor];
+    } else {
+        _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+    }
+
     _minutesValueLabel.textAlignment = NSTextAlignmentCenter;
     _minutesValueLabel.font = font;
     _minutesValueLabel.text = [NSString stringWithFormat:@"%ld", (long)self.angle];
@@ -122,7 +134,12 @@
     CGRect rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height);
     _minutesTitleLabel = [[UILabel alloc] initWithFrame:rect];
     _minutesTitleLabel.backgroundColor = [UIColor clearColor];
-    _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+    NSString *customColor = [[NSUserDefaults standardUserDefaults] stringForKey:@"TextColor"];
+    if (customColor) {
+        _minutesTitleLabel.textColor = [UIColor colorFromHexString:customColor];
+    } else {
+        _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+    }
     _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
     _minutesTitleLabel.font = font;
     _minutesTitleLabel.text = minutesLeftText;
@@ -318,8 +335,8 @@
     CGFloat saturationBase = 0.20f;
     CGFloat saturationBasedOnAngle = saturationBase * (self.angle/360.0f) + saturationBaseOffset;
 
-    UIColor *normalCircleColor = [UIColor colorWithHue:167.0f / 360.0f saturation:0.20f brightness:0.96f alpha:1.0f];
-    UIColor *calculatedColor = [UIColor colorWithHue:167.0f / 360.0f
+    UIColor *normalCircleColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:0.4];
+    UIColor *calculatedColor = [UIColor colorWithHue:255
                                           saturation:saturationBasedOnAngle brightness:0.96f alpha:1.0f];
     UIColor *unactiveCircleColor = [UIColor colorWithWhite:1.0f alpha:0.4f];
 

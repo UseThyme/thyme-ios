@@ -43,7 +43,7 @@ class HomeViewController: ViewController {
 
     return margin
   }()
-  
+
   lazy var plateFactor: CGFloat = {
     let factor: CGFloat = UIScreen.andy_isPad() ? 0.36 : 0.30
     return factor
@@ -177,7 +177,7 @@ class HomeViewController: ViewController {
 
     let width: CGFloat = self.deviceWidth - 2 * sideMargin
     let collectionViewWidth = CGRectMake(sideMargin, self.topMargin, width, width)
-    
+
     let collectionView = UICollectionView(frame: collectionViewWidth,
       collectionViewLayout: layout)
     collectionView.dataSource = self
@@ -220,7 +220,7 @@ class HomeViewController: ViewController {
 
     let width: CGFloat = self.deviceWidth - 2 * sideMargin
     let collectionViewWidth = CGRectMake(sideMargin, topMargin, width, width)
-    
+
     let collectionView = UICollectionView(frame: collectionViewWidth,
       collectionViewLayout: layout)
     collectionView.dataSource = self
@@ -295,6 +295,10 @@ class HomeViewController: ViewController {
     return button
   }()
 
+  lazy var tapRecognizer: UITapGestureRecognizer = {
+    return UITapGestureRecognizer(target: self, action: "backgroundTapped:")
+  }()
+
   lazy var welcomeController: InstructionController = {
     let controller = InstructionController(
       image: UIImage(named: "welcomeIcon")!,
@@ -307,7 +311,12 @@ class HomeViewController: ViewController {
 
     return controller
   }()
-    
+
+  lazy var settingsController: SettingsViewController = {
+    let settingsController = SettingsViewController(style: .Grouped)
+    return settingsController
+    }()
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -323,7 +332,7 @@ class HomeViewController: ViewController {
 
     collectionView.registerClass(PlateCell.classForCoder(), forCellWithReuseIdentifier: plateCellIdentifier)
     ovenCollectionView.registerClass(PlateCell.classForCoder(), forCellWithReuseIdentifier: plateCellIdentifier)
-    
+
     view.addSubview(collectionView)
     view.addSubview(ovenCollectionView)
     view.addSubview(settingsButton)
@@ -336,7 +345,7 @@ class HomeViewController: ViewController {
       selector: "dismissedTimerController:",
       name: UIApplicationDidBecomeActiveNotification,
       object: nil)
-      
+
     self.setNeedsStatusBarAppearanceUpdate()
   }
 
@@ -370,13 +379,29 @@ class HomeViewController: ViewController {
     }
   }
 
+  func backgroundTapped(gesture :UIGestureRecognizer) {
+    var frame = UIScreen.mainScreen().bounds
+    frame.size.width = 230
+    frame.origin.x = -230
+    UIView.animateWithDuration(0.3, animations: {
+      self.settingsController.view.frame = frame
+    }) { _ in
+      self.hyp_removeViewController(self.settingsController)
+
+      let applicationDelegate = UIApplication.sharedApplication().delegate
+      if let window = applicationDelegate?.window {
+        self.settingsController.view.removeFromSuperview()
+        self.view.removeGestureRecognizer(self.tapRecognizer)
+      }
+    }
+  }
+
   func settingsButtonAction() {
     var frame = UIScreen.mainScreen().bounds
     frame.size.width = 230
-    frame.origin.x = -200
+    frame.origin.x = -230
 
     let applicationDelegate = UIApplication.sharedApplication().delegate
-    let settingsController = HYPSettingsViewController(style: .Grouped)
     hyp_addViewController(settingsController, inFrame: frame)
     if let window = applicationDelegate?.window {
       window?.addSubview(settingsController.view)
@@ -384,10 +409,11 @@ class HomeViewController: ViewController {
 
     frame.origin.x = 0
     UIView.animateWithDuration(0.3, animations: {
-      settingsController.view.frame = frame
+      self.settingsController.view.frame = frame
+      self.view.addGestureRecognizer(self.tapRecognizer)
     })
   }
-  
+
   func registeredForNotifications() {
     dismissViewControllerAnimated(true, completion: nil)
   }
@@ -419,7 +445,7 @@ class HomeViewController: ViewController {
 
     cell.timerControl.active = alarm.active
     cell.timerControl.addTarget(self, action: "timerControlChangedValue:", forControlEvents: .ValueChanged)
-    
+
     refreshTimerInCell(cell, alarm: alarm)
   }
 
@@ -434,7 +460,7 @@ class HomeViewController: ViewController {
       let currentSecond = secondsLeft % 60
       var minutesLeft = floor(secondsLeft/60)
       let hoursLeft = floor(minutesLeft/60)
-      
+
       if minutesLeft >= maxMinutesLeft?.doubleValue {
           maxMinutesLeft = minutesLeft
       }
@@ -486,7 +512,7 @@ extension HomeViewController: UICollectionViewDataSource {
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(plateCellIdentifier, forIndexPath: indexPath) as! PlateCell
-    
+
     configureCell(cell, indexPath: indexPath, collectionView: collectionView)
 
     return cell
@@ -501,7 +527,7 @@ extension HomeViewController: UICollectionViewDelegate {
     let alarm = alarmAtIndexPath(indexPath, collectionView: collectionView)
     let timerController = TimerViewController(alarm: alarm)
     timerController.delegate = self
-    
+
     presentViewController(timerController, animated: true, completion: nil)
   }
 }

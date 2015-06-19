@@ -4,7 +4,16 @@ import UIKit
 
   lazy var gradientView: BKEAnimatedGradientView = {
     let gradientView = BKEAnimatedGradientView(frame: self.view.frame)
-    gradientView.gradientColors = [UIColor(fromHex: "3bf5e6"), UIColor(fromHex: "00979b")]
+
+    let defaults = NSUserDefaults.standardUserDefaults()
+    if let from = defaults.stringForKey("BackgroundColorFrom"),
+      to = defaults.stringForKey("BackgroundColorTo") {
+        gradientView.gradientColors = [UIColor(fromHex: from), UIColor(fromHex: to)]
+    } else {
+      gradientView.gradientColors = [UIColor(fromHex: "3bf5e6"), UIColor(fromHex: "00979b")]
+    }
+
+
     return gradientView
     }()
 
@@ -16,7 +25,51 @@ import UIKit
     super.viewDidLoad()
 
     view.userInteractionEnabled = true
+    view.autoresizesSubviews = true
     view.addSubview(gradientView)
+  }
+
+  public override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+
+    NSNotificationCenter.defaultCenter().addObserver(self,
+      selector: "changeBackground:",
+      name: "changeBackground",
+      object: nil)
+  }
+
+  public override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+
+  public func changeGradient(from: UIColor, to: UIColor) {
+    gradientView.gradientColors = [from, to]
+  }
+
+  public func aniamteChangeGradient(from: UIColor, to: UIColor, duration: CGFloat, delay: CGFloat = 0) {
+    gradientView.changeGradientWithAnimation([from,to], delay: delay, duration: duration)
+  }
+
+  func changeBackground(notification: NSNotification) {
+    if let userinfo = notification.userInfo {
+      let from = userinfo["from"] as! String
+      let to = userinfo["to"] as! String
+      let textColor = userinfo["textColor"] as! String
+
+      if let duration = userinfo["duration"] as? CGFloat {
+        aniamteChangeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to), duration: duration, delay: 0)
+      } else {
+        changeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to))
+      }
+
+      let defaults = NSUserDefaults.standardUserDefaults()
+      defaults.setValue(from, forKey: "BackgroundColorFrom")
+      defaults.setValue(to, forKey: "BackgroundColorTo")
+      defaults.setValue(textColor, forKey: "TextColor")
+      defaults.synchronize()
+    }
   }
 
 }

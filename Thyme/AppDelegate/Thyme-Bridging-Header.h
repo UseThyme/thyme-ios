@@ -11,5 +11,4 @@
 #import "HYPSetting.h"
 #import "BKEAnimatedGradientView.h"
 #import "UIScreen+ANDYResolutions.h"
-#import "HYPSettingsViewController.h"
 #import "UIViewController+HYPContainer.h"

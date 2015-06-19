@@ -11,7 +11,6 @@
 		14117C7B19DB26790070010C /* sc.png in Resources */ = {isa = PBXBuildFile; fileRef = 14117C7A19DB26790070010C /* sc.png */; };
 		1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1461778319CDBF1F00E46B1D /* Images.xcassets */; };
 		146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 146489DC19CF276300C5A85C /* ovenBackground@3x.png */; };
-		146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */; };
 		1477CA541A2D2FE000816544 /* welcomeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA521A2D2FE000816544 /* welcomeIcon.png */; };
 		1477CA551A2D2FE000816544 /* welcomeIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA531A2D2FE000816544 /* welcomeIcon@2x.png */; };
 		1477CA571A2D3CF600816544 /* welcomeIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA561A2D3CF600816544 /* welcomeIcon@3x.png */; };
@@ -71,6 +70,8 @@
 		BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF14A1B32CC8100D00AC2 /* ViewController.swift */; };
 		BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF14D1B32D05C00D00AC2 /* InstructionsPageController.swift */; };
 		BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE46D11B3150D100E2896B /* AppDelegate.swift */; };
+		BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D981B343F02005E2C51 /* Fonts.swift */; };
+		BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */; };
 		BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE89E201B33FD130010A6ED /* TimerViewController.swift */; };
 		BDFD4B4F1B342E7B008AEAEF /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */; };
 /* End PBXBuildFile section */
@@ -91,8 +92,6 @@
 		14117C7A19DB26790070010C /* sc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sc.png; sourceTree = "<group>"; };
 		1461778319CDBF1F00E46B1D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		146489DC19CF276300C5A85C /* ovenBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@3x.png"; sourceTree = "<group>"; };
-		146489E219CF2B8600C5A85C /* HYPSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPSettingsViewController.h; sourceTree = "<group>"; };
-		146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPSettingsViewController.m; sourceTree = "<group>"; };
 		1477CA521A2D2FE000816544 /* welcomeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcomeIcon.png; sourceTree = "<group>"; };
 		1477CA531A2D2FE000816544 /* welcomeIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcomeIcon@2x.png"; sourceTree = "<group>"; };
 		1477CA561A2D3CF600816544 /* welcomeIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "welcomeIcon@3x.png"; sourceTree = "<group>"; };
@@ -168,6 +167,8 @@
 		BD8CF14D1B32D05C00D00AC2 /* InstructionsPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionsPageController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDBE46D01B3150D100E2896B /* Thyme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDBE46D11B3150D100E2896B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BDC80D981B343F02005E2C51 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDE89E201B33FD130010A6ED /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -234,8 +235,7 @@
 		146489E019CF2B7B00C5A85C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				146489E219CF2B8600C5A85C /* HYPSettingsViewController.h */,
-				146489E319CF2B8600C5A85C /* HYPSettingsViewController.m */,
+				BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -406,6 +406,7 @@
 		44A691AE1844E0BB005D4C5A /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				BDC80D971B343EF9005E2C51 /* Structs */,
 				44A691B91844EF59005D4C5A /* Categories */,
 				44A691B31844E299005D4C5A /* Utils */,
 				44A691AF1844E0E6005D4C5A /* Base */,
@@ -547,6 +548,14 @@
 				44909B4F18EB1937002C812E /* UIScreen-ANDYResolutions */,
 			);
 			path = External;
+			sourceTree = "<group>";
+		};
+		BDC80D971B343EF9005E2C51 /* Structs */ = {
+			isa = PBXGroup;
+			children = (
+				BDC80D981B343F02005E2C51 /* Fonts.swift */,
+			);
+			path = Structs;
 			sourceTree = "<group>";
 		};
 		BDF5048E6F88206565A3511A /* Pods */ = {
@@ -730,15 +739,16 @@
 				44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */,
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
+				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				14A7EB2319CFA29D0076920E /* HYPSetting.m in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
 				BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */,
 				1491334619CF65B100BA3587 /* UIViewController+HYPContainer.m in Sources */,
+				BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */,
 				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
 				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
-				146489E419CF2B8600C5A85C /* HYPSettingsViewController.m in Sources */,
 				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
 				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
 				BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */,
