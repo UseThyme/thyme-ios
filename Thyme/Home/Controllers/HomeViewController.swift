@@ -405,9 +405,7 @@ class HomeViewController: HYPViewController {
       var minutesLeft = floor(secondsLeft/60)
       let hoursLeft = floor(minutesLeft/60)
       
-
-      if let maxMinutes = self.maxMinutesLeft
-        where minutesLeft > maxMinutes.doubleValue {
+      if minutesLeft > self.maxMinutesLeft?.doubleValue {
           maxMinutesLeft = minutesLeft
       }
 
