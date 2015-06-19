@@ -213,7 +213,7 @@ class HomeViewController: HYPViewController {
       }
     }
 
-    layout.itemSize = CGSizeMake(cellWidth + 10, cellWidth)
+    layout.itemSize = CGSizeMake(cellWidth, cellWidth)
     layout.scrollDirection = .Horizontal
 
     let width: CGFloat = self.deviceWidth - 2 * sideMargin
