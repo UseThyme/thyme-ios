@@ -6,18 +6,18 @@ class HomeViewController: HYPViewController {
 
   var maxMinutesLeft: NSNumber? {
     didSet(newValue) {
-      if self.maxMinutesLeft != nil {
-        self.titleLabel.text = NSLocalizedString("YOUR DISH WILL BE DONE",
+      if maxMinutesLeft != nil {
+        titleLabel.text = NSLocalizedString("YOUR DISH WILL BE DONE",
           comment: "YOUR DISH WILL BE DONE");
-        if (self.maxMinutesLeft == 0.0) {
-          self.subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
+        if (maxMinutesLeft == 0.0) {
+          subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
             comment: "IN LESS THAN A MINUTE")
         } else {
-          self.subtitleLabel.text = HYPAlarm.subtitleForHomescreenUsingMinutes(self.maxMinutesLeft)
+          subtitleLabel.text = HYPAlarm.subtitleForHomescreenUsingMinutes(maxMinutesLeft)
         }
       } else {
-        self.titleLabel.text = HYPAlarm.titleForHomescreen()
-        self.subtitleLabel.text = HYPAlarm.subtitleForHomescreen()
+        titleLabel.text = HYPAlarm.titleForHomescreen()
+        subtitleLabel.text = HYPAlarm.subtitleForHomescreen()
       }
     }
   }
