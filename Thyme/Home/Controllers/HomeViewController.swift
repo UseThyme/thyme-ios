@@ -73,7 +73,7 @@ class HomeViewController: HYPViewController {
   lazy var ovenAlarms: [[HYPAlarm]] = {
     var alarms = [[HYPAlarm]]()
 
-    for i in 0..<2 {
+    for i in 0..<1 {
       let alarm = HYPAlarm()
       alarm.oven = true
       alarms.append([alarm])
