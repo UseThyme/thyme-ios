@@ -6,14 +6,14 @@ class HomeViewController: HYPViewController {
 
   var maxMinutesLeft: NSNumber? {
     didSet(newValue) {
-      if newValue != nil {
+      if self.maxMinutesLeft != nil {
         self.titleLabel.text = NSLocalizedString("YOUR DISH WILL BE DONE",
           comment: "YOUR DISH WILL BE DONE");
-        if (newValue == 0.0) {
+        if (self.maxMinutesLeft == 0.0) {
           self.subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
             comment: "IN LESS THAN A MINUTE")
         } else {
-          self.subtitleLabel.text = HYPAlarm.subtitleForHomescreenUsingMinutes(newValue)
+          self.subtitleLabel.text = HYPAlarm.subtitleForHomescreenUsingMinutes(self.maxMinutesLeft)
         }
       } else {
         self.titleLabel.text = HYPAlarm.titleForHomescreen()
@@ -405,7 +405,7 @@ class HomeViewController: HYPViewController {
       var minutesLeft = floor(secondsLeft/60)
       let hoursLeft = floor(minutesLeft/60)
       
-      if minutesLeft > self.maxMinutesLeft?.doubleValue {
+      if minutesLeft >= maxMinutesLeft?.doubleValue {
           maxMinutesLeft = minutesLeft
       }
 
@@ -501,7 +501,7 @@ extension HomeViewController: HYPTimerControllerDelegate {
       where maxMinutes.intValue - 1 == timerControl.minutes {
         self.maxMinutesLeft = timerControl.minutes
     } else if let maxMinutes = self.maxMinutesLeft
-      where maxMinutes.floatValue == Float(0) {
+      where maxMinutes.floatValue == Float(0) && timerControl.minutes == 59 {
         self.maxMinutesLeft = nil
     }
   }
