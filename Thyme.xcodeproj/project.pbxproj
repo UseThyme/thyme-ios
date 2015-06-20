@@ -73,6 +73,7 @@
 		BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE89E201B33FD130010A6ED /* TimerViewController.swift */; };
 		BDFD4B4F1B342E7B008AEAEF /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */; };
 		BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87EE1B347B3200F0DCE6 /* Setting.swift */; };
+		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,7 @@
 		BDE89E201B33FD130010A6ED /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD87EE1B347B3200F0DCE6 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,6 +277,7 @@
 				44088058184C808500935802 /* HYPAlarm.h */,
 				44088059184C808500935802 /* HYPAlarm.m */,
 				BDFD87EE1B347B3200F0DCE6 /* Setting.swift */,
+				BDFD87F01B34827F00F0DCE6 /* Alarm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -725,6 +728,7 @@
 				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,
 				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
 				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
+				BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */,
 				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
 				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
 				BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */,
