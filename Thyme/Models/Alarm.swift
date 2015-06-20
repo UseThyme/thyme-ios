@@ -4,9 +4,32 @@ class Alarm {
 
   var indexPath: NSIndexPath? {
     willSet(newValue) {
-
+      if newValue != nil {
+        self.alarmID = idForIndexPath(newValue! as NSIndexPath)
+      }
     }
   }
+
+  var alarmID: String?
+  var active: Bool = false
+  var oven: Bool = false
+
+  lazy var title: String = {
+    if self.oven == true { return NSLocalizedString("OVEN", comment: "OVEN") }
+
+    let leading: String = self.indexPath?.row == 0
+      ? NSLocalizedString("TOP", comment: "TOP")
+      : NSLocalizedString("BOTTOM", comment: "BOTTOM")
+    let position: String = self.indexPath?.row == 0
+      ? NSLocalizedString("LEFT", comment: "LEFT")
+      : NSLocalizedString("RIGHT", comment: "RIGHT")
+
+    return NSLocalizedString("\(leading) \(position) PLATE", comment: "\(leading) \(position) PLATE")
+    }()
+
+  lazy var timerTitle: String = {
+    return "------------------\(self.title)------------------"
+    }()
 
   static func titleForHomescreen() -> String {
     return NSLocalizedString("IT'S TIME TO GET COOKING",
@@ -93,6 +116,14 @@ class Alarm {
 
   static func defaultAlarmID() -> String {
     return ThymeAlarmIDKey
+  }
+
+  func idForIndexPath(indexPath: NSIndexPath) -> String {
+    if oven {
+      return "HYPAlert oven section: \(indexPath.section) row: \(indexPath.row)"
+    }
+
+    return "HYPAlert section: \(indexPath.section) row: \(indexPath.row)"
   }
   
 }
