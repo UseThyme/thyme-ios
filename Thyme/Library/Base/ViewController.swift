@@ -12,8 +12,7 @@ import UIKit
     } else {
       gradientView.gradientColors = [UIColor(fromHex: "3bf5e6"), UIColor(fromHex: "00979b")]
     }
-
-
+    
     return gradientView
     }()
 

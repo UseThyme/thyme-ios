@@ -15,11 +15,11 @@ class HomeViewController: ViewController {
           subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
             comment: "IN LESS THAN A MINUTE")
         } else {
-          subtitleLabel.text = HYPAlarm.subtitleForHomescreenUsingMinutes(maxMinutesLeft)
+          subtitleLabel.text = Alarm.subtitleForHomescreenUsingMinutes(maxMinutesLeft!)
         }
       } else {
-        titleLabel.text = HYPAlarm.titleForHomescreen()
-        subtitleLabel.text = HYPAlarm.subtitleForHomescreen()
+        titleLabel.text = Alarm.titleForHomescreen()
+        subtitleLabel.text = Alarm.subtitleForHomescreen()
       }
     }
   }
@@ -62,21 +62,21 @@ class HomeViewController: ViewController {
     return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }()
 
-  lazy var alarms: [[HYPAlarm]] = {
-    var alarms = [[HYPAlarm]]()
+  lazy var alarms: [[Alarm]] = {
+    var alarms = [[Alarm]]()
 
     for i in 0..<2 {
-      alarms.append([HYPAlarm(), HYPAlarm()])
+      alarms.append([Alarm(), Alarm()])
     }
 
     return alarms
     }()
 
-  lazy var ovenAlarms: [[HYPAlarm]] = {
-    var alarms = [[HYPAlarm]]()
+  lazy var ovenAlarms: [[Alarm]] = {
+    var alarms = [[Alarm]]()
 
     for i in 0..<1 {
-      let alarm = HYPAlarm()
+      let alarm = Alarm()
       alarm.oven = true
       alarms.append([alarm])
     }
@@ -109,7 +109,7 @@ class HomeViewController: ViewController {
 
     let label = UILabel(frame: CGRectMake(sideMargin, topMargin, width, height))
     label.font = font
-    label.text = HYPAlarm.titleForHomescreen()
+    label.text = Alarm.titleForHomescreen()
     label.textAlignment = .Center
     label.textColor = UIColor.whiteColor()
     label.backgroundColor = UIColor.clearColor()
@@ -142,7 +142,7 @@ class HomeViewController: ViewController {
 
     let label = UILabel(frame: CGRectMake(sideMargin, topMargin, width, height))
     label.font = font
-    label.text = HYPAlarm.subtitleForHomescreen()
+    label.text = Alarm.subtitleForHomescreen()
     label.textAlignment = .Center
     label.textColor = UIColor.whiteColor()
     label.backgroundColor = UIColor.clearColor()
@@ -431,8 +431,8 @@ class HomeViewController: ViewController {
     layer.transform = rotationAndPerspectiveTransform;
   }
 
-  func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> HYPAlarm {
-    let row: [HYPAlarm] = collectionView.isEqual(self.collectionView)
+  func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> Alarm {
+    let row: [Alarm] = collectionView.isEqual(self.collectionView)
       ? self.alarms[indexPath.section]
       : self.ovenAlarms[indexPath.section]
 
@@ -449,8 +449,8 @@ class HomeViewController: ViewController {
     refreshTimerInCell(cell, alarm: alarm)
   }
 
-  func refreshTimerInCell(cell: PlateCell, alarm: HYPAlarm) {
-    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID),
+  func refreshTimerInCell(cell: PlateCell, alarm: Alarm) {
+    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
       numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber

@@ -10,7 +10,7 @@ class TimerViewController: ViewController {
     case Forward, Backward
   }
 
-  var alarm: HYPAlarm
+  var alarm: Alarm
   var timer: NSTimer?
   var startRect: CGRect = CGRectNull
   var finalRect: CGRect = CGRectNull
@@ -24,7 +24,7 @@ class TimerViewController: ViewController {
     return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }()
 
-  lazy var timerControl: HYPTimerControl = {
+  lazy var timerControl: TimerControl = {
     var sideMargin: CGFloat = UIScreen.andy_isPad() ? 140 : 0
     var topMargin: CGFloat = 0
 
@@ -43,7 +43,8 @@ class TimerViewController: ViewController {
     }
 
     let width = self.deviceWidth - 2 * sideMargin
-    let timerControl = HYPTimerControl(completeModeWithFrame: CGRectMake(sideMargin, topMargin, width, width))
+    let frame = CGRectMake(sideMargin, topMargin, width, width)
+    let timerControl = TimerControl(frame: frame, completeMode: true)
     timerControl.active = true
     timerControl.backgroundColor = UIColor.clearColor()
 
@@ -93,7 +94,7 @@ class TimerViewController: ViewController {
     let button = UIButton.buttonWithType(.Custom) as! UIButton
     let imageName = self.alarm.oven == true
       ? "oven"
-      : "\(self.alarm.indexPath.row)-\(self.alarm.indexPath.section)"
+      : "\(self.alarm.indexPath!.row)-\(self.alarm.indexPath!.section)"
     let image = UIImage(named: imageName)!
 
     var topMargin: CGFloat = image.size.height
@@ -147,7 +148,7 @@ class TimerViewController: ViewController {
     return button
   }()
 
-  init(alarm: HYPAlarm) {
+  init(alarm: Alarm) {
     self.alarm = alarm
 
     super.init(nibName: nil, bundle: nil)
@@ -253,7 +254,7 @@ class TimerViewController: ViewController {
   }
 
   func refreshTimerForCurrentAlarm() {
-    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(self.alarm.alarmID),
+    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(self.alarm.alarmID!),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
       numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber
