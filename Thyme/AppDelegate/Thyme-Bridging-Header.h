@@ -3,11 +3,9 @@
 //
 
 #import <HockeySDK/HockeySDK.h>
-#import "HYPAlarm.h"
 #import "UIColor+ANDYHex.h"
 #import "HYPUtils.h"
 #import "UIButton+ANDYHighlighted.h"
-#import "HYPTimerControl.h"
 #import "BKEAnimatedGradientView.h"
 #import "UIScreen+ANDYResolutions.h"
 #import "HYPMathHelpers.h"
