@@ -1,6 +1,6 @@
 import Foundation
 
-class TimerControl: UIControl {
+public class TimerControl: UIControl {
 
   let CircleSizeFactor: CGFloat = 0.8
 
@@ -248,7 +248,7 @@ class TimerControl: UIControl {
       context: nil)
   }
 
-  required init(coder aDecoder: NSCoder) {
+  required public init(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
   }
 
@@ -257,7 +257,7 @@ class TimerControl: UIControl {
     stopTimer()
   }
 
-  override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+  override public func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
     if (object as! NSObject).isEqual(minutesValueLabel) {
       var baseSize: CGFloat
       if count(minutesValueLabel.text!) == 5 {
@@ -278,7 +278,7 @@ class TimerControl: UIControl {
     }
   }
 
-  override func drawRect(rect: CGRect) {
+  override public func drawRect(rect: CGRect) {
     super.drawRect(rect)
 
     let context = UIGraphicsGetCurrentContext()
@@ -566,7 +566,7 @@ class TimerControl: UIControl {
       alarmID: alarmID!)
   }
 
-  override func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+  override public func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
     super.beginTrackingWithTouch(touch, withEvent: event)
 
     title = Alarm.messageForReleaseToSetAlarm()
@@ -574,7 +574,7 @@ class TimerControl: UIControl {
     return true
   }
 
-  override func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+  override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
     super.continueTrackingWithTouch(touch, withEvent: event)
     let currentPoint = touch.locationInView(self)
 
@@ -597,7 +597,7 @@ class TimerControl: UIControl {
     return true
   }
 
-  override func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
+  override public func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
     super.endTrackingWithTouch(touch, withEvent: event)
 
     let currentPoint = touch.locationInView(self)
