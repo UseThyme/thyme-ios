@@ -44,7 +44,7 @@ class TimerViewController: ViewController {
 
     let width = self.deviceWidth - 2 * sideMargin
     let frame = CGRectMake(sideMargin, topMargin, width, width)
-    let timerControl = TimerControl(frame: frame, completeMode: true)
+    let timerControl = TimerControl(frame: frame, completedMode: true)
     timerControl.active = true
     timerControl.backgroundColor = UIColor.clearColor()
 
