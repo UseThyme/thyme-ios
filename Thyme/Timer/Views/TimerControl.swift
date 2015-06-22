@@ -11,8 +11,7 @@ public class TimerControl: UIControl {
   
   var seconds: Int = 0
   var touchesAreActive: Bool = false
-  var isComplete: Bool = false
-  var completedMode: Bool = false
+  var completedMode: Bool
   var timer: NSTimer?
   var lastPoint: CGPoint = CGPointZero
 
@@ -23,7 +22,7 @@ public class TimerControl: UIControl {
   var angle: Int = 0 {
     willSet(value) {
       let minute = value/6
-      if self.isComplete == false && self.isHoursMode == true {
+      if self.completedMode == false && self.isHoursMode == true {
         if minute < 10 {
           self.minutesValueLabel.text = "\(self.hours):0\(minute/6)"
         } else {
@@ -140,7 +139,6 @@ public class TimerControl: UIControl {
 
     label.backgroundColor = UIColor.clearColor()
     label.font = font
-    label.hidden = true
     label.text = sampleString
     label.textAlignment = .Center
 
@@ -176,7 +174,6 @@ public class TimerControl: UIControl {
 
     label.backgroundColor = UIColor.clearColor()
     label.font = font
-    label.hidden = true
     label.text = minutesLeftText
     label.textAlignment = .Center
 
@@ -185,7 +182,7 @@ public class TimerControl: UIControl {
     label.textColor = defaults.stringForKey("TextColor") != nil
       ? UIColor(fromHex: defaults.stringForKey("TextColor"))
       : UIColor(fromHex: "30cec6")
-    
+
     return label
     }()
 
@@ -230,14 +227,14 @@ public class TimerControl: UIControl {
     return rect
   }()
 
-  init(frame: CGRect, completeMode: Bool) {
+  init(frame: CGRect, completedMode: Bool) {
+    self.completedMode = completedMode
     super.init(frame: frame)
 
     backgroundColor = UIColor.clearColor()
-    completedMode = completeMode
     addSubview(minutesValueLabel)
     
-    if completeMode == true {
+    if completedMode == true {
       addSubview(minutesTitleLabel)
       addSubview(hoursLabel)
     }
@@ -268,7 +265,7 @@ public class TimerControl: UIControl {
         baseSize = UIScreen.andy_isPad() ? 280 : 120
       }
       
-      if self.isComplete {
+      if self.completedMode == true {
         baseSize = UIScreen.andy_isPad() ? 250 : minuteValueSize
       }
 
@@ -295,15 +292,19 @@ public class TimerControl: UIControl {
     if active == true {
       let radius = CGRectGetWidth(circleRect) / 2
       let minutesColor = UIColor.whiteColor()
-      drawMinutes(context, color: minutesColor, radius: radius, angle: CGFloat(angle), containerRect: circleRect)
+      drawMinutes(context,
+        color: minutesColor,
+        radius: radius,
+        angle: CGFloat(angle),
+        containerRect: circleRect)
 
       let secondsColor = UIColor.whiteColor()
       if let timer = timer where timer.valid == true {
-        let factor: CGFloat = isComplete ? 0.1 : 0.2
+        let factor: CGFloat = self.completedMode == true ? 0.1 : 0.2
         drawSecondsIndicator(context, color: secondsColor, radius: radius, containerRect: circleRect)
       }
 
-      if isComplete == true {
+      if self.completedMode == true {
         drawText(context, rect: rect)
       }
     } else {
@@ -326,7 +327,6 @@ public class TimerControl: UIControl {
     let π = CGFloat(M_PI)
     let startDeg: CGFloat = π * (0 + angleTranslation) / 180
     let endDeg: CGFloat = π * (angle + angleTranslation) / 180
-
     let x = CGRectGetWidth(containerRect) / 2 + containerRect.origin.x
     let y = CGRectGetWidth(containerRect) / 2 + containerRect.origin.y
 
@@ -340,11 +340,11 @@ public class TimerControl: UIControl {
   }
 
   func drawSecondsIndicator(context: CGContextRef, color: UIColor, radius: CGFloat, containerRect: CGRect) {
+    let value = CGFloat(seconds) * 6.0
+    let circleCenter = pointFromAngle(value, radius: radius, containerRect: containerRect)
+    let circleRect = CGRectMake(circleCenter.x, circleCenter.y, radius * 2, radius * 2)
     CGContextSaveGState(context)
     color.set()
-    let value = seconds * 6
-    let circleCenter = pointFromAngle(CGFloat(angle), radius: radius, containerRect: containerRect)
-    let circleRect = CGRectMake(circleCenter.x, circleCenter.y, radius * 2, radius * 2)
     CGContextFillEllipseInRect(context, circleRect)
     CGContextRestoreGState(context)
   }
@@ -373,6 +373,7 @@ public class TimerControl: UIControl {
       var width: CGFloat
       var angle: CGFloat
     }
+
   }
 
   func pointFromAngle(angle: CGFloat, radius: CGFloat, containerRect: CGRect)  -> CGPoint {
@@ -414,7 +415,7 @@ public class TimerControl: UIControl {
     let lastPointIsZero: Bool = CGPointEqualToPoint(lastPoint, CGPointZero)
     let lastPointWasInFirstQuadrand: Bool = CGRectContainsPoint(self.firstQuadrandRect, lastPoint)
 
-    if isHoursMode == false && pointBelongsToFirstHalfOfTheScreen == true && lastPointIsZero == false && lastPointWasInFirstQuadrand == true {
+    if isHoursMode == false && pointBelongsToFirstHalfOfTheScreen == true && (lastPointIsZero == false && lastPointWasInFirstQuadrand == true) {
       return true
     }
 
@@ -537,6 +538,16 @@ public class TimerControl: UIControl {
     let centerPoint = CGPointMake(frame.width / 2, frame.height / 2)
     let currentAngle: Float = AngleFromNorth(centerPoint, currentPoint, true)
     let angle = floor(currentAngle)
+
+    if pointIsComingFromSecondQuadrand(currentPoint) == true {
+      hours += 1
+    } else if isHoursMode == true && pointIsComingFromFirstQuadrand(currentPoint) == true {
+      hours -= 1
+    }
+
+    self.minutes = Int(angle) / 6
+    self.angle = Int(angle)
+    setNeedsDisplay()
   }
 
   func cancelCurrentLocalNotification() {
@@ -578,7 +589,7 @@ public class TimerControl: UIControl {
     let currentPoint = touch.locationInView(self)
 
     if touchesAreActive == true {
-      if shouldBlockTouchesForPoint(currentPoint) {
+      if isHoursMode == false && shouldBlockTouchesForPoint(currentPoint) == true {
         touchesAreActive = false
         angle = 0
         setNeedsDisplay()
@@ -586,8 +597,8 @@ public class TimerControl: UIControl {
       } else {
         handleTouchesForPoint(currentPoint)
       }
-    } else if pointIsComingFromSecondQuadrand(currentPoint) == true ||
-      pointIsInFirstQuadrand(currentPoint) {
+    } else if pointIsComingFromSecondQuadrand(currentPoint) == true
+      || pointIsInFirstQuadrand(currentPoint) == true {
         touchesAreActive = true
     }
 
