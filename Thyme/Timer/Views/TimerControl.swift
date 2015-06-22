@@ -490,6 +490,7 @@ public class TimerControl: UIControl {
         selector: "updateSeconds:",
         userInfo: nil,
         repeats: true)
+      NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
     }
   }
 
