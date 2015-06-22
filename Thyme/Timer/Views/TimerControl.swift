@@ -324,8 +324,8 @@ public class TimerControl: UIControl {
 
     let angleTranslation: CGFloat = 0 - 90
     let π = CGFloat(M_PI)
-    let startDeg = π * 0 + angleTranslation / 180
-    let endDeg = π * angle + angleTranslation / 180
+    let startDeg: CGFloat = π * (0 + angleTranslation) / 180
+    let endDeg: CGFloat = π * (angle + angleTranslation) / 180
 
     let x = CGRectGetWidth(containerRect) / 2 + containerRect.origin.x
     let y = CGRectGetWidth(containerRect) / 2 + containerRect.origin.y
