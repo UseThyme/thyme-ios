@@ -301,7 +301,7 @@ public class TimerControl: UIControl {
       let secondsColor = UIColor.whiteColor()
       if let timer = timer where timer.valid == true {
         let factor: CGFloat = self.completedMode == true ? 0.1 : 0.2
-        drawSecondsIndicator(context, color: secondsColor, radius: radius, containerRect: circleRect)
+        drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect)
       }
 
       if self.completedMode == true {
