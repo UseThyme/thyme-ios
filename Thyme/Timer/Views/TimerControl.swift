@@ -308,7 +308,7 @@ public class TimerControl: UIControl {
       }
     } else {
       let secondsColor = UIColor.whiteColor()
-      drawMinutes(context, color: secondsColor, radius: sideMargin * 0.2, angle: CGFloat(angle), containerRect: circleRect)
+      drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect)
     }
   }
   
