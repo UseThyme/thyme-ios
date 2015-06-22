@@ -508,7 +508,7 @@ public class TimerControl: UIControl {
   }
 
   func updateSeconds(timer: NSTimer) {
-    seconds != 1
+    seconds -= 1
     if seconds < 0 {
       angle = minutes - 1 * 6
       seconds = 59
