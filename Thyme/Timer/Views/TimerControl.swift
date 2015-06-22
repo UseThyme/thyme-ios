@@ -332,12 +332,11 @@ public class TimerControl: UIControl {
 
     color.set()
 
-    CGContextMoveToPoint(context, x, y);
-    CGContextAddArc(context, x, y, radius, startDeg, endDeg, 0);
-    CGContextClosePath(context);
-    CGContextFillPath(context);
-
-    CGContextRestoreGState(context);
+    CGContextMoveToPoint(context, x, y)
+    CGContextAddArc(context, x, y, radius, startDeg, endDeg, 0)
+    CGContextClosePath(context)
+    CGContextFillPath(context)
+    CGContextRestoreGState(context)
   }
 
   func drawSecondsIndicator(context: CGContextRef, color: UIColor, radius: CGFloat, containerRect: CGRect) {
