@@ -8,7 +8,7 @@ public class TimerControl: UIControl {
   var alarmID: String?
   var title: String = Alarm.messageForSetAlarm()
   var circleRect: CGRect = CGRectZero
-  
+
   var seconds: Int = 0
   var touchesAreActive: Bool = false
   var completedMode: Bool
@@ -20,7 +20,7 @@ public class TimerControl: UIControl {
     }()
 
   var angle: Int = 0 {
-    willSet(value) {
+    didSet(value) {
       let minute = value/6
       if self.completedMode == false && self.isHoursMode == true {
         if minute < 10 {
@@ -33,9 +33,9 @@ public class TimerControl: UIControl {
       }
     }
   }
-  
+
   var hours: Int = 0 {
-    willSet(value) {
+    didSet(value) {
       if value == 0 {
         self.hoursLabel.hidden = true
       } else {
@@ -48,7 +48,7 @@ public class TimerControl: UIControl {
   }
 
   var minutes: Int = 0 {
-    willSet(value) {
+    didSet(value) {
       if minutes != value && self.touchesAreActive == true {
         self.playInputClick()
       }
@@ -59,7 +59,7 @@ public class TimerControl: UIControl {
   }
 
   var active: Bool = false {
-    willSet(value) {
+    didSet(value) {
       self.minutesValueLabel.hidden = value == true
         ? true
         : false
@@ -79,7 +79,7 @@ public class TimerControl: UIControl {
       return 95
     }
     }()
-    
+
   lazy var minuteTitleSize: CGFloat = {
     if UIScreen.andy_isPad() {
       return 35
@@ -104,7 +104,7 @@ public class TimerControl: UIControl {
     let y: CGFloat = self.frame.size.height - textSize.height / 2 - yOffset
     let rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height)
     let label = UILabel(frame: rect)
-    
+
     label.backgroundColor = UIColor.clearColor()
     label.font = font
     label.hidden = true
@@ -147,7 +147,7 @@ public class TimerControl: UIControl {
     label.textColor = defaults.stringForKey("TextColor") != nil
       ? UIColor(fromHex: defaults.stringForKey("TextColor"))
       : UIColor(fromHex: "30cec6")
-    
+
     return label
     }()
 
@@ -233,7 +233,7 @@ public class TimerControl: UIControl {
 
     backgroundColor = UIColor.clearColor()
     addSubview(minutesValueLabel)
-    
+
     if completedMode == true {
       addSubview(minutesTitleLabel)
       addSubview(hoursLabel)
@@ -264,7 +264,7 @@ public class TimerControl: UIControl {
       } else {
         baseSize = UIScreen.andy_isPad() ? 280 : 120
       }
-      
+
       if self.completedMode == true {
         baseSize = UIScreen.andy_isPad() ? 250 : minuteValueSize
       }
@@ -284,11 +284,11 @@ public class TimerControl: UIControl {
     let sideMargin = floor(CGRectGetWidth(rect) * (1 - transform) / 2)
     let length = CGRectGetWidth(rect) * transform
     let circleRect = CGRectMake(sideMargin, sideMargin, length, length)
-    
+
     drawCircle(context, color: circleColor, rect: circleRect)
-    
+
     self.circleRect = circleRect
-    
+
     if active == true {
       let radius = CGRectGetWidth(circleRect) / 2
       let minutesColor = UIColor.whiteColor()
@@ -312,7 +312,7 @@ public class TimerControl: UIControl {
       drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect)
     }
   }
-  
+
   func drawCircle(context: CGContextRef, color: UIColor, rect: CGRect) {
     CGContextSaveGState(context)
     color.set()
@@ -385,7 +385,7 @@ public class TimerControl: UIControl {
     let magicFuckingNumber: CGFloat = CGRectGetWidth(containerRect) / 2
     result.x = centerPoint.x + magicFuckingNumber * cos(π * (angle + angleTranslation) / 180)
     result.y = centerPoint.x + magicFuckingNumber * sin(π * (angle + angleTranslation) / 180)
-    
+
     return result
   }
 
@@ -469,7 +469,7 @@ public class TimerControl: UIControl {
 
     return false
   }
-    
+
   func playInputClick() {
     UIDevice.currentDevice().playInputClick()
   }
@@ -556,7 +556,7 @@ public class TimerControl: UIControl {
       UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
   }
-  
+
   func handleNotificationWithNumberOfSeconds(numberOfSeconds: NSTimeInterval) {
     cancelCurrentLocalNotification()
     if numberOfSeconds > 0 {
