@@ -123,8 +123,8 @@ public class TimerControl: UIControl {
   lazy var minutesValueLabel: UILabel = {
     let bounds = UIScreen.mainScreen().bounds
     let defaultSize = self.completedMode == true
-      ? self.minuteTitleSize
-      : self.minuteTitleSize * 0.9
+      ? self.minuteValueSize
+      : self.minuteValueSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
     let font = HYPUtils.helveticaNeueUltraLightWithSize(fontSize)
@@ -133,13 +133,12 @@ public class TimerControl: UIControl {
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
     let yOffset: CGFloat = 20 * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)
     let x: CGFloat = 0
-    let y: CGFloat = self.frame.size.height - textSize.height / 2 - yOffset
+    let y: CGFloat = (self.frame.size.height - textSize.height) / 2 - yOffset
     let rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height)
     let label = UILabel(frame: rect)
 
     label.backgroundColor = UIColor.clearColor()
     label.font = font
-    label.text = sampleString
     label.textAlignment = .Center
 
     let defaults = NSUserDefaults.standardUserDefaults()
@@ -147,6 +146,7 @@ public class TimerControl: UIControl {
     label.textColor = defaults.stringForKey("TextColor") != nil
       ? UIColor(fromHex: defaults.stringForKey("TextColor"))
       : UIColor(fromHex: "30cec6")
+    label.text = "\(self.angle)"
 
     return label
     }()
