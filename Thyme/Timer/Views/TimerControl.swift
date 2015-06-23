@@ -48,21 +48,19 @@ public class TimerControl: UIControl {
   }
 
   var minutes: Int = 0 {
-    didSet(value) {
+    willSet(value) {
       if minutes != value && self.touchesAreActive == true {
         self.playInputClick()
       }
 
-      self.angle = minutes * 6
+      self.angle = value * 6
       self.setNeedsDisplay()
     }
   }
 
   var active: Bool = false {
     didSet(value) {
-      self.minutesValueLabel.hidden = value == true
-        ? true
-        : false
+      self.minutesValueLabel.hidden = !value
       self.angle = 0
       self.setNeedsDisplay()
     }
@@ -221,7 +219,7 @@ public class TimerControl: UIControl {
   lazy var secondQuadrandRect: CGRect = {
     let topMargin = CGRectGetMinX(self.frame)
     let rect = CGRectMake(0.0,
-      0 - topMargin,
+      0.0 - topMargin,
       CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0,
       CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0 + topMargin)
     return rect
@@ -415,7 +413,8 @@ public class TimerControl: UIControl {
     let lastPointIsZero: Bool = CGPointEqualToPoint(lastPoint, CGPointZero)
     let lastPointWasInFirstQuadrand: Bool = CGRectContainsPoint(self.firstQuadrandRect, lastPoint)
 
-    if isHoursMode == false && pointBelongsToFirstHalfOfTheScreen == true && (lastPointIsZero == false && lastPointWasInFirstQuadrand == true) {
+    if isHoursMode == false && pointBelongsToFirstHalfOfTheScreen == true &&
+      (lastPointIsZero == false && lastPointWasInFirstQuadrand == true) {
       return true
     }
 
