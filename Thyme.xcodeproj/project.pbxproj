@@ -1262,6 +1262,7 @@
 				BD2C3B3F1B3B44F900ACCFAA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BD2C3B411B3B44F900ACCFAA /* Build configuration list for PBXNativeTarget "Thyme WatchKit Extension" */ = {
 			isa = XCConfigurationList;
@@ -1270,6 +1271,7 @@
 				BD2C3B3D1B3B44F900ACCFAA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
