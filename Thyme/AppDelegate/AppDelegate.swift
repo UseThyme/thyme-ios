@@ -39,12 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
   lazy var isUnitTesting: Bool = {
     let enviorment = NSProcessInfo.processInfo().environment
-    
+
     if let injectBundlePath = enviorment["XCInjectBundle"] as? String
       where injectBundlePath.pathExtension == "xctest" {
         return true
     }
-    
+
     return false
     }()
 
@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
         audioPlayer.prepareToPlay()
         audioPlayer.play()
       }
-      
+
       UIAlertView(title: notification.alertBody,
         message: nil,
         delegate: self,
@@ -141,7 +141,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   }
 
   func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
-    println("foo")
-  }
 
+    if let userInfo = userInfo, request = userInfo["request"] as? String {
+      if request == "getAlarms" {
+        var workaround: UIBackgroundTaskIdentifier?
+        workaround = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+          UIApplication.sharedApplication().endBackgroundTask(workaround!)
+        })
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+          UIApplication.sharedApplication().endBackgroundTask(workaround!)
+        })
+
+        var realBackgroundTaks: UIBackgroundTaskIdentifier?
+        realBackgroundTaks = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+          reply(nil)
+          UIApplication.sharedApplication().endBackgroundTask(realBackgroundTaks!)
+        })
+
+        let testDict = ["alarms" : ["Alarm12", "Alarm13"]]
+        reply(testDict)
+
+        UIApplication.sharedApplication().endBackgroundTask(realBackgroundTaks!)
+      }
+    }
+  }
 }

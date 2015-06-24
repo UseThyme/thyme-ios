@@ -1,23 +1,59 @@
 import WatchKit
 import Foundation
 
+struct RowData {
+  let title: String
+}
 
 class InterfaceController: WKInterfaceController {
 
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
-        
-        // Configure interface objects here.
-    }
+  struct Constants {
+    static let rowType = "AlarmRowType"
+  }
 
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
+  @IBOutlet weak var table: WKInterfaceTable!
 
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-    }
+  var items: [String]?
 
+  override func awakeWithContext(context: AnyObject?) {
+    super.awakeWithContext(context)
+    loadTableData()
+  }
+
+  override func willActivate() {
+    super.willActivate()
+  }
+
+  override func didDeactivate() {
+    super.didDeactivate()
+  }
+
+  // MARK: - Data
+
+  func loadTableData() {
+    WKInterfaceController.openParentApplication(["request": "getAlarms"]) {
+      [unowned self] response, error in
+      if let response = response,
+        alarms = response["alarms"] as? [String] {
+          self.items = alarms
+          self.setUpTable()
+      } else {
+        println("Error with fetching of alarms from the parent app")
+      }
+    }
+  }
+
+  // MARK: - UI
+
+  func setUpTable() {
+    if let items = items {
+      table.setNumberOfRows(items.count, withRowType: Constants.rowType)
+
+      for (index, item) in enumerate(items) {
+        if let row = table.rowControllerAtIndex(index) as? AlarmTableRow {
+          row.label.setText(item)
+        }
+      }
+    }
+  }
 }
