@@ -1,11 +1,3 @@
-//
-//  GlanceController.swift
-//  Thyme WatchKit Extension
-//
-//  Created by Christoffer Winterkvist on 6/24/15.
-//  Copyright (c) 2015 Hyper. All rights reserved.
-//
-
 import WatchKit
 import Foundation
 
