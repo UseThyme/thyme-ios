@@ -153,16 +153,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
           UIApplication.sharedApplication().endBackgroundTask(workaround!)
         })
 
-        var realBackgroundTaks: UIBackgroundTaskIdentifier?
-        realBackgroundTaks = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+        var realBackgroundTask: UIBackgroundTaskIdentifier?
+        realBackgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
           reply(nil)
-          UIApplication.sharedApplication().endBackgroundTask(realBackgroundTaks!)
+          UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
         })
 
-        let testDict = ["alarms" : ["Alarm12", "Alarm13"]]
+        var notifications = [String]()
+        for notification in UIApplication.sharedApplication().scheduledLocalNotifications as! [UILocalNotification] {
+          notifications.append(notification.alertBody!)
+        }
+
+        let testDict = ["alarms" : notifications]
         reply(testDict)
 
-        UIApplication.sharedApplication().endBackgroundTask(realBackgroundTaks!)
+        UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
       }
     }
   }
