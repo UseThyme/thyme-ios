@@ -141,25 +141,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   }
 
   func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
-    var workaround: UIBackgroundTaskIdentifier?
-    workaround = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-      UIApplication.sharedApplication().endBackgroundTask(workaround!)
-    })
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
-      UIApplication.sharedApplication().endBackgroundTask(workaround!)
-    })
+    if let userInfo = userInfo, request = userInfo["request"] as? String {
+      if request == "getAlarms" {
+        var workaround: UIBackgroundTaskIdentifier?
+        workaround = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+          UIApplication.sharedApplication().endBackgroundTask(workaround!)
+        })
 
-    var realBackgroundTaks: UIBackgroundTaskIdentifier?
-    realBackgroundTaks = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-      reply(nil)
-      UIApplication.sharedApplication().endBackgroundTask(realBackgroundTaks!)
-    })
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+          UIApplication.sharedApplication().endBackgroundTask(workaround!)
+        })
 
-    let testDict = ["alarms" : ["Alarm12", "Alarm13"]]
-    reply(testDict)
+        var realBackgroundTaks: UIBackgroundTaskIdentifier?
+        realBackgroundTaks = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+          reply(nil)
+          UIApplication.sharedApplication().endBackgroundTask(realBackgroundTaks!)
+        })
 
-    UIApplication.sharedApplication().endBackgroundTask(realBackgroundTaks!)
+        let testDict = ["alarms" : ["Alarm12", "Alarm13"]]
+        reply(testDict)
+
+        UIApplication.sharedApplication().endBackgroundTask(realBackgroundTaks!)
+      }
+    }
   }
-
 }
