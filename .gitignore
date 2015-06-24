@@ -26,3 +26,4 @@ DerivedData
 
 *.xcuserstate
 *.xccheckout
+Pods/
