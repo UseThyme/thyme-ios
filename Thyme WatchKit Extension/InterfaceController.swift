@@ -13,13 +13,11 @@ class InterfaceController: WKInterfaceController {
 
   @IBOutlet weak var table: WKInterfaceTable!
 
-  let items: [RowData] = [
-    RowData(title: "Alarm 1"),
-    RowData(title: "Alarm 2")]
+  var items: [String]?
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
-    setUpTable()
+    loadTableData()
   }
 
   override func willActivate() {
@@ -30,14 +28,31 @@ class InterfaceController: WKInterfaceController {
     super.didDeactivate()
   }
 
+  // MARK: - Data
+
+  func loadTableData() {
+    WKInterfaceController.openParentApplication(["request": "getAlarms"]) {
+      [unowned self] response, error in
+      if let response = response,
+        alarms = response["alarms"] as? [String] {
+          self.items = alarms
+          self.setUpTable()
+      } else {
+        println("Error with fetching of alarms from the parent app")
+      }
+    }
+  }
+
   // MARK: - UI
 
   func setUpTable() {
-    table.setNumberOfRows(items.count, withRowType: Constants.rowType)
+    if let items = items {
+      table.setNumberOfRows(items.count, withRowType: Constants.rowType)
 
-    for (index, item) in enumerate(items) {
-      if let row = table.rowControllerAtIndex(index) as? AlarmTableRow {
-        row.label.setText(item.title)
+      for (index, item) in enumerate(items) {
+        if let row = table.rowControllerAtIndex(index) as? AlarmTableRow {
+          row.label.setText(item)
+        }
       }
     }
   }
