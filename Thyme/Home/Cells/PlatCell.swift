@@ -2,9 +2,9 @@ import UIKit
 
 public class PlateCell: UICollectionViewCell {
 
-  public lazy var timerControl: TimerControl = {
+  public lazy var timerControl: HYPTimerControl = {
     let frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))
-    let timerControl = TimerControl(frame: frame, completedMode: false)
+    let timerControl = HYPTimerControl(frame: frame)
 
     timerControl.userInteractionEnabled = false
     timerControl.backgroundColor = UIColor.clearColor()

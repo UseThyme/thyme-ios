@@ -10,7 +10,7 @@ class TimerViewController: ViewController {
     case Forward, Backward
   }
 
-  var alarm: Alarm
+  var alarm: HYPAlarm
   var timer: NSTimer?
   var startRect: CGRect = CGRectNull
   var finalRect: CGRect = CGRectNull
@@ -24,7 +24,7 @@ class TimerViewController: ViewController {
     return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }()
 
-  lazy var timerControl: TimerControl = {
+  lazy var timerControl: HYPTimerControl = {
     var sideMargin: CGFloat = UIScreen.andy_isPad() ? 140 : 0
     var topMargin: CGFloat = 0
 
@@ -44,7 +44,8 @@ class TimerViewController: ViewController {
 
     let width = self.deviceWidth - 2 * sideMargin
     let frame = CGRectMake(sideMargin, topMargin, width, width)
-    let timerControl = TimerControl(frame: frame, completedMode: true)
+    let timerControl = HYPTimerControl(completeModeWithFrame: frame)
+
     timerControl.active = true
     timerControl.backgroundColor = UIColor.clearColor()
 
@@ -79,10 +80,10 @@ class TimerViewController: ViewController {
         yOffset = 45
       }
     }
-    
+
     self.startRect = CGRectMake(x,y,width,height)
     self.finalRect = CGRectMake(x + xOffset, y + yOffset, width, height)
-    
+
     let imageView = UIImageView(image: image)
     imageView.frame = self.startRect
     imageView.hidden = true
@@ -148,7 +149,7 @@ class TimerViewController: ViewController {
     return button
   }()
 
-  init(alarm: Alarm) {
+  init(alarm: HYPAlarm) {
     self.alarm = alarm
 
     super.init(nibName: nil, bundle: nil)

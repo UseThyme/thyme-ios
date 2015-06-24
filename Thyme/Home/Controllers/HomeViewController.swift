@@ -62,21 +62,21 @@ class HomeViewController: ViewController {
     return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }()
 
-  lazy var alarms: [[Alarm]] = {
-    var alarms = [[Alarm]]()
+  lazy var alarms: [[HYPAlarm]] = {
+    var alarms = [[HYPAlarm]]()
 
     for i in 0..<2 {
-      alarms.append([Alarm(), Alarm()])
+      alarms.append([HYPAlarm(), HYPAlarm()])
     }
 
     return alarms
     }()
 
-  lazy var ovenAlarms: [[Alarm]] = {
-    var alarms = [[Alarm]]()
+  lazy var ovenAlarms: [[HYPAlarm]] = {
+    var alarms = [[HYPAlarm]]()
 
     for i in 0..<1 {
-      let alarm = Alarm()
+      let alarm = HYPAlarm()
       alarm.oven = true
       alarms.append([alarm])
     }
@@ -431,8 +431,8 @@ class HomeViewController: ViewController {
     layer.transform = rotationAndPerspectiveTransform;
   }
 
-  func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> Alarm {
-    let row: [Alarm] = collectionView.isEqual(self.collectionView)
+  func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> HYPAlarm {
+    let row: [HYPAlarm] = collectionView.isEqual(self.collectionView)
       ? self.alarms[indexPath.section]
       : self.ovenAlarms[indexPath.section]
 
@@ -449,7 +449,7 @@ class HomeViewController: ViewController {
     refreshTimerInCell(cell, alarm: alarm)
   }
 
-  func refreshTimerInCell(cell: PlateCell, alarm: Alarm) {
+  func refreshTimerInCell(cell: PlateCell, alarm: HYPAlarm) {
     if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
