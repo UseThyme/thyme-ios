@@ -1,23 +1,44 @@
 import WatchKit
 import Foundation
 
+struct RowData {
+  let title: String
+}
 
 class InterfaceController: WKInterfaceController {
 
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
-        
-        // Configure interface objects here.
-    }
+  struct Constants {
+    static let rowType = "AlarmRowType"
+  }
 
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
-    }
+  @IBOutlet weak var table: WKInterfaceTable!
 
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-    }
+  let items: [RowData] = [
+    RowData(title: "Alarm 1"),
+    RowData(title: "Alarm 2")]
 
+  override func awakeWithContext(context: AnyObject?) {
+    super.awakeWithContext(context)
+    setUpTable()
+  }
+
+  override func willActivate() {
+    super.willActivate()
+  }
+
+  override func didDeactivate() {
+    super.didDeactivate()
+  }
+
+  // MARK: - UI
+
+  func setUpTable() {
+    table.setNumberOfRows(items.count, withRowType: Constants.rowType)
+
+    for (index, item) in enumerate(items) {
+      if let row = table.rowControllerAtIndex(index) as? AlarmTableRow {
+        row.label.setText(item.title)
+      }
+    }
+  }
 }
