@@ -1009,7 +1009,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "530c4df6-257e-4743-b884-ca7a5fcfc1be";
+				PROVISIONING_PROFILE = "297bbf10-c7cd-46ee-ad5e-e15f2c2f1633";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1061,7 +1061,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
 				INFOPLIST_FILE = "Thyme/Thyme-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "297bbf10-c7cd-46ee-ad5e-e15f2c2f1633";
@@ -1088,7 +1088,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
 				INFOPLIST_FILE = "Thyme/Thyme-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "56de75ed-d322-4881-af5a-d4635ce1c81c";
