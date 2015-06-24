@@ -22,6 +22,7 @@ class InterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
+    loadTableData()
   }
 
   override func didDeactivate() {
