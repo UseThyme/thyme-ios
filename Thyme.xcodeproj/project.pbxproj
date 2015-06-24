@@ -62,6 +62,14 @@
 		44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA691846586C0007E083 /* HYPTimerControl.m */; };
 		7FF53A6DE5D435465CD0DEEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA495F7987D5467EEE452B3F /* libPods.a */; };
 		BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1579731B32E58A00812247 /* HomeViewController.swift */; };
+		BD2C3B241B3B44F900ACCFAA /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C3B231B3B44F900ACCFAA /* InterfaceController.swift */; };
+		BD2C3B261B3B44F900ACCFAA /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C3B251B3B44F900ACCFAA /* NotificationController.swift */; };
+		BD2C3B281B3B44F900ACCFAA /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C3B271B3B44F900ACCFAA /* GlanceController.swift */; };
+		BD2C3B2A1B3B44F900ACCFAA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B291B3B44F900ACCFAA /* Images.xcassets */; };
+		BD2C3B2E1B3B44F900ACCFAA /* Thyme WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B2D1B3B44F900ACCFAA /* Thyme WatchKit App.app */; };
+		BD2C3B361B3B44F900ACCFAA /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B341B3B44F900ACCFAA /* Interface.storyboard */; };
+		BD2C3B381B3B44F900ACCFAA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B371B3B44F900ACCFAA /* Images.xcassets */; };
+		BD2C3B3B1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BD2C3B1E1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
 		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
 		BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */; };
@@ -85,7 +93,35 @@
 			remoteGlobalIDString = 44AAE40D1844C0690096BF52;
 			remoteInfo = Thyme;
 		};
+		BD2C3B2F1B3B44F900ACCFAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44AAE4061844C0690096BF52 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD2C3B2C1B3B44F900ACCFAA;
+			remoteInfo = "Thyme WatchKit App";
+		};
+		BD2C3B391B3B44F900ACCFAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44AAE4061844C0690096BF52 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD2C3B1D1B3B44F900ACCFAA;
+			remoteInfo = "Thyme WatchKit Extension";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BD2C3B421B3B44F900ACCFAA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				BD2C3B3B1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		14117C7719DB1F1F0070010C /* UIColor+ANDYHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ANDYHex.h"; sourceTree = "<group>"; };
@@ -157,6 +193,17 @@
 		A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BA495F7987D5467EEE452B3F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD1579731B32E58A00812247 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BD2C3B1E1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Thyme WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD2C3B211B3B44F900ACCFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD2C3B221B3B44F900ACCFAA /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		BD2C3B231B3B44F900ACCFAA /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		BD2C3B251B3B44F900ACCFAA /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		BD2C3B271B3B44F900ACCFAA /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
+		BD2C3B291B3B44F900ACCFAA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BD2C3B2D1B3B44F900ACCFAA /* Thyme WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Thyme WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD2C3B331B3B44F900ACCFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD2C3B351B3B44F900ACCFAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		BD2C3B371B3B44F900ACCFAA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlatCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -199,6 +246,13 @@
 				44AAE42B1844C0690096BF52 /* XCTest.framework in Frameworks */,
 				44AAE42D1844C0690096BF52 /* UIKit.framework in Frameworks */,
 				44AAE42C1844C0690096BF52 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD2C3B1B1B3B44F900ACCFAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +484,8 @@
 			children = (
 				44AAE4171844C0690096BF52 /* Thyme */,
 				44AAE4301844C0690096BF52 /* ThymeTests */,
+				BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */,
+				BD2C3B311B3B44F900ACCFAA /* Thyme WatchKit App */,
 				44AAE4101844C0690096BF52 /* Frameworks */,
 				44AAE40F1844C0690096BF52 /* Products */,
 				BDF5048E6F88206565A3511A /* Pods */,
@@ -441,6 +497,8 @@
 			children = (
 				44AAE40E1844C0690096BF52 /* Thyme.app */,
 				44AAE4291844C0690096BF52 /* ThymeTests.xctest */,
+				BD2C3B1E1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex */,
+				BD2C3B2D1B3B44F900ACCFAA /* Thyme WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -533,6 +591,45 @@
 			path = External;
 			sourceTree = "<group>";
 		};
+		BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BD2C3B231B3B44F900ACCFAA /* InterfaceController.swift */,
+				BD2C3B251B3B44F900ACCFAA /* NotificationController.swift */,
+				BD2C3B271B3B44F900ACCFAA /* GlanceController.swift */,
+				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
+				BD2C3B201B3B44F900ACCFAA /* Supporting Files */,
+			);
+			path = "Thyme WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		BD2C3B201B3B44F900ACCFAA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BD2C3B211B3B44F900ACCFAA /* Info.plist */,
+				BD2C3B221B3B44F900ACCFAA /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BD2C3B311B3B44F900ACCFAA /* Thyme WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				BD2C3B341B3B44F900ACCFAA /* Interface.storyboard */,
+				BD2C3B371B3B44F900ACCFAA /* Images.xcassets */,
+				BD2C3B321B3B44F900ACCFAA /* Supporting Files */,
+			);
+			path = "Thyme WatchKit App";
+			sourceTree = "<group>";
+		};
+		BD2C3B321B3B44F900ACCFAA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BD2C3B331B3B44F900ACCFAA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		BDC80D971B343EF9005E2C51 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
@@ -562,10 +659,12 @@
 				44AAE40B1844C0690096BF52 /* Frameworks */,
 				44AAE40C1844C0690096BF52 /* Resources */,
 				F9090E98373705974C2AF5B7 /* Copy Pods Resources */,
+				BD2C3B421B3B44F900ACCFAA /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BD2C3B3A1B3B44F900ACCFAA /* PBXTargetDependency */,
 			);
 			name = Thyme;
 			productName = Thyme;
@@ -590,6 +689,39 @@
 			productReference = 44AAE4291844C0690096BF52 /* ThymeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		BD2C3B1D1B3B44F900ACCFAA /* Thyme WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD2C3B411B3B44F900ACCFAA /* Build configuration list for PBXNativeTarget "Thyme WatchKit Extension" */;
+			buildPhases = (
+				BD2C3B1A1B3B44F900ACCFAA /* Sources */,
+				BD2C3B1B1B3B44F900ACCFAA /* Frameworks */,
+				BD2C3B1C1B3B44F900ACCFAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BD2C3B301B3B44F900ACCFAA /* PBXTargetDependency */,
+			);
+			name = "Thyme WatchKit Extension";
+			productName = "Thyme WatchKit Extension";
+			productReference = BD2C3B1E1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		BD2C3B2C1B3B44F900ACCFAA /* Thyme WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD2C3B401B3B44F900ACCFAA /* Build configuration list for PBXNativeTarget "Thyme WatchKit App" */;
+			buildPhases = (
+				BD2C3B2B1B3B44F900ACCFAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Thyme WatchKit App";
+			productName = "Thyme WatchKit App";
+			productReference = BD2C3B2D1B3B44F900ACCFAA /* Thyme WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -607,6 +739,13 @@
 					44AAE4281844C0690096BF52 = {
 						TestTargetID = 44AAE40D1844C0690096BF52;
 					};
+					BD2C3B1D1B3B44F900ACCFAA = {
+						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = XVAH95CHDC;
+					};
+					BD2C3B2C1B3B44F900ACCFAA = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
 				};
 			};
 			buildConfigurationList = 44AAE4091844C0690096BF52 /* Build configuration list for PBXProject "Thyme" */;
@@ -616,6 +755,7 @@
 			knownRegions = (
 				en,
 				es,
+				Base,
 			);
 			mainGroup = 44AAE4051844C0690096BF52;
 			productRefGroup = 44AAE40F1844C0690096BF52 /* Products */;
@@ -624,6 +764,8 @@
 			targets = (
 				44AAE40D1844C0690096BF52 /* Thyme */,
 				44AAE4281844C0690096BF52 /* ThymeTests */,
+				BD2C3B1D1B3B44F900ACCFAA /* Thyme WatchKit Extension */,
+				BD2C3B2C1B3B44F900ACCFAA /* Thyme WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -672,6 +814,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				44AAE4351844C0690096BF52 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD2C3B1C1B3B44F900ACCFAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD2C3B2E1B3B44F900ACCFAA /* Thyme WatchKit App.app in Resources */,
+				BD2C3B2A1B3B44F900ACCFAA /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD2C3B2B1B3B44F900ACCFAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD2C3B361B3B44F900ACCFAA /* Interface.storyboard in Resources */,
+				BD2C3B381B3B44F900ACCFAA /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,6 +908,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BD2C3B1A1B3B44F900ACCFAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD2C3B261B3B44F900ACCFAA /* NotificationController.swift in Sources */,
+				BD2C3B241B3B44F900ACCFAA /* InterfaceController.swift in Sources */,
+				BD2C3B281B3B44F900ACCFAA /* GlanceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -755,6 +925,16 @@
 			isa = PBXTargetDependency;
 			target = 44AAE40D1844C0690096BF52 /* Thyme */;
 			targetProxy = 44AAE42E1844C0690096BF52 /* PBXContainerItemProxy */;
+		};
+		BD2C3B301B3B44F900ACCFAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD2C3B2C1B3B44F900ACCFAA /* Thyme WatchKit App */;
+			targetProxy = BD2C3B2F1B3B44F900ACCFAA /* PBXContainerItemProxy */;
+		};
+		BD2C3B3A1B3B44F900ACCFAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD2C3B1D1B3B44F900ACCFAA /* Thyme WatchKit Extension */;
+			targetProxy = BD2C3B391B3B44F900ACCFAA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -782,6 +962,14 @@
 				44AAE4341844C0690096BF52 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BD2C3B341B3B44F900ACCFAA /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD2C3B351B3B44F900ACCFAA /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -876,6 +1064,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "530c4df6-257e-4743-b884-ca7a5fcfc1be";
+				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme/AppDelegate/Thyme-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -902,6 +1091,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "56de75ed-d322-4881-af5a-d4635ce1c81c";
+				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme/AppDelegate/Thyme-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -948,6 +1138,93 @@
 			};
 			name = Release;
 		};
+		BD2C3B3C1B3B44F900ACCFAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Thyme WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BD2C3B3D1B3B44F900ACCFAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Thyme WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		BD2C3B3E1B3B44F900ACCFAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = Thyme_WatchKit_Extension;
+				INFOPLIST_FILE = "Thyme WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		BD2C3B3F1B3B44F900ACCFAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = Thyme_WatchKit_Extension;
+				INFOPLIST_FILE = "Thyme WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -977,6 +1254,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		BD2C3B401B3B44F900ACCFAA /* Build configuration list for PBXNativeTarget "Thyme WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD2C3B3E1B3B44F900ACCFAA /* Debug */,
+				BD2C3B3F1B3B44F900ACCFAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		BD2C3B411B3B44F900ACCFAA /* Build configuration list for PBXNativeTarget "Thyme WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD2C3B3C1B3B44F900ACCFAA /* Debug */,
+				BD2C3B3D1B3B44F900ACCFAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
