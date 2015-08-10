@@ -84,6 +84,7 @@
 		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
 		BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */; };
 		D57305691B3B533E00BC90F7 /* AlarmTableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57305681B3B533E00BC90F7 /* AlarmTableRow.swift */; };
+		D578D5E01B79616F002CCAE9 /* UIView+ToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D578D5DF1B79616F002CCAE9 /* UIView+ToImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -220,6 +221,8 @@
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D57305681B3B533E00BC90F7 /* AlarmTableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTableRow.swift; sourceTree = "<group>"; };
+		D578D5DE1B795C8E002CCAE9 /* Watch-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Watch-Bridging-Header.h"; sourceTree = "<group>"; };
+		D578D5DF1B79616F002CCAE9 /* UIView+ToImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ToImage.swift"; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -477,6 +480,7 @@
 			children = (
 				44A691BA1844EF68005D4C5A /* UIColor+HYPExtensions.h */,
 				44A691BB1844EF68005D4C5A /* UIColor+HYPExtensions.m */,
+				D578D5DF1B79616F002CCAE9 /* UIView+ToImage.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -602,6 +606,7 @@
 				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
 				BD2C3B201B3B44F900ACCFAA /* Supporting Files */,
 				D57305681B3B533E00BC90F7 /* AlarmTableRow.swift */,
+				D578D5DE1B795C8E002CCAE9 /* Watch-Bridging-Header.h */,
 			);
 			path = "Thyme WatchKit Extension";
 			sourceTree = "<group>";
@@ -888,6 +893,7 @@
 				BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
 				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
+				D578D5E01B79616F002CCAE9 /* UIView+ToImage.swift in Sources */,
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
@@ -1167,6 +1173,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1189,6 +1196,7 @@
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
