@@ -177,6 +177,10 @@ extension AppDelegate {
           "title": homeController.titleLabel.text!,
           "subtitle": homeController.subtitleLabel.text!
         ]
+      } else if request == "getPlate" {
+        if let index = userInfo["index"] as? Int {
+          response = homeController.plateDataForIndex(index)
+        }
       }
       reply(response)
 
