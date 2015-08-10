@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
@@ -41,10 +41,30 @@
             <objects>
                 <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group alignment="left" id="t8f-Gd-c4y"/>
-                        <group alignment="left" id="uCw-4Q-Ouw"/>
+                        <group alignment="left" id="t8f-Gd-c4y">
+                            <items>
+                                <label alignment="left" text="Thyme" id="IpY-Sq-dGX">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
+                            <items>
+                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="2" id="cw3-7a-9zX">
+                                    <color key="textColor" red="0.21960784310000001" green="0.95686274510000002" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </label>
+                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="2" id="g2H-Pd-99u">
+                                    <color key="textColor" red="0.21960784310000001" green="0.95686274510000002" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </label>
+                            </items>
+                        </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                    <connections>
+                        <outlet property="imageGroup" destination="uCw-4Q-Ouw" id="2Fu-7d-GnA"/>
+                        <outlet property="subtitleLabel" destination="g2H-Pd-99u" id="dEG-1E-EGL"/>
+                        <outlet property="titleLabel" destination="cw3-7a-9zX" id="V2V-4m-gEg"/>
+                    </connections>
                 </glanceController>
             </objects>
             <point key="canvasLocation" x="235" y="672"/>
