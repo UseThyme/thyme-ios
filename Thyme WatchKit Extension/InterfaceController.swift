@@ -1,15 +1,7 @@
 import WatchKit
 import Foundation
 
-struct RowData {
-  let title: String
-}
-
 class InterfaceController: WKInterfaceController {
-
-  struct Constants {
-    static let rowType = "AlarmRowType"
-  }
 
   @IBOutlet weak var titleLabel: WKInterfaceLabel!
   @IBOutlet weak var imageInterface: WKInterfaceImage!
@@ -23,6 +15,7 @@ class InterfaceController: WKInterfaceController {
     if let index = context as? Int {
       self.index = index
     }
+
     loadData()
   }
 
@@ -34,6 +27,7 @@ class InterfaceController: WKInterfaceController {
         contexts: [0, 1, 2, 3, 4])
       InterfaceController.isFirst = false
     }
+    
     loadData()
   }
 

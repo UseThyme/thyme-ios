@@ -1,13 +1,11 @@
 import WatchKit
 import Foundation
 
-
 class GlanceController: WKInterfaceController {
-
-  @IBOutlet weak var imageGroup: WKInterfaceGroup!
 
   @IBOutlet weak var subtitleLabel: WKInterfaceLabel!
   @IBOutlet weak var titleLabel: WKInterfaceLabel!
+
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
   }

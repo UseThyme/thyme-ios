@@ -49,7 +49,6 @@
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
                     <connections>
-                        <outlet property="imageGroup" destination="uCw-4Q-Ouw" id="2Fu-7d-GnA"/>
                         <outlet property="subtitleLabel" destination="g2H-Pd-99u" id="dEG-1E-EGL"/>
                         <outlet property="titleLabel" destination="cw3-7a-9zX" id="V2V-4m-gEg"/>
                     </connections>
