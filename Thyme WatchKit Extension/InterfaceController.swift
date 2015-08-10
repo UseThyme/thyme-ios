@@ -11,18 +11,30 @@ class InterfaceController: WKInterfaceController {
     static let rowType = "AlarmRowType"
   }
 
-  @IBOutlet weak var table: WKInterfaceTable!
+  @IBOutlet weak var titleLabel: WKInterfaceLabel!
+  @IBOutlet weak var imageInterface: WKInterfaceImage!
 
-  var items: [String]?
+  static var isFirst = true
+
+  var index: Int = 0
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
-    loadTableData()
+    if let index = context as? Int {
+      self.index = index
+    }
+    loadData()
   }
 
   override func willActivate() {
     super.willActivate()
-    loadTableData()
+    if InterfaceController.isFirst {
+      WKInterfaceController.reloadRootControllersWithNames(
+        ["plateController", "plateController", "plateController", "plateController", "plateController"],
+        contexts: [0, 1, 2, 3, 4])
+      InterfaceController.isFirst = false
+    }
+    loadData()
   }
 
   override func didDeactivate() {
@@ -31,29 +43,18 @@ class InterfaceController: WKInterfaceController {
 
   // MARK: - Data
 
-  func loadTableData() {
-    WKInterfaceController.openParentApplication(["request": "getAlarms"]) {
+  func loadData() {
+    WKInterfaceController.openParentApplication(["request": "getPlate", "index": index]) {
       [unowned self] response, error in
       if let response = response,
-        alarms = response["alarms"] as? [String] {
-          self.items = alarms
-          self.setUpTable()
+        title = response["title"] as? String,
+        imageData = response["imageData"] as? NSData {
+          let image = UIImage(data: imageData)
+          
+          self.titleLabel.setText(title)
+          self.imageInterface.setImage(image)
       } else {
         println("Error with fetching of alarms from the parent app")
-      }
-    }
-  }
-
-  // MARK: - UI
-
-  func setUpTable() {
-    if let items = items {
-      table.setNumberOfRows(items.count, withRowType: Constants.rowType)
-
-      for (index, item) in enumerate(items) {
-        if let row = table.rowControllerAtIndex(index) as? AlarmTableRow {
-          row.label.setText(item)
-        }
       }
     }
   }

@@ -221,7 +221,6 @@
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D57305681B3B533E00BC90F7 /* AlarmTableRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTableRow.swift; sourceTree = "<group>"; };
-		D578D5DE1B795C8E002CCAE9 /* Watch-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Watch-Bridging-Header.h"; sourceTree = "<group>"; };
 		D578D5DF1B79616F002CCAE9 /* UIView+ToImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ToImage.swift"; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -606,7 +605,6 @@
 				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
 				BD2C3B201B3B44F900ACCFAA /* Supporting Files */,
 				D57305681B3B533E00BC90F7 /* AlarmTableRow.swift */,
-				D578D5DE1B795C8E002CCAE9 /* Watch-Bridging-Header.h */,
 			);
 			path = "Thyme WatchKit Extension";
 			sourceTree = "<group>";
