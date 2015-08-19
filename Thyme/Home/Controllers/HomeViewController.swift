@@ -8,14 +8,14 @@ class HomeViewController: ViewController {
 
   var maxMinutesLeft: NSNumber? {
     didSet(newValue) {
-      if maxMinutesLeft != nil {
+      if let maxMinutesLeft = maxMinutesLeft {
         titleLabel.text = NSLocalizedString("YOUR DISH WILL BE DONE",
           comment: "YOUR DISH WILL BE DONE");
         if (maxMinutesLeft == 0.0) {
           subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
             comment: "IN LESS THAN A MINUTE")
         } else {
-          subtitleLabel.text = Alarm.subtitleForHomescreenUsingMinutes(maxMinutesLeft!)
+          subtitleLabel.text = Alarm.subtitleForHomescreenUsingMinutes(maxMinutesLeft)
         }
       } else {
         titleLabel.text = Alarm.titleForHomescreen()
@@ -324,16 +324,14 @@ class HomeViewController: ViewController {
       name: "appWasShaked",
       object: nil)
 
-    view.addSubview(titleLabel)
-    view.addSubview(subtitleLabel)
-    view.addSubview(ovenBackgroundImageView)
-    view.addSubview(ovenShineImageView)
+    collectionView.registerClass(PlateCell.classForCoder(),
+      forCellWithReuseIdentifier: plateCellIdentifier)
+    ovenCollectionView.registerClass(PlateCell.classForCoder(),
+      forCellWithReuseIdentifier: plateCellIdentifier)
 
-    collectionView.registerClass(PlateCell.classForCoder(), forCellWithReuseIdentifier: plateCellIdentifier)
-    ovenCollectionView.registerClass(PlateCell.classForCoder(), forCellWithReuseIdentifier: plateCellIdentifier)
-
-    view.addSubview(collectionView)
-    view.addSubview(ovenCollectionView)
+    [titleLabel, subtitleLabel,
+      ovenBackgroundImageView, ovenShineImageView,
+      collectionView, ovenCollectionView].map { self.view.addSubview($0) }
   }
 
   override func viewWillAppear(animated: Bool) {
@@ -430,9 +428,9 @@ class HomeViewController: ViewController {
   }
 
   func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> HYPAlarm {
-    let row: [HYPAlarm] = collectionView.isEqual(self.collectionView)
-      ? self.alarms[indexPath.section]
-      : self.ovenAlarms[indexPath.section]
+    let row: [HYPAlarm] = collectionView.isEqual(collectionView)
+      ? alarms[indexPath.section]
+      : ovenAlarms[indexPath.section]
 
     return row[indexPath.row]
   }
@@ -497,15 +495,15 @@ class HomeViewController: ViewController {
 extension HomeViewController: UICollectionViewDataSource {
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return collectionView.isEqual(self.collectionView)
-      ? self.alarms.count
-      : self.ovenAlarms.count
+    return collectionView.isEqual(collectionView)
+      ? alarms.count
+      : ovenAlarms.count
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return collectionView.isEqual(self.collectionView)
-    ? self.alarms[0].count
-    : self.ovenAlarms[0].count
+    return collectionView.isEqual(collectionView)
+    ? alarms[0].count
+    : ovenAlarms[0].count
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -553,7 +551,7 @@ extension HomeViewController: UIAlertViewDelegate {
       collectionView.reloadData()
       ovenCollectionView.reloadData()
     }
-    self.deleteTimersMessageIsBeingDisplayed = false
+    deleteTimersMessageIsBeingDisplayed = false
   }
 }
 
@@ -570,10 +568,10 @@ extension HomeViewController: TimerControllerDelegate {
   func timerControlChangedValue(timerControl: HYPTimerControl) {
     if let maxMinutes = self.maxMinutesLeft
       where maxMinutes.intValue - 1 == timerControl.minutes {
-        self.maxMinutesLeft = timerControl.minutes
-    } else if let maxMinutes = self.maxMinutesLeft
+        maxMinutesLeft = timerControl.minutes
+    } else if let maxMinutes = maxMinutesLeft
       where maxMinutes.floatValue == Float(0) && timerControl.minutes == 59 {
-        self.maxMinutesLeft = nil
+        maxMinutesLeft = nil
     }
   }
 }
