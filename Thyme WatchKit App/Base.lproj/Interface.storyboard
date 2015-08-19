@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
+        <!--plateController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
+                <controller identifier="plateController" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <table alignment="left" id="5hM-3H-Xbd">
-                            <items>
-                                <tableRow identifier="AlarmRowType" id="88x-8G-J3g" customClass="AlarmTableRow" customModule="Thyme_WatchKit_Extension">
-                                    <group key="rootItem" width="1" alignment="left" id="EGD-07-G0t">
-                                        <items>
-                                            <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="left" id="lHh-n1-szM">
-                                                <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
-                                            </label>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="label" destination="lHh-n1-szM" id="hyK-AN-0qU"/>
-                                    </connections>
-                                </tableRow>
-                            </items>
-                            <color key="backgroundColor" red="0.23137254900000001" green="0.96078431369999995" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
-                        </table>
+                        <label alignment="left" id="kF4-mY-kDw">
+                            <color key="textColor" red="0.21960784310000001" green="0.95686274510000002" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
+                        </label>
+                        <imageView width="120" height="120" alignment="center" verticalAlignment="center" id="tqE-QF-urS"/>
                     </items>
-                    <color key="backgroundColor" red="0.23137254900000001" green="0.96078431369999995" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
-                        <outlet property="table" destination="5hM-3H-Xbd" id="Yiz-Ib-Z2r"/>
+                        <outlet property="imageInterface" destination="tqE-QF-urS" id="dd9-fu-tUX"/>
+                        <outlet property="titleLabel" destination="kF4-mY-kDw" id="fHl-Wx-kkc"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="235" y="347"/>
+            <point key="canvasLocation" x="235" y="347.75"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
             <objects>
                 <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group alignment="left" id="t8f-Gd-c4y"/>
-                        <group alignment="left" id="uCw-4Q-Ouw"/>
+                        <group alignment="left" id="t8f-Gd-c4y">
+                            <items>
+                                <label alignment="left" text="Thyme" id="IpY-Sq-dGX">
+                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
+                                </label>
+                            </items>
+                        </group>
+                        <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
+                            <items>
+                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="2" id="cw3-7a-9zX">
+                                    <color key="textColor" red="0.21960784310000001" green="0.95686274510000002" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </label>
+                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="2" id="g2H-Pd-99u">
+                                    <color key="textColor" red="0.21960784310000001" green="0.95686274510000002" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </label>
+                            </items>
+                        </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                    <connections>
+                        <outlet property="subtitleLabel" destination="g2H-Pd-99u" id="dEG-1E-EGL"/>
+                        <outlet property="titleLabel" destination="cw3-7a-9zX" id="V2V-4m-gEg"/>
+                    </connections>
                 </glanceController>
             </objects>
             <point key="canvasLocation" x="235" y="672"/>
