@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient, error: nil)
 
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
-      self.handleLocalNotification(notification, playingSound: false)
+      handleLocalNotification(notification, playingSound: false)
     }
 
     window!.rootViewController = navigationController
@@ -87,22 +87,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       playingSound = false
     }
 
-    self.handleLocalNotification(notification, playingSound: playingSound)
+    handleLocalNotification(notification, playingSound: playingSound)
   }
 
   func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
     let types: UIUserNotificationType = .Alert | .Badge | .Sound
     if notificationSettings.types != types {
-      self.homeController.cancelledNotifications()
+      homeController.cancelledNotifications()
     } else {
-      self.homeController.registeredForNotifications()
+      homeController.registeredForNotifications()
     }
   }
 
   // MARK: UIAlertViewDelegate
 
   func alert(alertView: UIAlertView, clickedButtonAtIndex: NSInteger) {
-    self.audioPlayer.stop()
+    audioPlayer.stop()
   }
 
   // MARK: Private methods
@@ -110,8 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   func handleLocalNotification(notification: UILocalNotification, playingSound: Bool) {
     if let userInfo = notification.userInfo,
     alarmID = userInfo[ThymeAlarmIDKey] as? String {
-      println(alarmID)
-      self.cleanUpLocalNotificationWithAlarmID(alarmID)
+      cleanUpLocalNotificationWithAlarmID(alarmID)
 
       if playingSound {
         audioPlayer.prepareToPlay()
