@@ -252,8 +252,7 @@ class HomeViewController: ViewController {
       }  else if self.deviceHeight == 568 {
         topMargin += 90
       } else if self.deviceHeight == 667 {
-        topMargin += 128
-        x = 50
+        topMargin += 118
       } else if self.deviceHeight == 763 {
         height = 173
         topMargin += 128
