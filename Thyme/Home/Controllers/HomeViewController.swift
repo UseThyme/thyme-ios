@@ -324,16 +324,14 @@ class HomeViewController: ViewController {
       name: "appWasShaked",
       object: nil)
 
-    view.addSubview(titleLabel)
-    view.addSubview(subtitleLabel)
-    view.addSubview(ovenBackgroundImageView)
-    view.addSubview(ovenShineImageView)
+    collectionView.registerClass(PlateCell.classForCoder(),
+      forCellWithReuseIdentifier: plateCellIdentifier)
+    ovenCollectionView.registerClass(PlateCell.classForCoder(),
+      forCellWithReuseIdentifier: plateCellIdentifier)
 
-    collectionView.registerClass(PlateCell.classForCoder(), forCellWithReuseIdentifier: plateCellIdentifier)
-    ovenCollectionView.registerClass(PlateCell.classForCoder(), forCellWithReuseIdentifier: plateCellIdentifier)
-
-    view.addSubview(collectionView)
-    view.addSubview(ovenCollectionView)
+    [titleLabel, subtitleLabel,
+      ovenBackgroundImageView, ovenShineImageView,
+      collectionView, ovenCollectionView].map { self.view.addSubview($0) }
   }
 
   override func viewWillAppear(animated: Bool) {
