@@ -8,14 +8,14 @@ class HomeViewController: ViewController {
 
   var maxMinutesLeft: NSNumber? {
     didSet(newValue) {
-      if maxMinutesLeft != nil {
+      if let maxMinutesLeft = maxMinutesLeft {
         titleLabel.text = NSLocalizedString("YOUR DISH WILL BE DONE",
           comment: "YOUR DISH WILL BE DONE");
         if (maxMinutesLeft == 0.0) {
           subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
             comment: "IN LESS THAN A MINUTE")
         } else {
-          subtitleLabel.text = Alarm.subtitleForHomescreenUsingMinutes(maxMinutesLeft!)
+          subtitleLabel.text = Alarm.subtitleForHomescreenUsingMinutes(maxMinutesLeft)
         }
       } else {
         titleLabel.text = Alarm.titleForHomescreen()
