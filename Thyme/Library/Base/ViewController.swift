@@ -44,7 +44,7 @@ import UIKit
     gradientView.gradientColors = [from, to]
   }
 
-  public func aniamteChangeGradient(from: UIColor, to: UIColor, duration: CGFloat, delay: CGFloat = 0) {
+  public func animateChangeGradient(from: UIColor, to: UIColor, duration: CGFloat, delay: CGFloat = 0) {
     gradientView.changeGradientWithAnimation([from,to], delay: delay, duration: duration)
   }
 
@@ -55,7 +55,7 @@ import UIKit
       let textColor = userinfo["textColor"] as! String
 
       if let duration = userinfo["duration"] as? CGFloat {
-        aniamteChangeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to), duration: duration, delay: 0)
+        animateChangeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to), duration: duration, delay: 0)
       } else {
         changeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to))
       }
