@@ -10,7 +10,10 @@ import UIKit
       to = defaults.stringForKey("BackgroundColorTo") {
         gradientView.gradientColors = [UIColor(fromHex: from), UIColor(fromHex: to)]
     } else {
-      gradientView.gradientColors = [UIColor(fromHex: "3bf5e6"), UIColor(fromHex: "00979b")]
+      gradientView.gradientColors = [
+        UIColor(fromHex: "00F8C7"),
+        UIColor(fromHex: "05ABBF"),
+        UIColor(fromHex: "0C80C3")]
     }
     
     return gradientView
