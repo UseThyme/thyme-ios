@@ -335,7 +335,6 @@ class HomeViewController: ViewController {
 
     view.addSubview(collectionView)
     view.addSubview(ovenCollectionView)
-    view.addSubview(settingsButton)
   }
 
   override func viewWillAppear(animated: Bool) {
