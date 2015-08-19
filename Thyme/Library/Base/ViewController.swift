@@ -5,17 +5,11 @@ import UIKit
   lazy var gradientView: BKEAnimatedGradientView = {
     let gradientView = BKEAnimatedGradientView(frame: self.view.frame)
 
-    let defaults = NSUserDefaults.standardUserDefaults()
-    if let from = defaults.stringForKey("BackgroundColorFrom"),
-      to = defaults.stringForKey("BackgroundColorTo") {
-        gradientView.gradientColors = [UIColor(fromHex: from), UIColor(fromHex: to)]
-    } else {
-      gradientView.gradientColors = [
-        UIColor(fromHex: "00F8C7"),
-        UIColor(fromHex: "05ABBF"),
-        UIColor(fromHex: "0C80C3")]
-    }
-    
+    gradientView.gradientColors = [
+      UIColor(fromHex: "00F8C7"),
+      UIColor(fromHex: "05ABBF"),
+      UIColor(fromHex: "0C80C3")]
+
     return gradientView
     }()
 
