@@ -430,9 +430,9 @@ class HomeViewController: ViewController {
   }
 
   func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> HYPAlarm {
-    let row: [HYPAlarm] = collectionView.isEqual(self.collectionView)
-      ? self.alarms[indexPath.section]
-      : self.ovenAlarms[indexPath.section]
+    let row: [HYPAlarm] = collectionView.isEqual(collectionView)
+      ? alarms[indexPath.section]
+      : ovenAlarms[indexPath.section]
 
     return row[indexPath.row]
   }
@@ -497,15 +497,15 @@ class HomeViewController: ViewController {
 extension HomeViewController: UICollectionViewDataSource {
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return collectionView.isEqual(self.collectionView)
-      ? self.alarms.count
-      : self.ovenAlarms.count
+    return collectionView.isEqual(collectionView)
+      ? alarms.count
+      : ovenAlarms.count
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return collectionView.isEqual(self.collectionView)
-    ? self.alarms[0].count
-    : self.ovenAlarms[0].count
+    return collectionView.isEqual(collectionView)
+    ? alarms[0].count
+    : ovenAlarms[0].count
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -553,7 +553,7 @@ extension HomeViewController: UIAlertViewDelegate {
       collectionView.reloadData()
       ovenCollectionView.reloadData()
     }
-    self.deleteTimersMessageIsBeingDisplayed = false
+    deleteTimersMessageIsBeingDisplayed = false
   }
 }
 
@@ -570,10 +570,10 @@ extension HomeViewController: TimerControllerDelegate {
   func timerControlChangedValue(timerControl: HYPTimerControl) {
     if let maxMinutes = self.maxMinutesLeft
       where maxMinutes.intValue - 1 == timerControl.minutes {
-        self.maxMinutesLeft = timerControl.minutes
-    } else if let maxMinutes = self.maxMinutesLeft
+        maxMinutesLeft = timerControl.minutes
+    } else if let maxMinutes = maxMinutesLeft
       where maxMinutes.floatValue == Float(0) && timerControl.minutes == 59 {
-        self.maxMinutesLeft = nil
+        maxMinutesLeft = nil
     }
   }
 }
