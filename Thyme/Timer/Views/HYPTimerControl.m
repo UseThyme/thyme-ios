@@ -68,7 +68,7 @@
     if (customColor) {
         _hoursLabel.textColor = [UIColor colorFromHexString:customColor];
     } else {
-        _hoursLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+        _hoursLabel.textColor = [UIColor colorFromHexString:@"1B807E"];
     }
     _hoursLabel.textAlignment = NSTextAlignmentCenter;
     _hoursLabel.font = font;
@@ -102,7 +102,7 @@
     if (customColor) {
         _minutesValueLabel.textColor = [UIColor colorFromHexString:customColor];
     } else {
-        _minutesValueLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+        _minutesValueLabel.textColor = [UIColor colorFromHexString:@"1B807E"];
     }
 
     _minutesValueLabel.textAlignment = NSTextAlignmentCenter;
@@ -138,7 +138,7 @@
     if (customColor) {
         _minutesTitleLabel.textColor = [UIColor colorFromHexString:customColor];
     } else {
-        _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"30cec6"];
+        _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"1B807E"];
     }
     _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
     _minutesTitleLabel.font = font;
