@@ -285,5 +285,6 @@ class TimerViewController: ViewController {
       delegate?.dismissedTimerController(self)
     }
     self.dismissViewControllerAnimated(true, completion: nil)
+    timerControl.touchesAreActive = false
   }
 }

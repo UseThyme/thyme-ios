@@ -20,6 +20,7 @@
 
 @interface HYPTimerControl ()
 
+@property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, strong) UILabel *hoursLabel;
 @property (nonatomic, strong) UILabel *minutesValueLabel;
 @property (nonatomic, strong) UILabel *minutesTitleLabel;
@@ -44,6 +45,16 @@
 }
 
 #pragma mark - Getters
+
+- (AVAudioPlayer *)player {
+    if (_player) return _player;
+
+    NSString *file = [[NSBundle mainBundle] pathForResource:@"tick" ofType:@"wav"];
+    NSURL *url = [NSURL fileURLWithPath:file];
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+
+    return _player;
+}
 
 - (UILabel *)hoursLabel
 {
@@ -623,7 +634,7 @@
 
 - (void)playInputClick
 {
-    [[UIDevice currentDevice] playInputClick];
+    [self.player play];
 }
 
 @end

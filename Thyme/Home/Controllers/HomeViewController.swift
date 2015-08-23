@@ -428,7 +428,7 @@ class HomeViewController: ViewController {
   }
 
   func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> HYPAlarm {
-    let row: [HYPAlarm] = collectionView.isEqual(collectionView)
+    let row: [HYPAlarm] = collectionView.isEqual(self.collectionView)
       ? alarms[indexPath.section]
       : ovenAlarms[indexPath.section]
 
@@ -495,13 +495,13 @@ class HomeViewController: ViewController {
 extension HomeViewController: UICollectionViewDataSource {
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return collectionView.isEqual(collectionView)
+    return collectionView.isEqual(self.collectionView)
       ? alarms.count
       : ovenAlarms.count
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return collectionView.isEqual(collectionView)
+    return collectionView.isEqual(self.collectionView)
     ? alarms[0].count
     : ovenAlarms[0].count
   }
