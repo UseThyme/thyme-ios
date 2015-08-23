@@ -20,27 +20,27 @@ public class TimerControl: UIControl {
     }()
 
   var angle: Int = 0 {
-    didSet(value) {
+    willSet(value) {
       let minute = value/6
-      if self.completedMode == false && self.isHoursMode == true {
+      if completedMode == false && hours > 0 {
         if minute < 10 {
-          self.minutesValueLabel.text = "\(self.hours):0\(minute/6)"
+          minutesValueLabel.text = "\(hours):0\(minute)"
         } else {
-          self.minutesValueLabel.text = "\(self.hours)\(minute/6)"
+          minutesValueLabel.text = "\(hours):\(minute)"
         }
       } else {
-        self.minutesValueLabel.text = "\(minute)"
+        minutesValueLabel.text = "\(minute)"
       }
     }
   }
 
   var hours: Int = 0 {
-    didSet(value) {
+    willSet(value) {
       if value == 0 {
-        self.hoursLabel.hidden = true
+        hoursLabel.hidden = true
       } else {
-        self.hoursLabel.hidden = false
-        self.hoursLabel.text = value == 1
+        hoursLabel.hidden = false
+        hoursLabel.text = value == 1
           ? NSLocalizedString("\(value) HOUR", comment: "\(value) HOUR")
           : NSLocalizedString("\(value) HOURS", comment: "\(value) HOURS")
       }
@@ -49,26 +49,22 @@ public class TimerControl: UIControl {
 
   var minutes: Int = 0 {
     willSet(value) {
-      if minutes != value && self.touchesAreActive == true {
-        self.playInputClick()
+      if minutes != value && touchesAreActive == true {
+        playInputClick()
       }
 
-      self.angle = value * 6
-      self.setNeedsDisplay()
+      angle = value * 6
+      setNeedsDisplay()
     }
   }
 
   var active: Bool = false {
-    didSet(value) {
-      self.minutesValueLabel.hidden = !value
-      self.angle = 0
-      self.setNeedsDisplay()
+    willSet(value) {
+      minutesValueLabel.hidden = !value
+      angle = 0
+      setNeedsDisplay()
     }
   }
-
-  lazy var isHoursMode: Bool = {
-    return self.hours > 0
-    }()
 
   lazy var minuteValueSize: CGFloat = {
     if UIScreen.andy_isPad() {
@@ -93,7 +89,7 @@ public class TimerControl: UIControl {
     : self.minuteTitleSize * 1.5
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = HYPUtils.avenirLightWithSize(fontSize)
+    let font = UIFont.boldSystemFontOfSize(fontSize)
     let sampleString = "2 HOURS"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
@@ -108,12 +104,7 @@ public class TimerControl: UIControl {
     label.hidden = true
     label.text = sampleString
     label.textAlignment = .Center
-
-    let defaults = NSUserDefaults.standardUserDefaults()
-
-    label.textColor = defaults.stringForKey("TextColor") != nil
-    ? UIColor(fromHex: defaults.stringForKey("TextColor"))
-    : UIColor(fromHex: "30cec6")
+    label.textColor = UIColor(fromHex: "1B807E")
 
     return label
     }()
@@ -125,7 +116,7 @@ public class TimerControl: UIControl {
       : self.minuteValueSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = HYPUtils.helveticaNeueUltraLightWithSize(fontSize)
+    let font = UIFont.boldSystemFontOfSize(fontSize)
     let sampleString = "10:00"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
@@ -138,12 +129,7 @@ public class TimerControl: UIControl {
     label.backgroundColor = UIColor.clearColor()
     label.font = font
     label.textAlignment = .Center
-
-    let defaults = NSUserDefaults.standardUserDefaults()
-
-    label.textColor = defaults.stringForKey("TextColor") != nil
-      ? UIColor(fromHex: defaults.stringForKey("TextColor"))
-      : UIColor(fromHex: "30cec6")
+    label.textColor = UIColor(fromHex: "1B807E")
     label.text = "\(self.angle)"
 
     return label
@@ -156,7 +142,7 @@ public class TimerControl: UIControl {
       : self.minuteTitleSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = HYPUtils.helveticaNeueUltraLightWithSize(fontSize)
+    let font = UIFont.boldSystemFontOfSize(fontSize)
     let minutesLeftText = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
     let attributes = [NSFontAttributeName : font]
     let textSize = (minutesLeftText as NSString).sizeWithAttributes(attributes)
@@ -174,12 +160,7 @@ public class TimerControl: UIControl {
     label.font = font
     label.text = minutesLeftText
     label.textAlignment = .Center
-
-    let defaults = NSUserDefaults.standardUserDefaults()
-
-    label.textColor = defaults.stringForKey("TextColor") != nil
-      ? UIColor(fromHex: defaults.stringForKey("TextColor"))
-      : UIColor(fromHex: "30cec6")
+    label.textColor = UIColor(fromHex: "1B807E")
 
     return label
     }()
@@ -296,7 +277,7 @@ public class TimerControl: UIControl {
         angle: CGFloat(angle),
         containerRect: circleRect)
 
-      let secondsColor = UIColor.whiteColor()
+      let secondsColor = UIColor.redColor()
       if let timer = timer where timer.valid == true {
         let factor: CGFloat = self.completedMode == true ? 0.1 : 0.2
         drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect)
@@ -371,7 +352,6 @@ public class TimerControl: UIControl {
       var width: CGFloat
       var angle: CGFloat
     }
-
   }
 
   func pointFromAngle(angle: CGFloat, radius: CGFloat, containerRect: CGRect)  -> CGPoint {
@@ -398,7 +378,7 @@ public class TimerControl: UIControl {
     let unactiveCircleColor = UIColor(white: 1.0, alpha: 0.4)
 
     if active == true {
-      color = isHoursMode == true
+      color = hours > 0
         ? calculatedColor : normalCircleColor
     } else {
       color = unactiveCircleColor
@@ -413,7 +393,7 @@ public class TimerControl: UIControl {
     let lastPointIsZero: Bool = CGPointEqualToPoint(lastPoint, CGPointZero)
     let lastPointWasInFirstQuadrand: Bool = CGRectContainsPoint(self.firstQuadrandRect, lastPoint)
 
-    if isHoursMode == false && pointBelongsToFirstHalfOfTheScreen == true &&
+    if hours < 1 && pointBelongsToFirstHalfOfTheScreen == true &&
       (lastPointIsZero == false && lastPointWasInFirstQuadrand == true) {
       return true
     }
@@ -541,11 +521,11 @@ public class TimerControl: UIControl {
 
     if pointIsComingFromSecondQuadrand(currentPoint) == true {
       hours += 1
-    } else if isHoursMode == true && pointIsComingFromFirstQuadrand(currentPoint) == true {
+    } else if hours > 0 && pointIsComingFromFirstQuadrand(currentPoint) == true {
       hours -= 1
     }
 
-    self.minutes = Int(angle) / 6
+    minutes = Int(angle) / 6
     self.angle = Int(angle)
     setNeedsDisplay()
   }
@@ -589,7 +569,7 @@ public class TimerControl: UIControl {
     let currentPoint = touch.locationInView(self)
 
     if touchesAreActive == true {
-      if isHoursMode == false && shouldBlockTouchesForPoint(currentPoint) == true {
+      if hours < 1 && shouldBlockTouchesForPoint(currentPoint) == true {
         touchesAreActive = false
         angle = 0
         setNeedsDisplay()

@@ -62,21 +62,21 @@ class HomeViewController: ViewController {
     return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }()
 
-  lazy var alarms: [[HYPAlarm]] = {
-    var alarms = [[HYPAlarm]]()
+  lazy var alarms: [[Alarm]] = {
+    var alarms = [[Alarm]]()
 
     for i in 0..<2 {
-      alarms.append([HYPAlarm(), HYPAlarm()])
+      alarms.append([Alarm(), Alarm()])
     }
 
     return alarms
     }()
 
-  lazy var ovenAlarms: [[HYPAlarm]] = {
-    var alarms = [[HYPAlarm]]()
+  lazy var ovenAlarms: [[Alarm]] = {
+    var alarms = [[Alarm]]()
 
     for i in 0..<1 {
-      let alarm = HYPAlarm()
+      let alarm = Alarm()
       alarm.oven = true
       alarms.append([alarm])
     }
@@ -427,8 +427,8 @@ class HomeViewController: ViewController {
     layer.transform = rotationAndPerspectiveTransform;
   }
 
-  func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> HYPAlarm {
-    let row: [HYPAlarm] = collectionView.isEqual(self.collectionView)
+  func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> Alarm {
+    let row: [Alarm] = collectionView.isEqual(self.collectionView)
       ? alarms[indexPath.section]
       : ovenAlarms[indexPath.section]
 
@@ -445,7 +445,7 @@ class HomeViewController: ViewController {
     refreshTimerInCell(cell, alarm: alarm)
   }
 
-  func refreshTimerInCell(cell: PlateCell, alarm: HYPAlarm) {
+  func refreshTimerInCell(cell: PlateCell, alarm: Alarm) {
     if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
@@ -565,7 +565,7 @@ extension HomeViewController: TimerControllerDelegate {
     ovenCollectionView.reloadData()
   }
 
-  func timerControlChangedValue(timerControl: HYPTimerControl) {
+  func timerControlChangedValue(timerControl: TimerControl) {
     if let maxMinutes = self.maxMinutesLeft
       where maxMinutes.intValue - 1 == timerControl.minutes {
         maxMinutesLeft = timerControl.minutes
