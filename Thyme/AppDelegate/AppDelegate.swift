@@ -72,7 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     pageControl.backgroundColor = UIColor(fromHex: "EDFFFF")
 
     UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
-    AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient, error: nil)
 
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
       handleLocalNotification(notification, playingSound: false)
