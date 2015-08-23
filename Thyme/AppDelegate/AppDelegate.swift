@@ -61,13 +61,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       BITHockeyManager.sharedHockeyManager().startManager()
     #endif
 
+    let audioSession = AVAudioSession.sharedInstance()
+    audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+    audioSession.setActive(true, error: nil)
+    application.beginReceivingRemoteControlEvents()
+
     let pageControl = UIPageControl.appearance()
     pageControl.pageIndicatorTintColor = UIColor(fromHex: "D0E8E8")
     pageControl.currentPageIndicatorTintColor = UIColor(fromHex: "FF5C5C")
     pageControl.backgroundColor = UIColor(fromHex: "EDFFFF")
 
     UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
-    AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient, error: nil)
 
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
       handleLocalNotification(notification, playingSound: false)
@@ -77,6 +81,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     window!.makeKeyAndVisible()
 
     return true
+  }
+
+  func applicationDidEnterBackground(application: UIApplication) {
+    application.beginBackgroundTaskWithExpirationHandler {}
+    application.beginReceivingRemoteControlEvents()
   }
 
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
