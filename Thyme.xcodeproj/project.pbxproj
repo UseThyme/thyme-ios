@@ -68,6 +68,7 @@
 		BD2C3B361B3B44F900ACCFAA /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B341B3B44F900ACCFAA /* Interface.storyboard */; };
 		BD2C3B381B3B44F900ACCFAA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B371B3B44F900ACCFAA /* Images.xcassets */; };
 		BD2C3B3B1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BD2C3B1E1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BD6E97431B8BC1D1004C83D4 /* UIView+ToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6E97421B8BC1D1004C83D4 /* UIView+ToImage.swift */; };
 		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
 		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
 		BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */; };
@@ -82,7 +83,6 @@
 		BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87EE1B347B3200F0DCE6 /* Setting.swift */; };
 		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
 		BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */; };
-		D578D5E01B79616F002CCAE9 /* UIView+ToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D578D5DF1B79616F002CCAE9 /* UIView+ToImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +196,7 @@
 		BD2C3B331B3B44F900ACCFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD2C3B351B3B44F900ACCFAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		BD2C3B371B3B44F900ACCFAA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BD6E97421B8BC1D1004C83D4 /* UIView+ToImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ToImage.swift"; sourceTree = "<group>"; };
 		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlatCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -211,7 +212,6 @@
 		BDFD87EE1B347B3200F0DCE6 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
-		D578D5DF1B79616F002CCAE9 /* UIView+ToImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ToImage.swift"; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -417,6 +417,7 @@
 		44A691AE1844E0BB005D4C5A /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				BD6E97411B8BC1AF004C83D4 /* Extensions */,
 				BDC80D971B343EF9005E2C51 /* Structs */,
 				44A691B31844E299005D4C5A /* Utils */,
 				44A691AF1844E0E6005D4C5A /* Base */,
@@ -590,6 +591,14 @@
 				BD2C3B331B3B44F900ACCFAA /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BD6E97411B8BC1AF004C83D4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BD6E97421B8BC1D1004C83D4 /* UIView+ToImage.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		BDC80D971B343EF9005E2C51 /* Structs */ = {
@@ -850,7 +859,7 @@
 				BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
 				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
-				D578D5E01B79616F002CCAE9 /* UIView+ToImage.swift in Sources */,
+				BD6E97431B8BC1D1004C83D4 /* UIView+ToImage.swift in Sources */,
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
