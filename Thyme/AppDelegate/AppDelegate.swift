@@ -189,25 +189,7 @@ extension AppDelegate {
         UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
       })
 
-      var response = [NSObject : AnyObject]()
-
-      if request == "getAlarms" {
-        var notifications = [String]()
-        for notification in UIApplication.sharedApplication().scheduledLocalNotifications as! [UILocalNotification] {
-          notifications.append(notification.alertBody!)
-        }
-
-        response = ["alarms": notifications]
-      } else if request == "getMaxMinutesLeft" {
-        response = [
-          "title": homeController.titleLabel.text!,
-          "subtitle": homeController.subtitleLabel.text!
-        ]
-      } else if request == "getPlate" {
-        if let index = userInfo["index"] as? Int {
-          response = homeController.plateDataForIndex(index)
-        }
-      }
+      var response = WatchHandler.response(request)
       reply(response)
 
       UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
