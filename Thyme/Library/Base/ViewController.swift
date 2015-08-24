@@ -6,7 +6,7 @@ import UIKit
     let gradientView = BKEAnimatedGradientView(frame: self.view.frame)
 
     gradientView.gradientColors = [
-      UIColor(fromHex: "00F8C7"),
+      UIColor(fromHex: "37F7BA"),
       UIColor(fromHex: "05ABBF"),
       UIColor(fromHex: "0C80C3")]
 
