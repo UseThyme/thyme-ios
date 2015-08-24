@@ -27,7 +27,7 @@ class HomeViewController: ViewController {
   lazy var topMargin: CGFloat = {
     let margin: CGFloat
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       margin  = 70
     } else {
       if self.deviceHeight == 480 {
@@ -45,12 +45,12 @@ class HomeViewController: ViewController {
   }()
 
   lazy var plateFactor: CGFloat = {
-    let factor: CGFloat = UIScreen.andy_isPad() ? 0.36 : 0.30
+    let factor: CGFloat = Screen.isPad ? 0.36 : 0.30
     return factor
     }()
 
   lazy var ovenFactor: CGFloat = {
-    let factor: CGFloat = UIScreen.andy_isPad() ? 0.29 : 0.25
+    let factor: CGFloat = Screen.isPad ? 0.29 : 0.25
     return factor
     }()
 
@@ -91,7 +91,7 @@ class HomeViewController: ViewController {
     var topMargin: CGFloat = 0
     var font: UIFont
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin  = 115
       font = HYPUtils.avenirLightWithSize(20)
     } else {
@@ -125,7 +125,7 @@ class HomeViewController: ViewController {
     var topMargin = CGRectGetMaxY(self.titleLabel.frame)
     var font: UIFont
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin += 10
       font = HYPUtils.avenirBlackWithSize(25)
     } else {
@@ -156,7 +156,7 @@ class HomeViewController: ViewController {
     var cellWidth: CGFloat = 0
     var sideMargin: CGFloat = 0
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       cellWidth = 175
       sideMargin = 200
     } else {
@@ -195,7 +195,7 @@ class HomeViewController: ViewController {
     var cellWidth: CGFloat = 0
     var sideMargin: CGFloat = 0
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       cellWidth = 175
       sideMargin = 200
       topMargin += 475
@@ -234,7 +234,7 @@ class HomeViewController: ViewController {
 
   lazy var ovenBackgroundImageView: UIImageView = {
     let imageView: UIImageView
-    let imageName = UIScreen.andy_isPad()
+    let imageName = Screen.isPad
       ? "ovenBackground~iPad"
       : "ovenBackground"
     let image = UIImage(named: imageName)
@@ -244,7 +244,7 @@ class HomeViewController: ViewController {
     var width: CGFloat = image!.size.width
     var height: CGFloat = image!.size.height
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin += 175
     } else {
       if self.deviceHeight == 480 {
@@ -270,7 +270,7 @@ class HomeViewController: ViewController {
 
   lazy var ovenShineImageView: UIImageView = {
     let imageView: UIImageView
-    let imageName = UIScreen.andy_isPad()
+    let imageName = Screen.isPad
       ? "ovenShine~iPad"
       : "ovenShine"
     let image = UIImage(named: imageName)

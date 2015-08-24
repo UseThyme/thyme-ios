@@ -67,7 +67,7 @@ public class TimerControl: UIControl {
   }
 
   lazy var minuteValueSize: CGFloat = {
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       return 200
     } else {
       return 95
@@ -75,7 +75,7 @@ public class TimerControl: UIControl {
     }()
 
   lazy var minuteTitleSize: CGFloat = {
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       return 35
     } else {
       return 14
@@ -149,7 +149,7 @@ public class TimerControl: UIControl {
     let factor: CGFloat = 5
     var yOffset: CGFloat = floor(factor * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds))
 
-    if UIScreen.andy_isPad() { yOffset -= 10 }
+    if Screen.isPad { yOffset -= 10 }
 
     let x: CGFloat = 0
     let y: CGFloat = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset
@@ -168,7 +168,7 @@ public class TimerControl: UIControl {
   lazy var attributedString: NSAttributedString = {
     var font: UIFont = HYPUtils.avenirLightWithSize(14)
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       font = HYPUtils.avenirLightWithSize(20)
     } else {
       if self.deviceHeight == 480 {
@@ -237,15 +237,15 @@ public class TimerControl: UIControl {
     if (object as! NSObject).isEqual(minutesValueLabel) {
       var baseSize: CGFloat
       if count(minutesValueLabel.text!) == 5 {
-        baseSize = UIScreen.andy_isPad() ? 200 : minuteValueSize
+        baseSize = Screen.isPad ? 200 : minuteValueSize
       } else if count(minutesValueLabel.text!) == 4 {
-        baseSize = UIScreen.andy_isPad() ? 220 : 100
+        baseSize = Screen.isPad ? 220 : 100
       } else {
-        baseSize = UIScreen.andy_isPad() ? 280 : 120
+        baseSize = Screen.isPad ? 280 : 120
       }
 
       if self.completedMode == true {
-        baseSize = UIScreen.andy_isPad() ? 250 : minuteValueSize
+        baseSize = Screen.isPad ? 250 : minuteValueSize
       }
 
       let bounds = UIScreen.mainScreen().bounds

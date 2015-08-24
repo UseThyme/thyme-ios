@@ -25,10 +25,10 @@ class TimerViewController: ViewController {
     }()
 
   lazy var timerControl: TimerControl = {
-    var sideMargin: CGFloat = UIScreen.andy_isPad() ? 140 : 0
+    var sideMargin: CGFloat = Screen.isPad ? 140 : 0
     var topMargin: CGFloat = 0
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin = 140
     } else {
       if self.deviceHeight == 480 {
@@ -62,7 +62,7 @@ class TimerViewController: ViewController {
     var xOffset: CGFloat = 0
     var yOffset: CGFloat = 0
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       xOffset = 61
       yOffset = 18
     } else {
@@ -104,7 +104,7 @@ class TimerViewController: ViewController {
     var width: CGFloat = image.size.width
     var height: CGFloat = image.size.height
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin = 330
       x = self.deviceWidth / 2 - image.size.width / 2;
       y = self.deviceHeight - topMargin;
