@@ -165,5 +165,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       NSNotificationCenter.defaultCenter().postNotificationName("appWasShaked", object: nil)
     }
   }
+}
 
+// MARK: - WatchKit
+
+extension AppDelegate {
+
+  func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
+
+    if let userInfo = userInfo, request = userInfo["request"] as? String {
+      var workaround: UIBackgroundTaskIdentifier?
+      workaround = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+        UIApplication.sharedApplication().endBackgroundTask(workaround!)
+      })
+
+      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
+        UIApplication.sharedApplication().endBackgroundTask(workaround!)
+      })
+
+      var realBackgroundTask: UIBackgroundTaskIdentifier?
+      realBackgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
+        reply(nil)
+        UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
+      })
+
+      var response = [NSObject : AnyObject]()
+
+      if request == "getAlarms" {
+        var notifications = [String]()
+        for notification in UIApplication.sharedApplication().scheduledLocalNotifications as! [UILocalNotification] {
+          notifications.append(notification.alertBody!)
+        }
+
+        response = ["alarms": notifications]
+      } else if request == "getMaxMinutesLeft" {
+        response = [
+          "title": homeController.titleLabel.text!,
+          "subtitle": homeController.subtitleLabel.text!
+        ]
+      } else if request == "getPlate" {
+        if let index = userInfo["index"] as? Int {
+          response = homeController.plateDataForIndex(index)
+        }
+      }
+      reply(response)
+
+      UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
+    }
+  }
 }
