@@ -241,6 +241,7 @@ public class TimerControl: UIControl {
     let length = CGRectGetWidth(rect) * transform
     let circleRect = CGRectMake(sideMargin, sideMargin, length, length)
 
+    drawCircleOutline(context, color: UIColor.whiteColor(), rect: circleRect)
     drawCircle(context, color: circleColor, rect: circleRect)
 
     self.circleRect = circleRect
