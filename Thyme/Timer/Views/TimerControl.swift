@@ -20,27 +20,27 @@ public class TimerControl: UIControl {
     }()
 
   var angle: Int = 0 {
-    didSet(value) {
+    willSet(value) {
       let minute = value/6
-      if self.completedMode == false && self.isHoursMode == true {
+      if completedMode == false && hours > 0 {
         if minute < 10 {
-          self.minutesValueLabel.text = "\(self.hours):0\(minute/6)"
+          minutesValueLabel.text = "\(hours):0\(minute)"
         } else {
-          self.minutesValueLabel.text = "\(self.hours)\(minute/6)"
+          minutesValueLabel.text = "\(hours):\(minute)"
         }
       } else {
-        self.minutesValueLabel.text = "\(minute)"
+        minutesValueLabel.text = "\(minute)"
       }
     }
   }
 
   var hours: Int = 0 {
-    didSet(value) {
+    willSet(value) {
       if value == 0 {
-        self.hoursLabel.hidden = true
+        hoursLabel.hidden = true
       } else {
-        self.hoursLabel.hidden = false
-        self.hoursLabel.text = value == 1
+        hoursLabel.hidden = false
+        hoursLabel.text = value == 1
           ? NSLocalizedString("\(value) HOUR", comment: "\(value) HOUR")
           : NSLocalizedString("\(value) HOURS", comment: "\(value) HOURS")
       }
@@ -49,29 +49,25 @@ public class TimerControl: UIControl {
 
   var minutes: Int = 0 {
     willSet(value) {
-      if minutes != value && self.touchesAreActive == true {
-        self.playInputClick()
+      if minutes != value && touchesAreActive == true {
+        playInputClick()
       }
 
-      self.angle = value * 6
-      self.setNeedsDisplay()
+      angle = value * 6
+      setNeedsDisplay()
     }
   }
 
   var active: Bool = false {
-    didSet(value) {
-      self.minutesValueLabel.hidden = !value
-      self.angle = 0
-      self.setNeedsDisplay()
+    willSet(value) {
+      minutesValueLabel.hidden = !value
+      angle = 0
+      setNeedsDisplay()
     }
   }
 
-  lazy var isHoursMode: Bool = {
-    return self.hours > 0
-    }()
-
   lazy var minuteValueSize: CGFloat = {
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       return 200
     } else {
       return 95
@@ -79,7 +75,7 @@ public class TimerControl: UIControl {
     }()
 
   lazy var minuteTitleSize: CGFloat = {
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       return 35
     } else {
       return 14
@@ -93,7 +89,7 @@ public class TimerControl: UIControl {
     : self.minuteTitleSize * 1.5
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = HYPUtils.avenirLightWithSize(fontSize)
+    let font = UIFont.boldSystemFontOfSize(fontSize)
     let sampleString = "2 HOURS"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
@@ -108,12 +104,7 @@ public class TimerControl: UIControl {
     label.hidden = true
     label.text = sampleString
     label.textAlignment = .Center
-
-    let defaults = NSUserDefaults.standardUserDefaults()
-
-    label.textColor = defaults.stringForKey("TextColor") != nil
-    ? UIColor(fromHex: defaults.stringForKey("TextColor"))
-    : UIColor(fromHex: "30cec6")
+    label.textColor = UIColor(fromHex: "1B807E")
 
     return label
     }()
@@ -125,7 +116,7 @@ public class TimerControl: UIControl {
       : self.minuteValueSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = HYPUtils.helveticaNeueUltraLightWithSize(fontSize)
+    let font = UIFont.boldSystemFontOfSize(fontSize)
     let sampleString = "10:00"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
@@ -138,12 +129,7 @@ public class TimerControl: UIControl {
     label.backgroundColor = UIColor.clearColor()
     label.font = font
     label.textAlignment = .Center
-
-    let defaults = NSUserDefaults.standardUserDefaults()
-
-    label.textColor = defaults.stringForKey("TextColor") != nil
-      ? UIColor(fromHex: defaults.stringForKey("TextColor"))
-      : UIColor(fromHex: "30cec6")
+    label.textColor = UIColor(fromHex: "1B807E")
     label.text = "\(self.angle)"
 
     return label
@@ -156,14 +142,14 @@ public class TimerControl: UIControl {
       : self.minuteTitleSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = HYPUtils.helveticaNeueUltraLightWithSize(fontSize)
+    let font = UIFont.boldSystemFontOfSize(fontSize)
     let minutesLeftText = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
     let attributes = [NSFontAttributeName : font]
     let textSize = (minutesLeftText as NSString).sizeWithAttributes(attributes)
     let factor: CGFloat = 5
     var yOffset: CGFloat = floor(factor * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds))
 
-    if UIScreen.andy_isPad() { yOffset -= 10 }
+    if Screen.isPad { yOffset -= 10 }
 
     let x: CGFloat = 0
     let y: CGFloat = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset
@@ -174,38 +160,10 @@ public class TimerControl: UIControl {
     label.font = font
     label.text = minutesLeftText
     label.textAlignment = .Center
-
-    let defaults = NSUserDefaults.standardUserDefaults()
-
-    label.textColor = defaults.stringForKey("TextColor") != nil
-      ? UIColor(fromHex: defaults.stringForKey("TextColor"))
-      : UIColor(fromHex: "30cec6")
+    label.textColor = UIColor(fromHex: "1B807E")
 
     return label
     }()
-
-  lazy var attributedString: NSAttributedString = {
-    var font: UIFont = HYPUtils.avenirLightWithSize(14)
-
-    if UIScreen.andy_isPad() {
-      font = HYPUtils.avenirLightWithSize(20)
-    } else {
-      if self.deviceHeight == 480 {
-        font = HYPUtils.avenirLightWithSize(14)
-      }  else if self.deviceHeight == 568 {
-        font = HYPUtils.avenirLightWithSize(14)
-      } else if self.deviceHeight == 667 {
-          font = HYPUtils.avenirLightWithSize(16)
-      } else if self.deviceHeight == 763 {
-        font = HYPUtils.avenirLightWithSize(17)
-      }
-    }
-
-    let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor()]
-    let string = NSAttributedString(string: self.title, attributes: attributes)
-
-    return string
-  }()
 
   lazy var firstQuadrandRect: CGRect = {
     let topMargin = CGRectGetMinX(self.frame)
@@ -256,15 +214,15 @@ public class TimerControl: UIControl {
     if (object as! NSObject).isEqual(minutesValueLabel) {
       var baseSize: CGFloat
       if count(minutesValueLabel.text!) == 5 {
-        baseSize = UIScreen.andy_isPad() ? 200 : minuteValueSize
+        baseSize = Screen.isPad ? 200 : minuteValueSize
       } else if count(minutesValueLabel.text!) == 4 {
-        baseSize = UIScreen.andy_isPad() ? 220 : 100
+        baseSize = Screen.isPad ? 220 : 100
       } else {
-        baseSize = UIScreen.andy_isPad() ? 280 : 120
+        baseSize = Screen.isPad ? 280 : 120
       }
 
       if self.completedMode == true {
-        baseSize = UIScreen.andy_isPad() ? 250 : minuteValueSize
+        baseSize = Screen.isPad ? 250 : minuteValueSize
       }
 
       let bounds = UIScreen.mainScreen().bounds
@@ -296,7 +254,7 @@ public class TimerControl: UIControl {
         angle: CGFloat(angle),
         containerRect: circleRect)
 
-      let secondsColor = UIColor.whiteColor()
+      let secondsColor = UIColor.redColor()
       if let timer = timer where timer.valid == true {
         let factor: CGFloat = self.completedMode == true ? 0.1 : 0.2
         drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect)
@@ -311,80 +269,27 @@ public class TimerControl: UIControl {
     }
   }
 
-  func drawCircle(context: CGContextRef, color: UIColor, rect: CGRect) {
-    CGContextSaveGState(context)
-    color.set()
-    CGContextFillEllipseInRect(context, rect)
-    CGContextRestoreGState(context)
-  }
+  func attributedString() -> NSAttributedString {
+    var font: UIFont = HYPUtils.avenirLightWithSize(14)
 
-  func drawMinutes(context: CGContextRef, color: UIColor, radius: CGFloat, angle: CGFloat, containerRect: CGRect) {
-    CGContextSaveGState(context)
-
-    let angleTranslation: CGFloat = 0 - 90
-    let π = CGFloat(M_PI)
-    let startDeg: CGFloat = π * (0 + angleTranslation) / 180
-    let endDeg: CGFloat = π * (angle + angleTranslation) / 180
-    let x = CGRectGetWidth(containerRect) / 2 + containerRect.origin.x
-    let y = CGRectGetWidth(containerRect) / 2 + containerRect.origin.y
-
-    color.set()
-
-    CGContextMoveToPoint(context, x, y)
-    CGContextAddArc(context, x, y, radius, startDeg, endDeg, 0)
-    CGContextClosePath(context)
-    CGContextFillPath(context)
-    CGContextRestoreGState(context)
-  }
-
-  func drawSecondsIndicator(context: CGContextRef, color: UIColor, radius: CGFloat, containerRect: CGRect) {
-    let value = CGFloat(seconds) * 6.0
-    let circleCenter = pointFromAngle(value, radius: radius, containerRect: containerRect)
-    let circleRect = CGRectMake(circleCenter.x, circleCenter.y, radius * 2, radius * 2)
-    CGContextSaveGState(context)
-    color.set()
-    CGContextFillEllipseInRect(context, circleRect)
-    CGContextRestoreGState(context)
-  }
-
-  func drawText(context: CGContextRef, rect: CGRect) {
-    var t0 = CGContextGetCTM(context)
-    let xScaleFactor = t0.a > 0 ? t0.a : 0-t0.a
-    let yScaleFactor = t0.a > 0 ? t0.d : 0-t0.d
-    t0 = CGAffineTransformInvert(t0)
-
-    if xScaleFactor != 1.0 || yScaleFactor != 1.0 {
-      t0 = CGAffineTransformScale(t0, xScaleFactor, yScaleFactor)
+    if Screen.isPad {
+      font = HYPUtils.avenirLightWithSize(20)
+    } else {
+      if self.deviceHeight == 480 {
+        font = HYPUtils.avenirLightWithSize(14)
+      }  else if self.deviceHeight == 568 {
+        font = HYPUtils.avenirLightWithSize(14)
+      } else if self.deviceHeight == 667 {
+        font = HYPUtils.avenirLightWithSize(16)
+      } else if self.deviceHeight == 763 {
+        font = HYPUtils.avenirLightWithSize(17)
+      }
     }
 
-    CGContextConcatCTM(context, t0)
-    CGContextSetTextMatrix(context, CGAffineTransformIdentity)
-    let line = CTLineCreateWithAttributedString(attributedString)
+    let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor()]
+    let string = NSAttributedString(string: self.title, attributes: attributes)
 
-
-    let glyphCount = CTLineGetGlyphCount(line)
-    if glyphCount == 0 {
-      return
-    }
-
-    struct GlyphArcInfo {
-      var width: CGFloat
-      var angle: CGFloat
-    }
-
-  }
-
-  func pointFromAngle(angle: CGFloat, radius: CGFloat, containerRect: CGRect)  -> CGPoint {
-    let centerPoint = CGPointMake(CGRectGetWidth(frame) / 2 - radius, CGRectGetHeight(frame) / 2 - radius)
-    var result = CGPointMake(0.0,0.0)
-
-    let π = CGFloat(M_PI)
-    let angleTranslation: CGFloat = 0 - 90
-    let magicFuckingNumber: CGFloat = CGRectGetWidth(containerRect) / 2
-    result.x = centerPoint.x + magicFuckingNumber * cos(π * (angle + angleTranslation) / 180)
-    result.y = centerPoint.x + magicFuckingNumber * sin(π * (angle + angleTranslation) / 180)
-
-    return result
+    return string
   }
 
   func colorForMinutesIndicator() -> UIColor {
@@ -398,8 +303,7 @@ public class TimerControl: UIControl {
     let unactiveCircleColor = UIColor(white: 1.0, alpha: 0.4)
 
     if active == true {
-      color = isHoursMode == true
-        ? calculatedColor : normalCircleColor
+      color = hours > 0 ? calculatedColor : normalCircleColor
     } else {
       color = unactiveCircleColor
     }
@@ -413,9 +317,10 @@ public class TimerControl: UIControl {
     let lastPointIsZero: Bool = CGPointEqualToPoint(lastPoint, CGPointZero)
     let lastPointWasInFirstQuadrand: Bool = CGRectContainsPoint(self.firstQuadrandRect, lastPoint)
 
-    if isHoursMode == false && pointBelongsToFirstHalfOfTheScreen == true &&
-      (lastPointIsZero == false && lastPointWasInFirstQuadrand == true) {
-      return true
+    if hours < 1 && pointBelongsToFirstHalfOfTheScreen == true &&
+      lastPointIsZero == false &&
+      lastPointWasInFirstQuadrand == true {
+        return true
     }
 
     return false
@@ -432,10 +337,10 @@ public class TimerControl: UIControl {
     let lastPointWasInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, lastPoint)
     let lastPointIsZero = CGPointEqualToPoint(lastPoint, CGPointZero)
 
-    if currentPointIsInFirstQuadrand == true {
-      if lastPointIsZero == false && lastPointWasInFirstQuadrand == true {
+    if currentPointIsInFirstQuadrand == true &&
+      lastPointIsZero == false &&
+      lastPointWasInFirstQuadrand == true{
         return true
-      }
     }
 
     return false
@@ -446,10 +351,10 @@ public class TimerControl: UIControl {
     let lastPointWasInSecondQuadrand = CGRectContainsPoint(secondQuadrandRect, lastPoint)
     let lastPointIsZero = CGPointEqualToPoint(lastPoint, CGPointZero)
 
-    if currentPointIsInFirstQuadrand == true {
-      if lastPointIsZero == false && lastPointWasInSecondQuadrand == true {
+    if currentPointIsInFirstQuadrand == true &&
+      lastPointIsZero == false &&
+      lastPointWasInSecondQuadrand == true {
         return true
-      }
     }
 
     return false
@@ -460,10 +365,10 @@ public class TimerControl: UIControl {
     let lastPointWasInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, lastPoint)
     let lastPointIsZero = CGPointEqualToPoint(lastPoint, CGPointZero)
 
-    if currentPointIsInSecondQuadrand == true {
-      if lastPointIsZero == false && lastPointWasInFirstQuadrand == true {
+    if currentPointIsInSecondQuadrand == true &&
+      lastPointIsZero == false &&
+      lastPointWasInFirstQuadrand == true {
         return true
-      }
     }
 
     return false
@@ -541,11 +446,11 @@ public class TimerControl: UIControl {
 
     if pointIsComingFromSecondQuadrand(currentPoint) == true {
       hours += 1
-    } else if isHoursMode == true && pointIsComingFromFirstQuadrand(currentPoint) == true {
+    } else if hours > 0 && pointIsComingFromFirstQuadrand(currentPoint) == true {
       hours -= 1
     }
 
-    self.minutes = Int(angle) / 6
+    minutes = Int(angle) / 6
     self.angle = Int(angle)
     setNeedsDisplay()
   }
@@ -589,7 +494,7 @@ public class TimerControl: UIControl {
     let currentPoint = touch.locationInView(self)
 
     if touchesAreActive == true {
-      if isHoursMode == false && shouldBlockTouchesForPoint(currentPoint) == true {
+      if hours < 1 && shouldBlockTouchesForPoint(currentPoint) == true {
         touchesAreActive = false
         angle = 0
         setNeedsDisplay()

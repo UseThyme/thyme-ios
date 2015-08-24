@@ -27,7 +27,7 @@ class HomeViewController: ViewController {
   lazy var topMargin: CGFloat = {
     let margin: CGFloat
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       margin  = 70
     } else {
       if self.deviceHeight == 480 {
@@ -45,12 +45,12 @@ class HomeViewController: ViewController {
   }()
 
   lazy var plateFactor: CGFloat = {
-    let factor: CGFloat = UIScreen.andy_isPad() ? 0.36 : 0.30
+    let factor: CGFloat = Screen.isPad ? 0.36 : 0.30
     return factor
     }()
 
   lazy var ovenFactor: CGFloat = {
-    let factor: CGFloat = UIScreen.andy_isPad() ? 0.29 : 0.25
+    let factor: CGFloat = Screen.isPad ? 0.29 : 0.25
     return factor
     }()
 
@@ -62,21 +62,21 @@ class HomeViewController: ViewController {
     return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }()
 
-  lazy var alarms: [[HYPAlarm]] = {
-    var alarms = [[HYPAlarm]]()
+  lazy var alarms: [[Alarm]] = {
+    var alarms = [[Alarm]]()
 
     for i in 0..<2 {
-      alarms.append([HYPAlarm(), HYPAlarm()])
+      alarms.append([Alarm(), Alarm()])
     }
 
     return alarms
     }()
 
-  lazy var ovenAlarms: [[HYPAlarm]] = {
-    var alarms = [[HYPAlarm]]()
+  lazy var ovenAlarms: [[Alarm]] = {
+    var alarms = [[Alarm]]()
 
     for i in 0..<1 {
-      let alarm = HYPAlarm()
+      let alarm = Alarm()
       alarm.oven = true
       alarms.append([alarm])
     }
@@ -91,7 +91,7 @@ class HomeViewController: ViewController {
     var topMargin: CGFloat = 0
     var font: UIFont
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin  = 115
       font = HYPUtils.avenirLightWithSize(20)
     } else {
@@ -125,7 +125,7 @@ class HomeViewController: ViewController {
     var topMargin = CGRectGetMaxY(self.titleLabel.frame)
     var font: UIFont
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin += 10
       font = HYPUtils.avenirBlackWithSize(25)
     } else {
@@ -156,7 +156,7 @@ class HomeViewController: ViewController {
     var cellWidth: CGFloat = 0
     var sideMargin: CGFloat = 0
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       cellWidth = 175
       sideMargin = 200
     } else {
@@ -195,7 +195,7 @@ class HomeViewController: ViewController {
     var cellWidth: CGFloat = 0
     var sideMargin: CGFloat = 0
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       cellWidth = 175
       sideMargin = 200
       topMargin += 475
@@ -234,7 +234,7 @@ class HomeViewController: ViewController {
 
   lazy var ovenBackgroundImageView: UIImageView = {
     let imageView: UIImageView
-    let imageName = UIScreen.andy_isPad()
+    let imageName = Screen.isPad
       ? "ovenBackground~iPad"
       : "ovenBackground"
     let image = UIImage(named: imageName)
@@ -244,7 +244,7 @@ class HomeViewController: ViewController {
     var width: CGFloat = image!.size.width
     var height: CGFloat = image!.size.height
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin += 175
     } else {
       if self.deviceHeight == 480 {
@@ -270,7 +270,7 @@ class HomeViewController: ViewController {
 
   lazy var ovenShineImageView: UIImageView = {
     let imageView: UIImageView
-    let imageName = UIScreen.andy_isPad()
+    let imageName = Screen.isPad
       ? "ovenShine~iPad"
       : "ovenShine"
     let image = UIImage(named: imageName)
@@ -419,7 +419,6 @@ class HomeViewController: ViewController {
   }
 
   func applyTransformToLayer(layer: CALayer, factor: CGFloat) {
-    let π = CGFloat(M_PI)
     var rotationAndPerspectiveTransform = CATransform3DIdentity;
     rotationAndPerspectiveTransform.m34 = 1.0 / -800.0;
     rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, π * factor, 1.0, 0.0, 0.0);
@@ -427,8 +426,8 @@ class HomeViewController: ViewController {
     layer.transform = rotationAndPerspectiveTransform;
   }
 
-  func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> HYPAlarm {
-    let row: [HYPAlarm] = collectionView.isEqual(self.collectionView)
+  func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> Alarm {
+    let row: [Alarm] = collectionView.isEqual(self.collectionView)
       ? alarms[indexPath.section]
       : ovenAlarms[indexPath.section]
 
@@ -445,7 +444,7 @@ class HomeViewController: ViewController {
     refreshTimerInCell(cell, alarm: alarm)
   }
 
-  func refreshTimerInCell(cell: PlateCell, alarm: HYPAlarm) {
+  func refreshTimerInCell(cell: PlateCell, alarm: Alarm) {
     if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
@@ -565,7 +564,7 @@ extension HomeViewController: TimerControllerDelegate {
     ovenCollectionView.reloadData()
   }
 
-  func timerControlChangedValue(timerControl: HYPTimerControl) {
+  func timerControlChangedValue(timerControl: TimerControl) {
     if let maxMinutes = self.maxMinutesLeft
       where maxMinutes.intValue - 1 == timerControl.minutes {
         maxMinutesLeft = timerControl.minutes
