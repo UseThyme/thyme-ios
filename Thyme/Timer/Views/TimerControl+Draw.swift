@@ -68,4 +68,18 @@ extension TimerControl {
       var angle: CGFloat
     }
   }
+
+  // MARK: Helper methods
+
+  func pointFromAngle(angle: CGFloat, radius: CGFloat, containerRect: CGRect)  -> CGPoint {
+    let centerPoint = CGPointMake(CGRectGetWidth(frame) / 2 - radius, CGRectGetHeight(frame) / 2 - radius)
+    var result = CGPointMake(0.0,0.0)
+
+    let angleTranslation: CGFloat = 0 - 90
+    let magicFuckingNumber: CGFloat = CGRectGetWidth(containerRect) / 2
+    result.x = centerPoint.x + magicFuckingNumber * cos(π * (angle + angleTranslation) / 180)
+    result.y = centerPoint.x + magicFuckingNumber * sin(π * (angle + angleTranslation) / 180)
+
+    return result
+  }
 }
