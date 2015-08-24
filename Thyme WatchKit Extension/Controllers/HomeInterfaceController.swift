@@ -3,28 +3,23 @@ import Foundation
 
 class HomeInterfaceController: WKInterfaceController {
 
-  static var isFirst = true
+  @IBOutlet weak var topLeftPlate: WKInterfaceGroup!
+  @IBOutlet weak var topRightPlate: WKInterfaceGroup!
+  @IBOutlet weak var lowerLeftPlate: WKInterfaceGroup!
+  @IBOutlet weak var lowerRightPlate: WKInterfaceGroup!
 
-  var index: Int = 0
+  @IBOutlet weak var topLeftPlateLabel: WKInterfaceLabel!
+  @IBOutlet weak var topRightPlateLabel: WKInterfaceLabel!
+  @IBOutlet weak var lowerLeftPlateLabel: WKInterfaceLabel!
+  @IBOutlet weak var lowerRightPlateLabel: WKInterfaceLabel!
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
-    if let index = context as? Int {
-      self.index = index
-    }
-
     loadData()
   }
 
   override func willActivate() {
     super.willActivate()
-    if InterfaceController.isFirst {
-      WKInterfaceController.reloadRootControllersWithNames(
-        ["plateController", "plateController", "plateController", "plateController", "plateController"],
-        contexts: [0, 1, 2, 3, 4])
-      InterfaceController.isFirst = false
-    }
-    
     loadData()
   }
 
@@ -35,6 +30,10 @@ class HomeInterfaceController: WKInterfaceController {
   // MARK: - Data
 
   func loadData() {
+    topLeftPlate.setBackgroundImageNamed("timerFrame")
+    topLeftPlate.startAnimatingWithImagesInRange(NSRange(location: 0, length: 21), duration: 0, repeatCount: 1)
+
+    /*
     WKInterfaceController.openParentApplication(["request": "getPlate", "index": index]) {
       [unowned self] response, error in
       if let response = response,
@@ -48,5 +47,6 @@ class HomeInterfaceController: WKInterfaceController {
         println("Error with fetching of alarms from the parent app")
       }
     }
+    */
   }
 }
