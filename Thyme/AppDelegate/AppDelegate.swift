@@ -39,12 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
   lazy var isUnitTesting: Bool = {
     let enviorment = NSProcessInfo.processInfo().environment
-    
+
     if let injectBundlePath = enviorment["XCInjectBundle"] as? String
       where injectBundlePath.pathExtension == "xctest" {
         return true
     }
-    
+
     return false
     }()
 
@@ -81,6 +81,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     window!.makeKeyAndVisible()
 
     return true
+  }
+
+  func applicationDidBecomeActive(application: UIApplication) {
+
+    var colors = Theme.Main.colors
+    var locations = Theme.Main.locations
+
+    if UIAccessibilityDarkerSystemColorsEnabled() {
+      colors = Theme.DarkColors.colors
+      locations = Theme.DarkColors.locations
+    }
+
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+    notificationCenter.postNotificationName("changeBackground",
+      object: nil,
+      userInfo: [
+        "colors"  : colors,
+        "locations" : locations])
   }
 
   func applicationDidEnterBackground(application: UIApplication) {
@@ -125,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
         audioPlayer.prepareToPlay()
         audioPlayer.play()
       }
-      
+
       UIAlertView(title: notification.alertBody,
         message: nil,
         delegate: self,
