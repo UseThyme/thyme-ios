@@ -44,29 +44,7 @@ extension TimerControl {
   }
 
   func drawText(context: CGContextRef, rect: CGRect) {
-    var t0 = CGContextGetCTM(context)
-    let xScaleFactor = t0.a > 0 ? t0.a : 0-t0.a
-    let yScaleFactor = t0.a > 0 ? t0.d : 0-t0.d
-    t0 = CGAffineTransformInvert(t0)
-
-    if xScaleFactor != 1.0 || yScaleFactor != 1.0 {
-      t0 = CGAffineTransformScale(t0, xScaleFactor, yScaleFactor)
-    }
-
-    CGContextConcatCTM(context, t0)
-    CGContextSetTextMatrix(context, CGAffineTransformIdentity)
-    let line = CTLineCreateWithAttributedString(attributedString)
-
-
-    let glyphCount = CTLineGetGlyphCount(line)
-    if glyphCount == 0 {
-      return
-    }
-
-    struct GlyphArcInfo {
-      var width: CGFloat
-      var angle: CGFloat
-    }
+    HYPDrawText.drawText(context, rect: rect, attributedString: attributedString)
   }
 
   // MARK: Helper methods

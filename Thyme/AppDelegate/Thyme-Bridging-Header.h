@@ -7,6 +7,5 @@
 #import "HYPUtils.h"
 #import "UIButton+ANDYHighlighted.h"
 #import "HYPMathHelpers.h"
-#import "HYPTimerControl+DrawingMethods.h"
-#import "HYPTimerControl.h"
 #import "HYPAlarm.h"
+#import "HYPDrawText.h"
