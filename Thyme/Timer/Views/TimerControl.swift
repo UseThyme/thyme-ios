@@ -240,7 +240,16 @@ public class TimerControl: UIControl {
     let sideMargin = floor(CGRectGetWidth(rect) * (1 - transform) / 2)
     let length = CGRectGetWidth(rect) * transform
     let circleRect = CGRectMake(sideMargin, sideMargin, length, length)
+    let lineWidth: CGFloat = 3.5
+    let circleOutlineRect = CGRect(
+      x: sideMargin + lineWidth / 2,
+      y: sideMargin + lineWidth / 2,
+      width: length - lineWidth,
+      height: length - lineWidth)
 
+    if active {
+      drawCircleOutline(context, color: UIColor.whiteColor(), rect: circleOutlineRect, lineWidth: lineWidth)
+    }
     drawCircle(context, color: circleColor, rect: circleRect)
 
     self.circleRect = circleRect
