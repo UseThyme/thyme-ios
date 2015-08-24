@@ -1,10 +1,7 @@
 import WatchKit
 import Foundation
 
-class InterfaceController: WKInterfaceController {
-
-  @IBOutlet weak var titleLabel: WKInterfaceLabel!
-  @IBOutlet weak var imageInterface: WKInterfaceImage!
+class HomeInterfaceController: WKInterfaceController {
 
   static var isFirst = true
 
