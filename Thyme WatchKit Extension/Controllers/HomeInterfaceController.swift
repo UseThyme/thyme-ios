@@ -3,20 +3,8 @@ import Foundation
 
 class HomeInterfaceController: WKInterfaceController {
 
-  @IBOutlet weak var plate1Group: WKInterfaceGroup!
-  @IBOutlet weak var plate1Label: WKInterfaceLabel!
-
-  @IBOutlet weak var plate2Group: WKInterfaceGroup!
-  @IBOutlet weak var plate2Label: WKInterfaceLabel!
-
-  @IBOutlet weak var plate3Group: WKInterfaceGroup!
-  @IBOutlet weak var plate3Label: WKInterfaceLabel!
-
-  @IBOutlet weak var plate4Group: WKInterfaceGroup!
-  @IBOutlet weak var plate4Label: WKInterfaceLabel!
-
-  @IBOutlet weak var ovenGroup: WKInterfaceGroup!
-  @IBOutlet weak var ovenLabel: WKInterfaceLabel!
+  @IBOutlet var plateGroups : [WKInterfaceGroup]!
+  @IBOutlet var plateLabels : [WKInterfaceLabel]!
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
@@ -35,25 +23,44 @@ class HomeInterfaceController: WKInterfaceController {
   // MARK: - Data
 
   func loadData() {
-
-
-    //topLeftPlate.setBackgroundImageNamed("timerFrame")
-    //topLeftPlate.startAnimatingWithImagesInRange(NSRange(location: 21, length: 1), duration: 0, repeatCount: 1)
-
-    /*
-    WKInterfaceController.openParentApplication(["request": "getPlate", "index": index]) {
+    WKInterfaceController.openParentApplication(["request": "getAlarms"]) {
       [unowned self] response, error in
       if let response = response,
-        title = response["title"] as? String,
-        imageData = response["imageData"] as? NSData {
-          let image = UIImage(data: imageData)
-          
-          self.titleLabel.setText(title)
-          self.imageInterface.setImage(image)
+        alarms = response["alarms"] as? [AnyObject] {
+          for (index, alarm) in enumerate(alarms) {
+            if let notification = alarm as? UILocalNotification,
+              userinfo = notification.userInfo,
+              firedDate = userinfo["HYPAlarmFireDate"] as? NSDate,
+              numberOfSeconds = userinfo["HYPAlarmFireInterval"] as? NSNumber
+              where index < self.plateGroups.count {
+                let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
+                let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
+                let currentSecond = secondsLeft % 60
+                var minutesLeft = floor(secondsLeft / 60)
+                let hoursLeft = floor(minutesLeft / 60)
+
+                if hoursLeft > 0 {
+                  minutesLeft = minutesLeft - (hoursLeft * 60)
+                }
+
+                var text = "\(minutesLeft)"
+                if hoursLeft > 0 {
+                  if minutesLeft < 10 {
+                    text = "\(hoursLeft):0\(minutesLeft)"
+                  } else {
+                    text = "\(hoursLeft):\(minutesLeft)"
+                  }
+                }
+
+                self.plateGroups[index].setBackgroundImageNamed("timerFrame")
+                self.plateGroups[index].startAnimatingWithImagesInRange(NSRange(location: Int(minutesLeft), length: 1),
+                  duration: 0, repeatCount: 1)
+                self.plateLabels[index].setText(text)
+            }
+          }
       } else {
         println("Error with fetching of alarms from the parent app")
       }
     }
-    */
   }
 }
