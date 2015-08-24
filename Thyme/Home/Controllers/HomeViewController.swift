@@ -521,6 +521,8 @@ extension HomeViewController: UICollectionViewDelegate {
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let alarm = alarmAtIndexPath(indexPath, collectionView: collectionView)
     let timerController = TimerViewController(alarm: alarm)
+    timerController.gradientLayer.colors = gradientLayer.colors
+    timerController.gradientLayer.locations = gradientLayer.locations
     timerController.delegate = self
 
     presentViewController(timerController, animated: true, completion: nil)

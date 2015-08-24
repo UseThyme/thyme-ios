@@ -5,8 +5,6 @@ class ViewController: UIViewController {
   lazy var gradientLayer: CAGradientLayer = {
     let layer = CAGradientLayer()
     layer.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-    layer.colors = Theme.Main.colors
-    layer.locations = Theme.Main.locations
 
     return layer
     }()
@@ -42,12 +40,10 @@ class ViewController: UIViewController {
 
   func changeBackground(notification: NSNotification) {
     if let userinfo = notification.userInfo,
-      from = userinfo["from"] as? String,
-      to = userinfo["to"] as? String {
-        gradientLayer.colors = [
-          UIColor(fromHex: from).CGColor,
-          UIColor(fromHex: to).CGColor
-        ]
+      colors = userinfo["colors"] as? [CGColorRef],
+      locations = userinfo["locations"] as? [Float] {
+        gradientLayer.colors = colors
+        gradientLayer.locations = locations
     }
   }
 }
