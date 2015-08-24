@@ -1,11 +1,3 @@
-//
-//  HYPDrawText.h
-//
-//
-//  Created by Christoffer Winterkvist on 8/24/15.
-//
-//
-
 @import UIKit;
 
 @interface HYPDrawText : NSObject

@@ -1,11 +1,3 @@
-//
-//  HYPDrawText.m
-//
-//
-//  Created by Christoffer Winterkvist on 8/24/15.
-//
-//
-
 #import "HYPDrawText.h"
 @import CoreText;
 
