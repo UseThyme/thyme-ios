@@ -3,15 +3,20 @@ import Foundation
 
 class HomeInterfaceController: WKInterfaceController {
 
-  @IBOutlet weak var topLeftPlate: WKInterfaceGroup!
-  @IBOutlet weak var topRightPlate: WKInterfaceGroup!
-  @IBOutlet weak var lowerLeftPlate: WKInterfaceGroup!
-  @IBOutlet weak var lowerRightPlate: WKInterfaceGroup!
+  @IBOutlet weak var plate1Group: WKInterfaceGroup!
+  @IBOutlet weak var plate1Label: WKInterfaceLabel!
 
-  @IBOutlet weak var topLeftPlateLabel: WKInterfaceLabel!
-  @IBOutlet weak var topRightPlateLabel: WKInterfaceLabel!
-  @IBOutlet weak var lowerLeftPlateLabel: WKInterfaceLabel!
-  @IBOutlet weak var lowerRightPlateLabel: WKInterfaceLabel!
+  @IBOutlet weak var plate2Group: WKInterfaceGroup!
+  @IBOutlet weak var plate2Label: WKInterfaceLabel!
+
+  @IBOutlet weak var plate3Group: WKInterfaceGroup!
+  @IBOutlet weak var plate3Label: WKInterfaceLabel!
+
+  @IBOutlet weak var plate4Group: WKInterfaceGroup!
+  @IBOutlet weak var plate4Label: WKInterfaceLabel!
+
+  @IBOutlet weak var ovenGroup: WKInterfaceGroup!
+  @IBOutlet weak var ovenLabel: WKInterfaceLabel!
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
@@ -30,8 +35,10 @@ class HomeInterfaceController: WKInterfaceController {
   // MARK: - Data
 
   func loadData() {
-    topLeftPlate.setBackgroundImageNamed("timerFrame")
-    topLeftPlate.startAnimatingWithImagesInRange(NSRange(location: 0, length: 21), duration: 0, repeatCount: 1)
+
+
+    //topLeftPlate.setBackgroundImageNamed("timerFrame")
+    //topLeftPlate.startAnimatingWithImagesInRange(NSRange(location: 21, length: 1), duration: 0, repeatCount: 1)
 
     /*
     WKInterfaceController.openParentApplication(["request": "getPlate", "index": index]) {

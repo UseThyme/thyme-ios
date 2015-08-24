@@ -56,24 +56,30 @@
                                 </group>
                                 <group width="125" height="81" alignment="center" backgroundImage="mainOvenBackground" id="GJ4-7n-83F">
                                     <items>
-                                        <label alignment="center" verticalAlignment="center" text="20" id="80r-DY-UnP">
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="font" type="system" pointSize="30"/>
-                                        </label>
+                                        <group width="65" height="65" alignment="center" verticalAlignment="center" id="5rp-hX-mb1">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" text="20" id="80r-DY-UnP">
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="font" type="system" pointSize="30"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
                             </items>
                         </group>
                     </items>
                     <connections>
-                        <outlet property="lowerLeftPlate" destination="VPm-2m-QFF" id="lNj-nP-ppC"/>
-                        <outlet property="lowerLeftPlateLabel" destination="qJX-xq-1Rc" id="lVp-pt-obm"/>
-                        <outlet property="lowerRightPlate" destination="bwr-Da-ckz" id="5Iq-ER-IGw"/>
-                        <outlet property="lowerRightPlateLabel" destination="kXM-86-mqe" id="kSo-g6-gDm"/>
-                        <outlet property="topLeftPlate" destination="ZHh-fz-8ix" id="L0s-H1-WES"/>
-                        <outlet property="topLeftPlateLabel" destination="gUE-J4-4HH" id="iNe-64-ahT"/>
-                        <outlet property="topRightPlate" destination="eQu-bp-ges" id="HST-p9-NT5"/>
-                        <outlet property="topRightPlateLabel" destination="tWn-h2-hwj" id="NWl-pd-qLo"/>
+                        <outlet property="ovenGroup" destination="5rp-hX-mb1" id="ntv-fe-XxE"/>
+                        <outlet property="ovenLabel" destination="80r-DY-UnP" id="Zfb-pA-eq3"/>
+                        <outlet property="plate1Group" destination="ZHh-fz-8ix" id="TEG-jv-z1H"/>
+                        <outlet property="plate1Label" destination="gUE-J4-4HH" id="s38-UJ-pfb"/>
+                        <outlet property="plate2Group" destination="eQu-bp-ges" id="hMG-UV-uuA"/>
+                        <outlet property="plate2Label" destination="tWn-h2-hwj" id="Qa7-br-q4Y"/>
+                        <outlet property="plate3Group" destination="VPm-2m-QFF" id="4Ht-G8-UPh"/>
+                        <outlet property="plate3Label" destination="qJX-xq-1Rc" id="7dq-Qg-zjK"/>
+                        <outlet property="plate4Group" destination="bwr-Da-ckz" id="tES-JF-Fh9"/>
+                        <outlet property="plate4Label" destination="kXM-86-mqe" id="Fcx-fu-mCf"/>
                     </connections>
                 </controller>
             </objects>
