@@ -14,7 +14,7 @@ struct Theme {
       UIColor(fromHex: "00FFE4").CGColor,
       UIColor(fromHex: "483076").CGColor
     ]
-    static let locations = [0,1]
+    static let locations = [0.0,1.0]
   }
 
   struct HighContrast {
@@ -22,7 +22,7 @@ struct Theme {
       UIColor(fromHex: "F7F7F7").CGColor,
       UIColor(fromHex: "D0D0D0").CGColor
     ]
-    static let locations = [0,1]
+    static let locations = [0.0,1.0]
   }
 
 }
