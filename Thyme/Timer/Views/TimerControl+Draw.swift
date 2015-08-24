@@ -7,10 +7,10 @@ extension TimerControl {
     CGContextRestoreGState(context)
   }
 
-  func drawCircleOutline(context: CGContextRef, color: UIColor, rect: CGRect) {
+  func drawCircleOutline(context: CGContextRef, color: UIColor, rect: CGRect, lineWidth: CGFloat) {
     CGContextSaveGState(context)
     color.set()
-    CGContextSetLineWidth(context, 7)
+    CGContextSetLineWidth(context, lineWidth)
     CGContextStrokeEllipseInRect(context, rect)
     CGContextRestoreGState(context)
   }
