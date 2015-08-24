@@ -22,7 +22,6 @@
 		1477CA651A2D4E7600816544 /* instructionsC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5D1A2D4E7600816544 /* instructionsC@2x.png */; };
 		1477CA661A2D4E7600816544 /* instructionsD.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5E1A2D4E7600816544 /* instructionsD.png */; };
 		1477CA671A2D4E7600816544 /* instructionsD@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5F1A2D4E7600816544 /* instructionsD@2x.png */; };
-		149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */; };
 		14A6A2961A35404500879F61 /* instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A6A2941A35404500879F61 /* instructions.png */; };
 		14A6A2971A35404500879F61 /* instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A6A2951A35404500879F61 /* instructions@2x.png */; };
 		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
@@ -104,8 +103,6 @@
 		1477CA5D1A2D4E7600816544 /* instructionsC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructionsC@2x.png"; sourceTree = "<group>"; };
 		1477CA5E1A2D4E7600816544 /* instructionsD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructionsD.png; sourceTree = "<group>"; };
 		1477CA5F1A2D4E7600816544 /* instructionsD@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructionsD@2x.png"; sourceTree = "<group>"; };
-		149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKEAnimatedGradientView.h; sourceTree = "<group>"; };
-		149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKEAnimatedGradientView.m; sourceTree = "<group>"; };
 		14A6A2941A35404500879F61 /* instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructions.png; sourceTree = "<group>"; };
 		14A6A2951A35404500879F61 /* instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructions@2x.png"; sourceTree = "<group>"; };
 		14CEFBAF18FFD6FB000952EC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -254,15 +251,6 @@
 				BD8CF14D1B32D05C00D00AC2 /* InstructionsPageController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */ = {
-			isa = PBXGroup;
-			children = (
-				149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */,
-				149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */,
-			);
-			path = BKEAnimatedGradientView;
 			sourceTree = "<group>";
 		};
 		14CEFBAB18FFD697000952EC /* Localizations */ = {
@@ -527,7 +515,6 @@
 			isa = PBXGroup;
 			children = (
 				14117C7619DB1F1F0070010C /* UIColor-ANDYHex */,
-				149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */,
 				44909B4F18EB1937002C812E /* UIScreen-ANDYResolutions */,
 			);
 			path = External;
@@ -734,7 +721,6 @@
 				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
 				BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */,
 				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
-				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
 				BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */,
 				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,
 			);

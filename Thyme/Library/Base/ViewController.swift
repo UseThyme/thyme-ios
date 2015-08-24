@@ -2,15 +2,16 @@ import UIKit
 
 @objc public class ViewController: UIViewController {
 
-  lazy var gradientView: BKEAnimatedGradientView = {
-    let gradientView = BKEAnimatedGradientView(frame: self.view.frame)
+  lazy var gradientLayer: CAGradientLayer = {
+    let layer = CAGradientLayer()
+    layer.anchorPoint = CGPoint(x: 0.0, y: 0.0)
+    layer.colors = [
+      UIColor(fromHex: "37F7BA").CGColor,
+      UIColor(fromHex: "05ABBF").CGColor,
+      UIColor(fromHex: "0C80C3").CGColor
+    ]
 
-    gradientView.gradientColors = [
-      UIColor(fromHex: "37F7BA"),
-      UIColor(fromHex: "05ABBF"),
-      UIColor(fromHex: "0C80C3")]
-
-    return gradientView
+    return layer
     }()
 
   public override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -22,7 +23,9 @@ import UIKit
 
     view.userInteractionEnabled = true
     view.autoresizesSubviews = true
-    view.addSubview(gradientView)
+
+    gradientLayer.bounds = view.bounds
+    view.layer.addSublayer(gradientLayer)
   }
 
   public override func viewWillAppear(animated: Bool) {
@@ -40,31 +43,14 @@ import UIKit
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
 
-  public func changeGradient(from: UIColor, to: UIColor) {
-    gradientView.gradientColors = [from, to]
-  }
-
-  public func animateChangeGradient(from: UIColor, to: UIColor, duration: CGFloat, delay: CGFloat = 0) {
-    gradientView.changeGradientWithAnimation([from,to], delay: delay, duration: duration)
-  }
-
   func changeBackground(notification: NSNotification) {
-    if let userinfo = notification.userInfo {
-      let from = userinfo["from"] as! String
-      let to = userinfo["to"] as! String
-      let textColor = userinfo["textColor"] as! String
-
-      if let duration = userinfo["duration"] as? CGFloat {
-        animateChangeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to), duration: duration, delay: 0)
-      } else {
-        changeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to))
-      }
-
-      let defaults = NSUserDefaults.standardUserDefaults()
-      defaults.setValue(from, forKey: "BackgroundColorFrom")
-      defaults.setValue(to, forKey: "BackgroundColorTo")
-      defaults.setValue(textColor, forKey: "TextColor")
-      defaults.synchronize()
+    if let userinfo = notification.userInfo,
+    from = userinfo["from"] as? String,
+    to = userinfo["to"] as? String {
+      gradientLayer.colors = [
+        UIColor(fromHex: from).CGColor,
+        UIColor(fromHex: to).CGColor
+      ]
     }
   }
 }
