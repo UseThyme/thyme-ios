@@ -22,29 +22,23 @@
 		1477CA651A2D4E7600816544 /* instructionsC@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5D1A2D4E7600816544 /* instructionsC@2x.png */; };
 		1477CA661A2D4E7600816544 /* instructionsD.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5E1A2D4E7600816544 /* instructionsD.png */; };
 		1477CA671A2D4E7600816544 /* instructionsD@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1477CA5F1A2D4E7600816544 /* instructionsD@2x.png */; };
-		149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */; };
 		14A6A2961A35404500879F61 /* instructions.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A6A2941A35404500879F61 /* instructions.png */; };
 		14A6A2971A35404500879F61 /* instructions@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 14A6A2951A35404500879F61 /* instructions@2x.png */; };
 		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
 		14F3768218FFF7EA00359D38 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F3768118FFF7EA00359D38 /* AudioToolbox.framework */; };
-		4408805A184C808500935802 /* HYPAlarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 44088059184C808500935802 /* HYPAlarm.m */; };
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
-		441B5818184E061200839331 /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = 441B5817184E059800839331 /* tick.caf */; };
 		441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 441B5819184E14F600839331 /* kitchenImage@2x.png */; };
 		442CD149184F7A0900CE9031 /* ovenShine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442CD148184F7A0900CE9031 /* ovenShine@2x.png */; };
-		44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */; };
 		4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */; };
 		4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
 		4473616C1856008B004274DF /* fingerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4473616B1856008B004274DF /* fingerImage@2x.png */; };
-		44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44909B5118EB1937002C812E /* UIScreen+ANDYResolutions.m */; };
 		449143D118476786008A80F0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D018476786008A80F0 /* CoreText.framework */; };
 		449143D318476798008A80F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D218476798008A80F0 /* QuartzCore.framework */; };
 		449143D5184767A1008A80F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D4184767A1008A80F0 /* Security.framework */; };
 		449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D6184767A7008A80F0 /* SystemConfiguration.framework */; };
 		44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A54150184E1FCC00964F58 /* ovenBackground@2x.png */; };
 		44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B51844E2A1005D4C5A /* HYPUtils.m */; };
-		44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691BB1844EF68005D4C5A /* UIColor+HYPExtensions.m */; };
 		44AAE4121844C0690096BF52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4111844C0690096BF52 /* Foundation.framework */; };
 		44AAE4141844C0690096BF52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4131844C0690096BF52 /* CoreGraphics.framework */; };
 		44AAE4161844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
@@ -59,8 +53,12 @@
 		44AE6687184F4E1C00148398 /* 0-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6682184F4E1C00148398 /* 0-1@2x.png */; };
 		44AE6688184F4E1C00148398 /* 0-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6683184F4E1C00148398 /* 0-0@2x.png */; };
 		44AE6689184F4E1C00148398 /* oven@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6684184F4E1C00148398 /* oven@2x.png */; };
-		44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F8DA691846586C0007E083 /* HYPTimerControl.m */; };
 		7FF53A6DE5D435465CD0DEEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA495F7987D5467EEE452B3F /* libPods.a */; };
+		BD08D10A1B8B82CF009EAD75 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D1091B8B82CF009EAD75 /* Screen.swift */; };
+		BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D10D1B8B8798009EAD75 /* Theme.swift */; };
+		BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D10F1B8B8B18009EAD75 /* Math.swift */; };
+		BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D1111B8B8C0A009EAD75 /* TimerControl+Draw.swift */; };
+		BD08D1151B8B8FF2009EAD75 /* HYPDrawText.m in Sources */ = {isa = PBXBuildFile; fileRef = BD08D1141B8B8FF2009EAD75 /* HYPDrawText.m */; };
 		BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1579731B32E58A00812247 /* HomeViewController.swift */; };
 		BD2C3B241B3B44F900ACCFAA /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C3B231B3B44F900ACCFAA /* InterfaceController.swift */; };
 		BD2C3B261B3B44F900ACCFAA /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C3B251B3B44F900ACCFAA /* NotificationController.swift */; };
@@ -79,6 +77,7 @@
 		BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D981B343F02005E2C51 /* Fonts.swift */; };
 		BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */; };
 		BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE89E201B33FD130010A6ED /* TimerViewController.swift */; };
+		BDFA94B61B89AB9300D4408F /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDFA94B51B89AB9300D4408F /* tick.wav */; };
 		BDFD4B4F1B342E7B008AEAEF /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */; };
 		BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87EE1B347B3200F0DCE6 /* Setting.swift */; };
 		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
@@ -141,28 +140,18 @@
 		1477CA5D1A2D4E7600816544 /* instructionsC@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructionsC@2x.png"; sourceTree = "<group>"; };
 		1477CA5E1A2D4E7600816544 /* instructionsD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructionsD.png; sourceTree = "<group>"; };
 		1477CA5F1A2D4E7600816544 /* instructionsD@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructionsD@2x.png"; sourceTree = "<group>"; };
-		149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKEAnimatedGradientView.h; sourceTree = "<group>"; };
-		149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKEAnimatedGradientView.m; sourceTree = "<group>"; };
 		14A6A2941A35404500879F61 /* instructions.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instructions.png; sourceTree = "<group>"; };
 		14A6A2951A35404500879F61 /* instructions@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "instructions@2x.png"; sourceTree = "<group>"; };
 		14CEFBAF18FFD6FB000952EC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14F3768118FFF7EA00359D38 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		44088058184C808500935802 /* HYPAlarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPAlarm.h; sourceTree = "<group>"; };
-		44088059184C808500935802 /* HYPAlarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPAlarm.m; sourceTree = "<group>"; };
 		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		440D8FDD184CE5ED00BB5392 /* HYPMathHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYPMathHelpers.h; sourceTree = "<group>"; };
-		441B5817184E059800839331 /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tick.caf; sourceTree = "<group>"; };
 		441B5819184E14F600839331 /* kitchenImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kitchenImage@2x.png"; sourceTree = "<group>"; };
 		442CD148184F7A0900CE9031 /* ovenShine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenShine@2x.png"; sourceTree = "<group>"; };
-		44522B38184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "HYPTimerControl+DrawingMethods.h"; sourceTree = "<group>"; };
-		44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "HYPTimerControl+DrawingMethods.m"; sourceTree = "<group>"; };
 		4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground~iPad@2x.png"; sourceTree = "<group>"; };
 		4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenShine~iPad@2x.png"; sourceTree = "<group>"; };
 		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
 		4473616B1856008B004274DF /* fingerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingerImage@2x.png"; sourceTree = "<group>"; };
-		44909B5018EB1937002C812E /* UIScreen+ANDYResolutions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+ANDYResolutions.h"; sourceTree = "<group>"; };
-		44909B5118EB1937002C812E /* UIScreen+ANDYResolutions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+ANDYResolutions.m"; sourceTree = "<group>"; };
 		449143D018476786008A80F0 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		449143D218476798008A80F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		449143D4184767A1008A80F0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -170,8 +159,6 @@
 		44A54150184E1FCC00964F58 /* ovenBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@2x.png"; sourceTree = "<group>"; };
 		44A691B41844E2A1005D4C5A /* HYPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPUtils.h; sourceTree = "<group>"; };
 		44A691B51844E2A1005D4C5A /* HYPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPUtils.m; sourceTree = "<group>"; };
-		44A691BA1844EF68005D4C5A /* UIColor+HYPExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HYPExtensions.h"; sourceTree = "<group>"; };
-		44A691BB1844EF68005D4C5A /* UIColor+HYPExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HYPExtensions.m"; sourceTree = "<group>"; };
 		44AAE40E1844C0690096BF52 /* Thyme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thyme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAE4111844C0690096BF52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44AAE4131844C0690096BF52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -189,10 +176,14 @@
 		44AE6682184F4E1C00148398 /* 0-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-1@2x.png"; sourceTree = "<group>"; };
 		44AE6683184F4E1C00148398 /* 0-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-0@2x.png"; sourceTree = "<group>"; };
 		44AE6684184F4E1C00148398 /* oven@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oven@2x.png"; sourceTree = "<group>"; };
-		44F8DA681846586C0007E083 /* HYPTimerControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPTimerControl.h; sourceTree = "<group>"; };
-		44F8DA691846586C0007E083 /* HYPTimerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPTimerControl.m; sourceTree = "<group>"; };
 		A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BA495F7987D5467EEE452B3F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD08D1091B8B82CF009EAD75 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		BD08D10D1B8B8798009EAD75 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		BD08D10F1B8B8B18009EAD75 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		BD08D1111B8B8C0A009EAD75 /* TimerControl+Draw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TimerControl+Draw.swift"; sourceTree = "<group>"; };
+		BD08D1131B8B8FF2009EAD75 /* HYPDrawText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPDrawText.h; sourceTree = "<group>"; };
+		BD08D1141B8B8FF2009EAD75 /* HYPDrawText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPDrawText.m; sourceTree = "<group>"; };
 		BD1579731B32E58A00812247 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD2C3B1E1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Thyme WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2C3B211B3B44F900ACCFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -215,6 +206,7 @@
 		BDC80D981B343F02005E2C51 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDE89E201B33FD130010A6ED /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BDFA94B51B89AB9300D4408F /* tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tick.wav; sourceTree = "<group>"; };
 		BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD87EE1B347B3200F0DCE6 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -312,15 +304,6 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */ = {
-			isa = PBXGroup;
-			children = (
-				149B074319CDCCDE00D5F832 /* BKEAnimatedGradientView.h */,
-				149B074419CDCCDE00D5F832 /* BKEAnimatedGradientView.m */,
-			);
-			path = BKEAnimatedGradientView;
-			sourceTree = "<group>";
-		};
 		14CEFBAB18FFD697000952EC /* Localizations */ = {
 			isa = PBXGroup;
 			children = (
@@ -332,8 +315,6 @@
 		442B13F9184614FC00D52AE1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				44088058184C808500935802 /* HYPAlarm.h */,
-				44088059184C808500935802 /* HYPAlarm.m */,
 				BDFD87EE1B347B3200F0DCE6 /* Setting.swift */,
 				BDFD87F01B34827F00F0DCE6 /* Alarm.swift */,
 			);
@@ -351,7 +332,7 @@
 		4465EE91184772F9006C145F /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				441B5817184E059800839331 /* tick.caf */,
+				BDFA94B51B89AB9300D4408F /* tick.wav */,
 				4465EE92184772F9006C145F /* alarm.caf */,
 			);
 			path = Sounds;
@@ -400,15 +381,6 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		44909B4F18EB1937002C812E /* UIScreen-ANDYResolutions */ = {
-			isa = PBXGroup;
-			children = (
-				44909B5018EB1937002C812E /* UIScreen+ANDYResolutions.h */,
-				44909B5118EB1937002C812E /* UIScreen+ANDYResolutions.m */,
-			);
-			path = "UIScreen-ANDYResolutions";
-			sourceTree = "<group>";
-		};
 		44A691AB1844E02D005D4C5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,7 +418,6 @@
 			isa = PBXGroup;
 			children = (
 				BDC80D971B343EF9005E2C51 /* Structs */,
-				44A691B91844EF59005D4C5A /* Categories */,
 				44A691B31844E299005D4C5A /* Utils */,
 				44A691AF1844E0E6005D4C5A /* Base */,
 			);
@@ -464,22 +435,11 @@
 		44A691B31844E299005D4C5A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				440D8FDD184CE5ED00BB5392 /* HYPMathHelpers.h */,
 				44A691B41844E2A1005D4C5A /* HYPUtils.h */,
 				44A691B51844E2A1005D4C5A /* HYPUtils.m */,
 				BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		44A691B91844EF59005D4C5A /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				44A691BA1844EF68005D4C5A /* UIColor+HYPExtensions.h */,
-				44A691BB1844EF68005D4C5A /* UIColor+HYPExtensions.m */,
-				D578D5DF1B79616F002CCAE9 /* UIView+ToImage.swift */,
-			);
-			path = Categories;
 			sourceTree = "<group>";
 		};
 		44AAE4051844C0690096BF52 = {
@@ -493,7 +453,9 @@
 				44AAE40F1844C0690096BF52 /* Products */,
 				BDF5048E6F88206565A3511A /* Pods */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		44AAE40F1844C0690096BF52 /* Products */ = {
 			isa = PBXGroup;
@@ -575,11 +537,10 @@
 		44F8DA67184658450007E083 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				44F8DA681846586C0007E083 /* HYPTimerControl.h */,
-				44F8DA691846586C0007E083 /* HYPTimerControl.m */,
-				44522B38184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.h */,
-				44522B39184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m */,
+				BD08D1131B8B8FF2009EAD75 /* HYPDrawText.h */,
+				BD08D1141B8B8FF2009EAD75 /* HYPDrawText.m */,
 				BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */,
+				BD08D1111B8B8C0A009EAD75 /* TimerControl+Draw.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -588,8 +549,6 @@
 			isa = PBXGroup;
 			children = (
 				14117C7619DB1F1F0070010C /* UIColor-ANDYHex */,
-				149B074219CDCCDE00D5F832 /* BKEAnimatedGradientView */,
-				44909B4F18EB1937002C812E /* UIScreen-ANDYResolutions */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -637,6 +596,9 @@
 			isa = PBXGroup;
 			children = (
 				BDC80D981B343F02005E2C51 /* Fonts.swift */,
+				BD08D1091B8B82CF009EAD75 /* Screen.swift */,
+				BD08D10D1B8B8798009EAD75 /* Theme.swift */,
+				BD08D10F1B8B8B18009EAD75 /* Math.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -781,11 +743,11 @@
 			files = (
 				1477CA611A2D4E7600816544 /* instructionsA@2x.png in Resources */,
 				14A6A2971A35404500879F61 /* instructions@2x.png in Resources */,
+				BDFA94B61B89AB9300D4408F /* tick.wav in Resources */,
 				44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */,
 				1477CA651A2D4E7600816544 /* instructionsC@2x.png in Resources */,
 				1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */,
 				1477CA571A2D3CF600816544 /* welcomeIcon@3x.png in Resources */,
-				441B5818184E061200839331 /* tick.caf in Resources */,
 				4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */,
 				1477CA551A2D2FE000816544 /* welcomeIcon@2x.png in Resources */,
 				442CD149184F7A0900CE9031 /* ovenShine@2x.png in Resources */,
@@ -882,26 +844,25 @@
 				BDFD4B4F1B342E7B008AEAEF /* LocalNotificationManager.swift in Sources */,
 				BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */,
 				BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */,
-				4408805A184C808500935802 /* HYPAlarm.m in Sources */,
-				44909B5218EB1937002C812E /* UIScreen+ANDYResolutions.m in Sources */,
+				BD08D1151B8B8FF2009EAD75 /* HYPDrawText.m in Sources */,
 				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
 				BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */,
+				BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
 				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
 				D578D5E01B79616F002CCAE9 /* UIView+ToImage.swift in Sources */,
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
+				BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
 				BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */,
+				BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */,
 				BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */,
-				44522B3A184DCA9A00C4B604 /* HYPTimerControl+DrawingMethods.m in Sources */,
-				44A691BC1844EF68005D4C5A /* UIColor+HYPExtensions.m in Sources */,
+				BD08D10A1B8B82CF009EAD75 /* Screen.swift in Sources */,
 				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
 				BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */,
 				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
-				149B074519CDCCDE00D5F832 /* BKEAnimatedGradientView.m in Sources */,
 				BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */,
-				44F8DA6A1846586C0007E083 /* HYPTimerControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1109,6 +1070,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Thyme.app/Thyme";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1132,6 +1094,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Thyme.app/Thyme";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1141,6 +1104,7 @@
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
 				INFOPLIST_FILE = "ThymeTests/ThymeTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9f4df961-9055-4ec9-92f3-a0324f59ded6";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};

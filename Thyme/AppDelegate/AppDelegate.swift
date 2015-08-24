@@ -61,22 +61,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       BITHockeyManager.sharedHockeyManager().startManager()
     #endif
 
+    let audioSession = AVAudioSession.sharedInstance()
+    audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
+    audioSession.setActive(true, error: nil)
+    application.beginReceivingRemoteControlEvents()
+
     let pageControl = UIPageControl.appearance()
     pageControl.pageIndicatorTintColor = UIColor(fromHex: "D0E8E8")
     pageControl.currentPageIndicatorTintColor = UIColor(fromHex: "FF5C5C")
     pageControl.backgroundColor = UIColor(fromHex: "EDFFFF")
 
     UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
-    AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient, error: nil)
 
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
-      self.handleLocalNotification(notification, playingSound: false)
+      handleLocalNotification(notification, playingSound: false)
     }
 
     window!.rootViewController = navigationController
     window!.makeKeyAndVisible()
 
     return true
+  }
+
+  func applicationDidBecomeActive(application: UIApplication) {
+
+    var colors = Theme.Main.colors
+    var locations = Theme.Main.locations
+
+    if UIAccessibilityDarkerSystemColorsEnabled() {
+      colors = Theme.DarkColors.colors
+      locations = Theme.DarkColors.locations
+    }
+
+    let notificationCenter = NSNotificationCenter.defaultCenter()
+    notificationCenter.postNotificationName("changeBackground",
+      object: nil,
+      userInfo: [
+        "colors"  : colors,
+        "locations" : locations])
+  }
+
+  func applicationDidEnterBackground(application: UIApplication) {
+    application.beginBackgroundTaskWithExpirationHandler {}
+    application.beginReceivingRemoteControlEvents()
   }
 
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
@@ -87,22 +114,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       playingSound = false
     }
 
-    self.handleLocalNotification(notification, playingSound: playingSound)
+    handleLocalNotification(notification, playingSound: playingSound)
   }
 
   func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
     let types: UIUserNotificationType = .Alert | .Badge | .Sound
     if notificationSettings.types != types {
-      self.homeController.cancelledNotifications()
+      homeController.cancelledNotifications()
     } else {
-      self.homeController.registeredForNotifications()
+      homeController.registeredForNotifications()
     }
   }
 
   // MARK: UIAlertViewDelegate
 
   func alert(alertView: UIAlertView, clickedButtonAtIndex: NSInteger) {
-    self.audioPlayer.stop()
+    audioPlayer.stop()
   }
 
   // MARK: Private methods
@@ -110,8 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   func handleLocalNotification(notification: UILocalNotification, playingSound: Bool) {
     if let userInfo = notification.userInfo,
     alarmID = userInfo[ThymeAlarmIDKey] as? String {
-      println(alarmID)
-      self.cleanUpLocalNotificationWithAlarmID(alarmID)
+      cleanUpLocalNotificationWithAlarmID(alarmID)
 
       if playingSound {
         audioPlayer.prepareToPlay()

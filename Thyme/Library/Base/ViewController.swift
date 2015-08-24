@@ -1,34 +1,29 @@
 import UIKit
 
-@objc public class ViewController: UIViewController {
+class ViewController: UIViewController {
 
-  lazy var gradientView: BKEAnimatedGradientView = {
-    let gradientView = BKEAnimatedGradientView(frame: self.view.frame)
+  lazy var gradientLayer: CAGradientLayer = {
+    let layer = CAGradientLayer()
+    layer.anchorPoint = CGPoint(x: 0.0, y: 0.0)
 
-    let defaults = NSUserDefaults.standardUserDefaults()
-    if let from = defaults.stringForKey("BackgroundColorFrom"),
-      to = defaults.stringForKey("BackgroundColorTo") {
-        gradientView.gradientColors = [UIColor(fromHex: from), UIColor(fromHex: to)]
-    } else {
-      gradientView.gradientColors = [UIColor(fromHex: "3bf5e6"), UIColor(fromHex: "00979b")]
-    }
-    
-    return gradientView
+    return layer
     }()
 
-  public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }
 
-  public override func viewDidLoad() {
+  override func viewDidLoad() {
     super.viewDidLoad()
 
     view.userInteractionEnabled = true
     view.autoresizesSubviews = true
-    view.addSubview(gradientView)
+
+    gradientLayer.bounds = view.bounds
+    view.layer.addSublayer(gradientLayer)
   }
 
-  public override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
 
     NSNotificationCenter.defaultCenter().addObserver(self,
@@ -37,37 +32,18 @@ import UIKit
       object: nil)
   }
 
-  public override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
 
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
 
-  public func changeGradient(from: UIColor, to: UIColor) {
-    gradientView.gradientColors = [from, to]
-  }
-
-  public func aniamteChangeGradient(from: UIColor, to: UIColor, duration: CGFloat, delay: CGFloat = 0) {
-    gradientView.changeGradientWithAnimation([from,to], delay: delay, duration: duration)
-  }
-
   func changeBackground(notification: NSNotification) {
-    if let userinfo = notification.userInfo {
-      let from = userinfo["from"] as! String
-      let to = userinfo["to"] as! String
-      let textColor = userinfo["textColor"] as! String
-
-      if let duration = userinfo["duration"] as? CGFloat {
-        aniamteChangeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to), duration: duration, delay: 0)
-      } else {
-        changeGradient(UIColor(fromHex: from), to: UIColor(fromHex: to))
-      }
-
-      let defaults = NSUserDefaults.standardUserDefaults()
-      defaults.setValue(from, forKey: "BackgroundColorFrom")
-      defaults.setValue(to, forKey: "BackgroundColorTo")
-      defaults.setValue(textColor, forKey: "TextColor")
-      defaults.synchronize()
+    if let userinfo = notification.userInfo,
+      colors = userinfo["colors"] as? [CGColorRef],
+      locations = userinfo["locations"] as? [Float] {
+        gradientLayer.colors = colors
+        gradientLayer.locations = locations
     }
   }
 }

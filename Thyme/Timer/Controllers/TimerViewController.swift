@@ -10,7 +10,7 @@ class TimerViewController: ViewController {
     case Forward, Backward
   }
 
-  var alarm: HYPAlarm
+  var alarm: Alarm
   var timer: NSTimer?
   var startRect: CGRect = CGRectNull
   var finalRect: CGRect = CGRectNull
@@ -24,11 +24,11 @@ class TimerViewController: ViewController {
     return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }()
 
-  lazy var timerControl: HYPTimerControl = {
-    var sideMargin: CGFloat = UIScreen.andy_isPad() ? 140 : 0
+  lazy var timerControl: TimerControl = {
+    var sideMargin: CGFloat = Screen.isPad ? 140 : 0
     var topMargin: CGFloat = 0
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin = 140
     } else {
       if self.deviceHeight == 480 {
@@ -44,7 +44,7 @@ class TimerViewController: ViewController {
 
     let width = self.deviceWidth - 2 * sideMargin
     let frame = CGRectMake(sideMargin, topMargin, width, width)
-    let timerControl = HYPTimerControl(completeModeWithFrame: frame)
+    let timerControl = TimerControl(frame: frame, completedMode: true)
 
     timerControl.active = true
     timerControl.backgroundColor = UIColor.clearColor()
@@ -62,7 +62,7 @@ class TimerViewController: ViewController {
     var xOffset: CGFloat = 0
     var yOffset: CGFloat = 0
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       xOffset = 61
       yOffset = 18
     } else {
@@ -104,7 +104,7 @@ class TimerViewController: ViewController {
     var width: CGFloat = image.size.width
     var height: CGFloat = image.size.height
 
-    if UIScreen.andy_isPad() {
+    if Screen.isPad {
       topMargin = 330
       x = self.deviceWidth / 2 - image.size.width / 2;
       y = self.deviceHeight - topMargin;
@@ -149,7 +149,7 @@ class TimerViewController: ViewController {
     return button
   }()
 
-  init(alarm: HYPAlarm) {
+  init(alarm: Alarm) {
     self.alarm = alarm
 
     super.init(nibName: nil, bundle: nil)
@@ -285,5 +285,6 @@ class TimerViewController: ViewController {
       delegate?.dismissedTimerController(self)
     }
     self.dismissViewControllerAnimated(true, completion: nil)
+    timerControl.touchesAreActive = false
   }
 }

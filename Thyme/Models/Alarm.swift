@@ -54,8 +54,8 @@ class Alarm {
         maxMinutesLeft = maxMinutesLeft.doubleValue - (hoursLeft * 60)
       }
 
-      let result = maxMinutesLeft.doubleValue / 5
-      var minutes = result == 0 ? 0 : floor(result) + 1 * 5
+      let result = Int(floor(maxMinutesLeft.doubleValue / 5))
+      var minutes = result == 0 ? 0 : result + 1 * 5
 
       if hoursLeft > 0 {
         if  minutes == 60 {
@@ -67,11 +67,11 @@ class Alarm {
           message = NSLocalizedString("IN ABOUT 1 HOUR",
             comment: "IN ABOUT 1 HOUR")
         } else if hoursLeft == 1 && minutes > 0 {
-          message = NSLocalizedString("IN ABOUT 1 HOUR \(minutes) MINUTES",
-            comment: "IN ABOUT 1 HOUR \(minutes) MINUTES")
+          message = NSLocalizedString("IN ABOUT 1 HOUR \(Int(minutes)) MINUTES",
+            comment: "IN ABOUT 1 HOUR \(Int(minutes)) MINUTES")
         } else {
-          message = NSLocalizedString("IN ABOUT \(hoursLeft) HOURS \(minutes) MINUTES",
-            comment: "IN ABOUT \(hoursLeft) HOURS \(minutes) MINUTES")
+          message = NSLocalizedString("IN ABOUT \(hoursLeft) HOURS \(Int(minutes)) MINUTES",
+            comment: "IN ABOUT \(hoursLeft) HOURS \(Int(minutes)) MINUTES")
         }
       } else {
         let m = maxMinutesLeft.doubleValue / 10
@@ -83,19 +83,19 @@ class Alarm {
         } else {
           if miniMinutes < 3 || (miniMinutes >= 5 && miniMinutes < 8) {
             if miniMinutes >= 5 {
-              message = NSLocalizedString("IN ABOUT \((m * 10) + 5) MINUTES",
-                comment: "IN ABOUT \((m * 10) + 5) MINUTES")
+              message = NSLocalizedString("IN ABOUT \(Int((m * 10) + 5)) MINUTES",
+                comment: "IN ABOUT \(Int((m * 10) + 5)) MINUTES")
             } else {
-              message = NSLocalizedString("IN ABOUT \((m * 10)) MINUTES",
-                comment: "IN ABOUT \((m * 10)) MINUTES")
+              message = NSLocalizedString("IN ABOUT \(Int((m * 10))) MINUTES",
+                comment: "IN ABOUT \(Int((m * 10))) MINUTES")
             }
           } else {
             if maxMinutesLeft.integerValue >= 58 {
               message = NSLocalizedString("IN ABOUT 1 HOUR",
                 comment: "IN ABOUT 1 HOUR")
             } else {
-              message = NSLocalizedString("IN ABOUT \(minutes) MINUTES",
-                comment: "IN ABOUT \(minutes) MINUTES")
+              message = NSLocalizedString("IN ABOUT \(Int(minutes)) MINUTES",
+                comment: "IN ABOUT \(Int(minutes)) MINUTES")
             }
           }
         }
