@@ -48,6 +48,7 @@
 
     _gradient = [CAGradientLayer layer];
     _gradient.frame = self.frame;
+    _gradient.locations = @[@0.05,@0.5,@0.95];
 
     return _gradient;
 }
