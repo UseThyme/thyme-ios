@@ -44,7 +44,7 @@ extension TimerControl {
   }
 
   func drawText(context: CGContextRef, rect: CGRect) {
-    HYPDrawText.drawText(context, rect: rect, attributedString: attributedString)
+    HYPDrawText.drawText(context, rect: rect, attributedString: attributedString())
   }
 
   // MARK: Helper methods

@@ -165,29 +165,6 @@ public class TimerControl: UIControl {
     return label
     }()
 
-  lazy var attributedString: NSAttributedString = {
-    var font: UIFont = HYPUtils.avenirLightWithSize(14)
-
-    if Screen.isPad {
-      font = HYPUtils.avenirLightWithSize(20)
-    } else {
-      if self.deviceHeight == 480 {
-        font = HYPUtils.avenirLightWithSize(14)
-      }  else if self.deviceHeight == 568 {
-        font = HYPUtils.avenirLightWithSize(14)
-      } else if self.deviceHeight == 667 {
-          font = HYPUtils.avenirLightWithSize(16)
-      } else if self.deviceHeight == 763 {
-        font = HYPUtils.avenirLightWithSize(17)
-      }
-    }
-
-    let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor()]
-    let string = NSAttributedString(string: self.title, attributes: attributes)
-
-    return string
-  }()
-
   lazy var firstQuadrandRect: CGRect = {
     let topMargin = CGRectGetMinX(self.frame)
     let rect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0,
@@ -290,6 +267,29 @@ public class TimerControl: UIControl {
       let secondsColor = UIColor.whiteColor()
       drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect)
     }
+  }
+
+  func attributedString() -> NSAttributedString {
+    var font: UIFont = HYPUtils.avenirLightWithSize(14)
+
+    if Screen.isPad {
+      font = HYPUtils.avenirLightWithSize(20)
+    } else {
+      if self.deviceHeight == 480 {
+        font = HYPUtils.avenirLightWithSize(14)
+      }  else if self.deviceHeight == 568 {
+        font = HYPUtils.avenirLightWithSize(14)
+      } else if self.deviceHeight == 667 {
+        font = HYPUtils.avenirLightWithSize(16)
+      } else if self.deviceHeight == 763 {
+        font = HYPUtils.avenirLightWithSize(17)
+      }
+    }
+
+    let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor()]
+    let string = NSAttributedString(string: self.title, attributes: attributes)
+
+    return string
   }
 
   func colorForMinutesIndicator() -> UIColor {
