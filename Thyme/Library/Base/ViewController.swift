@@ -42,12 +42,12 @@ import UIKit
 
   func changeBackground(notification: NSNotification) {
     if let userinfo = notification.userInfo,
-    from = userinfo["from"] as? String,
-    to = userinfo["to"] as? String {
-      gradientLayer.colors = [
-        UIColor(fromHex: from).CGColor,
-        UIColor(fromHex: to).CGColor
-      ]
+      from = userinfo["from"] as? String,
+      to = userinfo["to"] as? String {
+        gradientLayer.colors = [
+          UIColor(fromHex: from).CGColor,
+          UIColor(fromHex: to).CGColor
+        ]
     }
   }
 }
