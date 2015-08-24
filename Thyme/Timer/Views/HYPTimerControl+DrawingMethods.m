@@ -2,7 +2,6 @@
 @import CoreText;
 #import "HYPUtils.h"
 #import "HYPMathHelpers.h"
-#import "UIScreen+ANDYResolutions.h"
 
 #define DEFAULT_RADIUS 0
 #define TEXT_COLOR [UIColor whiteColor]
@@ -143,7 +142,7 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGFloat deviceHeight = bounds.size.height;
     CGFloat offset;
 
-    if ([UIScreen andy_isPad]) {
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
         offset = 210.0f;
     } else {
         if (deviceHeight == 480.0f) {
@@ -166,7 +165,7 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CGFloat deviceHeight = bounds.size.height;
     UIFont *font;
 
-    if ([UIScreen andy_isPad]) {
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
         font = [HYPUtils avenirLightWithSize:20.0f];
     } else {
         if (deviceHeight == 480.0f) {

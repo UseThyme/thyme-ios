@@ -1,6 +1,5 @@
 #import "HYPTimerControl.h"
 @import QuartzCore;
-#import "UIColor+HYPExtensions.h"
 #import "HYPUtils.h"
 #import "HYPAlarm.h"
 #import "HYPMathHelpers.h"
@@ -8,14 +7,13 @@
 #import "HYPTimerControl+DrawingMethods.h"
 @import AVFoundation;
 @import AudioToolbox;
-#import "UIScreen+ANDYResolutions.h"
 #import "Thyme-Swift.h"
 
 /** Parameters **/
 #define CIRCLE_SIZE_FACTOR 0.8f
 
 #define UNACTIVE_SECONDS_INDICATOR_COLOR [UIColor whiteColor]
-#define ACTIVE_SECONDS_INDICATOR_COLOR [UIColor colorFromHexString:@"ff5c5c"]
+#define ACTIVE_SECONDS_INDICATOR_COLOR [UIColor colorFromHex:@"ff5c5c"]
 #define MINUTES_INDICATOR_COLOR [UIColor whiteColor]
 
 @interface HYPTimerControl ()
@@ -77,9 +75,9 @@
     _hoursLabel.backgroundColor = [UIColor clearColor];
     NSString *customColor = [[NSUserDefaults standardUserDefaults] stringForKey:@"TextColor"];
     if (customColor) {
-        _hoursLabel.textColor = [UIColor colorFromHexString:customColor];
+        _hoursLabel.textColor = [UIColor colorFromHex:customColor];
     } else {
-        _hoursLabel.textColor = [UIColor colorFromHexString:@"1B807E"];
+        _hoursLabel.textColor = [UIColor colorFromHex:@"1B807E"];
     }
     _hoursLabel.textAlignment = NSTextAlignmentCenter;
     _hoursLabel.font = font;
@@ -111,9 +109,9 @@
 
     NSString *customColor = [[NSUserDefaults standardUserDefaults] stringForKey:@"TextColor"];
     if (customColor) {
-        _minutesValueLabel.textColor = [UIColor colorFromHexString:customColor];
+        _minutesValueLabel.textColor = [UIColor colorFromHex:customColor];
     } else {
-        _minutesValueLabel.textColor = [UIColor colorFromHexString:@"1B807E"];
+        _minutesValueLabel.textColor = [UIColor colorFromHex:@"1B807E"];
     }
 
     _minutesValueLabel.textAlignment = NSTextAlignmentCenter;
@@ -138,7 +136,7 @@
     CGFloat x = 0;
     CGFloat factor = 5.0f;
     CGFloat yOffset = floor(factor * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds));
-    if ([UIScreen andy_isPad]) {
+    if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
         yOffset = -10;
     }
     CGFloat y = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset;
@@ -147,9 +145,9 @@
     _minutesTitleLabel.backgroundColor = [UIColor clearColor];
     NSString *customColor = [[NSUserDefaults standardUserDefaults] stringForKey:@"TextColor"];
     if (customColor) {
-        _minutesTitleLabel.textColor = [UIColor colorFromHexString:customColor];
+        _minutesTitleLabel.textColor = [UIColor colorFromHex:customColor];
     } else {
-        _minutesTitleLabel.textColor = [UIColor colorFromHexString:@"1B807E"];
+        _minutesTitleLabel.textColor = [UIColor colorFromHex:@"1B807E"];
     }
     _minutesTitleLabel.textAlignment = NSTextAlignmentCenter;
     _minutesTitleLabel.font = font;
@@ -225,7 +223,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        if ([UIScreen andy_isPad]) {
+        if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
             self.minuteValueSize = 200.0f;
             self.minuteTitleSize = 35.0f;
         } else {
@@ -258,19 +256,19 @@
         CGRect bounds = [[UIScreen mainScreen] bounds];
         CGFloat baseSize;
         if (aLabel.text.length == 5) {
-            if ([UIScreen andy_isPad]) {
+            if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
                 baseSize = 200.0f;
             } else {
                 baseSize = self.minuteValueSize;
             }
         } else if (aLabel.text.length == 4) {
-            if ([UIScreen andy_isPad]) {
+            if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
                 baseSize = 220.0f;
             } else {
                 baseSize = 100.0f;
             }
         } else {
-            if ([UIScreen andy_isPad]) {
+            if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
                 baseSize = 280.0f;
             } else {
                 baseSize = 120.0f;
@@ -278,7 +276,7 @@
         }
 
         if (self.isCompleteMode) {
-            if ([UIScreen andy_isPad]) {
+            if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
                 baseSize = 250.0f;
             } else {
                 baseSize = self.minuteValueSize;
