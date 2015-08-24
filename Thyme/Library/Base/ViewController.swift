@@ -5,11 +5,8 @@ import UIKit
   lazy var gradientLayer: CAGradientLayer = {
     let layer = CAGradientLayer()
     layer.anchorPoint = CGPoint(x: 0.0, y: 0.0)
-    layer.colors = [
-      UIColor(fromHex: "37F7BA").CGColor,
-      UIColor(fromHex: "05ABBF").CGColor,
-      UIColor(fromHex: "0C80C3").CGColor
-    ]
+    layer.colors = Theme.Main.colors
+    layer.locations = Theme.Main.locations
 
     return layer
     }()
