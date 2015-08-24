@@ -8,18 +8,32 @@
         <!--plateController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="plateController" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
+                <controller identifier="plateController" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
-                        <label alignment="left" id="kF4-mY-kDw">
-                            <color key="textColor" red="0.21960784310000001" green="0.95686274510000002" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
-                        </label>
-                        <imageView width="120" height="120" alignment="center" verticalAlignment="center" id="tqE-QF-urS"/>
+                        <group width="1" alignment="left" layout="vertical" id="eAh-Dn-oy7">
+                            <items>
+                                <group width="134" height="62" alignment="center" spacing="5" id="Ig1-RQ-5zJ">
+                                    <items>
+                                        <imageView width="60" height="60" alignment="left" image="mainPlateBackground" id="lWz-Br-pYT"/>
+                                        <imageView width="60" height="60" alignment="left" image="mainPlateBackground" id="F8m-MV-RE3"/>
+                                    </items>
+                                    <edgeInsets key="margins" left="5" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
+                                <group width="134" height="64" alignment="center" spacing="5" id="XKW-ZG-be5">
+                                    <items>
+                                        <imageView width="60" height="60" alignment="left" image="mainPlateBackground" id="cxd-Ox-M1V"/>
+                                        <imageView width="60" height="60" alignment="left" image="mainPlateBackground" id="Q3E-vV-MOU"/>
+                                    </items>
+                                    <edgeInsets key="margins" left="5" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
+                                <group width="1" height="86" alignment="left" id="GJ4-7n-83F">
+                                    <items>
+                                        <imageView width="125" height="81" alignment="center" image="mainOvenBackground" id="uh2-ND-TMA"/>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
                     </items>
-                    <connections>
-                        <outlet property="imageInterface" destination="tqE-QF-urS" id="dd9-fu-tUX"/>
-                        <outlet property="titleLabel" destination="kF4-mY-kDw" id="fHl-Wx-kkc"/>
-                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="235" y="347.75"/>
