@@ -426,10 +426,10 @@ public class TimerControl: UIControl {
     let lastPointWasInSecondQuadrand = CGRectContainsPoint(secondQuadrandRect, lastPoint)
     let lastPointIsZero = CGPointEqualToPoint(lastPoint, CGPointZero)
 
-    if currentPointIsInFirstQuadrand == true {
-      if lastPointIsZero == false && lastPointWasInSecondQuadrand == true {
+    if currentPointIsInFirstQuadrand == true &&
+      lastPointIsZero == false &&
+      lastPointWasInSecondQuadrand == true {
         return true
-      }
     }
 
     return false
@@ -440,10 +440,10 @@ public class TimerControl: UIControl {
     let lastPointWasInFirstQuadrand = CGRectContainsPoint(firstQuadrandRect, lastPoint)
     let lastPointIsZero = CGPointEqualToPoint(lastPoint, CGPointZero)
 
-    if currentPointIsInSecondQuadrand == true {
-      if lastPointIsZero == false && lastPointWasInFirstQuadrand == true {
+    if currentPointIsInSecondQuadrand == true &&
+      lastPointIsZero == false &&
+      lastPointWasInFirstQuadrand == true {
         return true
-      }
     }
 
     return false
