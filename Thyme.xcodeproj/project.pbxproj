@@ -80,6 +80,7 @@
 		BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87EE1B347B3200F0DCE6 /* Setting.swift */; };
 		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
 		BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */; };
+		D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchHandler.swift */; };
 		D5B25B321B8BCD0200397D32 /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B2F1B8BCD0200397D32 /* GlanceController.swift */; };
 		D5B25B331B8BCD0200397D32 /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B301B8BCD0200397D32 /* HomeInterfaceController.swift */; };
 		D5B25B341B8BCD0200397D32 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B311B8BCD0200397D32 /* NotificationController.swift */; };
@@ -209,6 +210,7 @@
 		BDFD87EE1B347B3200F0DCE6 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D5A238391B8BD75F00863023 /* WatchHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchHandler.swift; sourceTree = "<group>"; };
 		D5B25B2F1B8BCD0200397D32 /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		D5B25B301B8BCD0200397D32 /* HomeInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
 		D5B25B311B8BCD0200397D32 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 				44A691B41844E2A1005D4C5A /* HYPUtils.h */,
 				44A691B51844E2A1005D4C5A /* HYPUtils.m */,
 				BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */,
+				D5A238391B8BD75F00863023 /* WatchHandler.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -871,6 +874,7 @@
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
+				D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */,
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
 				BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */,
 				BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */,
