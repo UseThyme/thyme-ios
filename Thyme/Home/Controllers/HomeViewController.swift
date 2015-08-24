@@ -419,7 +419,6 @@ class HomeViewController: ViewController {
   }
 
   func applyTransformToLayer(layer: CALayer, factor: CGFloat) {
-    let π = CGFloat(M_PI)
     var rotationAndPerspectiveTransform = CATransform3DIdentity;
     rotationAndPerspectiveTransform.m34 = 1.0 / -800.0;
     rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, π * factor, 1.0, 0.0, 0.0);

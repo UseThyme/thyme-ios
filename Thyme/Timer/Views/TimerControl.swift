@@ -303,7 +303,6 @@ public class TimerControl: UIControl {
     CGContextSaveGState(context)
 
     let angleTranslation: CGFloat = 0 - 90
-    let π = CGFloat(M_PI)
     let startDeg: CGFloat = π * (0 + angleTranslation) / 180
     let endDeg: CGFloat = π * (angle + angleTranslation) / 180
     let x = CGRectGetWidth(containerRect) / 2 + containerRect.origin.x
@@ -358,7 +357,6 @@ public class TimerControl: UIControl {
     let centerPoint = CGPointMake(CGRectGetWidth(frame) / 2 - radius, CGRectGetHeight(frame) / 2 - radius)
     var result = CGPointMake(0.0,0.0)
 
-    let π = CGFloat(M_PI)
     let angleTranslation: CGFloat = 0 - 90
     let magicFuckingNumber: CGFloat = CGRectGetWidth(containerRect) / 2
     result.x = centerPoint.x + magicFuckingNumber * cos(π * (angle + angleTranslation) / 180)
