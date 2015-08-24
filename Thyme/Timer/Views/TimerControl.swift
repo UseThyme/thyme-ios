@@ -1,4 +1,5 @@
 import Foundation
+import AVFoundation
 
 public class TimerControl: UIControl {
 
@@ -14,6 +15,14 @@ public class TimerControl: UIControl {
   var completedMode: Bool
   var timer: NSTimer?
   var lastPoint: CGPoint = CGPointZero
+
+  lazy var player: AVAudioPlayer = {
+    let soundFilePath = NSBundle.mainBundle().pathForResource("tick", ofType: "wav")!
+    let url = NSURL(fileURLWithPath: soundFilePath)!
+    let player = AVAudioPlayer(contentsOfURL: url, error: nil)
+
+    return player
+  }()
 
   lazy var deviceHeight: CGFloat = {
     return UIScreen.mainScreen().bounds.height
@@ -375,7 +384,8 @@ public class TimerControl: UIControl {
   }
 
   func playInputClick() {
-    UIDevice.currentDevice().playInputClick()
+    player.prepareToPlay()
+    player.play()
   }
 
   func startAlarm() {
