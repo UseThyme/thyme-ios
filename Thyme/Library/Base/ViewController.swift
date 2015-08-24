@@ -1,6 +1,6 @@
 import UIKit
 
-@objc public class ViewController: UIViewController {
+class ViewController: UIViewController {
 
   lazy var gradientLayer: CAGradientLayer = {
     let layer = CAGradientLayer()
@@ -11,11 +11,11 @@ import UIKit
     return layer
     }()
 
-  public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }
 
-  public override func viewDidLoad() {
+  override func viewDidLoad() {
     super.viewDidLoad()
 
     view.userInteractionEnabled = true
@@ -25,7 +25,7 @@ import UIKit
     view.layer.addSublayer(gradientLayer)
   }
 
-  public override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
 
     NSNotificationCenter.defaultCenter().addObserver(self,
@@ -34,7 +34,7 @@ import UIKit
       object: nil)
   }
 
-  public override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
 
     NSNotificationCenter.defaultCenter().removeObserver(self)
