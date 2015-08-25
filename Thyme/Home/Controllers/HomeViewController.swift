@@ -576,27 +576,3 @@ extension HomeViewController: TimerControllerDelegate {
     }
   }
 }
-
-// MARK: - WatchKit
-
-extension HomeViewController {
-
-  func plateDataForIndex(index: Int) -> [String: AnyObject] {
-    let collectionView = index == 4 ? ovenCollectionView : self.collectionView
-    let section = index == 1 || index == 3  ? 1 : 0
-    let item = index == 2 || index == 3 ? 1 : 0
-
-    let indexPath = NSIndexPath(forItem: item, inSection: section)
-    let alarm = alarmAtIndexPath(indexPath, collectionView: collectionView)
-
-    let timerController = TimerViewController(alarm: alarm)
-    timerController.viewWillAppear(false)
-    timerController.viewDidAppear(false)
-    timerController.timerControl.title = ""
-    let imageData = UIImagePNGRepresentation(timerController.timerControl.toImage())
-    timerController.viewWillDisappear(false)
-    timerController.viewDidDisappear(false)
-
-    return ["title": alarm.title, "imageData": imageData]
-  }
-}

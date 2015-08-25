@@ -60,9 +60,6 @@
 		BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D1111B8B8C0A009EAD75 /* TimerControl+Draw.swift */; };
 		BD08D1151B8B8FF2009EAD75 /* HYPDrawText.m in Sources */ = {isa = PBXBuildFile; fileRef = BD08D1141B8B8FF2009EAD75 /* HYPDrawText.m */; };
 		BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1579731B32E58A00812247 /* HomeViewController.swift */; };
-		BD2C3B241B3B44F900ACCFAA /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C3B231B3B44F900ACCFAA /* InterfaceController.swift */; };
-		BD2C3B261B3B44F900ACCFAA /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C3B251B3B44F900ACCFAA /* NotificationController.swift */; };
-		BD2C3B281B3B44F900ACCFAA /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2C3B271B3B44F900ACCFAA /* GlanceController.swift */; };
 		BD2C3B2A1B3B44F900ACCFAA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B291B3B44F900ACCFAA /* Images.xcassets */; };
 		BD2C3B2E1B3B44F900ACCFAA /* Thyme WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B2D1B3B44F900ACCFAA /* Thyme WatchKit App.app */; };
 		BD2C3B361B3B44F900ACCFAA /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B341B3B44F900ACCFAA /* Interface.storyboard */; };
@@ -83,6 +80,10 @@
 		BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87EE1B347B3200F0DCE6 /* Setting.swift */; };
 		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
 		BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */; };
+		D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchHandler.swift */; };
+		D5B25B321B8BCD0200397D32 /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B2F1B8BCD0200397D32 /* GlanceController.swift */; };
+		D5B25B331B8BCD0200397D32 /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B301B8BCD0200397D32 /* HomeInterfaceController.swift */; };
+		D5B25B341B8BCD0200397D32 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B311B8BCD0200397D32 /* NotificationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,9 +189,6 @@
 		BD2C3B1E1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Thyme WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2C3B211B3B44F900ACCFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD2C3B221B3B44F900ACCFAA /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		BD2C3B231B3B44F900ACCFAA /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
-		BD2C3B251B3B44F900ACCFAA /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		BD2C3B271B3B44F900ACCFAA /* GlanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		BD2C3B291B3B44F900ACCFAA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BD2C3B2D1B3B44F900ACCFAA /* Thyme WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Thyme WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2C3B331B3B44F900ACCFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -212,6 +210,10 @@
 		BDFD87EE1B347B3200F0DCE6 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D5A238391B8BD75F00863023 /* WatchHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchHandler.swift; sourceTree = "<group>"; };
+		D5B25B2F1B8BCD0200397D32 /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
+		D5B25B301B8BCD0200397D32 /* HomeInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
+		D5B25B311B8BCD0200397D32 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -439,6 +441,7 @@
 				44A691B41844E2A1005D4C5A /* HYPUtils.h */,
 				44A691B51844E2A1005D4C5A /* HYPUtils.m */,
 				BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */,
+				D5A238391B8BD75F00863023 /* WatchHandler.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -557,9 +560,7 @@
 		BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				BD2C3B231B3B44F900ACCFAA /* InterfaceController.swift */,
-				BD2C3B251B3B44F900ACCFAA /* NotificationController.swift */,
-				BD2C3B271B3B44F900ACCFAA /* GlanceController.swift */,
+				D5E359311B8BB51100842B13 /* Controllers */,
 				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
 				BD2C3B201B3B44F900ACCFAA /* Supporting Files */,
 			);
@@ -619,6 +620,16 @@
 				F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		D5E359311B8BB51100842B13 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D5B25B2F1B8BCD0200397D32 /* GlanceController.swift */,
+				D5B25B301B8BCD0200397D32 /* HomeInterfaceController.swift */,
+				D5B25B311B8BCD0200397D32 /* NotificationController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -863,6 +874,7 @@
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
+				D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */,
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
 				BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */,
 				BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */,
@@ -887,9 +899,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD2C3B261B3B44F900ACCFAA /* NotificationController.swift in Sources */,
-				BD2C3B241B3B44F900ACCFAA /* InterfaceController.swift in Sources */,
-				BD2C3B281B3B44F900ACCFAA /* GlanceController.swift in Sources */,
+				D5B25B341B8BCD0200397D32 /* NotificationController.swift in Sources */,
+				D5B25B331B8BCD0200397D32 /* HomeInterfaceController.swift in Sources */,
+				D5B25B321B8BCD0200397D32 /* GlanceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
