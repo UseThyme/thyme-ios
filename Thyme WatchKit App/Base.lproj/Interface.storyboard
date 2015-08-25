@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1Ez-PJ-K29">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
     </dependencies>
     <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="a7u-QP-5ZT">
+            <objects>
+                <controller id="1Ez-PJ-K29">
+                    <items>
+                        <button width="1" alignment="left" title="Button" id="lX2-dP-EMY">
+                            <connections>
+                                <segue destination="AgC-eL-Hgc" kind="push" id="bwg-T7-4ns"/>
+                            </connections>
+                        </button>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="49" y="495"/>
+        </scene>
         <!--plateController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
@@ -16,7 +31,7 @@
                                     <items>
                                         <group width="60" height="60" alignment="left" backgroundImage="mainPlateBackground" id="ZHh-fz-8ix">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="20" id="gUE-J4-4HH">
+                                                <label alignment="center" verticalAlignment="center" id="gUE-J4-4HH">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" pointSize="30"/>
                                                 </label>
@@ -24,7 +39,7 @@
                                         </group>
                                         <group width="60" height="60" alignment="left" backgroundImage="mainPlateBackground" id="eQu-bp-ges">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="20" id="tWn-h2-hwj">
+                                                <label alignment="center" verticalAlignment="center" id="tWn-h2-hwj">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" pointSize="30"/>
                                                 </label>
@@ -37,7 +52,7 @@
                                     <items>
                                         <group width="60" height="60" alignment="left" backgroundImage="mainPlateBackground" id="VPm-2m-QFF">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="20" id="qJX-xq-1Rc">
+                                                <label alignment="center" verticalAlignment="center" id="qJX-xq-1Rc">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" pointSize="30"/>
                                                 </label>
@@ -45,7 +60,7 @@
                                         </group>
                                         <group width="60" height="60" alignment="left" backgroundImage="mainPlateBackground" id="bwr-Da-ckz">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="20" id="kXM-86-mqe">
+                                                <label alignment="center" verticalAlignment="center" id="kXM-86-mqe">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" pointSize="30"/>
                                                 </label>
@@ -58,7 +73,7 @@
                                     <items>
                                         <group width="65" height="65" alignment="center" verticalAlignment="center" id="5rp-hX-mb1">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" text="20" id="80r-DY-UnP">
+                                                <label alignment="center" verticalAlignment="center" id="80r-DY-UnP">
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="font" type="system" pointSize="30"/>
                                                 </label>
@@ -70,16 +85,16 @@
                         </group>
                     </items>
                     <connections>
-                        <outlet property="ovenGroup" destination="5rp-hX-mb1" id="ntv-fe-XxE"/>
-                        <outlet property="ovenLabel" destination="80r-DY-UnP" id="Zfb-pA-eq3"/>
-                        <outlet property="plate1Group" destination="ZHh-fz-8ix" id="TEG-jv-z1H"/>
-                        <outlet property="plate1Label" destination="gUE-J4-4HH" id="s38-UJ-pfb"/>
-                        <outlet property="plate2Group" destination="eQu-bp-ges" id="hMG-UV-uuA"/>
-                        <outlet property="plate2Label" destination="tWn-h2-hwj" id="Qa7-br-q4Y"/>
-                        <outlet property="plate3Group" destination="VPm-2m-QFF" id="4Ht-G8-UPh"/>
-                        <outlet property="plate3Label" destination="qJX-xq-1Rc" id="7dq-Qg-zjK"/>
-                        <outlet property="plate4Group" destination="bwr-Da-ckz" id="tES-JF-Fh9"/>
-                        <outlet property="plate4Label" destination="kXM-86-mqe" id="Fcx-fu-mCf"/>
+                        <outlet property="ovenGroup" destination="5rp-hX-mb1" id="SgH-FW-Mhe"/>
+                        <outlet property="ovenLabel" destination="80r-DY-UnP" id="h7f-TI-Edz"/>
+                        <outlet property="plate1Group" destination="ZHh-fz-8ix" id="6J0-HJ-b4S"/>
+                        <outlet property="plate1Label" destination="gUE-J4-4HH" id="4Sm-tS-Sx0"/>
+                        <outlet property="plate2Group" destination="eQu-bp-ges" id="qQx-R6-ejO"/>
+                        <outlet property="plate2Label" destination="tWn-h2-hwj" id="Fdb-Jw-P8Y"/>
+                        <outlet property="plate3Group" destination="VPm-2m-QFF" id="4dj-1w-cXv"/>
+                        <outlet property="plate3Label" destination="qJX-xq-1Rc" id="X9b-d7-daM"/>
+                        <outlet property="plate4Group" destination="bwr-Da-ckz" id="NbZ-H5-vAU"/>
+                        <outlet property="plate4Label" destination="kXM-86-mqe" id="1Pn-B6-bly"/>
                     </connections>
                 </controller>
             </objects>
