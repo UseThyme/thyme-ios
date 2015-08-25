@@ -16,11 +16,18 @@ struct WatchHandler {
 
         let alarm = Alarm()
         alarm.oven = index == 4
+        alarm.indexPath = indexPath
 
-        alarms[index] = NSNull()
-        if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
-          alarms[index] = notification
+        var alarmData = [String: AnyObject]()
+        if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
+          userinfo = notification.userInfo,
+          firedDate = userinfo["HYPAlarmFireDate"] as? NSDate,
+          numberOfSeconds = userinfo["HYPAlarmFireInterval"] as? NSNumber {
+            alarmData["firedDate"] = firedDate
+            alarmData["numberOfSeconds"] = numberOfSeconds
         }
+
+        alarms.append(alarmData)
       }
 
       data = ["alarms": alarms]
