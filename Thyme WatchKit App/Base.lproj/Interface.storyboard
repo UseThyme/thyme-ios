@@ -1,29 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1Ez-PJ-K29">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
     </dependencies>
     <scenes>
-        <!--Interface Controller-->
-        <scene sceneID="a7u-QP-5ZT">
-            <objects>
-                <controller id="1Ez-PJ-K29">
-                    <items>
-                        <button width="1" alignment="left" title="Button" id="lX2-dP-EMY">
-                            <connections>
-                                <segue destination="AgC-eL-Hgc" kind="push" id="bwg-T7-4ns"/>
-                            </connections>
-                        </button>
-                    </items>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="49" y="495"/>
-        </scene>
-        <!--plateController-->
+        <!--Thyme-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="plateController" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
+                <controller identifier="plateController" title="Thyme" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="eAh-Dn-oy7">
                             <items>
@@ -156,4 +141,5 @@
             <point key="canvasLocation" x="553" y="1001"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.93333333333333335" green="0.32156862745098036" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
 </document>

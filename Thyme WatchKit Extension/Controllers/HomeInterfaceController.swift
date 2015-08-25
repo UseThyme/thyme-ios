@@ -70,7 +70,7 @@ class HomeInterfaceController: WKInterfaceController {
 
         let minutes = Int(minutesLeft)
         let hours = Int(hoursLeft)
-        var text = "\(minutesLeft)"
+        var text = "\(minutes)"
 
         if hours > 0 {
           if minutes < 10 {
