@@ -45,7 +45,7 @@ class HomeViewController: ViewController {
   }()
 
   lazy var plateFactor: CGFloat = {
-    let factor: CGFloat = Screen.isPad ? 0.36 : 0.30
+    let factor: CGFloat = Screen.isPad ? 0.36 : 0.32
     return factor
     }()
 
