@@ -70,8 +70,8 @@ class Alarm {
           message = NSLocalizedString("IN ABOUT 1 HOUR \(Int(minutes)) MINUTES",
             comment: "IN ABOUT 1 HOUR \(Int(minutes)) MINUTES")
         } else {
-          message = NSLocalizedString("IN ABOUT \(hoursLeft) HOURS \(Int(minutes)) MINUTES",
-            comment: "IN ABOUT \(hoursLeft) HOURS \(Int(minutes)) MINUTES")
+          message = NSLocalizedString("IN ABOUT \(Int(hoursLeft)) HOURS \(Int(minutes)) MINUTES",
+            comment: "IN ABOUT \(Int(hoursLeft)) HOURS \(Int(minutes)) MINUTES")
         }
       } else {
         let m = maxMinutesLeft.doubleValue / 10
