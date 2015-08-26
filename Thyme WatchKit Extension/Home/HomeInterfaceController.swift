@@ -84,7 +84,7 @@ class HomeInterfaceController: WKInterfaceController {
 
       plateSecondsGroups[index].setBackgroundImageNamed(ImageList.Plate.secondSequence)
       plateSecondsGroups[index].startAnimatingWithImagesInRange(
-        NSRange(location: 60 - alarm.seconds, length: 1),
+        NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)
     } else {
       plateMinutesGroups[index].setBackgroundImageNamed(index == 4
