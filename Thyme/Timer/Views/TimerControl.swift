@@ -121,7 +121,12 @@ public class TimerControl: UIControl {
     let sampleString = "10:00"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
-    let yOffset: CGFloat = 20 * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)
+    var yOffset: CGFloat = 0
+
+    if self.completedMode {
+      yOffset = 20 * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)
+    }
+
     let x: CGFloat = 0
     let y: CGFloat = (self.frame.size.height - textSize.height) / 2 - yOffset
     let rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height)
