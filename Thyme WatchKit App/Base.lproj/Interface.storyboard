@@ -115,6 +115,30 @@
             </objects>
             <point key="canvasLocation" x="235" y="347.75"/>
         </scene>
+        <!--Interface Controller-->
+        <scene sceneID="d6N-z1-sYA">
+            <objects>
+                <controller id="53Q-sK-jl1">
+                    <items>
+                        <group width="1" height="129" alignment="left" id="DYZ-Sz-4Ba" userLabel="Minutes">
+                            <items>
+                                <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="EOe-jn-aLf" userLabel="Seconds">
+                                    <items>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="15" textAlignment="center" id="yyE-gq-tIP">
+                                            <fontDescription key="font" type="system" weight="light" pointSize="47"/>
+                                        </label>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" id="jue-ld-zB4">
+                                            <fontDescription key="font" type="system" pointSize="13"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="430" y="314"/>
+        </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
             <objects>
