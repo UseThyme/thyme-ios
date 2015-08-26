@@ -25,6 +25,8 @@ class HomeInterfaceController: WKInterfaceController {
   var plateSecondsGroups = [WKInterfaceGroup]()
   var plateButtons = [WKInterfaceButton]()
 
+  var alarmTimer: AlarmTimer?
+
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
 
@@ -51,13 +53,8 @@ class HomeInterfaceController: WKInterfaceController {
     WKInterfaceController.openParentApplication(["request": "getAlarms"]) {
       [unowned self] response, error in
       if let response = response,
-        alarms = response["alarms"] as? [AnyObject] {
-          for (index, alarm) in enumerate(alarms) {
-            if let alarmData = alarm as? [String: AnyObject]
-              where index < self.plateMinutesGroups.count {
-                self.updatePlate(index, data: alarmData)
-            }
-          }
+        alarmData = response["alarms"] as? [AnyObject] {
+          self.setupAlarms(alarmData)
       } else {
         println("Error with fetching of alarms from the parent app")
       }
@@ -66,43 +63,84 @@ class HomeInterfaceController: WKInterfaceController {
 
   // MARK: - UI
 
-  func updatePlate(index: Int, data: [String: AnyObject]) {
-    if let firedDate = data["firedDate"] as? NSDate,
-      numberOfSeconds = data["numberOfSeconds"] as? NSNumber {
-        let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
-        let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
-        let currentSecond = secondsLeft % 60
-        var minutesLeft = floor(secondsLeft / 60)
-        let hoursLeft = floor(minutesLeft / 60)
+  func updatePlate(index: Int, alarm: Alarm) {
+    var text = ""
 
-        if hoursLeft > 0 {
-          minutesLeft = minutesLeft - (hoursLeft * 60)
+    if alarm.active {
+      if alarm.hours > 0 {
+        if alarm.minutes < 10 {
+          text = "\(alarm.hours):0\(alarm.minutes)"
+        } else {
+          text = "\(alarm.hours):\(alarm.minutes)"
         }
+      } else {
+        text = "\(alarm.minutes)"
+      }
 
-        let minutes = Int(minutesLeft)
-        let hours = Int(hoursLeft)
-        let seconds = 60 - Int(currentSecond)
-        var text = "\(minutes)"
+      plateMinutesGroups[index].setBackgroundImageNamed(ImageList.Plate.minuteSequence)
+      plateMinutesGroups[index].startAnimatingWithImagesInRange(
+        NSRange(location: alarm.minutes, length: 1),
+        duration: 0, repeatCount: 1)
 
-        if hours > 0 {
-          if minutes < 10 {
-            text = "\(hours):0\(minutes)"
-          } else {
-            text = "\(hours):\(minutes)"
-          }
-        }
+      plateSecondsGroups[index].setBackgroundImageNamed(ImageList.Plate.secondSequence)
+      plateSecondsGroups[index].startAnimatingWithImagesInRange(
+        NSRange(location: 60 - alarm.seconds, length: 1),
+        duration: 0, repeatCount: 1)
+    } else {
+      plateMinutesGroups[index].setBackgroundImageNamed(index == 4
+        ? nil
+        : ImageList.Main.plateBackground)
+      plateSecondsGroups[index].setBackgroundImageNamed(nil)
+    }
 
-        self.plateMinutesGroups[index].setBackgroundImageNamed(ImageList.Plate.minuteSequence)
-        self.plateMinutesGroups[index].startAnimatingWithImagesInRange(
-          NSRange(location: minutes, length: 1),
-          duration: 0, repeatCount: 1)
+    self.plateButtons[index].setTitle(text)
+  }
 
-        self.plateSecondsGroups[index].setBackgroundImageNamed(ImageList.Plate.secondSequence)
-        self.plateSecondsGroups[index].startAnimatingWithImagesInRange(
-          NSRange(location: seconds, length: 1),
-          duration: 0, repeatCount: 1)
+  // MARK: - Alarms
 
-        self.plateButtons[index].setTitle(text)
+  func setupAlarms(alarmData: [AnyObject]) {
+    var alarms = [Alarm]()
+
+    for (index, alarmInfo) in enumerate(alarmData) {
+      if index == self.plateMinutesGroups.count {
+        break
+      }
+
+      let alarm: Alarm
+
+      if let alarmInfo = alarmInfo as? [String: AnyObject] {
+        alarm = Alarm(
+          firedDate: alarmInfo["firedDate"] as? NSDate,
+          numberOfSeconds: alarmInfo["numberOfSeconds"] as? NSNumber)
+      } else {
+        alarm = Alarm()
+      }
+
+      updatePlate(index, alarm: alarm)
+      alarms.append(alarm)
+    }
+
+    if alarms.filter({ $0.active }).count > 0 {
+      alarmTimer = AlarmTimer(alarms: alarms, delegate: self)
+      println("start")
+      alarmTimer?.start()
+    }
+  }
+}
+
+// MARK: - AlarmTimerDelegate
+
+extension HomeInterfaceController: AlarmTimerDelegate {
+
+  func alarmTimerDidTick(alarmTimer: AlarmTimer, alarms: [Alarm]) {
+    var stopTimer = true
+
+    for (index, alarm) in enumerate(alarms) {
+      updatePlate(index, alarm: alarm)
+    }
+
+    if alarms.filter({ $0.active }).count == 0 {
+      alarmTimer.stop()
     }
   }
 }

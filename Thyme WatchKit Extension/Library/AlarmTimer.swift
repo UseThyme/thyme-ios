@@ -5,7 +5,7 @@ protocol AlarmTimerDelegate: class {
   func alarmTimerDidTick(alarmTimer: AlarmTimer, alarms: [Alarm])
 }
 
-class AlarmTimer {
+class AlarmTimer: NSObject {
 
   var timer: NSTimer?
   var alarms = [Alarm]()
@@ -13,8 +13,9 @@ class AlarmTimer {
 
   // MARK: - Initialization
 
-  init(alarms: [Alarm]) {
+  init(alarms: [Alarm], delegate: AlarmTimerDelegate? = nil) {
     self.alarms = alarms
+    self.delegate = delegate
   }
 
   deinit {
@@ -42,7 +43,8 @@ class AlarmTimer {
   // MARK: - Actions
 
   func update(timer: NSTimer) {
-    alarms.map { $0.updateSeconds() }
+    println("Tick")
+    alarms.map { $0.update() }
     delegate?.alarmTimerDidTick(self, alarms: alarms)
   }
 }

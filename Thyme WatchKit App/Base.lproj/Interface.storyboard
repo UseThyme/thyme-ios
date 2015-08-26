@@ -18,7 +18,7 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="OCB-gc-2ju" userLabel="Plate1Seconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" title="15" id="EdL-CP-mi3" userLabel="Button">
+                                                        <button width="1" height="1" alignment="left" id="EdL-CP-mi3" userLabel="Button">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
@@ -31,7 +31,7 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="YvT-fo-P3F" userLabel="Plate2Seconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" title="15" id="Ryb-YQ-Ip2" userLabel="Button">
+                                                        <button width="1" height="1" alignment="left" id="Ryb-YQ-Ip2" userLabel="Button">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
@@ -49,7 +49,7 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="FSB-D2-dot" userLabel="Plate3Seconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" title="15" id="Dcs-qa-nqf" userLabel="Button">
+                                                        <button width="1" height="1" alignment="left" id="Dcs-qa-nqf" userLabel="Button">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
@@ -62,7 +62,7 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="c8n-o3-u61" userLabel="Plate4Seconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" title="15" id="BD9-Xf-aqT" userLabel="Button">
+                                                        <button width="1" height="1" alignment="left" id="BD9-Xf-aqT" userLabel="Button">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
@@ -80,7 +80,7 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="DDL-t2-Df7" userLabel="OvenSeconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" title="15" id="b2v-j6-f75" userLabel="Button">
+                                                        <button width="1" height="1" alignment="left" id="b2v-j6-f75" userLabel="Button">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
