@@ -1,9 +1,9 @@
 import Foundation
 
-class Plate {
+struct Plate {
 
-  let firedDate: NSDate
-  let numberOfSeconds: Int
+  var firedDate: NSDate
+  var numberOfSeconds: Int
 
   var hours = 0
   var minutes = 0
@@ -14,7 +14,7 @@ class Plate {
     self.numberOfSeconds = numberOfSeconds
   }
 
-  func updateSeconds() {
+  mutating func updateSeconds() {
     seconds -= 1
 
     if seconds < 0 {
