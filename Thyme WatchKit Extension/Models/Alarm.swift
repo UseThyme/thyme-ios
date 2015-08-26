@@ -1,6 +1,6 @@
 import Foundation
 
-struct Plate {
+class Alarm {
 
   var firedDate: NSDate
   var numberOfSeconds: Int
@@ -14,7 +14,7 @@ struct Plate {
     self.numberOfSeconds = numberOfSeconds
   }
 
-  mutating func updateSeconds() {
+  func updateSeconds() {
     seconds -= 1
 
     if seconds < 0 {

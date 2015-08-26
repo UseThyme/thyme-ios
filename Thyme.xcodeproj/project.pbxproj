@@ -82,11 +82,11 @@
 		BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */; };
 		D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D538B8F11B8E42CD00069C38 /* ImageList.swift */; };
 		D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchHandler.swift */; };
-		D5E5881E1B8E539D0050DD5C /* PlateTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* PlateTimer.swift */; };
+		D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */; };
 		D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588201B8E54FD0050DD5C /* GlanceController.swift */; };
 		D5E588271B8E54FD0050DD5C /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */; };
 		D5E588281B8E54FD0050DD5C /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588251B8E54FD0050DD5C /* NotificationController.swift */; };
-		D5E5882A1B8E55320050DD5C /* Plate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588291B8E55320050DD5C /* Plate.swift */; };
+		D5E5882A1B8E55320050DD5C /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588291B8E55320050DD5C /* Alarm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -215,11 +215,11 @@
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D538B8F11B8E42CD00069C38 /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 		D5A238391B8BD75F00863023 /* WatchHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchHandler.swift; sourceTree = "<group>"; };
-		D5E5881D1B8E539D0050DD5C /* PlateTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateTimer.swift; sourceTree = "<group>"; };
+		D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTimer.swift; sourceTree = "<group>"; };
 		D5E588201B8E54FD0050DD5C /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
 		D5E588251B8E54FD0050DD5C /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		D5E588291B8E55320050DD5C /* Plate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plate.swift; sourceTree = "<group>"; };
+		D5E588291B8E55320050DD5C /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -635,7 +635,7 @@
 		D538B8F01B8E42C300069C38 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				D5E5881D1B8E539D0050DD5C /* PlateTimer.swift */,
+				D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */,
 				D538B8F11B8E42CD00069C38 /* ImageList.swift */,
 			);
 			path = Library;
@@ -660,7 +660,7 @@
 		D5E588231B8E54FD0050DD5C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D5E588291B8E55320050DD5C /* Plate.swift */,
+				D5E588291B8E55320050DD5C /* Alarm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -942,9 +942,9 @@
 			files = (
 				D5E588281B8E54FD0050DD5C /* NotificationController.swift in Sources */,
 				D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */,
-				D5E5881E1B8E539D0050DD5C /* PlateTimer.swift in Sources */,
+				D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */,
 				D5E588271B8E54FD0050DD5C /* HomeInterfaceController.swift in Sources */,
-				D5E5882A1B8E55320050DD5C /* Plate.swift in Sources */,
+				D5E5882A1B8E55320050DD5C /* Alarm.swift in Sources */,
 				D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

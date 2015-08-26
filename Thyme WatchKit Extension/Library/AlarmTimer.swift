@@ -1,20 +1,20 @@
 import Foundation
 
-protocol PlateTimerDelegate: class {
+protocol AlarmTimerDelegate: class {
 
-  func plateTimerDidTick(plateTimer: PlateTimer, plates: [Plate])
+  func alarmTimerDidTick(alarmTimer: AlarmTimer, alarms: [Alarm])
 }
 
-class PlateTimer {
+class AlarmTimer {
 
   var timer: NSTimer?
-  var plates = [Plate]()
-  weak var delegate: PlateTimerDelegate?
+  var alarms = [Alarm]()
+  weak var delegate: AlarmTimerDelegate?
 
   // MARK: - Initialization
 
-  init(plates: [Plate]) {
-    self.plates = plates
+  init(alarms: [Alarm]) {
+    self.alarms = alarms
   }
 
   deinit {
@@ -42,7 +42,7 @@ class PlateTimer {
   // MARK: - Actions
 
   func update(timer: NSTimer) {
-    plates.map { $0.updateSeconds() }
-    delegate?.plateTimerDidTick(self, plates: plates)
+    alarms.map { $0.updateSeconds() }
+    delegate?.alarmTimerDidTick(self, alarms: alarms)
   }
 }

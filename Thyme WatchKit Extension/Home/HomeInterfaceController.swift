@@ -1,8 +1,6 @@
 import WatchKit
 import Foundation
 
-
-
 class HomeInterfaceController: WKInterfaceController {
 
   @IBOutlet weak var plate1MinutesGroup: WKInterfaceGroup!
