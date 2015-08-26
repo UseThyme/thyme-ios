@@ -122,7 +122,6 @@ class HomeInterfaceController: WKInterfaceController {
 
     if alarms.filter({ $0.active }).count > 0 {
       alarmTimer = AlarmTimer(alarms: alarms, delegate: self)
-      println("start")
       alarmTimer?.start()
     }
   }
