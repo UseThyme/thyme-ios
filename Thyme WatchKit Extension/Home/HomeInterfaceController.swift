@@ -45,7 +45,6 @@ class HomeInterfaceController: WKInterfaceController {
 
   override func didDeactivate() {
     super.didDeactivate()
-    stopTimer()
   }
 
   // MARK: - Data
@@ -107,5 +106,5 @@ class HomeInterfaceController: WKInterfaceController {
 
         self.plateButtons[index].setTitle(text)
     }
-  }  
+  }
 }

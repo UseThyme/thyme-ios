@@ -24,6 +24,10 @@ class PlateTimer {
     self.numberOfSeconds = numberOfSeconds
   }
 
+  deinit {
+    stop()
+  }
+
   // MARK: - Timer
 
   func start() {
