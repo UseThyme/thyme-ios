@@ -86,6 +86,7 @@
 		D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588201B8E54FD0050DD5C /* GlanceController.swift */; };
 		D5E588271B8E54FD0050DD5C /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */; };
 		D5E588281B8E54FD0050DD5C /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588251B8E54FD0050DD5C /* NotificationController.swift */; };
+		D5E5882A1B8E55320050DD5C /* Plate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588291B8E55320050DD5C /* Plate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +219,7 @@
 		D5E588201B8E54FD0050DD5C /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
 		D5E588251B8E54FD0050DD5C /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		D5E588291B8E55320050DD5C /* Plate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Plate.swift; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -658,6 +660,7 @@
 		D5E588231B8E54FD0050DD5C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D5E588291B8E55320050DD5C /* Plate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */,
 				D5E5881E1B8E539D0050DD5C /* PlateTimer.swift in Sources */,
 				D5E588271B8E54FD0050DD5C /* HomeInterfaceController.swift in Sources */,
+				D5E5882A1B8E55320050DD5C /* Plate.swift in Sources */,
 				D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
