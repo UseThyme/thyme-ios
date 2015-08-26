@@ -85,6 +85,7 @@
 		D5B25B321B8BCD0200397D32 /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B2F1B8BCD0200397D32 /* GlanceController.swift */; };
 		D5B25B331B8BCD0200397D32 /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B301B8BCD0200397D32 /* HomeInterfaceController.swift */; };
 		D5B25B341B8BCD0200397D32 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B25B311B8BCD0200397D32 /* NotificationController.swift */; };
+		D5E5881E1B8E539D0050DD5C /* PlateTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* PlateTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +217,7 @@
 		D5B25B2F1B8BCD0200397D32 /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		D5B25B301B8BCD0200397D32 /* HomeInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
 		D5B25B311B8BCD0200397D32 /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		D5E5881D1B8E539D0050DD5C /* PlateTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateTimer.swift; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -628,6 +630,7 @@
 		D538B8F01B8E42C300069C38 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				D5E5881D1B8E539D0050DD5C /* PlateTimer.swift */,
 				D538B8F11B8E42CD00069C38 /* ImageList.swift */,
 			);
 			path = Library;
@@ -913,6 +916,7 @@
 				D5B25B341B8BCD0200397D32 /* NotificationController.swift in Sources */,
 				D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */,
 				D5B25B331B8BCD0200397D32 /* HomeInterfaceController.swift in Sources */,
+				D5E5881E1B8E539D0050DD5C /* PlateTimer.swift in Sources */,
 				D5B25B321B8BCD0200397D32 /* GlanceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,6 +1,8 @@
 import WatchKit
 import Foundation
 
+
+
 class HomeInterfaceController: WKInterfaceController {
 
   @IBOutlet weak var plate1MinutesGroup: WKInterfaceGroup!
@@ -43,6 +45,7 @@ class HomeInterfaceController: WKInterfaceController {
 
   override func didDeactivate() {
     super.didDeactivate()
+    stopTimer()
   }
 
   // MARK: - Data
@@ -104,5 +107,5 @@ class HomeInterfaceController: WKInterfaceController {
 
         self.plateButtons[index].setTitle(text)
     }
-  }
+  }  
 }
