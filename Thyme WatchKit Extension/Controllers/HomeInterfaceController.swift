@@ -80,7 +80,7 @@ class HomeInterfaceController: WKInterfaceController {
           }
         }
 
-        self.plateGroups[index].setBackgroundImageNamed("timerFrame")
+        self.plateGroups[index].setBackgroundImageNamed(ImageList.Plate.minuteSequence)
         self.plateGroups[index].startAnimatingWithImagesInRange(NSRange(location: minutes, length: 1),
           duration: 0, repeatCount: 1)
         self.plateLabels[index].setText(text)
