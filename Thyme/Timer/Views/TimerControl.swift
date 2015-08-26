@@ -76,19 +76,11 @@ public class TimerControl: UIControl {
   }
 
   lazy var minuteValueSize: CGFloat = {
-    if Screen.isPad {
-      return 200
-    } else {
-      return 95
-    }
+    return Screen.isPad ? 200 : 95
     }()
 
   lazy var minuteTitleSize: CGFloat = {
-    if Screen.isPad {
-      return 35
-    } else {
-      return 14
-    }
+    return Screen.isPad ? 35 : 14
     }()
 
   lazy var hoursLabel: UILabel = {
@@ -118,7 +110,7 @@ public class TimerControl: UIControl {
     return label
     }()
 
-  lazy var minutesValueLabel: UILabel = {
+  lazy var minutesValueLabel: UILabel = { [unowned self] in
     let bounds = UIScreen.mainScreen().bounds
     let defaultSize = self.completedMode == true
       ? self.minuteValueSize
@@ -129,7 +121,10 @@ public class TimerControl: UIControl {
     let sampleString = "10:00"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
-    var yOffset: CGFloat = 20 * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)
+
+    var yOffset: CGFloat = self.completedMode
+    ? 20 * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)
+    : 0
 
     let x: CGFloat = 0
     let y: CGFloat = (self.frame.size.height - textSize.height) / 2 - yOffset
@@ -200,7 +195,7 @@ public class TimerControl: UIControl {
     backgroundColor = UIColor.clearColor()
     addSubview(minutesValueLabel)
 
-    if completedMode == true {
+    if completedMode {
       addSubview(minutesTitleLabel)
       addSubview(hoursLabel)
     }
@@ -216,7 +211,7 @@ public class TimerControl: UIControl {
   }
 
   deinit {
-    self.minutesValueLabel.removeObserver(self, forKeyPath: "text")
+    minutesValueLabel.removeObserver(self, forKeyPath: "text")
     stopTimer()
   }
 
