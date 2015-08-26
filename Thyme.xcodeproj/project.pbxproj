@@ -81,6 +81,7 @@
 		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
 		BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */; };
 		D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D538B8F11B8E42CD00069C38 /* ImageList.swift */; };
+		D54D08E61B8E82AA0012DBF6 /* TimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */; };
 		D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchHandler.swift */; };
 		D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */; };
 		D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588201B8E54FD0050DD5C /* GlanceController.swift */; };
@@ -214,6 +215,7 @@
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D538B8F11B8E42CD00069C38 /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
+		D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerInterfaceController.swift; sourceTree = "<group>"; };
 		D5A238391B8BD75F00863023 /* WatchHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchHandler.swift; sourceTree = "<group>"; };
 		D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTimer.swift; sourceTree = "<group>"; };
 		D5E588201B8E54FD0050DD5C /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 		BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D54D08E41B8E829C0012DBF6 /* Timer */,
 				D5E5881F1B8E54FD0050DD5C /* Glance */,
 				D5E588211B8E54FD0050DD5C /* Home */,
 				D5E588241B8E54FD0050DD5C /* Notification */,
@@ -639,6 +642,14 @@
 				D538B8F11B8E42CD00069C38 /* ImageList.swift */,
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		D54D08E41B8E829C0012DBF6 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 		D5E5881F1B8E54FD0050DD5C /* Glance */ = {
@@ -943,6 +954,7 @@
 				D5E588281B8E54FD0050DD5C /* NotificationController.swift in Sources */,
 				D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */,
 				D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */,
+				D54D08E61B8E82AA0012DBF6 /* TimerInterfaceController.swift in Sources */,
 				D5E588271B8E54FD0050DD5C /* HomeInterfaceController.swift in Sources */,
 				D5E5882A1B8E55320050DD5C /* Alarm.swift in Sources */,
 				D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */,

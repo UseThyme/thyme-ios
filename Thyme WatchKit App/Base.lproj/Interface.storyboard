@@ -115,10 +115,10 @@
             </objects>
             <point key="canvasLocation" x="235" y="347.75"/>
         </scene>
-        <!--Interface Controller-->
+        <!--Timer Interface Controller-->
         <scene sceneID="d6N-z1-sYA">
             <objects>
-                <controller id="53Q-sK-jl1">
+                <controller id="53Q-sK-jl1" customClass="TimerInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
                         <group width="1" height="129" alignment="left" id="DYZ-Sz-4Ba" userLabel="Minutes">
                             <items>
@@ -135,6 +135,12 @@
                             </items>
                         </group>
                     </items>
+                    <connections>
+                        <outlet property="minutesGroup" destination="DYZ-Sz-4Ba" id="XQY-h1-qPd"/>
+                        <outlet property="minutesLabel" destination="yyE-gq-tIP" id="gld-CO-3md"/>
+                        <outlet property="secondsGroup" destination="EOe-jn-aLf" id="Akf-cW-Efy"/>
+                        <outlet property="textLabel" destination="jue-ld-zB4" id="mqg-vz-dUx"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="430" y="314"/>
