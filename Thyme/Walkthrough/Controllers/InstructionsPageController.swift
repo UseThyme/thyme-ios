@@ -55,7 +55,7 @@ public class InstructionsPageController: UIPageViewController, InstructionDelega
     super.init(transitionStyle: style, navigationOrientation: navigationOrientation, options: options)
 
     dataSource = self
-    view.backgroundColor = UIColor(fromHex: "EDFFFF")
+    view.backgroundColor = UIColor(hex: "EDFFFF")
     setViewControllers([instructions.first!],
       direction: .Forward,
       animated: true, completion: nil)

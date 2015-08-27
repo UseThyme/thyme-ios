@@ -16,7 +16,7 @@ public class SettingTableViewCell: UITableViewCell {
     backgroundColor = UIColor.clearColor()
     selectionStyle = .None
     textLabel?.font = HYPUtils.avenirBookWithSize(16)
-    textLabel?.textColor = UIColor(fromHex: "B5B4B5")
+    textLabel?.textColor = UIColor(hex: "B5B4B5")
   }
 
   public required init(coder aDecoder: NSCoder) {
@@ -27,7 +27,7 @@ public class SettingTableViewCell: UITableViewCell {
     super.setSelected(selected, animated: animated)
 
     textLabel?.textColor = selected == true
-      ? UIColor(fromHex: "1C1A1C")
-      : UIColor(fromHex: "B5B4B5")
+      ? UIColor(hex: "1C1A1C")
+      : UIColor(hex: "B5B4B5")
   }
 }

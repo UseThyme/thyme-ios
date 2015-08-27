@@ -105,7 +105,7 @@ public class TimerControl: UIControl {
     label.hidden = true
     label.text = sampleString
     label.textAlignment = .Center
-    label.textColor = UIColor(fromHex: "1B807E")
+    label.textColor = UIColor(hex: "1B807E")
 
     return label
     }()
@@ -134,7 +134,7 @@ public class TimerControl: UIControl {
     label.backgroundColor = UIColor.clearColor()
     label.font = font
     label.textAlignment = .Center
-    label.textColor = UIColor(fromHex: "1B807E")
+    label.textColor = UIColor(hex: "1B807E")
     label.text = "\(self.angle)"
 
     return label
@@ -165,7 +165,7 @@ public class TimerControl: UIControl {
     label.font = font
     label.text = minutesLeftText
     label.textAlignment = .Center
-    label.textColor = UIColor(fromHex: "1B807E")
+    label.textColor = UIColor(hex: "1B807E")
 
     return label
     }()
