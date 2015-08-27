@@ -31,8 +31,8 @@ struct Font {
     case .Medium:    calculatedSize -= 0
     case .Large:     calculatedSize += 1
     case .XLarge: calculatedSize += 2
-    case .XXLarge: calculatedSize += 2
-    case .XXXLarge: calculatedSize += 2
+    case .XXLarge: calculatedSize += 3
+    case .XXXLarge: calculatedSize += 4
     }
 
     return UIFont(name: name, size: calculatedSize)!
