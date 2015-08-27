@@ -47,6 +47,29 @@ class HomeInterfaceController: WKInterfaceController {
     super.didDeactivate()
   }
 
+  // MARK: - Actions
+
+  @IBAction func plate1ButtonDidTap() {
+    presentController(0, title: NSLocalizedString("Upper Left", comment: ""))
+  }
+
+  @IBAction func plate2ButtonDidTap() {
+    presentController(1, title: NSLocalizedString("Upper Right", comment: ""))
+  }
+
+  @IBAction func plate3ButtonDidTap() {
+    presentController(2, title: NSLocalizedString("Lower Left", comment: ""))
+  }
+
+  @IBAction func plate4ButtonDidTap() {
+    presentController(3, title: NSLocalizedString("Lower Right", comment: ""))
+
+  }
+
+  @IBAction func plate5ButtonDidTap() {
+    presentController(4, title: NSLocalizedString("Oven", comment: ""))
+  }
+
   // MARK: - Data
 
   func loadData() {
@@ -62,6 +85,11 @@ class HomeInterfaceController: WKInterfaceController {
   }
 
   // MARK: - UI
+
+  func presentController(index: Int, title: String) {
+    let context = TimerContext(index: index, title: title)
+    pushControllerWithName("TimerController", context: context)
+  }
 
   func updatePlate(index: Int, alarm: Alarm) {
     var text = ""
@@ -93,7 +121,7 @@ class HomeInterfaceController: WKInterfaceController {
       plateSecondsGroups[index].setBackgroundImageNamed(nil)
     }
 
-    self.plateButtons[index].setTitle(text)
+    plateButtons[index].setTitle(text)
   }
 
   // MARK: - Alarms
@@ -132,8 +160,6 @@ class HomeInterfaceController: WKInterfaceController {
 extension HomeInterfaceController: AlarmTimerDelegate {
 
   func alarmTimerDidTick(alarmTimer: AlarmTimer, alarms: [Alarm]) {
-    var stopTimer = true
-
     for (index, alarm) in enumerate(alarms) {
       updatePlate(index, alarm: alarm)
     }

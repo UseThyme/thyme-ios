@@ -8,7 +8,7 @@
         <!--Thyme-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="plateController" title="Thyme" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
+                <controller identifier="PlateController" title="Thyme" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="eAh-Dn-oy7">
                             <items>
@@ -22,6 +22,9 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
+                                                            <connections>
+                                                                <action selector="plate1ButtonDidTap" destination="AgC-eL-Hgc" id="dnY-VB-JcK"/>
+                                                            </connections>
                                                         </button>
                                                     </items>
                                                 </group>
@@ -35,6 +38,9 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
+                                                            <connections>
+                                                                <action selector="plate2ButtonDidTap" destination="AgC-eL-Hgc" id="bzf-p1-ZAt"/>
+                                                            </connections>
                                                         </button>
                                                     </items>
                                                 </group>
@@ -53,6 +59,9 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
+                                                            <connections>
+                                                                <action selector="plate3ButtonDidTap" destination="AgC-eL-Hgc" id="1jI-t1-8pO"/>
+                                                            </connections>
                                                         </button>
                                                     </items>
                                                 </group>
@@ -66,6 +75,9 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
+                                                            <connections>
+                                                                <action selector="plate4ButtonDidTap" destination="AgC-eL-Hgc" id="hiN-2d-97j"/>
+                                                            </connections>
                                                         </button>
                                                     </items>
                                                 </group>
@@ -84,6 +96,9 @@
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
+                                                            <connections>
+                                                                <action selector="plate5ButtonDidTap" destination="AgC-eL-Hgc" id="cMv-54-chx"/>
+                                                            </connections>
                                                         </button>
                                                     </items>
                                                 </group>
@@ -114,6 +129,38 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="235" y="347.75"/>
+        </scene>
+        <!--TimerController-->
+        <scene sceneID="d6N-z1-sYA">
+            <objects>
+                <controller identifier="TimerController" id="53Q-sK-jl1" customClass="TimerInterfaceController" customModule="Thyme_WatchKit_Extension">
+                    <items>
+                        <group width="1" height="129" alignment="left" id="DYZ-Sz-4Ba" userLabel="Minutes">
+                            <items>
+                                <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="EOe-jn-aLf" userLabel="Seconds">
+                                    <items>
+                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="yyE-gq-tIP">
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" type="system" weight="light" pointSize="47"/>
+                                        </label>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" id="jue-ld-zB4">
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" type="system" pointSize="13"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="minutesGroup" destination="DYZ-Sz-4Ba" id="XQY-h1-qPd"/>
+                        <outlet property="minutesLabel" destination="yyE-gq-tIP" id="gld-CO-3md"/>
+                        <outlet property="secondsGroup" destination="EOe-jn-aLf" id="Akf-cW-Efy"/>
+                        <outlet property="textLabel" destination="jue-ld-zB4" id="mqg-vz-dUx"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="430" y="314"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
