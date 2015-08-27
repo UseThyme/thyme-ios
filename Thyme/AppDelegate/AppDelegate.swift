@@ -99,12 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       userInfo: [
         "colors"  : colors,
         "locations" : locations])
-
-    notificationCenter.addObserver(self, selector: "contentSizeCategoryDidChange:", name: UIContentSizeCategoryDidChangeNotification, object: nil)
-  }
-
-  func contentSizeCategoryDidChange(notification: NSNotification) {
-    println(notification)
   }
 
   func applicationDidEnterBackground(application: UIApplication) {
