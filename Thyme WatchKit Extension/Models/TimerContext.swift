@@ -1,9 +1,9 @@
-//
-//  TimerContext.swift
-//  Thyme
-//
-//  Created by Vadym Markov on 27/08/15.
-//  Copyright (c) 2015 Hyper. All rights reserved.
-//
+class TimerContext {
+  var index: Int
+  var title: String
 
-import Foundation
+  init(index: Int, title: String) {
+    self.index = index
+    self.title = title
+  }
+}
