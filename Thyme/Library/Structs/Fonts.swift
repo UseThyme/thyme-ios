@@ -23,8 +23,6 @@ struct Font {
     default: break
     }
 
-    println(ContentSize)
-
     switch(DynamicSize(rawValue: ContentSize)!) {
     case .XSmall: calculatedSize -= 2
     case .Small:     calculatedSize -= 1
@@ -41,5 +39,11 @@ struct Font {
   struct HomeViewController {
     static var title: UIFont { return Font.construct("HelveticaNeue", size: 15) }
     static var subtitle: UIFont { return Font.construct("HelveticaNeue-Bold", size: 19) }
+  }
+
+  struct TimerControl {
+    static func hoursLabel(fontSize: CGFloat) -> UIFont { return Font.construct("HelveticaNeue-Bold", size: fontSize) }
+    static func minutesValueLabel(fontSize: CGFloat) -> UIFont { return Font.construct("HelveticaNeue", size: fontSize) }
+    static func minutesTitleLabel(fontSize: CGFloat) -> UIFont { return Font.construct("HelveticaNeue", size: fontSize) }
   }
 }

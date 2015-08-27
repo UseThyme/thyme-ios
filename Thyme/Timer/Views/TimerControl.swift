@@ -90,7 +90,7 @@ public class TimerControl: UIControl {
     : self.minuteTitleSize * 1.5
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = UIFont.boldSystemFontOfSize(fontSize)
+    let font = Font.TimerControl.hoursLabel(fontSize)
     let sampleString = "2 HOURS"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
@@ -117,7 +117,7 @@ public class TimerControl: UIControl {
       : self.minuteValueSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = UIFont.boldSystemFontOfSize(fontSize)
+    let font = Font.TimerControl.minutesValueLabel(fontSize)
     let sampleString = "10:00"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
@@ -147,7 +147,7 @@ public class TimerControl: UIControl {
       : self.minuteTitleSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = UIFont.boldSystemFontOfSize(fontSize)
+    let font = Font.TimerControl.minutesTitleLabel(fontSize)
     let minutesLeftText = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
     let attributes = [NSFontAttributeName : font]
     let textSize = (minutesLeftText as NSString).sizeWithAttributes(attributes)
@@ -232,7 +232,7 @@ public class TimerControl: UIControl {
 
       let bounds = UIScreen.mainScreen().bounds
       let fontSize = floor(baseSize * CGRectGetWidth(frame) / CGRectGetWidth(bounds))
-      minutesValueLabel.font = HYPUtils.helveticaNeueUltraLightWithSize(fontSize)
+      minutesValueLabel.font = Font.TimerControl.minutesValueLabel(fontSize)
     }
   }
 
