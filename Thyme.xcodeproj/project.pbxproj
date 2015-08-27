@@ -38,7 +38,6 @@
 		449143D5184767A1008A80F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D4184767A1008A80F0 /* Security.framework */; };
 		449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D6184767A7008A80F0 /* SystemConfiguration.framework */; };
 		44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A54150184E1FCC00964F58 /* ovenBackground@2x.png */; };
-		44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B51844E2A1005D4C5A /* HYPUtils.m */; };
 		44AAE4121844C0690096BF52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4111844C0690096BF52 /* Foundation.framework */; };
 		44AAE4141844C0690096BF52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4131844C0690096BF52 /* CoreGraphics.framework */; };
 		44AAE4161844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
@@ -165,8 +164,6 @@
 		449143D4184767A1008A80F0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		449143D6184767A7008A80F0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		44A54150184E1FCC00964F58 /* ovenBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@2x.png"; sourceTree = "<group>"; };
-		44A691B41844E2A1005D4C5A /* HYPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPUtils.h; sourceTree = "<group>"; };
-		44A691B51844E2A1005D4C5A /* HYPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPUtils.m; sourceTree = "<group>"; };
 		44AAE40E1844C0690096BF52 /* Thyme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thyme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAE4111844C0690096BF52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44AAE4131844C0690096BF52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -451,8 +448,6 @@
 		44A691B31844E299005D4C5A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				44A691B41844E2A1005D4C5A /* HYPUtils.h */,
-				44A691B51844E2A1005D4C5A /* HYPUtils.m */,
 				BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */,
 				D5A238391B8BD75F00863023 /* WatchHandler.swift */,
 			);
@@ -924,7 +919,6 @@
 				BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */,
 				BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */,
 				BD08D1151B8B8FF2009EAD75 /* HYPDrawText.m in Sources */,
-				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
 				BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */,
 				BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,

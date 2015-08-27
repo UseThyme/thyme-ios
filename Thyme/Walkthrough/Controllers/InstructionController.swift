@@ -131,12 +131,6 @@ public class InstructionController: UIViewController {
     label.textColor = UIColor(fromHex: "0896A2")
     label.adjustsFontSizeToFitWidth = true
 
-    if (self.deviceHeight == 568) {
-      label.font = HYPUtils.avenirBookWithSize(35)
-    } else if (self.deviceHeight >= 667) {
-      label.font = HYPUtils.avenirBookWithSize(40)
-    }
-
     return label
     }()
 

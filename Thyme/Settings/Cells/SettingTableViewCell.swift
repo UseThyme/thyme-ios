@@ -15,7 +15,7 @@ public class SettingTableViewCell: UITableViewCell {
 
     backgroundColor = UIColor.clearColor()
     selectionStyle = .None
-    textLabel?.font = HYPUtils.avenirBookWithSize(16)
+    textLabel?.font = Font.Settings.textLabel
     textLabel?.textColor = UIColor(fromHex: "B5B4B5")
   }
 
