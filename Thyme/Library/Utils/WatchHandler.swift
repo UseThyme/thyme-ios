@@ -2,7 +2,7 @@ import Foundation
 
 struct WatchHandler {
 
-  static func response(request: String, userInfo: [NSObject : AnyObject]?) -> [NSObject : AnyObject] {
+  static func response(request: String, _ userInfo: [NSObject : AnyObject]?) -> [NSObject : AnyObject] {
     var data = [NSObject : AnyObject]()
 
     if request == "getAlarms" {
