@@ -9,9 +9,14 @@ class TimerInterfaceController: WKInterfaceController {
   @IBOutlet weak var textLabel: WKInterfaceLabel!
 
   var alarmTimer: AlarmTimer?
+  var index = 0
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
+    if let context = context as? TimerContext {
+      index = context.index
+      setTitle(context.title)
+    }
   }
 
   override func willActivate() {
@@ -26,20 +31,20 @@ class TimerInterfaceController: WKInterfaceController {
   // MARK: - Data
 
   func loadData() {
-    WKInterfaceController.openParentApplication(["request": "getAlarms"]) {
+    WKInterfaceController.openParentApplication(["request": "getAlarm", "index": index]) {
       [unowned self] response, error in
       if let response = response,
-        alarmData = response["alarms"] as? [AnyObject] {
-          self.setupAlarms(alarmData)
+        alarmInfo = response["alarm"] as? [String: AnyObject] {
+          self.setupAlarm(alarmInfo)
       } else {
-        println("Error with fetching of alarms from the parent app")
+        println("Error with fetching of the alarm with index = \(self.index) from the parent app")
       }
     }
   }
 
   // MARK: - UI
 
-  func updatePlate(index: Int, alarm: Alarm) {
+  func updatePlate(alarm: Alarm) {
     var text = ""
 
     if alarm.active {
@@ -53,51 +58,32 @@ class TimerInterfaceController: WKInterfaceController {
         text = "\(alarm.minutes)"
       }
 
-      plateMinutesGroups[index].setBackgroundImageNamed(ImageList.Plate.minuteSequence)
-      plateMinutesGroups[index].startAnimatingWithImagesInRange(
+      minutesGroup.setBackgroundImageNamed(ImageList.Plate.minuteSequence)
+      minutesGroup.startAnimatingWithImagesInRange(
         NSRange(location: alarm.minutes, length: 1),
         duration: 0, repeatCount: 1)
 
-      plateSecondsGroups[index].setBackgroundImageNamed(ImageList.Plate.secondSequence)
-      plateSecondsGroups[index].startAnimatingWithImagesInRange(
+      secondsGroup.setBackgroundImageNamed(ImageList.Plate.secondSequence)
+      secondsGroup.startAnimatingWithImagesInRange(
         NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)
-    } else {
-      plateMinutesGroups[index].setBackgroundImageNamed(index == 4
-        ? nil
-        : ImageList.Main.plateBackground)
-      plateSecondsGroups[index].setBackgroundImageNamed(nil)
     }
 
-    self.plateButtons[index].setTitle(text)
+    minutesLabel.setText(text)
+    textLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
   }
 
   // MARK: - Alarms
 
-  func setupAlarms(alarmData: [AnyObject]) {
-    var alarms = [Alarm]()
+  func setupAlarm(alarmInfo: [String: AnyObject]) {
+    let alarm = Alarm(
+      firedDate: alarmInfo["firedDate"] as? NSDate,
+      numberOfSeconds: alarmInfo["numberOfSeconds"] as? NSNumber)
 
-    for (index, alarmInfo) in enumerate(alarmData) {
-      if index == self.plateMinutesGroups.count {
-        break
-      }
+    updatePlate(alarm)
 
-      let alarm: Alarm
-
-      if let alarmInfo = alarmInfo as? [String: AnyObject] {
-        alarm = Alarm(
-          firedDate: alarmInfo["firedDate"] as? NSDate,
-          numberOfSeconds: alarmInfo["numberOfSeconds"] as? NSNumber)
-      } else {
-        alarm = Alarm()
-      }
-
-      updatePlate(index, alarm: alarm)
-      alarms.append(alarm)
-    }
-
-    if alarms.filter({ $0.active }).count > 0 {
-      alarmTimer = AlarmTimer(alarms: alarms, delegate: self)
+    if alarm.active {
+      alarmTimer = AlarmTimer(alarms: [alarm], delegate: self)
       alarmTimer?.start()
     }
   }
@@ -105,17 +91,14 @@ class TimerInterfaceController: WKInterfaceController {
 
 // MARK: - AlarmTimerDelegate
 
-extension HomeInterfaceController: AlarmTimerDelegate {
+extension TimerInterfaceController: AlarmTimerDelegate {
 
   func alarmTimerDidTick(alarmTimer: AlarmTimer, alarms: [Alarm]) {
-    var stopTimer = true
-
-    for (index, alarm) in enumerate(alarms) {
-      updatePlate(index, alarm: alarm)
-    }
-
-    if alarms.filter({ $0.active }).count == 0 {
-      alarmTimer.stop()
+    if let alarm = alarms.first {
+      updatePlate(alarm)
+      if !alarm.active {
+        alarmTimer.stop()
+      }
     }
   }
 }
