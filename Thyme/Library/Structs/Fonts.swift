@@ -46,4 +46,12 @@ struct Font {
     static func minutesValueLabel(fontSize: CGFloat) -> UIFont { return Font.construct("HelveticaNeue", size: fontSize) }
     static func minutesTitleLabel(fontSize: CGFloat) -> UIFont { return Font.construct("HelveticaNeue", size: fontSize) }
   }
+
+  struct Instruction {
+    static var title: UIFont { return Font.construct("HelveticaNeue-Medium", size: 27) }
+    static var message: UIFont { return Font.construct("HelveticaNeue-Medium", size: 14) }
+    static var acceptButton: UIFont { return Font.construct("HelveticaNeue-Medium", size: 15) }
+    static var previousButton: UIFont { return Font.construct("HelveticaNeue-Medium", size: 15) }
+    static var nextButton: UIFont { return Font.construct("HelveticaNeue-Medium", size: 15) }
+  }
 }
