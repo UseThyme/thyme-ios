@@ -40,5 +40,6 @@ struct Font {
 
   struct HomeViewController {
     static var title: UIFont { return Font.construct("HelveticaNeue", size: 15) }
+    static var subtitle: UIFont { return Font.construct("HelveticaNeue-Bold", size: 19) }
   }
 }
