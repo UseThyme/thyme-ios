@@ -195,7 +195,7 @@ extension AppDelegate {
         UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
       })
 
-      var response = WatchHandler.response(request)
+      var response = WatchHandler.response(request, userInfo)
       reply(response)
 
       UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
