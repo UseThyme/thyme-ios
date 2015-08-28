@@ -90,7 +90,7 @@ public class TimerControl: UIControl {
     : self.minuteTitleSize * 1.5
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = UIFont.boldSystemFontOfSize(fontSize)
+    let font = Font.TimerControl.hoursLabel(fontSize)
     let sampleString = "2 HOURS"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
@@ -117,7 +117,7 @@ public class TimerControl: UIControl {
       : self.minuteValueSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = UIFont.boldSystemFontOfSize(fontSize)
+    let font = Font.TimerControl.minutesValueLabel(fontSize)
     let sampleString = "10:00"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
@@ -147,7 +147,7 @@ public class TimerControl: UIControl {
       : self.minuteTitleSize * 0.9
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let font = UIFont.boldSystemFontOfSize(fontSize)
+    let font = Font.TimerControl.minutesTitleLabel(fontSize)
     let minutesLeftText = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
     let attributes = [NSFontAttributeName : font]
     let textSize = (minutesLeftText as NSString).sizeWithAttributes(attributes)
@@ -232,7 +232,7 @@ public class TimerControl: UIControl {
 
       let bounds = UIScreen.mainScreen().bounds
       let fontSize = floor(baseSize * CGRectGetWidth(frame) / CGRectGetWidth(bounds))
-      minutesValueLabel.font = HYPUtils.helveticaNeueUltraLightWithSize(fontSize)
+      minutesValueLabel.font = Font.TimerControl.minutesValueLabel(fontSize)
     }
   }
 
@@ -284,22 +284,7 @@ public class TimerControl: UIControl {
   }
 
   func attributedString() -> NSAttributedString {
-    var font: UIFont = HYPUtils.avenirLightWithSize(14)
-
-    if Screen.isPad {
-      font = HYPUtils.avenirLightWithSize(20)
-    } else {
-      if self.deviceHeight == 480 {
-        font = HYPUtils.avenirLightWithSize(14)
-      }  else if self.deviceHeight == 568 {
-        font = HYPUtils.avenirLightWithSize(14)
-      } else if self.deviceHeight == 667 {
-        font = HYPUtils.avenirLightWithSize(16)
-      } else if self.deviceHeight == 763 {
-        font = HYPUtils.avenirLightWithSize(17)
-      }
-    }
-
+    let font: UIFont = Font.TimerControl.arcText
     let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor()]
     let string = NSAttributedString(string: self.title, attributes: attributes)
 

@@ -82,7 +82,7 @@ extension SettingsViewController: UITableViewDataSource {
     let label = UILabel(frame: CGRectMake(0,0,0,0))
 
     label.text = "   \(title!)"
-    label.font = HYPUtils.avenirHeavyWithSize(18)
+    label.font = Font.Settings.headerLabel
     label.textColor = UIColor(hex: "EE4A64")
     label.backgroundColor = UIColor.clearColor()
 

@@ -89,26 +89,21 @@ class HomeViewController: ViewController {
     let width = self.deviceWidth - 2 * sideMargin
     let height: CGFloat = 25
     var topMargin: CGFloat = 0
-    var font: UIFont
 
     if Screen.isPad {
       topMargin  = 115
-      font = HYPUtils.avenirLightWithSize(20)
     } else {
       if self.deviceHeight == 480 || self.deviceHeight == 568 {
         topMargin = 60
-        font = HYPUtils.avenirLightWithSize(15)
       } else if self.deviceHeight == 667 {
         topMargin = 74
-        font = HYPUtils.avenirLightWithSize(18)
       } else {
         topMargin = 82
-        font = HYPUtils.avenirLightWithSize(19)
       }
     }
 
     let label = UILabel(frame: CGRectMake(sideMargin, topMargin, width, height))
-    label.font = font
+    label.font = Font.HomeViewController.title
     label.text = Alarm.titleForHomescreen()
     label.textAlignment = .Center
     label.textColor = UIColor.whiteColor()
@@ -125,23 +120,10 @@ class HomeViewController: ViewController {
     var topMargin = CGRectGetMaxY(self.titleLabel.frame)
     var font: UIFont
 
-    if Screen.isPad {
-      topMargin += 10
-      font = HYPUtils.avenirBlackWithSize(25)
-    } else {
-      if self.deviceHeight == 480 || self.deviceHeight == 568 {
-        font = HYPUtils.avenirBlackWithSize(19)
-      } else if self.deviceHeight == 667 {
-        topMargin += 4
-        font = HYPUtils.avenirBlackWithSize(22)
-      } else {
-        topMargin += 7
-        font = HYPUtils.avenirBlackWithSize(24)
-      }
-    }
+    if Screen.isPad { topMargin += 10 }
 
     let label = UILabel(frame: CGRectMake(sideMargin, topMargin, width, height))
-    label.font = font
+    label.font = Font.HomeViewController.subtitle
     label.text = Alarm.subtitleForHomescreen()
     label.textAlignment = .Center
     label.textColor = UIColor.whiteColor()

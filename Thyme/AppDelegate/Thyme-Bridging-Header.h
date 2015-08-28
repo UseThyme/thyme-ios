@@ -3,6 +3,5 @@
 //
 
 #import <HockeySDK/HockeySDK.h>
-#import "HYPUtils.h"
 #import "UIButton+ANDYHighlighted.h"
 #import "HYPDrawText.h"

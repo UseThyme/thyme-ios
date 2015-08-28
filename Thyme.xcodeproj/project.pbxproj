@@ -37,7 +37,6 @@
 		449143D5184767A1008A80F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D4184767A1008A80F0 /* Security.framework */; };
 		449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D6184767A7008A80F0 /* SystemConfiguration.framework */; };
 		44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A54150184E1FCC00964F58 /* ovenBackground@2x.png */; };
-		44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A691B51844E2A1005D4C5A /* HYPUtils.m */; };
 		44AAE4121844C0690096BF52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4111844C0690096BF52 /* Foundation.framework */; };
 		44AAE4141844C0690096BF52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4131844C0690096BF52 /* CoreGraphics.framework */; };
 		44AAE4161844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
@@ -75,6 +74,8 @@
 		BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D981B343F02005E2C51 /* Fonts.swift */; };
 		BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */; };
 		BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE89E201B33FD130010A6ED /* TimerViewController.swift */; };
+		BDF6EC8A1B8E3685002A051B /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF6EC891B8E3685002A051B /* Device.swift */; };
+		BDF6EC8B1B8E3685002A051B /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF6EC891B8E3685002A051B /* Device.swift */; };
 		BDFA94B61B89AB9300D4408F /* tick.wav in Resources */ = {isa = PBXBuildFile; fileRef = BDFA94B51B89AB9300D4408F /* tick.wav */; };
 		BDFD4B4F1B342E7B008AEAEF /* LocalNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */; };
 		BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87EE1B347B3200F0DCE6 /* Setting.swift */; };
@@ -161,8 +162,6 @@
 		449143D4184767A1008A80F0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		449143D6184767A7008A80F0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		44A54150184E1FCC00964F58 /* ovenBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@2x.png"; sourceTree = "<group>"; };
-		44A691B41844E2A1005D4C5A /* HYPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYPUtils.h; sourceTree = "<group>"; };
-		44A691B51844E2A1005D4C5A /* HYPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYPUtils.m; sourceTree = "<group>"; };
 		44AAE40E1844C0690096BF52 /* Thyme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thyme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAE4111844C0690096BF52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44AAE4131844C0690096BF52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -209,6 +208,7 @@
 		BDC80D981B343F02005E2C51 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDE89E201B33FD130010A6ED /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BDF6EC891B8E3685002A051B /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		BDFA94B51B89AB9300D4408F /* tick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tick.wav; sourceTree = "<group>"; };
 		BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = LocalNotificationManager.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD87EE1B347B3200F0DCE6 /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -438,8 +438,6 @@
 		44A691B31844E299005D4C5A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				44A691B41844E2A1005D4C5A /* HYPUtils.h */,
-				44A691B51844E2A1005D4C5A /* HYPUtils.m */,
 				BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */,
 				D5A238391B8BD75F00863023 /* WatchHandler.swift */,
 			);
@@ -493,7 +491,6 @@
 		44AAE4171844C0690096BF52 /* Thyme */ = {
 			isa = PBXGroup;
 			children = (
-				44F8DA6B18467C390007E083 /* External */,
 				44A691AE1844E0BB005D4C5A /* Library */,
 				446C9E221844C4E2005FD797 /* AppDelegate */,
 				146997331A2E7FB100171115 /* Walkthrough */,
@@ -547,13 +544,6 @@
 				BD08D1111B8B8C0A009EAD75 /* TimerControl+Draw.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		44F8DA6B18467C390007E083 /* External */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = External;
 			sourceTree = "<group>";
 		};
 		BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */ = {
@@ -614,6 +604,7 @@
 				BD08D1091B8B82CF009EAD75 /* Screen.swift */,
 				BD08D10D1B8B8798009EAD75 /* Theme.swift */,
 				BD08D10F1B8B8B18009EAD75 /* Math.swift */,
+				BDF6EC891B8E3685002A051B /* Device.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -910,7 +901,6 @@
 				BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */,
 				BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */,
 				BD08D1151B8B8FF2009EAD75 /* HYPDrawText.m in Sources */,
-				44A691B61844E2A1005D4C5A /* HYPUtils.m in Sources */,
 				BDFD87EF1B347B3200F0DCE6 /* Setting.swift in Sources */,
 				BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
@@ -922,6 +912,7 @@
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
 				D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */,
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
+				BDF6EC8A1B8E3685002A051B /* Device.swift in Sources */,
 				BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */,
 				BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */,
 				BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */,
@@ -937,6 +928,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				44AAE4371844C0690096BF52 /* ThymeTests.m in Sources */,
+				BDF6EC8B1B8E3685002A051B /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1141,6 +1133,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Thyme.app/Thyme";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1154,8 +1147,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "ThymeTests/ThymeTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "56de75ed-d322-4881-af5a-d4635ce1c81c";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1165,6 +1160,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Thyme.app/Thyme";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1174,6 +1170,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Thyme/Thyme-Prefix.pch";
 				INFOPLIST_FILE = "ThymeTests/ThymeTests-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9f4df961-9055-4ec9-92f3-a0324f59ded6";
 				TEST_HOST = "$(BUNDLE_LOADER)";
