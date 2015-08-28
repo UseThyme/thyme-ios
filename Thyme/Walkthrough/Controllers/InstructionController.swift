@@ -128,7 +128,7 @@ public class InstructionController: UIViewController {
     let label = UILabel(frame: self.titleLabelFrame)
     label.text = self.title
     label.font = Font.Instruction.title
-    label.textColor = UIColor(fromHex: "0896A2")
+    label.textColor = UIColor(hex: "0896A2")
     label.adjustsFontSizeToFitWidth = true
 
     return label
@@ -138,7 +138,7 @@ public class InstructionController: UIViewController {
     let textView = UITextView(frame: self.messageTextViewFrame)
     textView.text = self.message
     textView.font = Font.Instruction.message
-    textView.textColor = UIColor(fromHex: "0896A2")
+    textView.textColor = UIColor(hex: "0896A2")
     textView.textAlignment = .Center
     textView.backgroundColor = UIColor.clearColor()
     textView.editable = false
@@ -148,8 +148,8 @@ public class InstructionController: UIViewController {
 
   lazy var acceptButton: UIButton = {
     let button = UIButton.buttonWithType(.Custom) as! UIButton
-    button.backgroundColor = UIColor(fromHex: "FF5C5C")
-    button.highlightedBackgroundColor = UIColor(fromHex: "E94F4F")
+    button.backgroundColor = UIColor(hex: "FF5C5C")
+    button.highlightedBackgroundColor = UIColor(hex: "E94F4F")
     button.layer.cornerRadius = 5
     button.frame = self.acceptButtonFrame
     button.titleLabel?.font = Font.Instruction.acceptButton
@@ -162,7 +162,7 @@ public class InstructionController: UIViewController {
     let button = UIButton.buttonWithType(.Custom) as! UIButton
     button.frame = self.previousButtonFrame
     button.titleLabel?.font = Font.Instruction.previousButton
-    button.setTitleColor(UIColor(fromHex: "FA5A58"), forState: .Normal)
+    button.setTitleColor(UIColor(hex: "FA5A58"), forState: .Normal)
     button.setTitle(NSLocalizedString("Previous", comment: ""), forState: .Normal)
     button.addTarget(self, action: "previousButtonAction", forControlEvents: .TouchUpInside)
     return button
@@ -172,7 +172,7 @@ public class InstructionController: UIViewController {
     let button = UIButton.buttonWithType(.Custom) as! UIButton
     button.frame = self.nextButtonFrame
     button.titleLabel?.font = Font.Instruction.nextButton
-    button.setTitleColor(UIColor(fromHex: "FA5A58"), forState: .Normal)
+    button.setTitleColor(UIColor(hex: "FA5A58"), forState: .Normal)
     button.setTitle(NSLocalizedString("Next", comment: ""), forState: .Normal)
     button.addTarget(self, action: "nextButtonAction", forControlEvents: .TouchUpInside)
     return button
@@ -233,7 +233,7 @@ extension InstructionController {
   public override func viewDidLoad() {
     super.viewDidLoad()
 
-    view.backgroundColor = UIColor(fromHex: "EDFFFF")
+    view.backgroundColor = UIColor(hex: "EDFFFF")
 
     view.addSubview(iconImageView)
     view.addSubview(titleLabel)

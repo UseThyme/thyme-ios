@@ -67,9 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     application.beginReceivingRemoteControlEvents()
 
     let pageControl = UIPageControl.appearance()
-    pageControl.pageIndicatorTintColor = UIColor(fromHex: "D0E8E8")
-    pageControl.currentPageIndicatorTintColor = UIColor(fromHex: "FF5C5C")
-    pageControl.backgroundColor = UIColor(fromHex: "EDFFFF")
+    pageControl.pageIndicatorTintColor = UIColor(hex: "D0E8E8")
+    pageControl.currentPageIndicatorTintColor = UIColor(hex: "FF5C5C")
+    pageControl.backgroundColor = UIColor(hex: "EDFFFF")
 
     UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
 

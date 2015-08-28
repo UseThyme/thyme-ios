@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 14117C7819DB1F1F0070010C /* UIColor+ANDYHex.m */; };
 		14117C7B19DB26790070010C /* sc.png in Resources */ = {isa = PBXBuildFile; fileRef = 14117C7A19DB26790070010C /* sc.png */; };
 		1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1461778319CDBF1F00E46B1D /* Images.xcassets */; };
 		146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 146489DC19CF276300C5A85C /* ovenBackground@3x.png */; };
@@ -64,6 +63,7 @@
 		BD2C3B361B3B44F900ACCFAA /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B341B3B44F900ACCFAA /* Interface.storyboard */; };
 		BD2C3B381B3B44F900ACCFAA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B371B3B44F900ACCFAA /* Images.xcassets */; };
 		BD2C3B3B1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BD2C3B1E1B3B44F900ACCFAA /* Thyme WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		BD3B8B8F1B8F755600AAC2A9 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B8B8E1B8F755600AAC2A9 /* UIColor+Hex.swift */; };
 		BD6E97431B8BC1D1004C83D4 /* UIView+ToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6E97421B8BC1D1004C83D4 /* UIView+ToImage.swift */; };
 		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
 		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
@@ -131,8 +131,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		14117C7719DB1F1F0070010C /* UIColor+ANDYHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ANDYHex.h"; sourceTree = "<group>"; };
-		14117C7819DB1F1F0070010C /* UIColor+ANDYHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ANDYHex.m"; sourceTree = "<group>"; };
 		14117C7A19DB26790070010C /* sc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sc.png; sourceTree = "<group>"; };
 		1461778319CDBF1F00E46B1D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		146489DC19CF276300C5A85C /* ovenBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@3x.png"; sourceTree = "<group>"; };
@@ -198,6 +196,7 @@
 		BD2C3B331B3B44F900ACCFAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD2C3B351B3B44F900ACCFAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		BD2C3B371B3B44F900ACCFAA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BD3B8B8E1B8F755600AAC2A9 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		BD6E97421B8BC1D1004C83D4 /* UIView+ToImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ToImage.swift"; sourceTree = "<group>"; };
 		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlatCell.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -265,15 +264,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		14117C7619DB1F1F0070010C /* UIColor-ANDYHex */ = {
-			isa = PBXGroup;
-			children = (
-				14117C7719DB1F1F0070010C /* UIColor+ANDYHex.h */,
-				14117C7819DB1F1F0070010C /* UIColor+ANDYHex.m */,
-			);
-			path = "UIColor-ANDYHex";
-			sourceTree = "<group>";
-		};
 		146489DE19CF2B6700C5A85C /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,7 +491,6 @@
 		44AAE4171844C0690096BF52 /* Thyme */ = {
 			isa = PBXGroup;
 			children = (
-				44F8DA6B18467C390007E083 /* External */,
 				44A691AE1844E0BB005D4C5A /* Library */,
 				446C9E221844C4E2005FD797 /* AppDelegate */,
 				146997331A2E7FB100171115 /* Walkthrough */,
@@ -557,14 +546,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		44F8DA6B18467C390007E083 /* External */ = {
-			isa = PBXGroup;
-			children = (
-				14117C7619DB1F1F0070010C /* UIColor-ANDYHex */,
-			);
-			path = External;
-			sourceTree = "<group>";
-		};
 		BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -611,6 +592,7 @@
 			isa = PBXGroup;
 			children = (
 				BD6E97421B8BC1D1004C83D4 /* UIView+ToImage.swift */,
+				BD3B8B8E1B8F755600AAC2A9 /* UIColor+Hex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -923,6 +905,7 @@
 				BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
 				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
+				BD3B8B8F1B8F755600AAC2A9 /* UIColor+Hex.swift in Sources */,
 				BD6E97431B8BC1D1004C83D4 /* UIView+ToImage.swift in Sources */,
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */,
@@ -934,7 +917,6 @@
 				BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */,
 				BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */,
 				BD08D10A1B8B82CF009EAD75 /* Screen.swift in Sources */,
-				14117C7919DB1F1F0070010C /* UIColor+ANDYHex.m in Sources */,
 				BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */,
 				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
 				BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */,
