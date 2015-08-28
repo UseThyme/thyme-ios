@@ -127,15 +127,9 @@ public class InstructionController: UIViewController {
   lazy var titleLabel: UILabel = {
     let label = UILabel(frame: self.titleLabelFrame)
     label.text = self.title
-    label.font = HYPUtils.avenirBookWithSize(27)
+    label.font = Font.Instruction.title
     label.textColor = UIColor(fromHex: "0896A2")
     label.adjustsFontSizeToFitWidth = true
-
-    if (self.deviceHeight == 568) {
-      label.font = HYPUtils.avenirBookWithSize(35)
-    } else if (self.deviceHeight >= 667) {
-      label.font = HYPUtils.avenirBookWithSize(40)
-    }
 
     return label
     }()
@@ -143,17 +137,11 @@ public class InstructionController: UIViewController {
   lazy var messageTextView: UITextView = {
     let textView = UITextView(frame: self.messageTextViewFrame)
     textView.text = self.message
-    textView.font = HYPUtils.avenirBookWithSize(14)
+    textView.font = Font.Instruction.message
     textView.textColor = UIColor(fromHex: "0896A2")
     textView.textAlignment = .Center
     textView.backgroundColor = UIColor.clearColor()
     textView.editable = false
-
-    if (self.deviceHeight == 568) {
-      textView.font = HYPUtils.avenirBookWithSize(16)
-    } else if (self.deviceHeight >= 667) {
-      textView.font = HYPUtils.avenirBookWithSize(18)
-    }
 
     return textView
     }()
@@ -164,7 +152,7 @@ public class InstructionController: UIViewController {
     button.highlightedBackgroundColor = UIColor(fromHex: "E94F4F")
     button.layer.cornerRadius = 5
     button.frame = self.acceptButtonFrame
-    button.titleLabel?.font = HYPUtils.avenirHeavyWithSize(15)
+    button.titleLabel?.font = Font.Instruction.acceptButton
     button.setTitle(NSLocalizedString("InstructionAction", comment: ""), forState: .Normal)
     button.addTarget(self, action: "acceptButtonAction", forControlEvents: .TouchUpInside)
     return button
@@ -173,7 +161,7 @@ public class InstructionController: UIViewController {
   lazy var previousButton: UIButton = {
     let button = UIButton.buttonWithType(.Custom) as! UIButton
     button.frame = self.previousButtonFrame
-    button.titleLabel?.font = HYPUtils.avenirHeavyWithSize(15)
+    button.titleLabel?.font = Font.Instruction.previousButton
     button.setTitleColor(UIColor(fromHex: "FA5A58"), forState: .Normal)
     button.setTitle(NSLocalizedString("Previous", comment: ""), forState: .Normal)
     button.addTarget(self, action: "previousButtonAction", forControlEvents: .TouchUpInside)
@@ -183,7 +171,7 @@ public class InstructionController: UIViewController {
   lazy var nextButton: UIButton = {
     let button = UIButton.buttonWithType(.Custom) as! UIButton
     button.frame = self.nextButtonFrame
-    button.titleLabel?.font = HYPUtils.avenirHeavyWithSize(15)
+    button.titleLabel?.font = Font.Instruction.nextButton
     button.setTitleColor(UIColor(fromHex: "FA5A58"), forState: .Normal)
     button.setTitle(NSLocalizedString("Next", comment: ""), forState: .Normal)
     button.addTarget(self, action: "nextButtonAction", forControlEvents: .TouchUpInside)
