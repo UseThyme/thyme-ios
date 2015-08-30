@@ -105,12 +105,14 @@ class HomeInterfaceController: WKInterfaceController {
         text = "\(alarm.minutes)"
       }
 
-      plateMinutesGroups[index].setBackgroundImageNamed(ImageList.Plate.minuteSequence)
+      plateMinutesGroups[index].setBackgroundImageNamed(alarm.hours > 0
+        ? ImageList.Timer.minuteHourSequence
+        : ImageList.Timer.minuteSequence)
       plateMinutesGroups[index].startAnimatingWithImagesInRange(
         NSRange(location: alarm.minutes, length: 1),
         duration: 0, repeatCount: 1)
 
-      plateSecondsGroups[index].setBackgroundImageNamed(ImageList.Plate.secondSequence)
+      plateSecondsGroups[index].setBackgroundImageNamed(ImageList.Timer.secondSequence)
       plateSecondsGroups[index].startAnimatingWithImagesInRange(
         NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)

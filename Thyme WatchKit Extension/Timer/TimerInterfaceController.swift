@@ -58,12 +58,14 @@ class TimerInterfaceController: WKInterfaceController {
         text = "\(alarm.minutes)"
       }
 
-      minutesGroup.setBackgroundImageNamed(ImageList.Plate.minuteSequence)
+      minutesGroup.setBackgroundImageNamed(alarm.hours > 0
+        ? ImageList.Timer.minuteHourSequence
+        : ImageList.Timer.minuteSequence)
       minutesGroup.startAnimatingWithImagesInRange(
         NSRange(location: alarm.minutes, length: 1),
         duration: 0, repeatCount: 1)
 
-      secondsGroup.setBackgroundImageNamed(ImageList.Plate.secondSequence)
+      secondsGroup.setBackgroundImageNamed(ImageList.Timer.secondSequence)
       secondsGroup.startAnimatingWithImagesInRange(
         NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)
