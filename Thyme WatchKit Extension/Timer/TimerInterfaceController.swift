@@ -61,8 +61,6 @@ class TimerInterfaceController: WKInterfaceController {
     WKInterfaceController.openParentApplication(requestData) {
       [unowned self] response, error in
 
-      println(response)
-
       if let response = response,
         alarmInfo = response["alarm"] as? [String: AnyObject] where error == nil {
           self.alarmTimer?.stop()

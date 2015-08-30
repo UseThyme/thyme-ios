@@ -156,8 +156,6 @@ class HomeInterfaceController: WKInterfaceController {
         alarm = Alarm()
       }
 
-      println("\(alarm.hours) \(alarm.minutes) \(alarm.seconds)")
-
       updatePlate(index, alarm: alarm)
       alarms.append(alarm)
     }
