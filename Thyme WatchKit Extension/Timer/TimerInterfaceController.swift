@@ -5,8 +5,11 @@ class TimerInterfaceController: WKInterfaceController {
 
   @IBOutlet weak var minutesGroup: WKInterfaceGroup!
   @IBOutlet weak var secondsGroup: WKInterfaceGroup!
+
+
+  @IBOutlet weak var minutesTextLabel: WKInterfaceLabel!
+  @IBOutlet weak var hoursTextLabel: WKInterfaceLabel!
   @IBOutlet weak var minutesLabel: WKInterfaceLabel!
-  @IBOutlet weak var textLabel: WKInterfaceLabel!
 
   var alarmTimer: AlarmTimer?
   var index = 0
@@ -45,17 +48,14 @@ class TimerInterfaceController: WKInterfaceController {
   // MARK: - UI
 
   func updatePlate(alarm: Alarm) {
-    var text = ""
+    var minutesText = ""
+    var hoursText = ""
 
     if alarm.active {
+      minutesText = "\(alarm.minutes)"
+
       if alarm.hours > 0 {
-        if alarm.minutes < 10 {
-          text = "\(alarm.hours):0\(alarm.minutes)"
-        } else {
-          text = "\(alarm.hours):\(alarm.minutes)"
-        }
-      } else {
-        text = "\(alarm.minutes)"
+        hoursText = "\(alarm.hours) " + NSLocalizedString("hour", comment: "")
       }
 
       minutesGroup.setBackgroundImageNamed(alarm.hours > 0
@@ -71,8 +71,9 @@ class TimerInterfaceController: WKInterfaceController {
         duration: 0, repeatCount: 1)
     }
 
-    minutesLabel.setText(text)
-    textLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
+    minutesLabel.setText(minutesText)
+    minutesTextLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
+    hoursTextLabel.setText(hoursText.uppercaseString)
   }
 
   // MARK: - Alarms

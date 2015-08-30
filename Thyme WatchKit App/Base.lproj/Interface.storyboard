@@ -139,11 +139,15 @@
                             <items>
                                 <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="EOe-jn-aLf" userLabel="Seconds">
                                     <items>
-                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="yyE-gq-tIP">
+                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="t4s-q4-Jm5" userLabel="HoursText">
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="13"/>
+                                        </label>
+                                        <label width="1" height="40" alignment="left" verticalAlignment="center" textAlignment="center" id="yyE-gq-tIP" userLabel="Minutes">
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="font" type="system" weight="light" pointSize="47"/>
                                         </label>
-                                        <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" id="jue-ld-zB4">
+                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="jue-ld-zB4" userLabel="MinutesText">
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="font" type="system" pointSize="13"/>
                                         </label>
@@ -153,10 +157,11 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="hoursTextLabel" destination="t4s-q4-Jm5" id="dNU-Er-tng"/>
                         <outlet property="minutesGroup" destination="DYZ-Sz-4Ba" id="XQY-h1-qPd"/>
-                        <outlet property="minutesLabel" destination="yyE-gq-tIP" id="gld-CO-3md"/>
+                        <outlet property="minutesLabel" destination="yyE-gq-tIP" id="gLx-tT-eWc"/>
+                        <outlet property="minutesTextLabel" destination="jue-ld-zB4" id="G4g-N3-Yzz"/>
                         <outlet property="secondsGroup" destination="EOe-jn-aLf" id="Akf-cW-Efy"/>
-                        <outlet property="textLabel" destination="jue-ld-zB4" id="mqg-vz-dUx"/>
                     </connections>
                 </controller>
             </objects>
