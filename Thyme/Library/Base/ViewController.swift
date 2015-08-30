@@ -13,6 +13,15 @@ class ViewController: UIViewController {
     return layer
     }()
 
+  var theme: Themable? {
+    didSet {
+      if let theme = theme {
+        gradientLayer.colors = theme.colors
+        gradientLayer.locations = theme.locations
+      }
+    }
+  }
+
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }
@@ -29,26 +38,10 @@ class ViewController: UIViewController {
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-
-    NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: "changeBackground:",
-      name: "changeBackground",
-      object: nil)
   }
 
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
-
-    NSNotificationCenter.defaultCenter().removeObserver(self)
-  }
-
-  func changeBackground(notification: NSNotification) {
-    if let userinfo = notification.userInfo,
-      colors = userinfo["colors"] as? [CGColorRef],
-      locations = userinfo["locations"] as? [Float] {
-        gradientLayer.colors = colors
-        gradientLayer.locations = locations
-    }
   }
 }
 

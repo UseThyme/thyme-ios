@@ -6,6 +6,17 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   var deleteTimersMessageIsBeingDisplayed: Bool = false
 
+  override var theme: Themable? {
+    didSet {
+      if let theme = theme {
+        gradientLayer.colors = theme.colors
+        gradientLayer.locations = theme.locations
+        collectionView.setNeedsDisplay()
+        ovenCollectionView.setNeedsDisplay()
+      }
+    }
+  }
+
   var maxMinutesLeft: NSNumber? {
     didSet(newValue) {
       if let maxMinutesLeft = maxMinutesLeft {
@@ -431,6 +442,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
     cell.timerControl.active = alarm.active
     cell.timerControl.addTarget(self, action: "timerControlChangedValue:", forControlEvents: .ValueChanged)
+    cell.timerControl.theme = theme
 
     refreshTimerInCell(cell, alarm: alarm)
   }
@@ -512,8 +524,7 @@ extension HomeViewController: UICollectionViewDelegate {
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let alarm = alarmAtIndexPath(indexPath, collectionView: collectionView)
     let timerController = TimerViewController(alarm: alarm)
-    timerController.gradientLayer.colors = gradientLayer.colors
-    timerController.gradientLayer.locations = gradientLayer.locations
+    timerController.theme = theme
     timerController.delegate = self
 
     presentViewController(timerController, animated: true, completion: nil)

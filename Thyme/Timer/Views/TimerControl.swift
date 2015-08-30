@@ -7,14 +7,22 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
   var alarm: Alarm?
   var alarmID: String?
-  var title: String = Alarm.messageForSetAlarm()
   var circleRect: CGRect = CGRectZero
-
-  var seconds: Int = 0
-  var touchesAreActive: Bool = false
   var completedMode: Bool
-  var timer: NSTimer?
   var lastPoint: CGPoint = CGPointZero
+  var seconds: Int = 0
+  var timer: NSTimer?
+  var title: String = Alarm.messageForSetAlarm()
+  var touchesAreActive: Bool = false
+  var theme: Themable? {
+    didSet {
+      if let theme = theme {
+        hoursLabel.textColor = theme.textColor
+        minutesValueLabel.textColor = theme.textColor
+        minutesTitleLabel.textColor = theme.textColor
+      }
+    }
+  }
 
   lazy var player: AVAudioPlayer = {
     let soundFilePath = NSBundle.mainBundle().pathForResource("tick", ofType: "wav")!
@@ -105,7 +113,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
     label.hidden = true
     label.text = sampleString
     label.textAlignment = .Center
-    label.textColor = UIColor(hex: "1B807E")
 
     return label
     }()
@@ -134,7 +141,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
     label.backgroundColor = UIColor.clearColor()
     label.font = font
     label.textAlignment = .Center
-    label.textColor = UIColor(hex: "1B807E")
     label.text = "\(self.angle)"
 
     return label
@@ -165,7 +171,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
     label.font = font
     label.text = minutesLeftText
     label.textAlignment = .Center
-    label.textColor = UIColor(hex: "1B807E")
 
     return label
     }()
