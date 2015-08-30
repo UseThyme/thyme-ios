@@ -35,8 +35,8 @@ class Alarm {
     let section = index == 1 || index == 3  ? 1 : 0
     let item = index == 2 || index == 3 ? 1 : 0
     let indexPath = NSIndexPath(forItem: item, inSection: section)
-
     let alarm = Alarm()
+    
     alarm.oven = index == 4
     alarm.indexPath = indexPath
 
