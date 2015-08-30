@@ -144,7 +144,7 @@
             <objects>
                 <controller identifier="TimerController" id="53Q-sK-jl1" customClass="TimerInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
-                        <group width="1" height="129" alignment="left" id="DYZ-Sz-4Ba" userLabel="Minutes">
+                        <group width="1" height="129" alignment="left" backgroundImage="mainPlateBackground" id="DYZ-Sz-4Ba" userLabel="Minutes">
                             <items>
                                 <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="EOe-jn-aLf" userLabel="Seconds">
                                     <items>
