@@ -3,6 +3,11 @@ import Foundation
 
 class HomeInterfaceController: WKInterfaceController {
 
+  struct Request {
+    static let getAlarms = "getAlarms"
+    static let cancelAlarms = "cancelAlarms"
+  }
+
   @IBOutlet weak var topLeftMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var topRightMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var bottomLeftMinutesGroup: WKInterfaceGroup!
@@ -40,7 +45,7 @@ class HomeInterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    loadData()
+    request(Request.getAlarms)
   }
 
   override func didDeactivate() {
@@ -70,13 +75,18 @@ class HomeInterfaceController: WKInterfaceController {
     presentController(4, title: NSLocalizedString("Oven", comment: ""))
   }
 
-  // MARK: - Data
+  @IBAction func menuCancelAllButtonDidTap() {
+    request(Request.cancelAlarms)
+  }
 
-  func loadData() {
-    WKInterfaceController.openParentApplication(["request": "getAlarms"]) {
+  // MARK: - Communication
+
+  func request(name: String) {
+    WKInterfaceController.openParentApplication(["request": name]) {
       [unowned self] response, error in
       if let response = response,
         alarmData = response["alarms"] as? [AnyObject] {
+          self.alarmTimer?.stop()
           self.setupAlarms(alarmData)
       } else {
         println("Error with fetching of alarms from the parent app")
