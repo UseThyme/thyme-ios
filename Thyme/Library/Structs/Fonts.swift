@@ -33,8 +33,6 @@ struct Font {
     case .XXXLarge: calculatedSize += 4
     }
 
-    println("\(name) = \(calculatedSize)")
-
     return UIFont(name: name, size: calculatedSize)!
   }
 
