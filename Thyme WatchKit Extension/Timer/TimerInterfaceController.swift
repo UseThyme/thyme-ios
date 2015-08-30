@@ -5,7 +5,7 @@ class TimerInterfaceController: WKInterfaceController {
 
   struct Request {
     static let getAlarm = "getAlarm"
-    static let increaseAlarmMinutes = "increaseAlarmMinutes"
+    static let updateAlarmMinutes = "updateAlarmMinutes"
     static let cancelAlarm = "cancelAlarm"
   }
 
@@ -40,11 +40,11 @@ class TimerInterfaceController: WKInterfaceController {
 
 
   @IBAction func menu3MinutesButtonDidTap() {
-    load(Request.increaseAlarmMinutes, data: ["amount": 3])
+    load(Request.updateAlarmMinutes, data: ["amount": 3])
   }
   
   @IBAction func menu5MinutesButtonDidTap() {
-    load(Request.increaseAlarmMinutes, data: ["amount": 5])
+    load(Request.updateAlarmMinutes, data: ["amount": 5])
   }
   
   @IBAction func menuCancelButtonDidTap() {
@@ -57,10 +57,15 @@ class TimerInterfaceController: WKInterfaceController {
     var requestData = data
     requestData["request"] = request
     requestData["index"] = index
-    WKInterfaceController.openParentApplication(data) {
+
+    WKInterfaceController.openParentApplication(requestData) {
       [unowned self] response, error in
+
+      println(response)
+
       if let response = response,
         alarmInfo = response["alarm"] as? [String: AnyObject] where error == nil {
+          self.alarmTimer?.stop()
           self.setupAlarm(alarmInfo)
       } else {
         println("Error with fetching of the alarm with index = \(self.index) from the parent app")
@@ -92,10 +97,14 @@ class TimerInterfaceController: WKInterfaceController {
       secondsGroup.startAnimatingWithImagesInRange(
         NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)
+    } else {
+      minutesGroup.setBackgroundImageNamed(ImageList.Main.plateBackground)
+      secondsGroup.setBackgroundImageNamed(nil)
     }
 
     minutesLabel.setText(minutesText)
-    minutesTextLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
+    minutesTextLabel.setText(alarm.active ?
+      NSLocalizedString("minutes", comment: "").uppercaseString : "")
     hoursTextLabel.setText(hoursText.uppercaseString)
   }
 
