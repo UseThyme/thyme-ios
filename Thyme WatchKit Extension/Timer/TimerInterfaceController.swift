@@ -3,9 +3,14 @@ import Foundation
 
 class TimerInterfaceController: WKInterfaceController {
 
+  struct Request {
+    static let getAlarm = "getAlarm"
+    static let increaseAlarmMinutes = "increaseAlarmMinutes"
+    static let cancelAlarm = "cancelAlarm"
+  }
+
   @IBOutlet weak var minutesGroup: WKInterfaceGroup!
   @IBOutlet weak var secondsGroup: WKInterfaceGroup!
-
 
   @IBOutlet weak var minutesTextLabel: WKInterfaceLabel!
   @IBOutlet weak var hoursTextLabel: WKInterfaceLabel!
@@ -24,20 +29,38 @@ class TimerInterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    loadData()
+    load(Request.getAlarm)
   }
 
   override func didDeactivate() {
     super.didDeactivate()
   }
 
-  // MARK: - Data
+  // MARK: - Actions
 
-  func loadData() {
-    WKInterfaceController.openParentApplication(["request": "getAlarm", "index": index]) {
+
+  @IBAction func menu3MinutesButtonDidTap() {
+    load(Request.increaseAlarmMinutes, data: ["amount": 3])
+  }
+  
+  @IBAction func menu5MinutesButtonDidTap() {
+    load(Request.increaseAlarmMinutes, data: ["amount": 5])
+  }
+  
+  @IBAction func menuCancelButtonDidTap() {
+    load(Request.cancelAlarm)
+  }
+
+  // MARK: - Communication
+
+  func load(request: String, data: [NSObject : AnyObject] = [:]) {
+    var requestData = data
+    requestData["request"] = request
+    requestData["index"] = index
+    WKInterfaceController.openParentApplication(data) {
       [unowned self] response, error in
       if let response = response,
-        alarmInfo = response["alarm"] as? [String: AnyObject] {
+        alarmInfo = response["alarm"] as? [String: AnyObject] where error == nil {
           self.setupAlarm(alarmInfo)
       } else {
         println("Error with fetching of the alarm with index = \(self.index) from the parent app")

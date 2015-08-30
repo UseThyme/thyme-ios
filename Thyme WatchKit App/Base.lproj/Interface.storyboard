@@ -111,9 +111,9 @@
                     </items>
                     <menu key="menu" id="Hqe-xL-t4v">
                         <items>
-                            <menuItem title="Cancel All Timers" image="menuCancelAllButton" id="zY3-r9-rwm">
+                            <menuItem title="Cancel All Timers" image="menuCancelButton" id="zY3-r9-rwm">
                                 <connections>
-                                    <action selector="cancelAllButtonDidTap" destination="AgC-eL-Hgc" id="fZZ-3j-cZe"/>
+                                    <action selector="menuCancelAllButtonDidTap" destination="AgC-eL-Hgc" id="4HP-Jn-uOx"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -165,6 +165,25 @@
                             </items>
                         </group>
                     </items>
+                    <menu key="menu" id="96a-6T-sJU">
+                        <items>
+                            <menuItem title="+3 min" image="menu3MinutesButton" id="bAD-WH-5vd">
+                                <connections>
+                                    <action selector="menu3MinutesButtonDidTap" destination="53Q-sK-jl1" id="Yz5-jd-Xnj"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="+5 min" image="menu5MinutesButton" id="vP4-D3-kUV">
+                                <connections>
+                                    <action selector="menu5MinutesButtonDidTap" destination="53Q-sK-jl1" id="M5i-2R-d1a"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Cancel timer" image="menuCancelButton" id="6BU-2K-vAM">
+                                <connections>
+                                    <action selector="menuCancelButtonDidTap" destination="53Q-sK-jl1" id="lq7-08-Rb9"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="hoursTextLabel" destination="t4s-q4-Jm5" id="dNU-Er-tng"/>
                         <outlet property="minutesGroup" destination="DYZ-Sz-4Ba" id="XQY-h1-qPd"/>

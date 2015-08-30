@@ -70,7 +70,7 @@ class HomeInterfaceController: WKInterfaceController {
     presentController(4, title: NSLocalizedString("Oven", comment: ""))
   }
 
-  @IBAction func cancelAllButtonDidTap() {
+  @IBAction func menuCancelAllButtonDidTap() {
     cancelAllTimers()
   }
 
