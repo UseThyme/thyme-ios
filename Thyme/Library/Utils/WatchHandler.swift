@@ -35,8 +35,11 @@ struct WatchHandler {
 
         if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
           userInfo = notification.userInfo,
-          numberOfSeconds = userInfo["HYPAlarmFireInterval"] as? NSNumber {
-            seconds += NSTimeInterval(numberOfSeconds)
+          firedDate = userInfo[ThymeAlarmFireDataKey] as? NSDate,
+          numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
+            let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
+            let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
+            seconds = secondsLeft
             UIApplication.sharedApplication().cancelLocalNotification(notification)
         }
 
@@ -86,8 +89,8 @@ struct WatchHandler {
     var alarmData = [String: AnyObject]()
 
     if let userInfo = notification.userInfo,
-      firedDate = userInfo["HYPAlarmFireDate"] as? NSDate,
-      numberOfSeconds = userInfo["HYPAlarmFireInterval"] as? NSNumber {
+      firedDate = userInfo[ThymeAlarmFireDataKey] as? NSDate,
+      numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
         alarmData["firedDate"] = firedDate
         alarmData["numberOfSeconds"] = numberOfSeconds
     }

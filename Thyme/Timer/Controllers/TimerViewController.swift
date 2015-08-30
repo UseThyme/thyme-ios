@@ -270,23 +270,23 @@ class TimerViewController: ViewController {
     if let userinfo = notification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
       numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber {
-      let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
-      let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
-      let currentSecond = secondsLeft % 60
-      var minutesLeft = floor(secondsLeft/60)
-      let hoursLeft = floor(minutesLeft/60)
+        let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
+        let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
+        let currentSecond = secondsLeft % 60
+        var minutesLeft = floor(secondsLeft/60)
+        let hoursLeft = floor(minutesLeft/60)
 
-      if hoursLeft > 0 {
-        minutesLeft = minutesLeft - (hoursLeft * 60)
-      }
+        if hoursLeft > 0 {
+          minutesLeft = minutesLeft - (hoursLeft * 60)
+        }
 
-      timerControl.title = self.alarm.timerTitle
-      timerControl.seconds = Int(currentSecond)
-      timerControl.minutes = Int(minutesLeft)
-      timerControl.hours = Int(hoursLeft)
-      timerControl.touchesAreActive = true
+        timerControl.title = self.alarm.timerTitle
+        timerControl.seconds = Int(currentSecond)
+        timerControl.minutes = Int(minutesLeft)
+        timerControl.hours = Int(hoursLeft)
+        timerControl.touchesAreActive = true
 
-      timerControl.startTimer()
+        timerControl.startTimer()
     }
   }
 
