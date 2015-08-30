@@ -85,20 +85,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
   func applicationDidBecomeActive(application: UIApplication) {
 
-    var colors = Theme.Main.colors
-    var locations = Theme.Main.locations
+    var theme: Themable = Theme.Main()
 
     if UIAccessibilityDarkerSystemColorsEnabled() {
-      colors = Theme.DarkColors.colors
-      locations = Theme.DarkColors.locations
+      theme = Theme.DarkColors()
     }
 
-    let notificationCenter = NSNotificationCenter.defaultCenter()
-    notificationCenter.postNotificationName("changeBackground",
-      object: nil,
-      userInfo: [
-        "colors"  : colors,
-        "locations" : locations])
+    homeController.theme = theme
   }
 
   func applicationDidEnterBackground(application: UIApplication) {

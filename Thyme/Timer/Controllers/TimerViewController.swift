@@ -15,6 +15,15 @@ class TimerViewController: ViewController {
   var startRect: CGRect = CGRectNull
   var finalRect: CGRect = CGRectNull
   var delegate: TimerControllerDelegate?
+  override var theme: Themable? {
+    didSet {
+      if let theme = theme {
+        gradientLayer.colors = theme.colors
+        gradientLayer.locations = theme.locations
+        timerControl.theme = theme
+      }
+    }
+  }
 
   lazy var deviceHeight: CGFloat = {
     return UIScreen.mainScreen().bounds.height
