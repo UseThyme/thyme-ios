@@ -14,7 +14,7 @@ struct Font {
 
   private static var ContentSize: String { return UIApplication.sharedApplication().preferredContentSizeCategory }
 
-  private static func construct(name: String, size: CGFloat) -> UIFont {
+  static func dynamicSize(size: CGFloat) -> CGFloat {
     var calculatedSize = size
 
     switch(Device(rawValue: Screen.height)!) {
@@ -32,32 +32,32 @@ struct Font {
     case .XXLarge: calculatedSize += 3
     case .XXXLarge: calculatedSize += 4
     }
-
-    return UIFont(name: name, size: calculatedSize)!
+    
+    return calculatedSize
   }
 
   struct HomeViewController {
-    static var title: UIFont { return Font.construct("HelveticaNeue", size: 15) }
-    static var subtitle: UIFont { return Font.construct("HelveticaNeue-Bold", size: 19) }
+    static var title: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(15)) }
+    static var subtitle: UIFont { return UIFont.boldSystemFontOfSize(Font.dynamicSize(19)) }
   }
 
   struct TimerControl {
-    static func hoursLabel(fontSize: CGFloat) -> UIFont { return Font.construct("HelveticaNeue-Bold", size: fontSize) }
-    static func minutesValueLabel(fontSize: CGFloat) -> UIFont { return Font.construct("HelveticaNeue", size: fontSize) }
-    static func minutesTitleLabel(fontSize: CGFloat) -> UIFont { return Font.construct("HelveticaNeue", size: fontSize) }
-    static var arcText: UIFont { return Font.construct("HelveticaNeue", size: 14) }
+    static func hoursLabel(fontSize: CGFloat) -> UIFont { return UIFont.boldSystemFontOfSize(Font.dynamicSize(fontSize)) }
+    static func minutesValueLabel(fontSize: CGFloat) -> UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(fontSize)) }
+    static func minutesTitleLabel(fontSize: CGFloat) -> UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(fontSize)) }
+    static var arcText: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(14)) }
   }
 
   struct Instruction {
-    static var title: UIFont { return Font.construct("HelveticaNeue-Medium", size: 27) }
-    static var message: UIFont { return Font.construct("HelveticaNeue-Medium", size: 14) }
-    static var acceptButton: UIFont { return Font.construct("HelveticaNeue-Medium", size: 15) }
-    static var previousButton: UIFont { return Font.construct("HelveticaNeue-Medium", size: 15) }
-    static var nextButton: UIFont { return Font.construct("HelveticaNeue-Medium", size: 15) }
+    static var title: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(27)) }
+    static var message: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(14)) }
+    static var acceptButton: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(15)) }
+    static var previousButton: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(15)) }
+    static var nextButton: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(15)) }
   }
 
   struct Settings {
-    static var headerLabel: UIFont { return Font.construct("HelveticaNeue-Bold", size: 18) }
-    static var textLabel: UIFont { return Font.construct("HelveticaNeue-Medium", size: 16) }
+    static var headerLabel: UIFont { return UIFont.boldSystemFontOfSize(Font.dynamicSize(18)) }
+    static var textLabel: UIFont { return UIFont.boldSystemFontOfSize(Font.dynamicSize(16)) }
   }
 }
