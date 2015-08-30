@@ -5,15 +5,50 @@ struct WatchHandler {
   static func response(request: String, _ userInfo: [NSObject : AnyObject]?) -> [NSObject : AnyObject] {
     var data = [NSObject : AnyObject]()
 
-    if request == "getAlarms" {
+    switch request {
+    case "getAlarms":
       data = ["alarms": getAlarmsData()]
-    } else if request == "getAlarm" {
+    case "getAlarm":
       if let userInfo = userInfo, index = userInfo["index"] as? Int {
         data["alarm"] = getAlarmData(index)
       }
-    } else if request == "cancelAlarms" {
+    case "cancelAlarms":
       LocalNotificationManager.cancelAllLocalNotifications()
       data = ["alarms": getAlarmsData()]
+    case "cancelAlarm":
+      if let userInfo = userInfo, index = userInfo["index"] as? Int {
+        let alarm = Alarm.create(index)
+        if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
+          UIApplication.sharedApplication().cancelLocalNotification(notification)
+        }
+
+        data["alarm"] = getAlarmData(index)
+      }
+    case "updateAlarmMinutes":
+      if let userInfo = userInfo, index = userInfo["index"] as? Int, amount = userInfo["amount"] as? Int {
+        let alarm = Alarm.create(index)
+        var seconds: NSTimeInterval = 0
+
+        if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
+          userInfo = notification.userInfo,
+          numberOfSeconds = userInfo["HYPAlarmFireInterval"] as? NSNumber {
+            seconds += NSTimeInterval(numberOfSeconds)
+            UIApplication.sharedApplication().cancelLocalNotification(notification)
+        }
+
+        let title = NSLocalizedString("\(alarm.title) just finished",
+          comment: "\(alarm.title) just finished")
+        seconds += NSTimeInterval(60 * amount)
+
+        let notification = LocalNotificationManager.createNotification(seconds,
+          message: title,
+          title: NSLocalizedString("View Details", comment: "View Details"),
+          alarmID: alarm.alarmID!)
+
+        data["alarm"] = extractAlarmData(notification)
+      }
+    default:
+      break
     }
 
     return data
@@ -31,20 +66,22 @@ struct WatchHandler {
   }
 
   private static func getAlarmData(index: Int) -> [String: AnyObject] {
+    let alarm = Alarm.create(index)
     var alarmData = [String: AnyObject]()
 
-    let section = index == 1 || index == 3  ? 1 : 0
-    let item = index == 2 || index == 3 ? 1 : 0
-    let indexPath = NSIndexPath(forItem: item, inSection: section)
+    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
+      alarmData = extractAlarmData(notification)
+    }
 
-    let alarm = Alarm()
-    alarm.oven = index == 4
-    alarm.indexPath = indexPath
+    return alarmData
+  }
 
-    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
-      userinfo = notification.userInfo,
-      firedDate = userinfo["HYPAlarmFireDate"] as? NSDate,
-      numberOfSeconds = userinfo["HYPAlarmFireInterval"] as? NSNumber {
+  private static func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
+    var alarmData = [String: AnyObject]()
+
+    if let userInfo = notification.userInfo,
+      firedDate = userInfo["HYPAlarmFireDate"] as? NSDate,
+      numberOfSeconds = userInfo["HYPAlarmFireInterval"] as? NSNumber {
         alarmData["firedDate"] = firedDate
         alarmData["numberOfSeconds"] = numberOfSeconds
     }
