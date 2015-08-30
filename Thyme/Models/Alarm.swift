@@ -19,7 +19,7 @@ class Alarm {
 
     let leading: String = self.indexPath?.row == 0
       ? NSLocalizedString("TOP", comment: "TOP")
-      : NSLocalizedString("LOWER", comment: "LOWER")
+      : NSLocalizedString("BOTTOM", comment: "BOTTOM")
     let position: String = self.indexPath?.row == 0
       ? NSLocalizedString("LEFT", comment: "LEFT")
       : NSLocalizedString("RIGHT", comment: "RIGHT")
