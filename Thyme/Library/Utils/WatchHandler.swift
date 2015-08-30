@@ -6,21 +6,28 @@ struct WatchHandler {
     var data = [NSObject : AnyObject]()
 
     if request == "getAlarms" {
-      var notifications = [String]()
-
-      var alarms = [AnyObject]()
-      for index in 0...4 {
-        alarms.append(getAlarmData(index))
-      }
-
-      data = ["alarms": alarms]
+      data = ["alarms": getAlarmsData()]
     } else if request == "getAlarm" {
       if let userInfo = userInfo, index = userInfo["index"] as? Int {
         data["alarm"] = getAlarmData(index)
       }
+    } else if request == "cancelAlarm" {
+      LocalNotificationManager.cancelAllLocalNotifications()
+      data = ["alarms": getAlarmsData()]
     }
 
     return data
+  }
+
+  private static func getAlarmsData() -> [AnyObject] {
+    var notifications = [String]()
+
+    var alarms = [AnyObject]()
+    for index in 0...4 {
+      alarms.append(getAlarmData(index))
+    }
+
+    return alarms
   }
 
   private static func getAlarmData(index: Int) -> [String: AnyObject] {
