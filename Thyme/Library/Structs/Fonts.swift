@@ -24,14 +24,16 @@ struct Font {
     }
 
     switch(DynamicSize(rawValue: ContentSize)!) {
-    case .XSmall: calculatedSize -= 2
-    case .Small:     calculatedSize -= 1
-    case .Medium:    calculatedSize -= 0
-    case .Large:     calculatedSize += 1
-    case .XLarge: calculatedSize += 2
-    case .XXLarge: calculatedSize += 3
+    case .XSmall:   calculatedSize -= 3
+    case .Small:    calculatedSize -= 2
+    case .Medium:   calculatedSize -= 1
+    case .Large:    calculatedSize += 0
+    case .XLarge:   calculatedSize += 2
+    case .XXLarge:  calculatedSize += 3
     case .XXXLarge: calculatedSize += 4
     }
+
+    println("\(name) = \(calculatedSize)")
 
     return UIFont(name: name, size: calculatedSize)!
   }
