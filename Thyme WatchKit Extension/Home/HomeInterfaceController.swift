@@ -3,39 +3,39 @@ import Foundation
 
 class HomeInterfaceController: WKInterfaceController {
 
-  @IBOutlet weak var plate1MinutesGroup: WKInterfaceGroup!
-  @IBOutlet weak var plate2MinutesGroup: WKInterfaceGroup!
-  @IBOutlet weak var plate3MinutesGroup: WKInterfaceGroup!
-  @IBOutlet weak var plate4MinutesGroup: WKInterfaceGroup!
+  @IBOutlet weak var topLeftMinutesGroup: WKInterfaceGroup!
+  @IBOutlet weak var topRightMinutesGroup: WKInterfaceGroup!
+  @IBOutlet weak var bottomLeftMinutesGroup: WKInterfaceGroup!
+  @IBOutlet weak var bottomRightMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var ovenMinutesGroup: WKInterfaceGroup!
 
-  @IBOutlet weak var plate1SecondsGroup: WKInterfaceGroup!
-  @IBOutlet weak var plate2SecondsGroup: WKInterfaceGroup!
-  @IBOutlet weak var plate3SecondsGroup: WKInterfaceGroup!
-  @IBOutlet weak var plate4SecondsGroup: WKInterfaceGroup!
+  @IBOutlet weak var topLeftSecondsGroup: WKInterfaceGroup!
+  @IBOutlet weak var topRightSecondsGroup: WKInterfaceGroup!
+  @IBOutlet weak var bottomLeftSecondsGroup: WKInterfaceGroup!
+  @IBOutlet weak var bottomRightSecondsGroup: WKInterfaceGroup!
   @IBOutlet weak var ovenSecondsGroup: WKInterfaceGroup!
 
-  @IBOutlet weak var plate1Button: WKInterfaceButton!
-  @IBOutlet weak var plate2Button: WKInterfaceButton!
-  @IBOutlet weak var plate3Button: WKInterfaceButton!
-  @IBOutlet weak var plate4Button: WKInterfaceButton!
+  @IBOutlet weak var topLeftButton: WKInterfaceButton!
+  @IBOutlet weak var topRightButton: WKInterfaceButton!
+  @IBOutlet weak var bottomLeftButton: WKInterfaceButton!
+  @IBOutlet weak var bottomRightButton: WKInterfaceButton!
   @IBOutlet weak var ovenButton: WKInterfaceButton!
 
-  var plateMinutesGroups = [WKInterfaceGroup]()
-  var plateSecondsGroups = [WKInterfaceGroup]()
-  var plateButtons = [WKInterfaceButton]()
+  var minutesGroups = [WKInterfaceGroup]()
+  var secondsGroups = [WKInterfaceGroup]()
+  var buttons = [WKInterfaceButton]()
 
   var alarmTimer: AlarmTimer?
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
 
-    plateMinutesGroups = [plate1MinutesGroup, plate2MinutesGroup,
-      plate3MinutesGroup, plate4MinutesGroup, ovenMinutesGroup]
-    plateSecondsGroups = [plate1SecondsGroup, plate2SecondsGroup,
-      plate3SecondsGroup, plate4SecondsGroup, ovenSecondsGroup]
-    plateButtons = [plate1Button, plate2Button,
-      plate3Button, plate4Button, ovenButton]
+    minutesGroups = [topLeftMinutesGroup, topRightMinutesGroup,
+      bottomLeftMinutesGroup, bottomRightMinutesGroup, ovenMinutesGroup]
+    secondsGroups = [topLeftSecondsGroup, topRightSecondsGroup,
+      bottomLeftSecondsGroup, bottomRightSecondsGroup, ovenSecondsGroup]
+    buttons = [topLeftButton, topRightButton,
+      bottomLeftButton, bottomRightButton, ovenButton]
   }
 
   override func willActivate() {
@@ -49,24 +49,24 @@ class HomeInterfaceController: WKInterfaceController {
 
   // MARK: - Actions
 
-  @IBAction func plate1ButtonDidTap() {
+  @IBAction func topLeftButtonDidTap() {
     presentController(0, title: NSLocalizedString("Upper Left", comment: ""))
   }
 
-  @IBAction func plate2ButtonDidTap() {
+  @IBAction func topRightButtonDidTap() {
     presentController(1, title: NSLocalizedString("Upper Right", comment: ""))
   }
 
-  @IBAction func plate3ButtonDidTap() {
+  @IBAction func bottomLeftButtonDidTap() {
     presentController(2, title: NSLocalizedString("Lower Left", comment: ""))
   }
 
-  @IBAction func plate4ButtonDidTap() {
+  @IBAction func bottomRightButtonDidTap() {
     presentController(3, title: NSLocalizedString("Lower Right", comment: ""))
 
   }
 
-  @IBAction func plate5ButtonDidTap() {
+  @IBAction func ovenButtonDidTap() {
     presentController(4, title: NSLocalizedString("Oven", comment: ""))
   }
 
@@ -105,23 +105,25 @@ class HomeInterfaceController: WKInterfaceController {
         text = "\(alarm.minutes)"
       }
 
-      plateMinutesGroups[index].setBackgroundImageNamed(ImageList.Plate.minuteSequence)
-      plateMinutesGroups[index].startAnimatingWithImagesInRange(
+      minutesGroups[index].setBackgroundImageNamed(alarm.hours > 0
+        ? ImageList.Timer.minuteHourSequence
+        : ImageList.Timer.minuteSequence)
+      minutesGroups[index].startAnimatingWithImagesInRange(
         NSRange(location: alarm.minutes, length: 1),
         duration: 0, repeatCount: 1)
 
-      plateSecondsGroups[index].setBackgroundImageNamed(ImageList.Plate.secondSequence)
-      plateSecondsGroups[index].startAnimatingWithImagesInRange(
+      secondsGroups[index].setBackgroundImageNamed(ImageList.Timer.secondSequence)
+      secondsGroups[index].startAnimatingWithImagesInRange(
         NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)
     } else {
-      plateMinutesGroups[index].setBackgroundImageNamed(index == 4
+      minutesGroups[index].setBackgroundImageNamed(index == 4
         ? nil
         : ImageList.Main.plateBackground)
-      plateSecondsGroups[index].setBackgroundImageNamed(nil)
+      secondsGroups[index].setBackgroundImageNamed(nil)
     }
 
-    plateButtons[index].setTitle(text)
+    buttons[index].setTitle(text)
   }
 
   // MARK: - Alarms
@@ -130,7 +132,7 @@ class HomeInterfaceController: WKInterfaceController {
     var alarms = [Alarm]()
 
     for (index, alarmInfo) in enumerate(alarmData) {
-      if index == self.plateMinutesGroups.count {
+      if index == self.minutesGroups.count {
         break
       }
 

@@ -5,8 +5,11 @@ class TimerInterfaceController: WKInterfaceController {
 
   @IBOutlet weak var minutesGroup: WKInterfaceGroup!
   @IBOutlet weak var secondsGroup: WKInterfaceGroup!
+
+
+  @IBOutlet weak var minutesTextLabel: WKInterfaceLabel!
+  @IBOutlet weak var hoursTextLabel: WKInterfaceLabel!
   @IBOutlet weak var minutesLabel: WKInterfaceLabel!
-  @IBOutlet weak var textLabel: WKInterfaceLabel!
 
   var alarmTimer: AlarmTimer?
   var index = 0
@@ -45,32 +48,32 @@ class TimerInterfaceController: WKInterfaceController {
   // MARK: - UI
 
   func updatePlate(alarm: Alarm) {
-    var text = ""
+    var minutesText = ""
+    var hoursText = ""
 
     if alarm.active {
+      minutesText = "\(alarm.minutes)"
+
       if alarm.hours > 0 {
-        if alarm.minutes < 10 {
-          text = "\(alarm.hours):0\(alarm.minutes)"
-        } else {
-          text = "\(alarm.hours):\(alarm.minutes)"
-        }
-      } else {
-        text = "\(alarm.minutes)"
+        hoursText = "\(alarm.hours) " + NSLocalizedString("hour", comment: "")
       }
 
-      minutesGroup.setBackgroundImageNamed(ImageList.Plate.minuteSequence)
+      minutesGroup.setBackgroundImageNamed(alarm.hours > 0
+        ? ImageList.Timer.minuteHourSequence
+        : ImageList.Timer.minuteSequence)
       minutesGroup.startAnimatingWithImagesInRange(
         NSRange(location: alarm.minutes, length: 1),
         duration: 0, repeatCount: 1)
 
-      secondsGroup.setBackgroundImageNamed(ImageList.Plate.secondSequence)
+      secondsGroup.setBackgroundImageNamed(ImageList.Timer.secondSequence)
       secondsGroup.startAnimatingWithImagesInRange(
         NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)
     }
 
-    minutesLabel.setText(text)
-    textLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
+    minutesLabel.setText(minutesText)
+    minutesTextLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
+    hoursTextLabel.setText(hoursText.uppercaseString)
   }
 
   // MARK: - Alarms
