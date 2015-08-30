@@ -1,6 +1,6 @@
 import UIKit
 
-class HomeViewController: ViewController {
+class HomeViewController: ViewController, ContentSizeChangable {
 
   let plateCellIdentifier = "HYPPlateCellIdentifier"
 
@@ -118,7 +118,6 @@ class HomeViewController: ViewController {
     let width = self.deviceWidth - 2 * sideMargin
     let height = CGRectGetHeight(self.titleLabel.frame)
     var topMargin = CGRectGetMaxY(self.titleLabel.frame)
-    var font: UIFont
 
     if Screen.isPad { topMargin += 10 }
 
@@ -324,6 +323,11 @@ class HomeViewController: ViewController {
       name: UIApplicationDidBecomeActiveNotification,
       object: nil)
 
+    NSNotificationCenter.defaultCenter().addObserver(self,
+      selector: "contentSizeCategoryDidChange:",
+      name: UIContentSizeCategoryDidChangeNotification,
+      object: nil)
+
     self.setNeedsStatusBarAppearanceUpdate()
   }
 
@@ -344,6 +348,11 @@ class HomeViewController: ViewController {
 
   override func prefersStatusBarHidden() -> Bool {
     return false
+  }
+
+  func contentSizeCategoryDidChange(notification: NSNotification) {
+    titleLabel.font = Font.HomeViewController.title
+    subtitleLabel.font = Font.HomeViewController.subtitle
   }
 
   func appWasShaked(notification: NSNotification) {

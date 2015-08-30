@@ -1,5 +1,9 @@
 import UIKit
 
+protocol ContentSizeChangable {
+  func contentSizeCategoryDidChange(notification: NSNotification);
+}
+
 class ViewController: UIViewController {
 
   lazy var gradientLayer: CAGradientLayer = {

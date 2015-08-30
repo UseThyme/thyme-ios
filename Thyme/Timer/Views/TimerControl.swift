@@ -1,7 +1,7 @@
 import Foundation
 import AVFoundation
 
-public class TimerControl: UIControl {
+public class TimerControl: UIControl, ContentSizeChangable {
 
   let CircleSizeFactor: CGFloat = 0.8
 
@@ -204,6 +204,11 @@ public class TimerControl: UIControl {
       forKeyPath: "text",
       options: .New,
       context: nil)
+
+    NSNotificationCenter.defaultCenter().addObserver(self,
+      selector: "contentSizeCategoryDidChange:",
+      name: UIContentSizeCategoryDidChangeNotification,
+      object: nil)
   }
 
   required public init(coder aDecoder: NSCoder) {
@@ -212,6 +217,7 @@ public class TimerControl: UIControl {
 
   deinit {
     minutesValueLabel.removeObserver(self, forKeyPath: "text")
+    NSNotificationCenter.defaultCenter().removeObserver(self)
     stopTimer()
   }
 
@@ -531,5 +537,21 @@ public class TimerControl: UIControl {
     }
 
     lastPoint = CGPointZero
+  }
+
+  func contentSizeCategoryDidChange(notification: NSNotification) {
+    let defaultTitleSize = completedMode == true
+      ? minuteTitleSize
+      : minuteTitleSize * 1.5
+    let defaultValueSize = self.completedMode == true
+      ? self.minuteValueSize
+      : self.minuteValueSize * 0.9
+    let fontSize = floor(defaultTitleSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
+    let fontValueSize = floor(defaultValueSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
+
+    hoursLabel.font = Font.TimerControl.hoursLabel(fontSize)
+    minutesTitleLabel.font = Font.TimerControl.minutesTitleLabel(fontSize)
+    minutesValueLabel.font = Font.TimerControl.minutesValueLabel(fontValueSize)
+    setNeedsDisplay()
   }
 }
