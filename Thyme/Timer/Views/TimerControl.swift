@@ -552,5 +552,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
     hoursLabel.font = Font.TimerControl.hoursLabel(fontSize)
     minutesTitleLabel.font = Font.TimerControl.minutesTitleLabel(fontSize)
     minutesValueLabel.font = Font.TimerControl.minutesValueLabel(fontValueSize)
+    setNeedsDisplay()
   }
 }
