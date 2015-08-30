@@ -3,17 +3,16 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "3minutesButton.png"
+      "filename" : "menuCancelAllButton.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "3minutesButton@2x.png"
+      "filename" : "menuCancelAllButton@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "3minutesButton@3x.png"
+      "scale" : "3x"
     }
   ],
   "info" : {

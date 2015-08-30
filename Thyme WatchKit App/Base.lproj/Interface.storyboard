@@ -111,7 +111,7 @@
                     </items>
                     <menu key="menu" id="Hqe-xL-t4v">
                         <items>
-                            <menuItem title="Cancel All Timers" image="cancelAllButton" id="zY3-r9-rwm">
+                            <menuItem title="Cancel All Timers" image="menuCancelAllButton" id="zY3-r9-rwm">
                                 <connections>
                                     <action selector="cancelAllButtonDidTap" destination="AgC-eL-Hgc" id="fZZ-3j-cZe"/>
                                 </connections>

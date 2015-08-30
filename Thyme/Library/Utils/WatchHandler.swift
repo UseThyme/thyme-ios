@@ -11,7 +11,7 @@ struct WatchHandler {
       if let userInfo = userInfo, index = userInfo["index"] as? Int {
         data["alarm"] = getAlarmData(index)
       }
-    } else if request == "cancelAlarm" {
+    } else if request == "cancelAlarms" {
       LocalNotificationManager.cancelAllLocalNotifications()
       data = ["alarms": getAlarmsData()]
     }

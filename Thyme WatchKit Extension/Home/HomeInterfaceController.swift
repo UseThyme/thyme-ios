@@ -89,6 +89,8 @@ class HomeInterfaceController: WKInterfaceController {
   }
 
   func cancelAllTimers() {
+    alarmTimer?.stop()
+    
     WKInterfaceController.openParentApplication(["request": "cancelAlarms"]) {
       [unowned self] response, error in
       if let response = response,
