@@ -548,6 +548,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
       : self.minuteValueSize * 0.9
     let fontSize = floor(defaultTitleSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
     let fontValueSize = floor(defaultValueSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
+
     hoursLabel.font = Font.TimerControl.hoursLabel(fontSize)
     minutesTitleLabel.font = Font.TimerControl.minutesTitleLabel(fontSize)
     minutesValueLabel.font = Font.TimerControl.minutesValueLabel(fontValueSize)
