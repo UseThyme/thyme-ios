@@ -2,6 +2,10 @@ import Foundation
 
 struct WatchHandler {
 
+  struct Notifications {
+    static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
+  }
+
   static func response(request: String, _ userInfo: [NSObject : AnyObject]?) -> [NSObject : AnyObject] {
     var data = [NSObject : AnyObject]()
 
@@ -44,6 +48,8 @@ struct WatchHandler {
           message: title,
           title: NSLocalizedString("View Details", comment: "View Details"),
           alarmID: alarm.alarmID!)
+
+        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.AlarmsDidUpdate, object: notification)
 
         data["alarm"] = extractAlarmData(notification)
       }

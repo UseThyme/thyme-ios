@@ -156,7 +156,7 @@ class TimerViewController: ViewController {
   }
 
   required init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+    fatalError("init(coder:) has not been implemented")
   }
 
   override func viewDidLoad() {
@@ -173,9 +173,15 @@ class TimerViewController: ViewController {
     timerControl.alarm = alarm
     timerControl.alarmID = alarm.alarmID
     refreshTimerForCurrentAlarm()
+
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "kitchenButtonPressed:",
       name: UIApplicationDidBecomeActiveNotification,
+      object: nil)
+
+    NSNotificationCenter.defaultCenter().addObserver(self,
+      selector: "alarmsDidUpdate:",
+      name: WatchHandler.Notifications.AlarmsDidUpdate,
       object: nil)
   }
 
@@ -255,11 +261,15 @@ class TimerViewController: ViewController {
   }
 
   func refreshTimerForCurrentAlarm() {
-    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(self.alarm.alarmID!),
-      userinfo = existingNotification.userInfo,
+    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(self.alarm.alarmID!) {
+      refreshTimerForNotification(existingNotification)
+    }
+  }
+
+  func refreshTimerForNotification(notification: UILocalNotification) {
+    if let userinfo = notification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
-      numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber
-    {
+      numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber {
       let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
       let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
       let currentSecond = secondsLeft % 60
@@ -286,5 +296,12 @@ class TimerViewController: ViewController {
     }
     self.dismissViewControllerAnimated(true, completion: nil)
     timerControl.touchesAreActive = false
+  }
+
+  func alarmsDidUpdate(notification: NSNotification) {
+    if let localNotification = notification.object as? UILocalNotification where notification.name == WatchHandler.Notifications.AlarmsDidUpdate {
+      timerControl.stopTimer()
+      refreshTimerForNotification(localNotification)
+    }
   }
 }

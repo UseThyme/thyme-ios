@@ -298,12 +298,21 @@ class HomeViewController: ViewController {
     return settingsController
     }()
 
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "appWasShaked:",
       name: "appWasShaked",
+      object: nil)
+
+    NSNotificationCenter.defaultCenter().addObserver(self,
+      selector: "alarmsDidUpdate:",
+      name: WatchHandler.Notifications.AlarmsDidUpdate,
       object: nil)
 
     collectionView.registerClass(PlateCell.classForCoder(),
@@ -354,6 +363,14 @@ class HomeViewController: ViewController {
         cancelButtonTitle: NSLocalizedString("No", comment: ""),
         otherButtonTitles: NSLocalizedString("Ok", comment: "")).show()
       deleteTimersMessageIsBeingDisplayed = true
+    }
+  }
+
+  func alarmsDidUpdate(notification: NSNotification) {
+    if notification.name == WatchHandler.Notifications.AlarmsDidUpdate {
+      maxMinutesLeft = nil
+      collectionView.reloadData()
+      ovenCollectionView.reloadData()
     }
   }
 
