@@ -70,10 +70,26 @@ class HomeInterfaceController: WKInterfaceController {
     presentController(4, title: NSLocalizedString("Oven", comment: ""))
   }
 
-  // MARK: - Data
+  @IBAction func cancelAllButtonDidTap() {
+    cancelAllTimers()
+  }
+
+  // MARK: - Communication
 
   func loadData() {
     WKInterfaceController.openParentApplication(["request": "getAlarms"]) {
+      [unowned self] response, error in
+      if let response = response,
+        alarmData = response["alarms"] as? [AnyObject] {
+          self.setupAlarms(alarmData)
+      } else {
+        println("Error with fetching of alarms from the parent app")
+      }
+    }
+  }
+
+  func cancelAllTimers() {
+    WKInterfaceController.openParentApplication(["request": "cancelAlarms"]) {
       [unowned self] response, error in
       if let response = response,
         alarmData = response["alarms"] as? [AnyObject] {

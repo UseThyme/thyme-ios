@@ -109,6 +109,15 @@
                             </items>
                         </group>
                     </items>
+                    <menu key="menu" id="Hqe-xL-t4v">
+                        <items>
+                            <menuItem title="Cancel All Timers" image="cancelAllButton" id="zY3-r9-rwm">
+                                <connections>
+                                    <action selector="cancelAllButtonDidTap" destination="AgC-eL-Hgc" id="fZZ-3j-cZe"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="bottomLeftButton" destination="Dcs-qa-nqf" id="TDh-bR-4pu"/>
                         <outlet property="bottomLeftMinutesGroup" destination="VPm-2m-QFF" id="FwD-cC-gus"/>
