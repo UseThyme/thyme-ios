@@ -2,7 +2,7 @@ import Foundation
 
 @objc public class LocalNotificationManager {
 
-  static func createNotification(seconds: NSTimeInterval, message: String, title: String?, alarmID: String) {
+  static func createNotification(seconds: NSTimeInterval, message: String, title: String?, alarmID: String) -> UILocalNotification {
     let fireDate = NSDate().dateByAddingTimeInterval(seconds)
 
     var userInfo = [NSObject : AnyObject]()
@@ -20,6 +20,8 @@ import Foundation
     notification.userInfo = userInfo
 
     UIApplication.sharedApplication().scheduleLocalNotification(notification)
+
+    return notification
   }
 
   static func existingNotificationWithAlarmID(alarmID: String) -> UILocalNotification? {
