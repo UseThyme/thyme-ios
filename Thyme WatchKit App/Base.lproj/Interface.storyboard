@@ -23,7 +23,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
                                                             <connections>
-                                                                <action selector="plate1ButtonDidTap" destination="AgC-eL-Hgc" id="dnY-VB-JcK"/>
+                                                                <action selector="topLeftButtonDidTap" destination="AgC-eL-Hgc" id="LX3-Ad-lTE"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -39,7 +39,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
                                                             <connections>
-                                                                <action selector="plate2ButtonDidTap" destination="AgC-eL-Hgc" id="bzf-p1-ZAt"/>
+                                                                <action selector="topRightButtonDidTap" destination="AgC-eL-Hgc" id="e2C-62-skq"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -60,7 +60,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
                                                             <connections>
-                                                                <action selector="plate3ButtonDidTap" destination="AgC-eL-Hgc" id="1jI-t1-8pO"/>
+                                                                <action selector="bottomLeftButtonDidTap" destination="AgC-eL-Hgc" id="fqy-x6-EAd"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -76,7 +76,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
                                                             <connections>
-                                                                <action selector="plate4ButtonDidTap" destination="AgC-eL-Hgc" id="hiN-2d-97j"/>
+                                                                <action selector="bottomRightButtonDidTap" destination="AgC-eL-Hgc" id="Dwf-Me-oNt"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -97,7 +97,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="font" type="system" pointSize="30"/>
                                                             <connections>
-                                                                <action selector="plate5ButtonDidTap" destination="AgC-eL-Hgc" id="cMv-54-chx"/>
+                                                                <action selector="ovenButtonDidTap" destination="AgC-eL-Hgc" id="esQ-tk-arM"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -110,21 +110,21 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="bottomLeftButton" destination="Dcs-qa-nqf" id="TDh-bR-4pu"/>
+                        <outlet property="bottomLeftMinutesGroup" destination="VPm-2m-QFF" id="FwD-cC-gus"/>
+                        <outlet property="bottomLeftSecondsGroup" destination="FSB-D2-dot" id="sYt-YZ-YVf"/>
+                        <outlet property="bottomRightButton" destination="BD9-Xf-aqT" id="Ia3-Hw-jud"/>
+                        <outlet property="bottomRightMinutesGroup" destination="bwr-Da-ckz" id="RbV-X2-zor"/>
+                        <outlet property="bottomRightSecondsGroup" destination="c8n-o3-u61" id="Efp-vf-7Ce"/>
                         <outlet property="ovenButton" destination="b2v-j6-f75" id="Hnp-fl-0yW"/>
                         <outlet property="ovenMinutesGroup" destination="5rp-hX-mb1" id="6Ig-DR-9Nb"/>
                         <outlet property="ovenSecondsGroup" destination="DDL-t2-Df7" id="GUY-Re-8aQ"/>
-                        <outlet property="plate1Button" destination="EdL-CP-mi3" id="5C9-nX-hyZ"/>
-                        <outlet property="plate1MinutesGroup" destination="ZHh-fz-8ix" id="by3-bd-91L"/>
-                        <outlet property="plate1SecondsGroup" destination="OCB-gc-2ju" id="IGv-eY-SMc"/>
-                        <outlet property="plate2Button" destination="Ryb-YQ-Ip2" id="Fxj-Xq-IBH"/>
-                        <outlet property="plate2MinutesGroup" destination="eQu-bp-ges" id="bfq-vr-ePV"/>
-                        <outlet property="plate2SecondsGroup" destination="YvT-fo-P3F" id="K89-WL-IzY"/>
-                        <outlet property="plate3Button" destination="Dcs-qa-nqf" id="sq5-OL-Qd8"/>
-                        <outlet property="plate3MinutesGroup" destination="VPm-2m-QFF" id="mLd-Ec-vT1"/>
-                        <outlet property="plate3SecondsGroup" destination="FSB-D2-dot" id="zYA-dp-Rwc"/>
-                        <outlet property="plate4Button" destination="BD9-Xf-aqT" id="dGP-X3-0bS"/>
-                        <outlet property="plate4MinutesGroup" destination="bwr-Da-ckz" id="ZCL-o6-5lN"/>
-                        <outlet property="plate4SecondsGroup" destination="c8n-o3-u61" id="RLU-tm-aRa"/>
+                        <outlet property="topLeftButton" destination="EdL-CP-mi3" id="mKP-wp-S33"/>
+                        <outlet property="topLeftMinutesGroup" destination="ZHh-fz-8ix" id="peU-Bn-C8T"/>
+                        <outlet property="topLeftSecondsGroup" destination="OCB-gc-2ju" id="AR2-6t-7wZ"/>
+                        <outlet property="topRightButton" destination="Ryb-YQ-Ip2" id="9L2-FH-XgY"/>
+                        <outlet property="topRightMinutesGroup" destination="eQu-bp-ges" id="lit-2e-2OF"/>
+                        <outlet property="topRightSecondsGroup" destination="YvT-fo-P3F" id="D7N-mW-Wzt"/>
                     </connections>
                 </controller>
             </objects>
@@ -139,11 +139,15 @@
                             <items>
                                 <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="EOe-jn-aLf" userLabel="Seconds">
                                     <items>
-                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="yyE-gq-tIP">
+                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="t4s-q4-Jm5" userLabel="HoursText">
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="font" type="system" weight="semibold" pointSize="13"/>
+                                        </label>
+                                        <label width="1" height="40" alignment="left" verticalAlignment="center" textAlignment="center" id="yyE-gq-tIP" userLabel="Minutes">
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="font" type="system" weight="light" pointSize="47"/>
                                         </label>
-                                        <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" id="jue-ld-zB4">
+                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="jue-ld-zB4" userLabel="MinutesText">
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="font" type="system" pointSize="13"/>
                                         </label>
@@ -153,10 +157,11 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="hoursTextLabel" destination="t4s-q4-Jm5" id="dNU-Er-tng"/>
                         <outlet property="minutesGroup" destination="DYZ-Sz-4Ba" id="XQY-h1-qPd"/>
-                        <outlet property="minutesLabel" destination="yyE-gq-tIP" id="gld-CO-3md"/>
+                        <outlet property="minutesLabel" destination="yyE-gq-tIP" id="gLx-tT-eWc"/>
+                        <outlet property="minutesTextLabel" destination="jue-ld-zB4" id="G4g-N3-Yzz"/>
                         <outlet property="secondsGroup" destination="EOe-jn-aLf" id="Akf-cW-Efy"/>
-                        <outlet property="textLabel" destination="jue-ld-zB4" id="mqg-vz-dUx"/>
                     </connections>
                 </controller>
             </objects>
