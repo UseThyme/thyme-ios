@@ -137,17 +137,17 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
 + (CGFloat)curvedTextBottomMargin
 {
   CGRect bounds = [[UIScreen mainScreen] bounds];
-  CGFloat deviceHeight = bounds.size.height;
+  CGFloat screenHeight = bounds.size.height;
   CGFloat offset;
 
   if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
     offset = 210.0f;
   } else {
-    if (deviceHeight == 480.0f) {
+    if (screenHeight == 480.0f) {
       offset = 140.0f;
-    } else if (deviceHeight == 568.0f) {
+    } else if (screenHeight == 568.0f) {
       offset = 140.0f;
-    } else if (deviceHeight == 667.0f) {
+    } else if (screenHeight == 667.0f) {
       offset = 163.0f;
     } else {
       offset = 182.0f;

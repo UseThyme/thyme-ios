@@ -41,11 +41,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
     if Screen.isPad {
       margin  = 70
     } else {
-      if self.deviceHeight == 480 {
+      if Screen.height == 480 {
         margin = 10
-      } else if self.deviceHeight == 568 {
+      } else if Screen.height == 568 {
         margin = 50
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         margin = 68
       } else {
         margin = 75
@@ -63,14 +63,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
   lazy var ovenFactor: CGFloat = {
     let factor: CGFloat = Screen.isPad ? 0.29 : 0.25
     return factor
-    }()
-
-  lazy var deviceHeight: CGFloat = {
-    return UIScreen.mainScreen().bounds.height
-    }()
-
-  lazy var deviceWidth: CGFloat = {
-    return CGRectGetWidth(UIScreen.mainScreen().bounds)
     }()
 
   lazy var alarms: [[Alarm]] = {
@@ -96,16 +88,16 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   lazy var titleLabel: UILabel = {
     let sideMargin: CGFloat = 20
-    let width = self.deviceWidth - 2 * sideMargin
+    let width = Screen.width - 2 * sideMargin
     let height: CGFloat = 25
     var topMargin: CGFloat = 0
 
     if Screen.isPad {
       topMargin  = 115
     } else {
-      if self.deviceHeight == 480 || self.deviceHeight == 568 {
+      if Screen.height == 480 || Screen.height == 568 {
         topMargin = 60
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         topMargin = 74
       } else {
         topMargin = 82
@@ -125,7 +117,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   lazy var subtitleLabel: UILabel = {
     let sideMargin: CGFloat = 20
-    let width = self.deviceWidth - 2 * sideMargin
+    let width = Screen.width - 2 * sideMargin
     let height = CGRectGetHeight(self.titleLabel.frame)
     var topMargin = CGRectGetMaxY(self.titleLabel.frame)
 
@@ -151,10 +143,10 @@ class HomeViewController: ViewController, ContentSizeChangable {
       cellWidth = 175
       sideMargin = 200
     } else {
-      if self.deviceHeight == 480 || self.deviceHeight == 568 {
+      if Screen.height == 480 || Screen.height == 568 {
         cellWidth = 100
         sideMargin = 50
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         cellWidth = 113
         sideMargin = 65
       } else {
@@ -166,7 +158,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     layout.itemSize = CGSizeMake(cellWidth + 10, cellWidth)
     layout.scrollDirection = .Horizontal
 
-    let width: CGFloat = self.deviceWidth - 2 * sideMargin
+    let width: CGFloat = Screen.width - 2 * sideMargin
     let collectionViewWidth = CGRectMake(sideMargin, self.topMargin, width, width)
 
     let collectionView = UICollectionView(frame: collectionViewWidth,
@@ -191,11 +183,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
       sideMargin = 200
       topMargin += 475
     } else {
-      if self.deviceHeight == 480 || self.deviceHeight == 568 {
+      if Screen.height == 480 || Screen.height == 568 {
         cellWidth = 120
         sideMargin = 100
         topMargin += 260
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         cellWidth = 133
         sideMargin = 120
         topMargin += 300
@@ -209,7 +201,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     layout.itemSize = CGSizeMake(cellWidth, cellWidth)
     layout.scrollDirection = .Horizontal
 
-    let width: CGFloat = self.deviceWidth - 2 * sideMargin
+    let width: CGFloat = Screen.width - 2 * sideMargin
     let collectionViewWidth = CGRectMake(sideMargin, topMargin, width, width)
 
     let collectionView = UICollectionView(frame: collectionViewWidth,
@@ -231,20 +223,20 @@ class HomeViewController: ViewController, ContentSizeChangable {
     let image = UIImage(named: imageName)
 
     var topMargin: CGFloat = image!.size.height
-    var x: CGFloat = self.deviceWidth / 2 - image!.size.width / 2;
+    var x: CGFloat = Screen.width / 2 - image!.size.width / 2;
     var width: CGFloat = image!.size.width
     var height: CGFloat = image!.size.height
 
     if Screen.isPad {
       topMargin += 175
     } else {
-      if self.deviceHeight == 480 {
+      if Screen.height == 480 {
         topMargin += 40
-      }  else if self.deviceHeight == 568 {
+      }  else if Screen.height == 568 {
         topMargin += 90
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         topMargin += 118
-      } else if self.deviceHeight == 763 {
+      } else if Screen.height == 763 {
         height = 173
         topMargin += 128
         width = 304
@@ -252,7 +244,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
       }
     }
 
-    let y = self.deviceHeight - topMargin
+    let y = Screen.height - topMargin
     imageView = UIImageView(frame: CGRectMake(x, y, width, height))
     imageView.image = image
 
@@ -276,7 +268,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     let button = UIButton.buttonWithType(.InfoLight) as! UIButton
     button.addTarget(self, action: "settingsButtonAction", forControlEvents: .TouchUpInside)
 
-    let y: CGFloat = self.deviceHeight - 44 - 15
+    let y: CGFloat = Screen.height - 44 - 15
     let x: CGFloat = 5
 
     button.frame = CGRectMake(x,y,44,44)

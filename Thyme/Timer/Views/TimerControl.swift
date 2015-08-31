@@ -32,10 +32,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
     return player
   }()
 
-  lazy var deviceHeight: CGFloat = {
-    return UIScreen.mainScreen().bounds.height
-    }()
-
   var angle: Int = 0 {
     willSet(value) {
       let minute = value/6
