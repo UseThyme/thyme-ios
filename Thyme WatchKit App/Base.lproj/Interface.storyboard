@@ -202,19 +202,56 @@
                     <items>
                         <group alignment="left" id="t8f-Gd-c4y">
                             <items>
-                                <label alignment="left" text="Thyme" id="IpY-Sq-dGX">
-                                    <fontDescription key="font" style="UICTFontTextStyleBody"/>
-                                </label>
+                                <imageView width="40" height="40" alignment="left" image="iconThyme" id="XLD-or-pM8"/>
                             </items>
+                            <edgeInsets key="margins" left="3" right="0.0" top="4" bottom="0.0"/>
                         </group>
                         <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
                             <items>
-                                <group width="70" height="70" alignment="center" id="gpy-ZL-ouF"/>
-                                <button width="1" height="28" alignment="left" title="Button" id="iqE-rz-pVb"/>
+                                <group width="1" height="1" alignment="left" layout="vertical" spacing="1" id="rXR-HK-PDc" userLabel="ActiveGroup">
+                                    <items>
+                                        <label alignment="left" text="fd" id="WHt-a5-km0" userLabel="titleLabel">
+                                            <fontDescription key="font" type="system" weight="medium" pointSize="11"/>
+                                        </label>
+                                        <label alignment="left" text="1 Hour 10 Minutes" id="bwE-Pf-LAF" userLabel="timeLabel">
+                                            <color key="textColor" red="1" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" type="system" pointSize="25"/>
+                                        </label>
+                                        <label alignment="left" text="Yum! That smells amazing!" numberOfLines="2" id="xba-B4-3Ct">
+                                            <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" type="system" weight="medium" pointSize="15"/>
+                                        </label>
+                                    </items>
+                                    <edgeInsets key="margins" left="3" right="0.0" top="0.0" bottom="0.0"/>
+                                </group>
+                                <group width="1" height="1" alignment="left" layout="vertical" id="x4z-Zx-obq" userLabel="InactiveGroup">
+                                    <items>
+                                        <group width="70" height="70" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie">
+                                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                        </group>
+                                        <group width="1" height="28" alignment="left" radius="7" id="fcR-CC-Qk7" userLabel="StartCooking">
+                                            <items>
+                                                <label alignment="center" verticalAlignment="center" alpha="0.69999999999999973" id="5nm-g6-tDd">
+                                                    <fontDescription key="font" type="system" pointSize="16"/>
+                                                </label>
+                                            </items>
+                                            <color key="backgroundColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
+                                        </group>
+                                    </items>
+                                </group>
                             </items>
                         </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
+                    <connections>
+                        <outlet property="activeGroup" destination="rXR-HK-PDc" id="Olm-wo-pFb"/>
+                        <outlet property="happyHerbie" destination="gpy-ZL-ouF" id="Isi-Uz-Hrg"/>
+                        <outlet property="inactiveGroup" destination="x4z-Zx-obq" id="Ppt-UT-bNv"/>
+                        <outlet property="infoLabel" destination="xba-B4-3Ct" id="JVJ-TO-UDG"/>
+                        <outlet property="startLabel" destination="5nm-g6-tDd" id="pxG-zV-9UM"/>
+                        <outlet property="timeLabel" destination="bwE-Pf-LAF" id="eal-Nm-GA1"/>
+                        <outlet property="titleLabel" destination="WHt-a5-km0" id="cRP-PJ-0KM"/>
+                    </connections>
                 </glanceController>
             </objects>
             <point key="canvasLocation" x="235" y="672"/>
