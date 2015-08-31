@@ -208,16 +208,16 @@
                         </group>
                         <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
                             <items>
-                                <group width="1" height="1" alignment="left" layout="vertical" spacing="1" id="rXR-HK-PDc" userLabel="ActiveGroup">
+                                <group width="1" height="1" alignment="left" hidden="YES" layout="vertical" spacing="1" id="rXR-HK-PDc" userLabel="ActiveGroup">
                                     <items>
-                                        <label alignment="left" text="fd" id="WHt-a5-km0" userLabel="titleLabel">
+                                        <label alignment="left" id="WHt-a5-km0" userLabel="titleLabel">
                                             <fontDescription key="font" type="system" weight="medium" pointSize="11"/>
                                         </label>
-                                        <label alignment="left" text="1 Hour 10 Minutes" id="bwE-Pf-LAF" userLabel="timeLabel">
+                                        <label alignment="left" id="bwE-Pf-LAF" userLabel="timeLabel">
                                             <color key="textColor" red="1" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" pointSize="25"/>
                                         </label>
-                                        <label alignment="left" text="Yum! That smells amazing!" numberOfLines="2" id="xba-B4-3Ct">
+                                        <label alignment="left" numberOfLines="2" id="xba-B4-3Ct">
                                             <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" weight="medium" pointSize="15"/>
                                         </label>
