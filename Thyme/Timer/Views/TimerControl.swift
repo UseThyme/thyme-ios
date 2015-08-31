@@ -30,7 +30,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let player = AVAudioPlayer(contentsOfURL: url, error: nil)
 
     return player
-  }()
+    }()
 
   var angle: Int = 0 {
     willSet(value) {
@@ -87,11 +87,11 @@ public class TimerControl: UIControl, ContentSizeChangable {
     return Screen.isPad ? 35 : 14
     }()
 
-  lazy var hoursLabel: UILabel = {
+  lazy var hoursLabel: UILabel = { [unowned self] in
     let bounds = UIScreen.mainScreen().bounds
     let defaultSize = self.completedMode == true
-    ? self.minuteTitleSize
-    : self.minuteTitleSize * 1.5
+      ? self.minuteTitleSize
+      : self.minuteTitleSize * 1.5
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
     let font = Font.TimerControl.hoursLabel(fontSize)
@@ -126,8 +126,8 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
 
     var yOffset: CGFloat = self.completedMode
-    ? 20 * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)
-    : 0
+      ? 20 * CGRectGetWidth(self.frame) / CGRectGetWidth(bounds)
+      : 0
 
     let x: CGFloat = 0
     let y: CGFloat = (self.frame.size.height - textSize.height) / 2 - yOffset
@@ -142,7 +142,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     return label
     }()
 
-  lazy var minutesTitleLabel: UILabel = {
+  lazy var minutesTitleLabel: UILabel = { [unowned self] in
     let bounds = UIScreen.mainScreen().bounds
     let defaultSize = self.completedMode == true
       ? self.minuteTitleSize
@@ -171,23 +171,23 @@ public class TimerControl: UIControl, ContentSizeChangable {
     return label
     }()
 
-  lazy var firstQuadrandRect: CGRect = {
+  lazy var firstQuadrandRect: CGRect = { [unowned self] in
     let topMargin = CGRectGetMinX(self.frame)
     let rect = CGRectMake(CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0,
       0 - topMargin,
       CGRectGetMaxX(self.circleRect),
       CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0 + topMargin)
     return rect
-  }()
+    }()
 
-  lazy var secondQuadrandRect: CGRect = {
+  lazy var secondQuadrandRect: CGRect = { [unowned self] in
     let topMargin = CGRectGetMinX(self.frame)
     let rect = CGRectMake(0.0,
       0.0 - topMargin,
       CGRectGetMinX(self.circleRect) + CGRectGetWidth(self.circleRect) / 2.0,
       CGRectGetMinY(self.circleRect) + CGRectGetHeight(self.circleRect) / 2.0 + topMargin)
     return rect
-  }()
+    }()
 
   init(frame: CGRect, completedMode: Bool) {
     self.completedMode = completedMode
@@ -197,8 +197,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     addSubview(minutesValueLabel)
 
     if completedMode {
-      addSubview(minutesTitleLabel)
-      addSubview(hoursLabel)
+      [minutesTitleLabel, hoursLabel].map { self.addSubview($0) }
     }
 
     minutesValueLabel.addObserver(self,
@@ -213,7 +212,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
   }
 
   required public init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+    fatalError("init(coder:) has not been implemented")
   }
 
   deinit {
@@ -293,7 +292,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
   func attributedString() -> NSAttributedString {
     let font: UIFont = Font.TimerControl.arcText
     let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor()]
-    let string = NSAttributedString(string: self.title, attributes: attributes)
+    let string = NSAttributedString(string: title, attributes: attributes)
 
     return string
   }
@@ -345,7 +344,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
     if currentPointIsInFirstQuadrand == true &&
       lastPointIsZero == false &&
-      lastPointWasInFirstQuadrand == true{
+      lastPointWasInFirstQuadrand == true {
         return true
     }
 
@@ -388,9 +387,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
   func startAlarm() {
     let numberOfSeconds = angle / 6 * 60 + hours * 3600
     handleNotificationWithNumberOfSeconds(NSTimeInterval(numberOfSeconds))
-    if alarm != nil {
-      title = alarm!.timerTitle
-    }
+    if alarm != nil { title = alarm!.timerTitle }
     setNeedsDisplay()
   }
 
@@ -439,9 +436,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
       stopTimer()
     }
 
-    if minutes == -1 {
-      restartTimer()
-    }
+    if minutes == -1 { restartTimer() }
 
     setNeedsDisplay()
   }
@@ -483,8 +478,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
       comment: "\(alarm!.title) just finished")
     LocalNotificationManager.createNotification(numberOfSeconds,
       message: title,
-      title: NSLocalizedString("View Details",
-        comment: "View Details"),
+      title: NSLocalizedString("View Details", comment: "View Details"),
       alarmID: alarmID!)
   }
 
@@ -534,7 +528,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
         setNeedsDisplay()
     } else {
       // add delay
-      self.startAlarm()
+      startAlarm()
     }
 
     lastPoint = CGPointZero
@@ -547,8 +541,8 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let defaultValueSize = self.completedMode == true
       ? self.minuteValueSize
       : self.minuteValueSize * 0.9
-    let fontSize = floor(defaultTitleSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
-    let fontValueSize = floor(defaultValueSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
+    let fontSize = floor(defaultTitleSize * CGRectGetWidth(frame)) / CGRectGetWidth(bounds)
+    let fontValueSize = floor(defaultValueSize * CGRectGetWidth(frame)) / CGRectGetWidth(bounds)
 
     hoursLabel.font = Font.TimerControl.hoursLabel(fontSize)
     minutesTitleLabel.font = Font.TimerControl.minutesTitleLabel(fontSize)

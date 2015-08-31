@@ -44,7 +44,7 @@ class TimerViewController: ViewController {
     }
 
     let width = Screen.width - 2 * sideMargin
-    let frame = CGRectMake(sideMargin, topMargin, width, width)
+    let frame = CGRect(x: sideMargin, y: topMargin, width: width, height: width)
     let timerControl = TimerControl(frame: frame, completedMode: true)
 
     timerControl.active = true
@@ -60,30 +60,19 @@ class TimerViewController: ViewController {
     let width: CGFloat = image.size.width
     let height: CGFloat = image.size.height
 
-    var xOffset: CGFloat = 0
-    var yOffset: CGFloat = 0
+    var xOffset: CGFloat = 61
+    var yOffset: CGFloat = 18
 
-    if Screen.isPad {
-      xOffset = 61
-      yOffset = 18
-    } else {
-      if Screen.height == 480 {
-        xOffset = 61
-        yOffset = 18
-      } else if Screen.height == 568 {
-        xOffset = 61
-        yOffset = 18
-      } else if Screen.height == 667 {
-        xOffset = 70
-        yOffset = 35
-      } else if Screen.height == 763 {
-        xOffset = 80
-        yOffset = 45
-      }
+    if Screen.height == 667 {
+      xOffset = 70
+      yOffset = 35
+    } else if Screen.height == 763 {
+      xOffset = 80
+      yOffset = 45
     }
 
-    self.startRect = CGRectMake(x,y,width,height)
-    self.finalRect = CGRectMake(x + xOffset, y + yOffset, width, height)
+    self.startRect = CGRect(x: x, y: y, width: width, height: height)
+    self.finalRect = CGRect(x: x + xOffset, y: y + yOffset, width: width, height: height)
 
     let imageView = UIImageView(image: image)
     imageView.frame = self.startRect
@@ -100,52 +89,43 @@ class TimerViewController: ViewController {
     let image = UIImage(named: imageName)!
 
     var topMargin: CGFloat = image.size.height
-    var x: CGFloat = Screen.width / 2 - image.size.width / 2;
-    var y: CGFloat = Screen.width / 2 - image.size.width / 2;
+    var x: CGFloat = Screen.width / 2 - image.size.width / 2
+    var y: CGFloat = Screen.width / 2 - image.size.width / 2
     var width: CGFloat = image.size.width
     var height: CGFloat = image.size.height
 
     if Screen.isPad {
       topMargin = 330
-      x = Screen.width / 2 - image.size.width / 2;
-      y = Screen.height - topMargin;
-      width = image.size.width;
-      height = image.size.height;
+      y = Screen.height - topMargin
     } else {
       if Screen.height == 480 {
         topMargin = 110
-        x = Screen.width / 2 - image.size.width / 2;
-        y = Screen.height - topMargin;
-        width = image.size.width;
-        height = image.size.height;
+        y = Screen.height - topMargin
       }  else if Screen.height == 568 {
         topMargin = 140
-        x = Screen.width / 2 - image.size.width / 2;
-        y = Screen.height - topMargin;
-        width = image.size.width;
-        height = image.size.height;
+        y = Screen.height - topMargin
       } else if Screen.height == 667 {
         topMargin = 164
         x = 150
-        y = Screen.height - topMargin;
+        y = Screen.height - topMargin
         width = 75
         height = 75
       } else if Screen.height == 763 {
         topMargin = 181
         x = 166
-        y = Screen.height - topMargin;
+        y = Screen.height - topMargin
         width = 83
         height = 83
       }
     }
 
-    button.addTarget(self, action: "kitchenButtonPressed:", forControlEvents: .TouchUpInside)
+    button.addTarget(self, action: "kitchenButtonPressed:",
+      forControlEvents: .TouchUpInside)
     button.contentMode = .ScaleAspectFit
-    button.frame = CGRectMake(x, y, width, height)
+    button.frame = CGRect(x: x, y: y, width: width, height: height)
     button.imageEdgeInsets = UIEdgeInsetsZero
-    button.setBackgroundImage(image, forState: .Highlighted)
-    button.setBackgroundImage(image, forState: .Normal)
-    button.setBackgroundImage(image, forState: .Selected)
+
+    [.Highlighted, .Normal, .Selected].map { button.setBackgroundImage(image, forState: $0) }
 
     return button
   }()
@@ -163,9 +143,7 @@ class TimerViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    view.addSubview(timerControl)
-    view.addSubview(kitchenButton)
-    view.addSubview(fingerView)
+    [timerControl, kitchenButton, fingerView].map { self.view.addSubview($0) }
   }
 
   override func viewWillAppear(animated: Bool) {
@@ -193,15 +171,15 @@ class TimerViewController: ViewController {
     if defaults.boolForKey("presentedClue") == false {
       fingerView.hidden = false
       UIApplication.sharedApplication().beginIgnoringInteractionEvents()
-      self.startTimerGoing(.Forward)
-      UIView.animateWithDuration(0.8, animations: { () -> Void in
+      startTimerGoing(.Forward)
+      UIView.animateWithDuration(0.8, animations: {
         self.fingerView.frame = self.finalRect
-      }, completion: { (finished) -> Void in
+      }, completion: { _ in
         self.stopTimer()
         self.startTimerGoing(.Backward)
-        UIView.animateWithDuration(0.8, animations: { () -> Void in
+        UIView.animateWithDuration(0.8, animations: {
           self.fingerView.frame = self.startRect
-          }, completion: { (finished) -> Void in
+          }, completion: { _ in
             self.fingerView.hidden = true
             self.stopTimer()
         })
@@ -218,15 +196,11 @@ class TimerViewController: ViewController {
   }
 
   func updateForward(timer: NSTimer) {
-    if timerControl.minutes < 7 {
-      timerControl.minutes += 1
-    }
+    if timerControl.minutes < 7 { timerControl.minutes += 1 }
   }
 
   func updateBackward(timer: NSTimer) {
-    if timerControl.minutes > 0 {
-      timerControl.minutes -= 1
-    }
+    if timerControl.minutes > 0 { timerControl.minutes -= 1 }
   }
 
   func startTimerGoing(direction: TimerDirection) {
@@ -250,7 +224,8 @@ class TimerViewController: ViewController {
         break
       }
 
-      NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
+      NSRunLoop.currentRunLoop().addTimer(timer!,
+        forMode: NSRunLoopCommonModes)
     }
   }
 
@@ -262,7 +237,7 @@ class TimerViewController: ViewController {
   }
 
   func refreshTimerForCurrentAlarm() {
-    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(self.alarm.alarmID!) {
+    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
       refreshTimerForNotification(existingNotification)
     }
   }
@@ -281,7 +256,7 @@ class TimerViewController: ViewController {
           minutesLeft = minutesLeft - (hoursLeft * 60)
         }
 
-        timerControl.title = self.alarm.timerTitle
+        timerControl.title = alarm.timerTitle
         timerControl.seconds = Int(currentSecond)
         timerControl.minutes = Int(minutesLeft)
         timerControl.hours = Int(hoursLeft)
@@ -292,10 +267,8 @@ class TimerViewController: ViewController {
   }
 
   func kitchenButtonPressed(button: UIButton) {
-    if delegate != nil {
-      delegate?.dismissedTimerController(self)
-    }
-    self.dismissViewControllerAnimated(true, completion: nil)
+    delegate?.dismissedTimerController(self)
+    dismissViewControllerAnimated(true, completion: nil)
     timerControl.touchesAreActive = false
   }
 
