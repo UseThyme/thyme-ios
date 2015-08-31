@@ -89,6 +89,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
     if UIAccessibilityDarkerSystemColorsEnabled() {
       theme = Theme.DarkColors()
+
+      if UIAccessibilityIsReduceTransparencyEnabled() {
+        theme = Theme.HighContrast()
+      }
     }
 
     homeController.theme = theme

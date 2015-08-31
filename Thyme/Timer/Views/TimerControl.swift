@@ -258,9 +258,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
       width: length - lineWidth,
       height: length - lineWidth)
 
-    if active {
-      drawCircleOutline(context, color: UIColor.whiteColor(), rect: circleOutlineRect, lineWidth: lineWidth)
-    }
     drawCircle(context, color: circleColor, rect: circleRect)
 
     self.circleRect = circleRect
@@ -273,7 +270,16 @@ public class TimerControl: UIControl, ContentSizeChangable {
         radius: radius,
         angle: CGFloat(angle),
         containerRect: circleRect)
+    }
 
+    if let theme = theme where theme.name == .Noir {
+      drawCircleOutline(context,
+        color: active ? theme.circleOutlineActive : theme.circleOutlineInactive,
+        rect: circleOutlineRect,
+        lineWidth: lineWidth)
+    }
+
+    if active == true {
       let secondsColor = UIColor.redColor()
       if let timer = timer where timer.valid == true {
         let factor: CGFloat = self.completedMode == true ? 0.1 : 0.2
@@ -304,7 +310,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let saturationBasedOnAngle: CGFloat = saturationBase * (CGFloat(angle)/360.0) + saturationBaseOffset
 
     let normalCircleColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.4)
-    let calculatedColor = UIColor(hue: 255, saturation: saturationBasedOnAngle, brightness: 0.96, alpha: 1.0)
+    let calculatedColor = UIColor(hue: 255, saturation: 255, brightness: 0.96, alpha: saturationBasedOnAngle)
     let unactiveCircleColor = UIColor(white: 1.0, alpha: 0.4)
 
     if active == true {
