@@ -87,8 +87,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     var alarms = [[Alarm]]()
 
     for i in 0..<1 {
-      let alarm = Alarm()
-      alarm.oven = true
+      let alarm = Alarm(type: .Oven)
       alarms.append([alarm])
     }
 

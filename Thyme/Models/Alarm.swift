@@ -1,6 +1,12 @@
 import Foundation
 
+enum PlateType {
+  case Oven, Plate
+}
+
 class Alarm {
+
+  var type: PlateType
 
   var indexPath: NSIndexPath? {
     willSet(newValue) {
@@ -12,10 +18,9 @@ class Alarm {
 
   var alarmID: String?
   var active: Bool = false
-  var oven: Bool = false
 
   lazy var title: String = {
-    if self.oven == true { return NSLocalizedString("OVEN", comment: "OVEN") }
+    if self.type == .Oven { return NSLocalizedString("OVEN", comment: "OVEN") }
 
     let leading: String = self.indexPath?.row == 0
       ? NSLocalizedString("TOP", comment: "TOP")
@@ -31,13 +36,16 @@ class Alarm {
     return "------------------\(self.title)------------------"
     }()
 
+  init(type: PlateType = .Plate) {
+    self.type = type
+  }
+
   static func create(index: Int) -> Alarm {
     let section = index == 1 || index == 3  ? 1 : 0
     let item = index == 2 || index == 3 ? 1 : 0
     let indexPath = NSIndexPath(forItem: item, inSection: section)
-    let alarm = Alarm()
-    
-    alarm.oven = index == 4
+    let alarm = Alarm(type: index == 4 ? .Oven : .Plate)
+
     alarm.indexPath = indexPath
 
     return alarm
@@ -131,7 +139,7 @@ class Alarm {
   }
 
   func idForIndexPath(indexPath: NSIndexPath) -> String {
-    if oven {
+    if type == .Oven {
       return "HYPAlert oven section: \(indexPath.section) row: \(indexPath.row)"
     }
 
