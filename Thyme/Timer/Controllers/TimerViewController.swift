@@ -282,9 +282,8 @@ class TimerViewController: ViewController {
         let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
         let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
         let currentSecond = secondsLeft % 60
-        let hoursLeft = floor(minutesLeft/60)
-
         var minutesLeft = floor(secondsLeft/60)
+        let hoursLeft = floor(minutesLeft/60)
 
         if hoursLeft > 0 {
           minutesLeft = minutesLeft - (hoursLeft * 60)
