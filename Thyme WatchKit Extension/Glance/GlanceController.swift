@@ -50,7 +50,6 @@ class GlanceController: WKInterfaceController {
     var closestAlarm: Alarm?
 
     for (index, alarmInfo) in enumerate(alarmData) {
-      println(alarmInfo)
       if let alarmInfo = alarmInfo as? [String: AnyObject],
         title = alarmInfo["title"] as? String,
         firedDate = alarmInfo["firedDate"] as? NSDate,
