@@ -22,10 +22,10 @@ class Alarm {
   lazy var title: String = {
     if self.type == .Oven { return NSLocalizedString("OVEN", comment: "OVEN") }
 
-    let leading: String = self.indexPath?.row == 0
+    let leading: String = self.indexPath?.item == 0
       ? NSLocalizedString("TOP", comment: "TOP")
       : NSLocalizedString("BOTTOM", comment: "BOTTOM")
-    let position: String = self.indexPath?.row == 0
+    let position: String = self.indexPath?.section == 0
       ? NSLocalizedString("LEFT", comment: "LEFT")
       : NSLocalizedString("RIGHT", comment: "RIGHT")
 
