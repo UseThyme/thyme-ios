@@ -25,14 +25,6 @@ class TimerViewController: ViewController {
     }
   }
 
-  lazy var deviceHeight: CGFloat = {
-    return UIScreen.mainScreen().bounds.height
-    }()
-
-  lazy var deviceWidth: CGFloat = {
-    return CGRectGetWidth(UIScreen.mainScreen().bounds)
-    }()
-
   lazy var timerControl: TimerControl = {
     var sideMargin: CGFloat = Screen.isPad ? 140 : 0
     var topMargin: CGFloat = 0
@@ -40,18 +32,18 @@ class TimerViewController: ViewController {
     if Screen.isPad {
       topMargin = 140
     } else {
-      if self.deviceHeight == 480 {
+      if Screen.height == 480 {
         topMargin = 30
-      } else if self.deviceHeight == 568 {
+      } else if Screen.height == 568 {
         topMargin = 60
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         topMargin = 70
-      } else if self.deviceHeight == 763 {
+      } else if Screen.height == 763 {
         topMargin = 78
       }
     }
 
-    let width = self.deviceWidth - 2 * sideMargin
+    let width = Screen.width - 2 * sideMargin
     let frame = CGRectMake(sideMargin, topMargin, width, width)
     let timerControl = TimerControl(frame: frame, completedMode: true)
 
@@ -75,16 +67,16 @@ class TimerViewController: ViewController {
       xOffset = 61
       yOffset = 18
     } else {
-      if self.deviceHeight == 480 {
+      if Screen.height == 480 {
         xOffset = 61
         yOffset = 18
-      } else if self.deviceHeight == 568 {
+      } else if Screen.height == 568 {
         xOffset = 61
         yOffset = 18
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         xOffset = 70
         yOffset = 35
-      } else if self.deviceHeight == 763 {
+      } else if Screen.height == 763 {
         xOffset = 80
         yOffset = 45
       }
@@ -108,40 +100,40 @@ class TimerViewController: ViewController {
     let image = UIImage(named: imageName)!
 
     var topMargin: CGFloat = image.size.height
-    var x: CGFloat = self.deviceWidth / 2 - image.size.width / 2;
-    var y: CGFloat = self.deviceWidth / 2 - image.size.width / 2;
+    var x: CGFloat = Screen.width / 2 - image.size.width / 2;
+    var y: CGFloat = Screen.width / 2 - image.size.width / 2;
     var width: CGFloat = image.size.width
     var height: CGFloat = image.size.height
 
     if Screen.isPad {
       topMargin = 330
-      x = self.deviceWidth / 2 - image.size.width / 2;
-      y = self.deviceHeight - topMargin;
+      x = Screen.width / 2 - image.size.width / 2;
+      y = Screen.height - topMargin;
       width = image.size.width;
       height = image.size.height;
     } else {
-      if self.deviceHeight == 480 {
+      if Screen.height == 480 {
         topMargin = 110
-        x = self.deviceWidth / 2 - image.size.width / 2;
-        y = self.deviceHeight - topMargin;
+        x = Screen.width / 2 - image.size.width / 2;
+        y = Screen.height - topMargin;
         width = image.size.width;
         height = image.size.height;
-      }  else if self.deviceHeight == 568 {
+      }  else if Screen.height == 568 {
         topMargin = 140
-        x = self.deviceWidth / 2 - image.size.width / 2;
-        y = self.deviceHeight - topMargin;
+        x = Screen.width / 2 - image.size.width / 2;
+        y = Screen.height - topMargin;
         width = image.size.width;
         height = image.size.height;
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         topMargin = 164
         x = 150
-        y = self.deviceHeight - topMargin;
+        y = Screen.height - topMargin;
         width = 75
         height = 75
-      } else if self.deviceHeight == 763 {
+      } else if Screen.height == 763 {
         topMargin = 181
         x = 166
-        y = self.deviceHeight - topMargin;
+        y = Screen.height - topMargin;
         width = 83
         height = 83
       }
