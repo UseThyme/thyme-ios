@@ -7,6 +7,7 @@ protocol Themable {
 struct Theme {
 
   struct Main: Themable {
+    var name = "The Pacific"
     var colors = [
       UIColor(hex: "37F7BA").CGColor,
       UIColor(hex: "05ABBF").CGColor,
@@ -17,6 +18,7 @@ struct Theme {
   }
 
   struct DarkColors: Themable {
+    var name = "Midnight Blue"
     var colors = [
       UIColor(hex: "00FFE4").CGColor,
       UIColor(hex: "483076").CGColor
@@ -26,12 +28,13 @@ struct Theme {
   }
 
   struct HighContrast: Themable {
+    var name = "Noir"
     var colors = [
       UIColor(hex: "F7F7F7").CGColor,
       UIColor(hex: "D0D0D0").CGColor
     ]
     var locations: [CGFloat] = [0.0,1.0]
-    var textColor = UIColor(hex: "1B807E")
+    var textColor = UIColor(hex: "000000")
   }
 
 }
