@@ -25,22 +25,14 @@ public class InstructionController: UIViewController {
 
   // MARK: Lazy loading
 
-  lazy var deviceHeight: CGFloat = {
-    return UIScreen.mainScreen().bounds.height
-    }()
-
-  lazy var deviceWidth: CGFloat = {
-    return CGRectGetWidth(UIScreen.mainScreen().bounds)
-    }()
-
   lazy var titleLabelFrame: CGRect = {
     var y = self.titleLabelTopMargin
 
-    if (self.deviceHeight == 480 || self.deviceHeight == 568) {
+    if (Screen.height == 480 || Screen.height == 568) {
       if self.isWelcome == false { y -= 40 }
-    } else if (self.deviceHeight == 667) {
+    } else if (Screen.height == 667) {
       y += 60
-    } else if (self.deviceHeight == 736) {
+    } else if (Screen.height == 736) {
       y += 70
     }
 
@@ -54,11 +46,11 @@ public class InstructionController: UIViewController {
   lazy var messageTextViewFrame: CGRect = {
     var y = self.titleLabelTopMargin + self.titleLabelHeight
 
-    if (self.deviceHeight == 480) {
+    if (Screen.height == 480) {
       if self.isWelcome == false { y -= 50 }
-    } else if (self.deviceHeight == 667) {
+    } else if (Screen.height == 667) {
       y += 60
-    } else if (self.deviceHeight == 736) {
+    } else if (Screen.height == 736) {
       y += 80
     }
 
@@ -72,7 +64,7 @@ public class InstructionController: UIViewController {
     }()
 
   lazy var acceptButtonFrame: CGRect = {
-    var y = self.deviceHeight - self.acceptButtonHeight - self.acceptButtonBottomMargin
+    var y = Screen.height - self.acceptButtonHeight - self.acceptButtonBottomMargin
     if self.isWelcome == false { y -= 15 }
 
     return CGRectMake(self.acceptButtonHorizontalMargin,  y,
@@ -85,7 +77,7 @@ public class InstructionController: UIViewController {
     }()
 
   lazy var nextButtonFrame: CGRect = {
-    var x = self.deviceWidth - 80 - 10
+    var x = Screen.width - 80 - 10
     return CGRectMake(x, 0, 80, 44)
     }()
 
@@ -99,18 +91,17 @@ public class InstructionController: UIViewController {
     } else {
       frame.origin.y = self.imageViewTopMargin
 
-      let deviceHeight = UIScreen.mainScreen().bounds.height
-      if deviceHeight == 480 {
+      if Screen.height == 480 {
         frame.origin.y -= 25
       }
 
       if self.index == 1 {
         frame.origin.y += 45
       } else {
-        if deviceHeight == 568 || deviceHeight == 480 {
+        if Screen.height == 568 || Screen.height == 480 {
           frame.size.width = 640/4
           frame.size.height = 780/4
-        } else if (deviceHeight >= 667) {
+        } else if (Screen.height >= 667) {
           frame.size.width = 640/3
           frame.size.height = 780/3
         }

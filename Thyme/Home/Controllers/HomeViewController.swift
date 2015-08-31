@@ -11,7 +11,9 @@ class HomeViewController: ViewController, ContentSizeChangable {
       if let theme = theme {
         gradientLayer.colors = theme.colors
         gradientLayer.locations = theme.locations
-        collectionView.setNeedsDisplay()
+        titleLabel.textColor = theme.labelColor
+        subtitleLabel.textColor = theme.labelColor
+        plateCollectionView.setNeedsDisplay()
         ovenCollectionView.setNeedsDisplay()
       }
     }
@@ -21,8 +23,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
     didSet(newValue) {
       if let maxMinutesLeft = maxMinutesLeft {
         titleLabel.text = NSLocalizedString("YOUR DISH WILL BE DONE",
-          comment: "YOUR DISH WILL BE DONE");
-        if (maxMinutesLeft == 0.0) {
+          comment: "YOUR DISH WILL BE DONE")
+        if maxMinutesLeft == 0.0 {
           subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
             comment: "IN LESS THAN A MINUTE")
         } else {
@@ -41,11 +43,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
     if Screen.isPad {
       margin  = 70
     } else {
-      if self.deviceHeight == 480 {
+      if Screen.height == 480 {
         margin = 10
-      } else if self.deviceHeight == 568 {
+      } else if Screen.height == 568 {
         margin = 50
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         margin = 68
       } else {
         margin = 75
@@ -65,14 +67,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return factor
     }()
 
-  lazy var deviceHeight: CGFloat = {
-    return UIScreen.mainScreen().bounds.height
-    }()
-
-  lazy var deviceWidth: CGFloat = {
-    return CGRectGetWidth(UIScreen.mainScreen().bounds)
-    }()
-
   lazy var alarms: [[Alarm]] = {
     var alarms = [[Alarm]]()
 
@@ -87,8 +81,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     var alarms = [[Alarm]]()
 
     for i in 0..<1 {
-      let alarm = Alarm()
-      alarm.oven = true
+      let alarm = Alarm(type: .Oven)
       alarms.append([alarm])
     }
 
@@ -97,27 +90,28 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   lazy var titleLabel: UILabel = {
     let sideMargin: CGFloat = 20
-    let width = self.deviceWidth - 2 * sideMargin
+    let width = Screen.width - 2 * sideMargin
     let height: CGFloat = 25
     var topMargin: CGFloat = 0
 
     if Screen.isPad {
       topMargin  = 115
     } else {
-      if self.deviceHeight == 480 || self.deviceHeight == 568 {
+      if Screen.height == 480 || Screen.height == 568 {
         topMargin = 60
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         topMargin = 74
       } else {
         topMargin = 82
       }
     }
 
-    let label = UILabel(frame: CGRectMake(sideMargin, topMargin, width, height))
+    let label = UILabel(frame: CGRect(x: sideMargin, y: topMargin,
+      width: width, height: height))
     label.font = Font.HomeViewController.title
     label.text = Alarm.titleForHomescreen()
     label.textAlignment = .Center
-    label.textColor = UIColor.whiteColor()
+    label.textColor = self.theme?.labelColor
     label.backgroundColor = UIColor.clearColor()
     label.adjustsFontSizeToFitWidth = true
 
@@ -126,24 +120,25 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   lazy var subtitleLabel: UILabel = {
     let sideMargin: CGFloat = 20
-    let width = self.deviceWidth - 2 * sideMargin
+    let width = Screen.width - 2 * sideMargin
     let height = CGRectGetHeight(self.titleLabel.frame)
     var topMargin = CGRectGetMaxY(self.titleLabel.frame)
 
     if Screen.isPad { topMargin += 10 }
 
-    let label = UILabel(frame: CGRectMake(sideMargin, topMargin, width, height))
+    let label = UILabel(frame: CGRect(x: sideMargin, y: topMargin,
+      width: width, height: height))
     label.font = Font.HomeViewController.subtitle
     label.text = Alarm.subtitleForHomescreen()
     label.textAlignment = .Center
-    label.textColor = UIColor.whiteColor()
+    label.textColor = self.theme?.labelColor
     label.backgroundColor = UIColor.clearColor()
     label.adjustsFontSizeToFitWidth = true
 
     return label
     }()
 
-  lazy var collectionView: UICollectionView = {
+  lazy var plateCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     var cellWidth: CGFloat = 0
     var sideMargin: CGFloat = 0
@@ -152,10 +147,10 @@ class HomeViewController: ViewController, ContentSizeChangable {
       cellWidth = 175
       sideMargin = 200
     } else {
-      if self.deviceHeight == 480 || self.deviceHeight == 568 {
+      if Screen.height == 480 || Screen.height == 568 {
         cellWidth = 100
         sideMargin = 50
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         cellWidth = 113
         sideMargin = 65
       } else {
@@ -164,11 +159,12 @@ class HomeViewController: ViewController, ContentSizeChangable {
       }
     }
 
-    layout.itemSize = CGSizeMake(cellWidth + 10, cellWidth)
+    layout.itemSize = CGSize(width: cellWidth + 10, height: cellWidth)
     layout.scrollDirection = .Horizontal
 
-    let width: CGFloat = self.deviceWidth - 2 * sideMargin
-    let collectionViewWidth = CGRectMake(sideMargin, self.topMargin, width, width)
+    let width: CGFloat = Screen.width - 2 * sideMargin
+    let collectionViewWidth = CGRect(x: sideMargin, y: self.topMargin,
+      width: width, height: width)
 
     let collectionView = UICollectionView(frame: collectionViewWidth,
       collectionViewLayout: layout)
@@ -176,7 +172,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
     collectionView.delegate = self
     collectionView.backgroundColor = UIColor.clearColor()
 
-    self.applyTransformToLayer(collectionView.layer, factor: self.plateFactor)
+    self.applyTransformToLayer(collectionView.layer,
+      factor: self.plateFactor)
 
     return collectionView
     }()
@@ -192,11 +189,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
       sideMargin = 200
       topMargin += 475
     } else {
-      if self.deviceHeight == 480 || self.deviceHeight == 568 {
+      if Screen.height == 480 || Screen.height == 568 {
         cellWidth = 120
         sideMargin = 100
         topMargin += 260
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         cellWidth = 133
         sideMargin = 120
         topMargin += 300
@@ -207,11 +204,12 @@ class HomeViewController: ViewController, ContentSizeChangable {
       }
     }
 
-    layout.itemSize = CGSizeMake(cellWidth, cellWidth)
+    layout.itemSize = CGSize(width: cellWidth, height: cellWidth)
     layout.scrollDirection = .Horizontal
 
-    let width: CGFloat = self.deviceWidth - 2 * sideMargin
-    let collectionViewWidth = CGRectMake(sideMargin, topMargin, width, width)
+    let width: CGFloat = Screen.width - 2 * sideMargin
+    let collectionViewWidth = CGRect(x: sideMargin, y: topMargin,
+      width: width, height: width)
 
     let collectionView = UICollectionView(frame: collectionViewWidth,
       collectionViewLayout: layout)
@@ -232,20 +230,20 @@ class HomeViewController: ViewController, ContentSizeChangable {
     let image = UIImage(named: imageName)
 
     var topMargin: CGFloat = image!.size.height
-    var x: CGFloat = self.deviceWidth / 2 - image!.size.width / 2;
+    var x: CGFloat = Screen.width / 2 - image!.size.width / 2
     var width: CGFloat = image!.size.width
     var height: CGFloat = image!.size.height
 
     if Screen.isPad {
       topMargin += 175
     } else {
-      if self.deviceHeight == 480 {
+      if Screen.height == 480 {
         topMargin += 40
-      }  else if self.deviceHeight == 568 {
+      }  else if Screen.height == 568 {
         topMargin += 90
-      } else if self.deviceHeight == 667 {
+      } else if Screen.height == 667 {
         topMargin += 118
-      } else if self.deviceHeight == 763 {
+      } else if Screen.height == 763 {
         height = 173
         topMargin += 128
         width = 304
@@ -253,8 +251,9 @@ class HomeViewController: ViewController, ContentSizeChangable {
       }
     }
 
-    let y = self.deviceHeight - topMargin
-    imageView = UIImageView(frame: CGRectMake(x, y, width, height))
+    let y = Screen.height - topMargin
+    imageView = UIImageView(frame: CGRect(x: x, y: y,
+      width: width, height: height))
     imageView.image = image
 
     return imageView
@@ -277,17 +276,19 @@ class HomeViewController: ViewController, ContentSizeChangable {
     let button = UIButton.buttonWithType(.InfoLight) as! UIButton
     button.addTarget(self, action: "settingsButtonAction", forControlEvents: .TouchUpInside)
 
-    let y: CGFloat = self.deviceHeight - 44 - 15
+    let y: CGFloat = Screen.height - 44 - 15
     let x: CGFloat = 5
 
-    button.frame = CGRectMake(x,y,44,44)
+    button.frame = CGRect(x: x, y: y,
+      width: 44, height: 44)
     button.tintColor = UIColor.whiteColor()
 
     return button
   }()
 
   lazy var tapRecognizer: UITapGestureRecognizer = {
-    return UITapGestureRecognizer(target: self, action: "backgroundTapped:")
+    return UITapGestureRecognizer(target: self,
+      action: "backgroundTapped:")
   }()
 
   lazy var welcomeController: InstructionController = {
@@ -325,14 +326,14 @@ class HomeViewController: ViewController, ContentSizeChangable {
       name: WatchHandler.Notifications.AlarmsDidUpdate,
       object: nil)
 
-    collectionView.registerClass(PlateCell.classForCoder(),
+    plateCollectionView.registerClass(PlateCell.classForCoder(),
       forCellWithReuseIdentifier: plateCellIdentifier)
     ovenCollectionView.registerClass(PlateCell.classForCoder(),
       forCellWithReuseIdentifier: plateCellIdentifier)
 
     [titleLabel, subtitleLabel,
       ovenBackgroundImageView, ovenShineImageView,
-      collectionView, ovenCollectionView].map { self.view.addSubview($0) }
+      plateCollectionView, ovenCollectionView].map { self.view.addSubview($0) }
   }
 
   override func viewWillAppear(animated: Bool) {
@@ -389,7 +390,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   func alarmsDidUpdate(notification: NSNotification) {
     if notification.name == WatchHandler.Notifications.AlarmsDidUpdate {
       maxMinutesLeft = nil
-      collectionView.reloadData()
+      plateCollectionView.reloadData()
       ovenCollectionView.reloadData()
     }
   }
@@ -438,15 +439,15 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func applyTransformToLayer(layer: CALayer, factor: CGFloat) {
-    var rotationAndPerspectiveTransform = CATransform3DIdentity;
-    rotationAndPerspectiveTransform.m34 = 1.0 / -800.0;
-    rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, π * factor, 1.0, 0.0, 0.0);
-    layer.anchorPoint = CGPointMake(0.5, 0);
-    layer.transform = rotationAndPerspectiveTransform;
+    var rotationAndPerspectiveTransform = CATransform3DIdentity
+    rotationAndPerspectiveTransform.m34 = 1.0 / -800.0
+    rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, π * factor, 1.0, 0.0, 0.0)
+    layer.anchorPoint = CGPoint(x: 0.5, y: 0)
+    layer.transform = rotationAndPerspectiveTransform
   }
 
   func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> Alarm {
-    let row: [Alarm] = collectionView.isEqual(self.collectionView)
+    let row: [Alarm] = collectionView.isEqual(plateCollectionView)
       ? alarms[indexPath.section]
       : ovenAlarms[indexPath.section]
 
@@ -455,10 +456,12 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   func configureCell(cell: PlateCell, indexPath: NSIndexPath, collectionView: UICollectionView) {
     let alarm = alarmAtIndexPath(indexPath, collectionView: collectionView)
-    alarm.indexPath = indexPath
 
+    alarm.indexPath = indexPath
     cell.timerControl.active = alarm.active
-    cell.timerControl.addTarget(self, action: "timerControlChangedValue:", forControlEvents: .ValueChanged)
+    cell.timerControl.addTarget(self,
+      action: "timerControlChangedValue:",
+      forControlEvents: .ValueChanged)
     cell.timerControl.theme = theme
 
     refreshTimerInCell(cell, alarm: alarm)
@@ -514,19 +517,20 @@ class HomeViewController: ViewController, ContentSizeChangable {
 extension HomeViewController: UICollectionViewDataSource {
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return collectionView.isEqual(self.collectionView)
+    return collectionView.isEqual(plateCollectionView)
       ? alarms.count
       : ovenAlarms.count
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return collectionView.isEqual(self.collectionView)
+    return collectionView.isEqual(plateCollectionView)
     ? alarms[0].count
     : ovenAlarms[0].count
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(plateCellIdentifier, forIndexPath: indexPath) as! PlateCell
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(plateCellIdentifier,
+      forIndexPath: indexPath) as! PlateCell
 
     configureCell(cell, indexPath: indexPath, collectionView: collectionView)
 
@@ -541,6 +545,7 @@ extension HomeViewController: UICollectionViewDelegate {
   func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     let alarm = alarmAtIndexPath(indexPath, collectionView: collectionView)
     let timerController = TimerViewController(alarm: alarm)
+
     timerController.theme = theme
     timerController.delegate = self
 
@@ -568,7 +573,7 @@ extension HomeViewController: UIAlertViewDelegate {
     if accepted == true {
       LocalNotificationManager.cancelAllLocalNotifications()
       maxMinutesLeft = nil
-      collectionView.reloadData()
+      plateCollectionView.reloadData()
       ovenCollectionView.reloadData()
     }
     deleteTimersMessageIsBeingDisplayed = false
@@ -581,7 +586,7 @@ extension HomeViewController: TimerControllerDelegate {
 
   func dismissedTimerController(timerController: TimerViewController!) {
     maxMinutesLeft = nil
-    collectionView.reloadData()
+    plateCollectionView.reloadData()
     ovenCollectionView.reloadData()
   }
 

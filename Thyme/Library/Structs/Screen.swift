@@ -10,5 +10,6 @@ struct Screen {
     return UIDevice.currentDevice().userInterfaceIdiom == .Pad
     }()
 
-  static var height: Float { return Float(UIScreen.mainScreen().bounds.height) }
+  static var height: CGFloat { return UIScreen.mainScreen().bounds.height }
+  static var width: CGFloat { return UIScreen.mainScreen().bounds.width }
 }
