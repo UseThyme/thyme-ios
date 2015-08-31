@@ -3,10 +3,6 @@ import Foundation
 
 class GlanceController: WKInterfaceController {
 
-  struct Request {
-    static let getAlarms = "getAlarms"
-  }
-
   @IBOutlet weak var activeGroup: WKInterfaceGroup!
   @IBOutlet weak var inactiveGroup: WKInterfaceGroup!
 
@@ -17,6 +13,8 @@ class GlanceController: WKInterfaceController {
   @IBOutlet weak var happyHerbie: WKInterfaceGroup!
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
+  // MARK: - Lifecycle
+
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
     infoLabel.setText(NSLocalizedString("Yum! That smells amazing!", comment: ""))
@@ -25,7 +23,7 @@ class GlanceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    request(Request.getAlarms)
+    request(.GetAlarms)
   }
 
   override func didDeactivate() {
@@ -34,8 +32,8 @@ class GlanceController: WKInterfaceController {
 
   // MARK: - Communication
 
-  func request(name: String) {
-    WKInterfaceController.openParentApplication(["request": name]) {
+  func request(kind: Communication.Kind) {
+    Communication.request(kind) {
       [unowned self] response, error in
       if let response = response,
         alarmData = response["alarms"] as? [AnyObject] {
@@ -45,6 +43,8 @@ class GlanceController: WKInterfaceController {
       }
     }
   }
+
+  // MARK: - UI
 
   func setupInterface(alarmData: [AnyObject]) {
     var closestAlarm: Alarm?

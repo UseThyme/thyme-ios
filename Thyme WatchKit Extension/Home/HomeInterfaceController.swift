@@ -3,11 +3,6 @@ import Foundation
 
 class HomeInterfaceController: WKInterfaceController {
 
-  struct Request {
-    static let getAlarms = "getAlarms"
-    static let cancelAlarms = "cancelAlarms"
-  }
-
   @IBOutlet weak var topLeftMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var topRightMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var bottomLeftMinutesGroup: WKInterfaceGroup!
@@ -45,7 +40,7 @@ class HomeInterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    request(Request.getAlarms)
+    request(.GetAlarms)
   }
 
   override func didDeactivate() {
@@ -68,7 +63,6 @@ class HomeInterfaceController: WKInterfaceController {
 
   @IBAction func bottomRightButtonDidTap() {
     presentController(3, title: NSLocalizedString("Lower Right", comment: ""))
-
   }
 
   @IBAction func ovenButtonDidTap() {
@@ -76,13 +70,13 @@ class HomeInterfaceController: WKInterfaceController {
   }
 
   @IBAction func menuCancelAllButtonDidTap() {
-    request(Request.cancelAlarms)
+    request(.CancelAlarms)
   }
 
   // MARK: - Communication
 
-  func request(name: String) {
-    WKInterfaceController.openParentApplication(["request": name]) {
+  func request(kind: Communication.Kind) {
+    Communication.request(kind) {
       [unowned self] response, error in
       if let response = response,
         alarmData = response["alarms"] as? [AnyObject] {
@@ -105,15 +99,7 @@ class HomeInterfaceController: WKInterfaceController {
     var text = ""
 
     if alarm.active {
-      if alarm.hours > 0 {
-        if alarm.minutes < 10 {
-          text = "\(alarm.hours):0\(alarm.minutes)"
-        } else {
-          text = "\(alarm.hours):\(alarm.minutes)"
-        }
-      } else {
-        text = "\(alarm.minutes)"
-      }
+      text = alarm.shortText
 
       minutesGroups[index].setBackgroundImageNamed(alarm.hours > 0
         ? ImageList.Timer.minuteHourSequence
