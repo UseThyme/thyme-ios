@@ -272,7 +272,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
         containerRect: circleRect)
     }
 
-    if let theme = theme where theme.name == .Noir {
+    if let theme = theme {
       drawCircleOutline(context,
         color: active ? theme.circleOutlineActive : theme.circleOutlineInactive,
         rect: circleOutlineRect,
@@ -297,7 +297,11 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
   func attributedString() -> NSAttributedString {
     let font: UIFont = Font.TimerControl.arcText
-    let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor()]
+
+    var attributes = [NSObject : AnyObject]()
+    if let theme = theme {
+      attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: theme.labelColor]
+    }
     let string = NSAttributedString(string: title, attributes: attributes)
 
     return string

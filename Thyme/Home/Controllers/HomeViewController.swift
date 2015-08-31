@@ -11,6 +11,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
       if let theme = theme {
         gradientLayer.colors = theme.colors
         gradientLayer.locations = theme.locations
+        titleLabel.textColor = theme.labelColor
+        subtitleLabel.textColor = theme.labelColor
         plateCollectionView.setNeedsDisplay()
         ovenCollectionView.setNeedsDisplay()
       }
@@ -109,7 +111,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     label.font = Font.HomeViewController.title
     label.text = Alarm.titleForHomescreen()
     label.textAlignment = .Center
-    label.textColor = UIColor.whiteColor()
+    label.textColor = self.theme?.labelColor
     label.backgroundColor = UIColor.clearColor()
     label.adjustsFontSizeToFitWidth = true
 
@@ -129,7 +131,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     label.font = Font.HomeViewController.subtitle
     label.text = Alarm.subtitleForHomescreen()
     label.textAlignment = .Center
-    label.textColor = UIColor.whiteColor()
+    label.textColor = self.theme?.labelColor
     label.backgroundColor = UIColor.clearColor()
     label.adjustsFontSizeToFitWidth = true
 

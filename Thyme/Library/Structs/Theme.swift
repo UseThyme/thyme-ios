@@ -3,6 +3,7 @@ protocol Themable {
   var colors: [CGColor!] { get }
   var locations: [CGFloat] { get }
   var textColor: UIColor { get }
+  var labelColor: UIColor { get }
   var circleOutlineActive: UIColor { get }
   var circleOutlineInactive: UIColor { get }
 }
@@ -22,6 +23,7 @@ struct Theme {
     ]
     var locations: [CGFloat] = [0.05,0.5,0.95]
     var textColor = UIColor(hex: "1B7F7D")
+    var labelColor = UIColor(hex: "FFFFFF")
     var circleOutlineActive = UIColor.whiteColor()
     var circleOutlineInactive = UIColor.clearColor()
   }
@@ -34,6 +36,7 @@ struct Theme {
     ]
     var locations: [CGFloat] = [0.0,1.0]
     var textColor = UIColor(hex: "2F5686")
+    var labelColor = UIColor(hex: "FFFFFF")
     var circleOutlineActive = UIColor.whiteColor()
     var circleOutlineInactive = UIColor.clearColor()
   }
@@ -46,6 +49,7 @@ struct Theme {
     ]
     var locations: [CGFloat] = [0.0,1.0]
     var textColor = UIColor(hex: "000000")
+    var labelColor = UIColor(hex: "000000")
     var circleOutlineActive = UIColor.blackColor()
     var circleOutlineInactive = UIColor.grayColor()
   }
