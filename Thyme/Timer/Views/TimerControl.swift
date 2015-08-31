@@ -256,7 +256,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let sideMargin = floor(CGRectGetWidth(rect) * (1 - transform) / 2)
     let length = CGRectGetWidth(rect) * transform
     let circleRect = CGRectMake(sideMargin, sideMargin, length, length)
-    let lineWidth: CGFloat = 3.5
+    let lineWidth: CGFloat = completedMode ? 5 : 3.5
     let circleOutlineRect = CGRect(
       x: sideMargin + lineWidth / 2,
       y: sideMargin + lineWidth / 2,
