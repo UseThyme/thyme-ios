@@ -279,7 +279,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
         lineWidth: lineWidth)
     }
 
-    if active == true {
+    if active {
       let secondsColor = UIColor.redColor()
       if let timer = timer where timer.valid {
         let factor: CGFloat = completedMode ? 0.1 : 0.2
@@ -310,13 +310,24 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let saturationBaseOffset: CGFloat = 0.10
     let saturationBase: CGFloat = 0.20
     let saturationBasedOnAngle: CGFloat = saturationBase * (CGFloat(angle)/360.0) + saturationBaseOffset
-
-    let normalCircleColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.4)
-    let calculatedColor = UIColor(hue: 255, saturation: 255, brightness: 0.96, alpha: saturationBasedOnAngle)
     let unactiveCircleColor = UIColor(white: 1.0, alpha: 0.4)
 
-    if active == true {
-      color = hours > 0 ? calculatedColor : normalCircleColor
+    var calculatedColor = UIColor(hue: 255, saturation: saturationBasedOnAngle, brightness: 0.96, alpha: 1.0)
+
+    if let topColor = theme?.colors.first {
+      var red: CGFloat = 0
+      var blue: CGFloat = 0
+      var green: CGFloat = 0
+      var alpha: CGFloat = 0
+      UIColor(CGColor: topColor!)!.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+      alpha = CGFloat(angle)/360.0 + 0.25
+      calculatedColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    if let theme = theme where active {
+      color = hours > 0 ? theme.circleActiveHours : theme.circleActive
+    } else if let theme = theme {
+      color = theme.circleInactive
     } else {
       color = unactiveCircleColor
     }
