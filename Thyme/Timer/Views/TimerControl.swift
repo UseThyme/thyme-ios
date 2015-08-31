@@ -262,7 +262,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
     self.circleRect = circleRect
 
-    if active == true {
+    if active {
       let radius = CGRectGetWidth(circleRect) / 2
       let minutesColor = UIColor.whiteColor()
       drawMinutes(context,
@@ -281,14 +281,12 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
     if active == true {
       let secondsColor = UIColor.redColor()
-      if let timer = timer where timer.valid == true {
-        let factor: CGFloat = self.completedMode == true ? 0.1 : 0.2
+      if let timer = timer where timer.valid {
+        let factor: CGFloat = completedMode ? 0.1 : 0.2
         drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect)
       }
 
-      if self.completedMode == true {
-        drawText(context, rect: rect)
-      }
+      if completedMode { drawText(context, rect: rect) }
     } else {
       let secondsColor = UIColor.whiteColor()
       drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect)
