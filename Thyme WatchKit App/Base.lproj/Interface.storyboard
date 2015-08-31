@@ -209,20 +209,12 @@
                         </group>
                         <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
                             <items>
-                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="2" id="cw3-7a-9zX">
-                                    <color key="textColor" red="0.21960784310000001" green="0.95686274510000002" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </label>
-                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="2" id="g2H-Pd-99u">
-                                    <color key="textColor" red="0.21960784310000001" green="0.95686274510000002" blue="0.78039215689999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </label>
+                                <group width="70" height="70" alignment="center" id="gpy-ZL-ouF"/>
+                                <button width="1" height="28" alignment="left" title="Button" id="iqE-rz-pVb"/>
                             </items>
                         </group>
                     </items>
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
-                    <connections>
-                        <outlet property="subtitleLabel" destination="g2H-Pd-99u" id="dEG-1E-EGL"/>
-                        <outlet property="titleLabel" destination="cw3-7a-9zX" id="V2V-4m-gEg"/>
-                    </connections>
                 </glanceController>
             </objects>
             <point key="canvasLocation" x="235" y="672"/>
