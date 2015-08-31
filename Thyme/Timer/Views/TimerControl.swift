@@ -258,14 +258,11 @@ public class TimerControl: UIControl, ContentSizeChangable {
       width: length - lineWidth,
       height: length - lineWidth)
 
-    if active {
-      drawCircleOutline(context, color: UIColor.whiteColor(), rect: circleOutlineRect, lineWidth: lineWidth)
-    }
     drawCircle(context, color: circleColor, rect: circleRect)
 
     self.circleRect = circleRect
 
-    if active == true {
+    if active {
       let radius = CGRectGetWidth(circleRect) / 2
       let minutesColor = UIColor.whiteColor()
       drawMinutes(context,
@@ -273,16 +270,23 @@ public class TimerControl: UIControl, ContentSizeChangable {
         radius: radius,
         angle: CGFloat(angle),
         containerRect: circleRect)
+    }
 
+    if let theme = theme {
+      drawCircleOutline(context,
+        color: active ? theme.circleOutlineActive : theme.circleOutlineInactive,
+        rect: circleOutlineRect,
+        lineWidth: lineWidth)
+    }
+
+    if active {
       let secondsColor = UIColor.redColor()
-      if let timer = timer where timer.valid == true {
-        let factor: CGFloat = self.completedMode == true ? 0.1 : 0.2
+      if let timer = timer where timer.valid {
+        let factor: CGFloat = completedMode ? 0.1 : 0.2
         drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect)
       }
 
-      if self.completedMode == true {
-        drawText(context, rect: rect)
-      }
+      if completedMode { drawText(context, rect: rect) }
     } else {
       let secondsColor = UIColor.whiteColor()
       drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect)
@@ -291,7 +295,11 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
   func attributedString() -> NSAttributedString {
     let font: UIFont = Font.TimerControl.arcText
-    let attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: UIColor.whiteColor()]
+
+    var attributes = [NSObject : AnyObject]()
+    if let theme = theme {
+      attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: theme.labelColor]
+    }
     let string = NSAttributedString(string: title, attributes: attributes)
 
     return string
@@ -302,13 +310,24 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let saturationBaseOffset: CGFloat = 0.10
     let saturationBase: CGFloat = 0.20
     let saturationBasedOnAngle: CGFloat = saturationBase * (CGFloat(angle)/360.0) + saturationBaseOffset
-
-    let normalCircleColor = UIColor(red: 255, green: 255, blue: 255, alpha: 0.4)
-    let calculatedColor = UIColor(hue: 255, saturation: saturationBasedOnAngle, brightness: 0.96, alpha: 1.0)
     let unactiveCircleColor = UIColor(white: 1.0, alpha: 0.4)
 
-    if active == true {
-      color = hours > 0 ? calculatedColor : normalCircleColor
+    var calculatedColor = UIColor(hue: 255, saturation: saturationBasedOnAngle, brightness: 0.96, alpha: 1.0)
+
+    if let topColor = theme?.colors.first {
+      var red: CGFloat = 0
+      var blue: CGFloat = 0
+      var green: CGFloat = 0
+      var alpha: CGFloat = 0
+      UIColor(CGColor: topColor!)!.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+      alpha = CGFloat(angle)/360.0 + 0.25
+      calculatedColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    if let theme = theme where active {
+      color = hours > 0 ? theme.circleActiveHours : theme.circleActive
+    } else if let theme = theme {
+      color = theme.circleInactive
     } else {
       color = unactiveCircleColor
     }

@@ -11,7 +11,9 @@ class HomeViewController: ViewController, ContentSizeChangable {
       if let theme = theme {
         gradientLayer.colors = theme.colors
         gradientLayer.locations = theme.locations
-        collectionView.setNeedsDisplay()
+        titleLabel.textColor = theme.labelColor
+        subtitleLabel.textColor = theme.labelColor
+        plateCollectionView.setNeedsDisplay()
         ovenCollectionView.setNeedsDisplay()
       }
     }
@@ -109,7 +111,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     label.font = Font.HomeViewController.title
     label.text = Alarm.titleForHomescreen()
     label.textAlignment = .Center
-    label.textColor = UIColor.whiteColor()
+    label.textColor = self.theme?.labelColor
     label.backgroundColor = UIColor.clearColor()
     label.adjustsFontSizeToFitWidth = true
 
@@ -129,14 +131,14 @@ class HomeViewController: ViewController, ContentSizeChangable {
     label.font = Font.HomeViewController.subtitle
     label.text = Alarm.subtitleForHomescreen()
     label.textAlignment = .Center
-    label.textColor = UIColor.whiteColor()
+    label.textColor = self.theme?.labelColor
     label.backgroundColor = UIColor.clearColor()
     label.adjustsFontSizeToFitWidth = true
 
     return label
     }()
 
-  lazy var collectionView: UICollectionView = {
+  lazy var plateCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     var cellWidth: CGFloat = 0
     var sideMargin: CGFloat = 0
@@ -324,14 +326,14 @@ class HomeViewController: ViewController, ContentSizeChangable {
       name: WatchHandler.Notifications.AlarmsDidUpdate,
       object: nil)
 
-    collectionView.registerClass(PlateCell.classForCoder(),
+    plateCollectionView.registerClass(PlateCell.classForCoder(),
       forCellWithReuseIdentifier: plateCellIdentifier)
     ovenCollectionView.registerClass(PlateCell.classForCoder(),
       forCellWithReuseIdentifier: plateCellIdentifier)
 
     [titleLabel, subtitleLabel,
       ovenBackgroundImageView, ovenShineImageView,
-      collectionView, ovenCollectionView].map { self.view.addSubview($0) }
+      plateCollectionView, ovenCollectionView].map { self.view.addSubview($0) }
   }
 
   override func viewWillAppear(animated: Bool) {
@@ -388,7 +390,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   func alarmsDidUpdate(notification: NSNotification) {
     if notification.name == WatchHandler.Notifications.AlarmsDidUpdate {
       maxMinutesLeft = nil
-      collectionView.reloadData()
+      plateCollectionView.reloadData()
       ovenCollectionView.reloadData()
     }
   }
@@ -445,7 +447,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func alarmAtIndexPath(indexPath: NSIndexPath, collectionView: UICollectionView) -> Alarm {
-    let row: [Alarm] = collectionView.isEqual(collectionView)
+    let row: [Alarm] = collectionView.isEqual(plateCollectionView)
       ? alarms[indexPath.section]
       : ovenAlarms[indexPath.section]
 
@@ -515,19 +517,20 @@ class HomeViewController: ViewController, ContentSizeChangable {
 extension HomeViewController: UICollectionViewDataSource {
 
   func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-    return collectionView.isEqual(collectionView)
+    return collectionView.isEqual(plateCollectionView)
       ? alarms.count
       : ovenAlarms.count
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return collectionView.isEqual(collectionView)
+    return collectionView.isEqual(plateCollectionView)
     ? alarms[0].count
     : ovenAlarms[0].count
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(plateCellIdentifier, forIndexPath: indexPath) as! PlateCell
+    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(plateCellIdentifier,
+      forIndexPath: indexPath) as! PlateCell
 
     configureCell(cell, indexPath: indexPath, collectionView: collectionView)
 
@@ -570,7 +573,7 @@ extension HomeViewController: UIAlertViewDelegate {
     if accepted == true {
       LocalNotificationManager.cancelAllLocalNotifications()
       maxMinutesLeft = nil
-      collectionView.reloadData()
+      plateCollectionView.reloadData()
       ovenCollectionView.reloadData()
     }
     deleteTimersMessageIsBeingDisplayed = false
@@ -583,7 +586,7 @@ extension HomeViewController: TimerControllerDelegate {
 
   func dismissedTimerController(timerController: TimerViewController!) {
     maxMinutesLeft = nil
-    collectionView.reloadData()
+    plateCollectionView.reloadData()
     ovenCollectionView.reloadData()
   }
 
