@@ -55,19 +55,19 @@ class HomeInterfaceController: WKInterfaceController {
   // MARK: - Actions
 
   @IBAction func topLeftButtonDidTap() {
-    presentController(0, title: NSLocalizedString("Upper Left", comment: ""))
+    presentController(0, title: NSLocalizedString("Top Left", comment: ""))
   }
 
   @IBAction func topRightButtonDidTap() {
-    presentController(1, title: NSLocalizedString("Upper Right", comment: ""))
+    presentController(1, title: NSLocalizedString("Top Right", comment: ""))
   }
 
   @IBAction func bottomLeftButtonDidTap() {
-    presentController(2, title: NSLocalizedString("Lower Left", comment: ""))
+    presentController(2, title: NSLocalizedString("Bottom Left", comment: ""))
   }
 
   @IBAction func bottomRightButtonDidTap() {
-    presentController(3, title: NSLocalizedString("Lower Right", comment: ""))
+    presentController(3, title: NSLocalizedString("Bottom Right", comment: ""))
   }
 
   @IBAction func ovenButtonDidTap() {
