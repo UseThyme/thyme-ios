@@ -9,6 +9,7 @@ protocol Themable {
   var circleInactive: UIColor { get }
   var circleOutlineActive: UIColor { get }
   var circleOutlineInactive: UIColor { get }
+  var statusbarStyle: UIStatusBarStyle { get }
 }
 
 enum ThemeName {
@@ -32,6 +33,7 @@ struct Theme {
     var circleInactive = UIColor(white: 1.0, alpha: 0.4)
     var circleOutlineActive = UIColor.whiteColor()
     var circleOutlineInactive = UIColor.clearColor()
+    var statusbarStyle = UIStatusBarStyle.LightContent
   }
 
   struct DarkColors: Themable {
@@ -48,6 +50,7 @@ struct Theme {
     var circleInactive = UIColor(white: 1.0, alpha: 0.4)
     var circleOutlineActive = UIColor.whiteColor()
     var circleOutlineInactive = UIColor.clearColor()
+    var statusbarStyle = UIStatusBarStyle.LightContent
   }
 
   struct HighContrast: Themable {
@@ -64,6 +67,7 @@ struct Theme {
     var circleInactive = UIColor(red: 255, green: 255, blue: 255, alpha: 0.4)
     var circleOutlineActive = UIColor.blackColor()
     var circleOutlineInactive = UIColor(hex: "BCBCBC")
+    var statusbarStyle = UIStatusBarStyle.Default
   }
 
 }

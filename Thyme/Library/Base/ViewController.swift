@@ -23,7 +23,11 @@ class ViewController: UIViewController {
   }
 
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+    if let theme = theme {
+      return theme.statusbarStyle
+    } else {
+      return .LightContent
+    }
   }
 
   override func viewDidLoad() {

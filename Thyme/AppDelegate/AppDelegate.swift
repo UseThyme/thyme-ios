@@ -71,8 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     pageControl.currentPageIndicatorTintColor = UIColor(hex: "FF5C5C")
     pageControl.backgroundColor = UIColor(hex: "EDFFFF")
 
-    UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
-
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
       handleLocalNotification(notification, playingSound: false)
     }
@@ -84,7 +82,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   }
 
   func applicationDidBecomeActive(application: UIApplication) {
-
     var theme: Themable = Theme.Main()
 
     if UIAccessibilityDarkerSystemColorsEnabled() {
@@ -96,6 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     }
 
     homeController.theme = theme
+    homeController.setNeedsStatusBarAppearanceUpdate()
   }
 
   func applicationDidEnterBackground(application: UIApplication) {
