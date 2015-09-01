@@ -83,7 +83,7 @@ class HomeInterfaceController: WKInterfaceController {
           self.alarmTimer?.stop()
           self.setupAlarms(alarmData)
       } else {
-        println("Error with fetching of alarms from the parent app")
+        print("Error with fetching of alarms from the parent app")
       }
     }
   }

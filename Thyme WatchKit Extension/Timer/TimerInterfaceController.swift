@@ -60,7 +60,7 @@ class TimerInterfaceController: WKInterfaceController {
           self.alarmTimer?.stop()
           self.setupAlarm(alarmInfo)
       } else {
-        println("Error with fetching of the alarm with index = \(self.index) from the parent app")
+        print("Error with fetching of the alarm with index = \(self.index) from the parent app")
       }
     }
   }

@@ -39,7 +39,7 @@ class GlanceController: WKInterfaceController {
         alarmData = response["alarms"] as? [AnyObject] {
           self.setupInterface(alarmData)
       } else {
-        println("Error with fetching of alarms from the parent app")
+        print("Error with fetching of alarms from the parent app")
       }
     }
   }
