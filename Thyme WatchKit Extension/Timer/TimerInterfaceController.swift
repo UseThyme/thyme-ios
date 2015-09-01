@@ -13,6 +13,11 @@ class TimerInterfaceController: WKInterfaceController {
   var alarmTimer: AlarmTimer?
   var index = 0
 
+  lazy var communicator: Communicator = {
+    let communicator = Communicator()
+    return communicator
+    }()
+
   // MARK: - Lifecycle
 
   override func awakeWithContext(context: AnyObject?) {
@@ -25,7 +30,7 @@ class TimerInterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    request(.GetAlarm)
+    sendMessage(Message(.GetAlarm))
   }
 
   override func didDeactivate() {
@@ -35,26 +40,24 @@ class TimerInterfaceController: WKInterfaceController {
   // MARK: - Actions
 
   @IBAction func menu3MinutesButtonDidTap() {
-    request(.UpdateAlarmMinutes, ["amount": 3])
+    sendMessage(Message(.UpdateAlarmMinutes, ["amount": 3]))
   }
   
   @IBAction func menu5MinutesButtonDidTap() {
-    request(.UpdateAlarmMinutes, ["amount": 5])
+    sendMessage(Message(.UpdateAlarmMinutes, ["amount": 5]))
   }
   
   @IBAction func menuCancelButtonDidTap() {
-    request(.CancelAlarm)
+    sendMessage(Message(.CancelAlarm))
   }
 
   // MARK: - Communication
 
-  func request(kind: Communication.Kind, _ parameters: [NSObject : AnyObject] = [:]) {
-    var requestParameters = parameters
-    requestParameters["index"] = index
+  func sendMessage(var message: Message) {
+    message.parameters["index"] = index
 
-    Communication.request(kind, parameters: requestParameters) {
+    communicator.sendMessage(message) {
       [unowned self] response, error in
-
       if let response = response,
         alarmInfo = response["alarm"] as? [String: AnyObject] where error == nil {
           self.alarmTimer?.stop()

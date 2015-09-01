@@ -27,6 +27,11 @@ class HomeInterfaceController: WKInterfaceController {
 
   var alarmTimer: AlarmTimer?
 
+  lazy var communicator: Communicator = {
+    let communicator = Communicator()
+    return communicator
+    }()
+
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
 
@@ -40,7 +45,7 @@ class HomeInterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    request(.GetAlarms)
+    sendMessage(Message(.GetAlarms))
   }
 
   override func didDeactivate() {
@@ -70,13 +75,13 @@ class HomeInterfaceController: WKInterfaceController {
   }
 
   @IBAction func menuCancelAllButtonDidTap() {
-    request(.CancelAlarms)
+    sendMessage(Message(.CancelAlarms))
   }
 
   // MARK: - Communication
 
-  func request(kind: Communication.Kind) {
-    Communication.request(kind) {
+  func sendMessage(message: Message) {
+    communicator.sendMessage(message) {
       [unowned self] response, error in
       if let response = response,
         alarmData = response["alarms"] as? [AnyObject] {

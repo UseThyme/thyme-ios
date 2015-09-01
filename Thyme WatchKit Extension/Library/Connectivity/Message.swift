@@ -22,7 +22,7 @@ struct Message {
     return data
   }
 
-  init(kind: Kind, parameters: [String: AnyObject] = [:]) {
+  init(_ kind: Kind, _ parameters: [String: AnyObject] = [:]) {
     self.kind = kind
     self.parameters = parameters
   }
