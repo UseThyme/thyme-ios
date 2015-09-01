@@ -3,12 +3,6 @@ import Foundation
 
 class TimerInterfaceController: WKInterfaceController {
 
-  struct Request {
-    static let getAlarm = "getAlarm"
-    static let updateAlarmMinutes = "updateAlarmMinutes"
-    static let cancelAlarm = "cancelAlarm"
-  }
-
   @IBOutlet weak var minutesGroup: WKInterfaceGroup!
   @IBOutlet weak var secondsGroup: WKInterfaceGroup!
 
@@ -18,6 +12,8 @@ class TimerInterfaceController: WKInterfaceController {
 
   var alarmTimer: AlarmTimer?
   var index = 0
+
+  // MARK: - Lifecycle
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
@@ -29,7 +25,7 @@ class TimerInterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    load(Request.getAlarm)
+    request(.GetAlarm)
   }
 
   override func didDeactivate() {
@@ -38,27 +34,25 @@ class TimerInterfaceController: WKInterfaceController {
 
   // MARK: - Actions
 
-
   @IBAction func menu3MinutesButtonDidTap() {
-    load(Request.updateAlarmMinutes, data: ["amount": 3])
+    request(.UpdateAlarmMinutes, ["amount": 3])
   }
   
   @IBAction func menu5MinutesButtonDidTap() {
-    load(Request.updateAlarmMinutes, data: ["amount": 5])
+    request(.UpdateAlarmMinutes, ["amount": 5])
   }
   
   @IBAction func menuCancelButtonDidTap() {
-    load(Request.cancelAlarm)
+    request(.CancelAlarm)
   }
 
   // MARK: - Communication
 
-  func load(request: String, data: [NSObject : AnyObject] = [:]) {
-    var requestData = data
-    requestData["request"] = request
-    requestData["index"] = index
+  func request(kind: Communication.Kind, _ parameters: [NSObject : AnyObject] = [:]) {
+    var requestParameters = parameters
+    requestParameters["index"] = index
 
-    WKInterfaceController.openParentApplication(requestData) {
+    Communication.request(kind, parameters: requestParameters) {
       [unowned self] response, error in
 
       if let response = response,

@@ -2,24 +2,44 @@ import Foundation
 
 class Alarm {
 
+  var title: String
   var firedDate: NSDate?
   var numberOfSeconds: NSNumber?
 
   var hours = 0
   var minutes = 0
   var seconds = 0
+  var secondsLeft: NSTimeInterval = 0
 
   var active: Bool {
     return hours > 0 || minutes > 0 || seconds > 0
   }
 
-  init(firedDate: NSDate? = nil, numberOfSeconds: NSNumber? = nil) {
+  var shortText: String {
+    var text: String
+
+    if hours > 0 {
+      if minutes < 10 {
+        text = "\(hours):0\(minutes)"
+      } else {
+        text = "\(hours):\(minutes)"
+      }
+    } else {
+      text = "\(minutes)"
+    }
+
+    return text
+  }
+
+  init(title: String = "", firedDate: NSDate? = nil, numberOfSeconds: NSNumber? = nil) {
+    self.title = title
     self.firedDate = firedDate
     self.numberOfSeconds = numberOfSeconds
 
     if let firedDate = self.firedDate, numberOfSeconds = self.numberOfSeconds {
-      let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
-      let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
+      secondsLeft = NSTimeInterval(numberOfSeconds.integerValue)
+        - NSDate().timeIntervalSinceDate(firedDate)
+      
       let currentSecond = secondsLeft % 60
       var minutesLeft = floor(secondsLeft / 60)
       let hoursLeft = floor(minutesLeft / 60)

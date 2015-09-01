@@ -85,6 +85,7 @@
 		D54D08E61B8E82AA0012DBF6 /* TimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */; };
 		D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E71B8E89E30012DBF6 /* TimerContext.swift */; };
 		D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchHandler.swift */; };
+		D5E489FC1B95108800518CEA /* Communication.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E489FB1B95108800518CEA /* Communication.swift */; };
 		D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */; };
 		D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588201B8E54FD0050DD5C /* GlanceController.swift */; };
 		D5E588271B8E54FD0050DD5C /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */; };
@@ -218,6 +219,7 @@
 		D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerInterfaceController.swift; sourceTree = "<group>"; };
 		D54D08E71B8E89E30012DBF6 /* TimerContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerContext.swift; sourceTree = "<group>"; };
 		D5A238391B8BD75F00863023 /* WatchHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchHandler.swift; sourceTree = "<group>"; };
+		D5E489FB1B95108800518CEA /* Communication.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communication.swift; sourceTree = "<group>"; };
 		D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTimer.swift; sourceTree = "<group>"; };
 		D5E588201B8E54FD0050DD5C /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
 		D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
@@ -623,6 +625,7 @@
 			children = (
 				D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */,
 				D538B8F11B8E42CD00069C38 /* ImageList.swift */,
+				D5E489FB1B95108800518CEA /* Communication.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -936,6 +939,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5E489FC1B95108800518CEA /* Communication.swift in Sources */,
 				D5E588281B8E54FD0050DD5C /* NotificationController.swift in Sources */,
 				D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */,
 				D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */,

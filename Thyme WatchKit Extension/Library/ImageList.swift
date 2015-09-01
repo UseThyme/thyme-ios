@@ -12,4 +12,8 @@ public struct ImageList {
     static let minuteHourSequence = "timerHourMinute"
     static let secondSequence = "timerSecond"
   }
+
+  struct Glance {
+    static let happyHerbieSequence = "HappyHerbie"
+  }
 }

@@ -54,7 +54,9 @@ struct WatchHandler {
 
         NSNotificationCenter.defaultCenter().postNotificationName(Notifications.AlarmsDidUpdate, object: notification)
 
-        data["alarm"] = extractAlarmData(notification)
+        var alarmData = extractAlarmData(notification)
+        alarmData["title"] = alarm.title
+        data["alarm"] = alarmData
       }
     default:
       break
@@ -80,6 +82,7 @@ struct WatchHandler {
 
     if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
       alarmData = extractAlarmData(notification)
+      alarmData["title"] = alarm.title
     }
 
     return alarmData
