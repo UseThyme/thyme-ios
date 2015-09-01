@@ -1,7 +1,8 @@
 import WatchKit
 import Foundation
+import WatchConnectivity
 
-struct Communication {
+class Communicator: NSObject, WCSessionDelegate {
 
   enum Kind: String {
     case GetAlarms = "getAlarms"
@@ -11,15 +12,27 @@ struct Communication {
     case CancelAlarm = "cancelAlarm"
   }
 
-  typealias Completion = (response: [NSObject : AnyObject]!, error: NSError!) -> Void
+  typealias Completion = (response: [String: AnyObject]?, error: NSError?) -> Void
 
-  static func request(kind: Kind, parameters: [NSObject : AnyObject] = [:],
+  var session: WCSession
+
+  override init() {
+    session = WCSession.defaultSession()
+    super.init()
+
+    session.delegate = self
+    session.activateSession()
+  }
+
+  func sendMessage(kind: Kind, parameters: [String: AnyObject] = [:],
     completion: Completion) {
-      var requestParameters = parameters
-      requestParameters["request"] = kind.rawValue
+      var message = parameters
+      message["request"] = kind.rawValue
 
-//      WKInterfaceController.openParentApplication(requestParameters) { response, error in
-//        completion(response: response, error: error)
-//      }
+      session.sendMessage(message, replyHandler: { response in
+        completion(response: response, error: nil)
+        }, errorHandler: { error in
+          completion(response: nil, error: error)
+      })
   }
 }
