@@ -1,10 +1,12 @@
 import UIKit
 import AVFoundation
+import WatchConnectivity
 
 let ThymeAlarmIDKey = "HYPAlarmID"
 let ThymeAlarmFireDataKey = "HYPAlarmFireDate"
 let ThymeAlarmFireInterval = "HYPAlarmFireInterval"
 
+@available(iOS 9.0, *)
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate, UIAlertViewDelegate {
 
@@ -55,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     return false
     }()
 
+  var session: WCSession!
+
   // MARK: UIApplicationDelegate
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -80,6 +84,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
       handleLocalNotification(notification, playingSound: false)
+    }
+
+    if WCSession.isSupported() {
+      session = WCSession.defaultSession()
+      session.delegate = self
+      session.activateSession()
     }
 
     window!.rootViewController = navigationController
@@ -171,30 +181,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
 // MARK: - WatchKit
 
-extension AppDelegate {
+@available(iOS 9.0, *)
+extension AppDelegate: WCSessionDelegate {
 
-  func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: ([NSObject : AnyObject]?) -> Void) {
-
-    if let userInfo = userInfo, request = userInfo["request"] as? String {
-      var workaround: UIBackgroundTaskIdentifier?
-      workaround = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-        UIApplication.sharedApplication().endBackgroundTask(workaround!)
-      })
-
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
-        UIApplication.sharedApplication().endBackgroundTask(workaround!)
-      })
-
-      var realBackgroundTask: UIBackgroundTaskIdentifier?
-      realBackgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-        reply(nil)
-        UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
-      })
-
-      let response = WatchHandler.response(request, userInfo)
-      reply(response)
-
-      UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
-    }
+  func session(session: WCSession, didReceiveMessage message: [String : AnyObject],
+    replyHandler: ([String : AnyObject]) -> Void) {
+      if let request = message["request"] as? String {
+        replyHandler(WatchCommunicator.response(request, message))
+      }
   }
 }

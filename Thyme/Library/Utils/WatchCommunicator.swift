@@ -1,26 +1,12 @@
 import Foundation
-import WatchConnectivity
 
-@available(iOS 9.0, *)
-class WatchCommunicator: NSObject {
+struct WatchCommunicator {
 
   struct Notifications {
     static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
   }
 
-  var session: WCSession!
-
-  override init() {
-    super.init()
-
-    if WCSession.isSupported() {
-      session = WCSession.defaultSession()
-      session.delegate = self
-      session.activateSession()
-    }
-  }
-
-  func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
+  static func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
     var data = [String : AnyObject]()
 
     switch request {
@@ -79,9 +65,9 @@ class WatchCommunicator: NSObject {
     return data
   }
 
-  private func getAlarmsData() -> [AnyObject] {
+  static func getAlarmsData() -> [AnyObject] {
     var alarms = [AnyObject]()
-    
+
     for index in 0...4 {
       alarms.append(getAlarmData(index))
     }
@@ -89,7 +75,7 @@ class WatchCommunicator: NSObject {
     return alarms
   }
 
-  private func getAlarmData(index: Int) -> [String: AnyObject] {
+  static func getAlarmData(index: Int) -> [String: AnyObject] {
     let alarm = Alarm.create(index)
     var alarmData = [String: AnyObject]()
 
@@ -101,7 +87,7 @@ class WatchCommunicator: NSObject {
     return alarmData
   }
 
-  private func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
+  static func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
     var alarmData = [String: AnyObject]()
 
     if let userInfo = notification.userInfo,
@@ -112,16 +98,5 @@ class WatchCommunicator: NSObject {
     }
 
     return alarmData
-  }
-}
-
-@available(iOS 9.0, *)
-extension WatchCommunicator: WCSessionDelegate {
-
-  func session(session: WCSession, didReceiveMessage message: [String : AnyObject],
-    replyHandler: ([String : AnyObject]) -> Void) {
-      if let request = message["request"] as? String {
-        replyHandler(response(request, message))
-      }
   }
 }
