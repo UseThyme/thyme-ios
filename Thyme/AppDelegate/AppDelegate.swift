@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     let audioPlayer = AVAudioPlayer(contentsOfURL: file, error: &error)
 
     if error != nil {
-      println("error loading sound")
+      print("error loading sound")
     }
 
     return audioPlayer
