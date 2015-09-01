@@ -66,7 +66,6 @@ struct WatchHandler {
   }
 
   private static func getAlarmsData() -> [AnyObject] {
-    var notifications = [String]()
     var alarms = [AnyObject]()
     
     for index in 0...4 {

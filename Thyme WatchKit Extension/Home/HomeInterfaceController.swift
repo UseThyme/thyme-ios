@@ -127,7 +127,7 @@ class HomeInterfaceController: WKInterfaceController {
   func setupAlarms(alarmData: [AnyObject]) {
     var alarms = [Alarm]()
 
-    for (index, alarmInfo) in enumerate(alarmData) {
+    for (index, alarmInfo) in alarmData.enumerate() {
       if index == self.minutesGroups.count {
         break
       }
@@ -158,7 +158,7 @@ class HomeInterfaceController: WKInterfaceController {
 extension HomeInterfaceController: AlarmTimerDelegate {
 
   func alarmTimerDidTick(alarmTimer: AlarmTimer, alarms: [Alarm]) {
-    for (index, alarm) in enumerate(alarms) {
+    for (index, alarm) in alarms.enumerate() {
       updatePlate(index, alarm: alarm)
     }
 

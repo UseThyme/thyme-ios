@@ -82,7 +82,7 @@ class TimerViewController: ViewController {
   }()
 
   lazy var kitchenButton: UIButton = {
-    let button = UIButton.buttonWithType(.Custom) as! UIButton
+    let button = UIButton(type: .Custom)
     let imageName = self.alarm.type == .Oven
       ? "oven"
       : "\(self.alarm.indexPath!.row)-\(self.alarm.indexPath!.section)"
@@ -219,8 +219,6 @@ class TimerViewController: ViewController {
           selector: "updateBackward:",
           userInfo: nil,
           repeats: true)
-        break
-      default:
         break
       }
 

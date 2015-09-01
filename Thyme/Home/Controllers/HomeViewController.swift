@@ -7,15 +7,13 @@ class HomeViewController: ViewController, ContentSizeChangable {
   var deleteTimersMessageIsBeingDisplayed: Bool = false
 
   override var theme: Themable? {
-    didSet {
-      if let theme = theme {
-        gradientLayer.colors = theme.colors
-        gradientLayer.locations = theme.locations
-        titleLabel.textColor = theme.labelColor
-        subtitleLabel.textColor = theme.labelColor
-        plateCollectionView.setNeedsDisplay()
-        ovenCollectionView.setNeedsDisplay()
-      }
+    didSet(newTheme) {
+      gradientLayer.colors = newTheme?.colors
+      gradientLayer.locations = newTheme?.locations
+      titleLabel.textColor = newTheme?.labelColor
+      subtitleLabel.textColor = newTheme?.labelColor
+      plateCollectionView.setNeedsDisplay()
+      ovenCollectionView.setNeedsDisplay()
     }
   }
 
@@ -88,7 +86,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return alarms
     }()
 
-  lazy var titleLabel: UILabel = {
+  lazy var titleLabel: UILabel = { [unowned self] in
     let sideMargin: CGFloat = 20
     let width = Screen.width - 2 * sideMargin
     let height: CGFloat = 25
@@ -111,7 +109,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
     label.font = Font.HomeViewController.title
     label.text = Alarm.titleForHomescreen()
     label.textAlignment = .Center
-    label.textColor = self.theme?.labelColor
     label.backgroundColor = UIColor.clearColor()
     label.adjustsFontSizeToFitWidth = true
 
@@ -131,7 +128,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
     label.font = Font.HomeViewController.subtitle
     label.text = Alarm.subtitleForHomescreen()
     label.textAlignment = .Center
-    label.textColor = self.theme?.labelColor
     label.backgroundColor = UIColor.clearColor()
     label.adjustsFontSizeToFitWidth = true
 
@@ -273,7 +269,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     }()
 
   lazy var settingsButton: UIButton = {
-    let button = UIButton.buttonWithType(.InfoLight) as! UIButton
+    let button = UIButton(type: .InfoLight)
     button.addTarget(self, action: "settingsButtonAction", forControlEvents: .TouchUpInside)
 
     let y: CGFloat = Screen.height - 44 - 15
@@ -313,6 +309,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
 
+  convenience init(theme: Themable?) {
+    self.init()
+    self.theme = theme
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
 
@@ -331,9 +332,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
     ovenCollectionView.registerClass(PlateCell.classForCoder(),
       forCellWithReuseIdentifier: plateCellIdentifier)
 
-    [titleLabel, subtitleLabel,
+    for subview in [titleLabel, subtitleLabel,
       ovenBackgroundImageView, ovenShineImageView,
-      plateCollectionView, ovenCollectionView].map { self.view.addSubview($0) }
+      plateCollectionView, ovenCollectionView] {
+        view.addSubview(subview)
+    }
   }
 
   override func viewWillAppear(animated: Bool) {
@@ -356,9 +359,9 @@ class HomeViewController: ViewController, ContentSizeChangable {
     super.viewDidAppear(animated)
 
     let registredSettings = UIApplication.sharedApplication().currentUserNotificationSettings()
-    let types: UIUserNotificationType = .Alert | .Badge | .Sound
+    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
 
-    if registredSettings.types != types {
+    if registredSettings!.types != types {
       let navigationController = UINavigationController(rootViewController: welcomeController)
       navigationController.navigationBarHidden = true
       presentViewController(navigationController,
@@ -405,7 +408,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
       self.removeViewController(self.settingsController)
 
       let applicationDelegate = UIApplication.sharedApplication().delegate
-      if let window = applicationDelegate?.window {
+      if let _ = applicationDelegate?.window {
         self.settingsController.view.removeFromSuperview()
         self.view.removeGestureRecognizer(self.tapRecognizer)
       }
@@ -558,7 +561,7 @@ extension HomeViewController: UICollectionViewDelegate {
 extension HomeViewController: InstructionDelegate {
 
   func instructionControllerDidTapAcceptButton(controller: InstructionController) {
-    let types: UIUserNotificationType = .Alert | .Badge | .Sound
+    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
     let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
     UIApplication.sharedApplication().registerUserNotificationSettings(settings)
   }

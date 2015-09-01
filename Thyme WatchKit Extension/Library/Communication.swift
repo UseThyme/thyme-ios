@@ -18,8 +18,8 @@ struct Communication {
       var requestParameters = parameters
       requestParameters["request"] = kind.rawValue
 
-      WKInterfaceController.openParentApplication(requestParameters) { response, error in
-        completion(response: response, error: error)
-      }
+//      WKInterfaceController.openParentApplication(requestParameters) { response, error in
+//        completion(response: response, error: error)
+//      }
   }
 }

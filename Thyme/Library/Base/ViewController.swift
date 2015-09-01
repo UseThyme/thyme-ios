@@ -13,14 +13,7 @@ class ViewController: UIViewController {
     return layer
     }()
 
-  var theme: Themable? {
-    didSet {
-      if let theme = theme {
-        gradientLayer.colors = theme.colors
-        gradientLayer.locations = theme.locations
-      }
-    }
-  }
+  var theme: Themable?
 
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
     if let theme = theme {
