@@ -84,7 +84,7 @@
 		D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D538B8F11B8E42CD00069C38 /* ImageList.swift */; };
 		D54D08E61B8E82AA0012DBF6 /* TimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */; };
 		D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E71B8E89E30012DBF6 /* TimerContext.swift */; };
-		D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchHandler.swift */; };
+		D5A2383A1B8BD75F00863023 /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchCommunicator.swift */; };
 		D5BF44871B96521400674ADD /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BF44861B96521400674ADD /* Communicator.swift */; settings = {ASSET_TAGS = (); }; };
 		D5BF44891B96522700674ADD /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BF44881B96522700674ADD /* Message.swift */; settings = {ASSET_TAGS = (); }; };
 		D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */; };
@@ -230,7 +230,7 @@
 		D538B8F11B8E42CD00069C38 /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 		D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerInterfaceController.swift; sourceTree = "<group>"; };
 		D54D08E71B8E89E30012DBF6 /* TimerContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerContext.swift; sourceTree = "<group>"; };
-		D5A238391B8BD75F00863023 /* WatchHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchHandler.swift; sourceTree = "<group>"; };
+		D5A238391B8BD75F00863023 /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
 		D5BF44861B96521400674ADD /* Communicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
 		D5BF44881B96522700674ADD /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTimer.swift; sourceTree = "<group>"; };
@@ -454,7 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				BDFD4B4E1B342E7B008AEAEF /* LocalNotificationManager.swift */,
-				D5A238391B8BD75F00863023 /* WatchHandler.swift */,
+				D5A238391B8BD75F00863023 /* WatchCommunicator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -935,7 +935,7 @@
 				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
-				D5A2383A1B8BD75F00863023 /* WatchHandler.swift in Sources */,
+				D5A2383A1B8BD75F00863023 /* WatchCommunicator.swift in Sources */,
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
 				BDF6EC8A1B8E3685002A051B /* Device.swift in Sources */,
 				BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */,

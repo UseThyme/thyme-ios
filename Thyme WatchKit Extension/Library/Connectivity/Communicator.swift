@@ -4,7 +4,7 @@ import WatchConnectivity
 
 class Communicator: NSObject, WCSessionDelegate {
 
-  typealias Completion = (response: [String: AnyObject]?, error: NSError?) -> Void
+  typealias Completion = (response: [String : AnyObject]?, error: NSError?) -> Void
 
   var session: WCSession
 

@@ -1,26 +1,40 @@
 import Foundation
+import WatchConnectivity
 
-struct WatchHandler {
+@available(iOS 9.0, *)
+class WatchCommunicator: NSObject {
 
   struct Notifications {
     static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
   }
 
-  static func response(request: String, _ userInfo: [NSObject : AnyObject]?) -> [NSObject : AnyObject] {
-    var data = [NSObject : AnyObject]()
+  var session: WCSession!
+
+  override init() {
+    super.init()
+
+    if WCSession.isSupported() {
+      session = WCSession.defaultSession()
+      session.delegate = self
+      session.activateSession()
+    }
+  }
+
+  func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
+    var data = [String : AnyObject]()
 
     switch request {
     case "getAlarms":
       data = ["alarms": getAlarmsData()]
     case "getAlarm":
-      if let userInfo = userInfo, index = userInfo["index"] as? Int {
+      if let index = message["index"] as? Int {
         data["alarm"] = getAlarmData(index)
       }
     case "cancelAlarms":
       LocalNotificationManager.cancelAllLocalNotifications()
       data = ["alarms": getAlarmsData()]
     case "cancelAlarm":
-      if let userInfo = userInfo, index = userInfo["index"] as? Int {
+      if let index = message["index"] as? Int {
         let alarm = Alarm.create(index)
         if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
           UIApplication.sharedApplication().cancelLocalNotification(notification)
@@ -29,7 +43,7 @@ struct WatchHandler {
         data["alarm"] = getAlarmData(index)
       }
     case "updateAlarmMinutes":
-      if let userInfo = userInfo, index = userInfo["index"] as? Int, amount = userInfo["amount"] as? Int {
+      if let index = message["index"] as? Int, amount = message["amount"] as? Int {
         let alarm = Alarm.create(index)
         var seconds: NSTimeInterval = 0
 
@@ -65,7 +79,7 @@ struct WatchHandler {
     return data
   }
 
-  private static func getAlarmsData() -> [AnyObject] {
+  private func getAlarmsData() -> [AnyObject] {
     var alarms = [AnyObject]()
     
     for index in 0...4 {
@@ -75,7 +89,7 @@ struct WatchHandler {
     return alarms
   }
 
-  private static func getAlarmData(index: Int) -> [String: AnyObject] {
+  private func getAlarmData(index: Int) -> [String: AnyObject] {
     let alarm = Alarm.create(index)
     var alarmData = [String: AnyObject]()
 
@@ -87,7 +101,7 @@ struct WatchHandler {
     return alarmData
   }
 
-  private static func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
+  private func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
     var alarmData = [String: AnyObject]()
 
     if let userInfo = notification.userInfo,
@@ -98,5 +112,16 @@ struct WatchHandler {
     }
 
     return alarmData
+  }
+}
+
+@available(iOS 9.0, *)
+extension WatchCommunicator: WCSessionDelegate {
+
+  func session(session: WCSession, didReceiveMessage message: [String : AnyObject],
+    replyHandler: ([String : AnyObject]) -> Void) {
+      if let request = message["request"] as? String {
+        replyHandler(response(request, message))
+      }
   }
 }
