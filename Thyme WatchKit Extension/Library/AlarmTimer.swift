@@ -43,7 +43,8 @@ class AlarmTimer: NSObject {
   // MARK: - Actions
 
   func update(timer: NSTimer) {
-    alarms.map { $0.update() }
+    for alarm in alarms { alarm.update() }
+
     delegate?.alarmTimerDidTick(self, alarms: alarms)
   }
 }

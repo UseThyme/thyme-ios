@@ -26,10 +26,9 @@ public class LocalNotificationManager {
 
   static func existingNotificationWithAlarmID(alarmID: String) -> UILocalNotification? {
     for notification in UIApplication.sharedApplication().scheduledLocalNotifications! {
-      if let foundNotification = notification as? UILocalNotification,
-        notificationAlarmID = foundNotification.userInfo?[ThymeAlarmIDKey] as? String
+      if let notificationAlarmID = notification.userInfo?[ThymeAlarmIDKey] as? String
         where notificationAlarmID == alarmID {
-          return foundNotification
+          return notification
       }
     }
     return nil
@@ -37,9 +36,8 @@ public class LocalNotificationManager {
 
   static func cancelAllLocalNotifications() {
     for notification in UIApplication.sharedApplication().scheduledLocalNotifications! {
-      if let notification = notification as? UILocalNotification,
-        _ = notification.userInfo?[ThymeAlarmIDKey] as? String {
-          UIApplication.sharedApplication().cancelLocalNotification(notification)
+      if let _ = notification.userInfo?[ThymeAlarmIDKey] as? String {
+        UIApplication.sharedApplication().cancelLocalNotification(notification)
       }
     }
   }

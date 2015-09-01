@@ -13,10 +13,9 @@ func SQR(x: CGFloat) -> CGFloat {
 }
 
 func AngleFromNorth(p1: CGPoint, p2: CGPoint, flipped: Bool) -> Float {
-  var v = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)
-  let vmag = sqrt(SQR(v.x) + SQR(v.y))
+  let v = CGPoint(x: p2.x - p1.x, y: p2.y - p1.y)
 
-  var result = RadToDeg(CGFloat(atan2f(Float(v.x), flipped
+  let result = RadToDeg(CGFloat(atan2f(Float(v.x), flipped
     ? Float(-v.y)
     : Float(v.y)))
   )

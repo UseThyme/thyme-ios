@@ -125,7 +125,10 @@ class TimerViewController: ViewController {
     button.frame = CGRect(x: x, y: y, width: width, height: height)
     button.imageEdgeInsets = UIEdgeInsetsZero
 
-    [.Highlighted, .Normal, .Selected].map { button.setBackgroundImage(image, forState: $0) }
+    let states: [UIControlState] = [.Highlighted, .Normal, .Selected]
+    for state in states {
+      button.setBackgroundImage(image, forState: state)
+    }
 
     return button
   }()
@@ -143,7 +146,7 @@ class TimerViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    [timerControl, kitchenButton, fingerView].map { self.view.addSubview($0) }
+    for subview in [timerControl, kitchenButton, fingerView] { view.addSubview(subview) }
   }
 
   override func viewWillAppear(animated: Bool) {
