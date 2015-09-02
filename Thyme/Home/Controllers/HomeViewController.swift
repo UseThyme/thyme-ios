@@ -6,6 +6,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   let plateCellIdentifier = "HYPPlateCellIdentifier"
 
   var deleteTimersMessageIsBeingDisplayed: Bool = false
+  var cellRect: CGRect?
 
   override var theme: Themable? {
     didSet(newTheme) {
@@ -17,6 +18,13 @@ class HomeViewController: ViewController, ContentSizeChangable {
       ovenCollectionView.setNeedsDisplay()
     }
   }
+
+  lazy var stoveView: UIView = { [unowned self] in
+    var frame = self.view.bounds
+    frame.origin.y = self.topMargin
+    let view = UIView(frame: frame)
+    return view
+    }()
 
   var maxMinutesLeft: NSNumber? {
     didSet(newValue) {
@@ -87,12 +95,36 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return alarms
     }()
 
-  lazy var transition: Transition = {
-    let transition = Transition() { controller, show in
-      controller.view.transform = show
-        ? CGAffineTransformIdentity
-        : CGAffineTransformMakeScale(0.5, 0.5)
+  lazy var transition: Transition = { [unowned self] in
+    let transition = Transition() {  controller, show in
 
+      if !UIAccessibilityIsReduceMotionEnabled() {
+        if let timerViewController = controller as? TimerViewController {
+          if show {
+            UIView.animateWithDuration(0.5) {
+              self.titleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
+              self.subtitleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
+              self.stoveView.transform = CGAffineTransformMakeScale(0.2, 0.2)
+              self.stoveView.frame.origin.x = timerViewController.kitchenButton.frame.origin.x
+              self.stoveView.frame.origin.y = timerViewController.kitchenButton.frame.origin.y - 24
+            }
+
+            timerViewController.timerControl.transform = CGAffineTransformMakeScale(0.5, 0.5)
+            timerViewController.timerControl.alpha = 0.0
+            UIView.animateWithDuration(0.8, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .BeginFromCurrentState, animations: {
+              timerViewController.timerControl.transform = CGAffineTransformIdentity
+              timerViewController.timerControl.alpha = 1.0
+              }, completion: nil)
+
+          } else {
+            self.titleLabel.transform = CGAffineTransformIdentity
+            self.subtitleLabel.transform = CGAffineTransformIdentity
+            self.stoveView.transform = CGAffineTransformIdentity
+            self.stoveView.frame.origin.x = 0
+            self.stoveView.frame.origin.y = self.topMargin
+          }
+        }
+      }
       controller.view.alpha = show ? 1 : 0
       controller.view.backgroundColor = UIColor.clearColor()
     }
@@ -173,44 +205,40 @@ class HomeViewController: ViewController, ContentSizeChangable {
     layout.scrollDirection = .Horizontal
 
     let width: CGFloat = Screen.width - 2 * sideMargin
-    let collectionViewWidth = CGRect(x: sideMargin, y: self.topMargin,
+    let collectionViewWidth = CGRect(x: sideMargin, y: 0,
       width: width, height: width)
 
     let collectionView = UICollectionView(frame: collectionViewWidth,
       collectionViewLayout: layout)
     collectionView.dataSource = self
     collectionView.delegate = self
+    collectionView.scrollEnabled = false
     collectionView.backgroundColor = UIColor.clearColor()
 
-    self.applyTransformToLayer(collectionView.layer,
-      factor: self.plateFactor)
+    self.applyTransformToLayer(collectionView.layer, factor: self.plateFactor)
 
     return collectionView
     }()
 
   lazy var ovenCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
-    var topMargin: CGFloat = self.topMargin
+    var topMargin: CGFloat = self.plateCollectionView.frame.height + self.topMargin * 2
     var cellWidth: CGFloat = 0
     var sideMargin: CGFloat = 0
 
     if Screen.isPad {
       cellWidth = 175
       sideMargin = 200
-      topMargin += 475
     } else {
       if Screen.height == 480 || Screen.height == 568 {
         cellWidth = 120
         sideMargin = 100
-        topMargin += 260
       } else if Screen.height == 667 {
         cellWidth = 133
         sideMargin = 120
-        topMargin += 300
       } else {
         cellWidth = 152
         sideMargin = 130
-        topMargin += 328
       }
     }
 
@@ -225,6 +253,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
       collectionViewLayout: layout)
     collectionView.dataSource = self
     collectionView.delegate = self
+    collectionView.scrollEnabled = false
     collectionView.backgroundColor = UIColor.clearColor()
 
     self.applyTransformToLayer(collectionView.layer, factor: self.ovenFactor)
@@ -261,10 +290,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
       }
     }
 
-    let y = Screen.height - topMargin
+    let y = Screen.height - topMargin * 1.2
     imageView = UIImageView(frame: CGRect(x: x, y: y,
       width: width, height: height))
     imageView.image = image
+    imageView.userInteractionEnabled = false
 
     return imageView
     }()
@@ -278,6 +308,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
     imageView = UIImageView(frame: self.ovenBackgroundImageView.frame)
     imageView.image = image
+    imageView.userInteractionEnabled = false
 
     return imageView
     }()
@@ -341,16 +372,20 @@ class HomeViewController: ViewController, ContentSizeChangable {
       name: WatchCommunicator.Notifications.AlarmsDidUpdate,
       object: nil)
 
+    UIViewAnimationOptions.CurveEaseIn
+
     plateCollectionView.registerClass(PlateCell.classForCoder(),
       forCellWithReuseIdentifier: plateCellIdentifier)
     ovenCollectionView.registerClass(PlateCell.classForCoder(),
       forCellWithReuseIdentifier: plateCellIdentifier)
 
-    for subview in [titleLabel, subtitleLabel,
-      ovenBackgroundImageView, ovenShineImageView,
-      plateCollectionView, ovenCollectionView] {
+    for subview in [titleLabel, subtitleLabel] {
         view.addSubview(subview)
     }
+    for subview in [ovenBackgroundImageView, ovenShineImageView, plateCollectionView, ovenCollectionView] {
+      stoveView.addSubview(subview)
+    }
+    view.addSubview(stoveView)
   }
 
   override func viewWillAppear(animated: Bool) {
@@ -382,6 +417,13 @@ class HomeViewController: ViewController, ContentSizeChangable {
         animated: true,
         completion: nil)
     }
+
+//    UIView.animateWithDuration(1.0, animations: {
+//      self.scaleSubviews(2.0, to: 1.0, duration: 1.0)
+//      self.applyTransformToLayer(self.plateCollectionView.layer, factor: self.plateFactor)
+//      self.applyTransformToLayer(self.ovenCollectionView.layer, factor: self.ovenFactor)
+//    })
+
   }
 
   override func prefersStatusBarHidden() -> Bool {
@@ -527,6 +569,35 @@ class HomeViewController: ViewController, ContentSizeChangable {
       cell.timerControl.stopTimer()
     }
   }
+
+  func scaleSubviews(from: CGFloat, to: CGFloat, duration: CFTimeInterval = 0.3, exluded: [AnyObject] = []) {
+    let easingCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+    let xScaleAnimation = CABasicAnimation(keyPath: "transform.scale.x")
+    xScaleAnimation.timingFunction = easingCurve
+    xScaleAnimation.duration = duration
+    xScaleAnimation.repeatCount=0
+    xScaleAnimation.autoreverses=false
+    xScaleAnimation.removedOnCompletion = false
+    xScaleAnimation.fillMode = kCAFillModeForwards
+    xScaleAnimation.fromValue = from
+    xScaleAnimation.toValue = to
+
+    let yScaleAnimation = CABasicAnimation(keyPath: "transform.scale.y")
+    yScaleAnimation.timingFunction = easingCurve
+    yScaleAnimation.duration = duration
+    yScaleAnimation.repeatCount = 0
+    yScaleAnimation.autoreverses = false
+    yScaleAnimation.removedOnCompletion = false
+    yScaleAnimation.fillMode = kCAFillModeForwards
+    yScaleAnimation.fromValue = from
+    yScaleAnimation.toValue = to
+
+    for subview in stoveView.subviews {
+      let layer = subview.layer
+      layer.addAnimation(xScaleAnimation, forKey: "animateScaleX")
+      layer.addAnimation(yScaleAnimation, forKey: "animateScaleY")
+    }
+  }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -566,6 +637,10 @@ extension HomeViewController: UICollectionViewDelegate {
     timerController.theme = theme
     timerController.delegate = self
     timerController.transitioningDelegate = transition
+
+    if let cell = collectionView.cellForItemAtIndexPath(indexPath) {
+      cellRect = cell.convertRect(view.bounds, toView: collectionView)
+    }
 
     presentViewController(timerController, animated: true, completion: nil)
   }
