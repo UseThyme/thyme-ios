@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
   var session: WCSession!
 
-  // MARK: UIApplicationDelegate
+  // MARK: - UIApplicationDelegate
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
@@ -119,6 +119,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     application.beginReceivingRemoteControlEvents()
   }
 
+  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    if motion == .MotionShake {
+      NSNotificationCenter.defaultCenter().postNotificationName("appWasShaked", object: nil)
+    }
+  }
+}
+
+// MARK: - Local Notifications
+
+@available(iOS 9.0, *)
+extension AppDelegate {
+
+  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
+    if notificationSettings.types != types {
+      homeController.cancelledNotifications()
+    } else {
+      homeController.registeredForNotifications()
+    }
+  }
+
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
     let state = UIApplication.sharedApplication().applicationState
     var playingSound = true
@@ -128,15 +149,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     }
 
     handleLocalNotification(notification, playingSound: playingSound)
-  }
-
-  func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-    if notificationSettings.types != types {
-      homeController.cancelledNotifications()
-    } else {
-      homeController.registeredForNotifications()
-    }
   }
 
   // MARK: UIAlertViewDelegate
@@ -149,36 +161,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
   func handleLocalNotification(notification: UILocalNotification, playingSound: Bool) {
     if let userInfo = notification.userInfo,
-    alarmID = userInfo[ThymeAlarmIDKey] as? String {
-      cleanUpLocalNotificationWithAlarmID(alarmID)
+      alarmID = userInfo[ThymeAlarmIDKey] as? String {
+        LocalNotificationManager.cleanUpLocalNotificationWithAlarmID(alarmID)
 
-      if playingSound {
-        audioPlayer!.prepareToPlay()
-        audioPlayer!.play()
-      }
+        if playingSound {
+          audioPlayer!.prepareToPlay()
+          audioPlayer!.play()
+        }
 
-      UIAlertView(title: notification.alertBody,
-        message: nil,
-        delegate: self,
-        cancelButtonTitle: "OK").show()
-    }
-  }
-
-  func cleanUpLocalNotificationWithAlarmID(alarmID: String) {
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
-
-    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarmID) {
-      UIApplication.sharedApplication().cancelLocalNotification(notification)
-    }
-  }
-
-  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
-    if motion == .MotionShake {
-      NSNotificationCenter.defaultCenter().postNotificationName("appWasShaked", object: nil)
+        UIAlertView(title: notification.alertBody,
+          message: nil,
+          delegate: self,
+          cancelButtonTitle: "OK").show()
     }
   }
 }
+
 
 // MARK: - WatchKit
 

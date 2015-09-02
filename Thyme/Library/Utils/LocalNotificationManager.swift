@@ -42,6 +42,15 @@ public class LocalNotificationManager {
     }
   }
 
+  static func cleanUpLocalNotificationWithAlarmID(alarmID: String) {
+    UIApplication.sharedApplication().applicationIconBadgeNumber = 1
+    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+
+    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarmID) {
+      UIApplication.sharedApplication().cancelLocalNotification(notification)
+    }
+  }
+
   static func registerUserNotificationSettings() {
     var categories = Set<UIUserNotificationCategory>()
 
