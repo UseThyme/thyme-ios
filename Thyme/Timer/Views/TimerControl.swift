@@ -473,7 +473,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
   }
 
   func cancelCurrentLocalNotification() {
-    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarmID!) {
+    if let notification = AlarmCenter.getNotification(alarmID!) {
       UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
   }
@@ -491,7 +491,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
     let title = NSLocalizedString("\(alarm!.title) just finished",
       comment: "\(alarm!.title) just finished")
-    LocalNotificationManager.createNotification(numberOfSeconds,
+    AlarmCenter.scheduleNotification(numberOfSeconds,
       message: title,
       title: NSLocalizedString("View Details", comment: "View Details"),
       alarmID: alarmID!)

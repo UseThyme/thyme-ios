@@ -2,7 +2,6 @@ import UIKit
 import AVFoundation
 import WatchConnectivity
 
-let ThymeUserNotificationCategory = "HYPUserNotificationCategory"
 let ThymeAlarmIDKey = "HYPAlarmID"
 let ThymeAlarmFireDataKey = "HYPAlarmFireDate"
 let ThymeAlarmFireInterval = "HYPAlarmFireInterval"
@@ -150,8 +149,7 @@ extension AppDelegate {
   }
 
   func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
-      // Pass the action name onto the manager
-      LocalNotificationManager.handleActionWithIdentifier(identifier)
+      AlarmCenter.handleNotification(notification, action: identifier)
       completionHandler()
   }
 
@@ -159,12 +157,12 @@ extension AppDelegate {
 
   func handleLocalNotification(notification: UILocalNotification) {
     if let userInfo = notification.userInfo, alarmID = userInfo[ThymeAlarmIDKey] as? String {
-      LocalNotificationManager.cleanUpLocalNotificationWithAlarmID(alarmID)
+      AlarmCenter.cancelNotification(alarmID)
 
       let alert = UIAlertController(title: "Thyme", message: notification.alertBody, preferredStyle: .Alert)
       let actionAndDismiss = { (action: String?) -> ((UIAlertAction!) -> Void) in
         return { _ in
-          LocalNotificationManager.handleActionWithIdentifier(action)
+          AlarmCenter.handleNotification(notification, action: action)
           self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
           if let audioPlayer = self.audioPlayer where audioPlayer.playing {
             self.audioPlayer!.stop()

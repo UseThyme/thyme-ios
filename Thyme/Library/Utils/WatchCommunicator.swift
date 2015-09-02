@@ -17,12 +17,12 @@ struct WatchCommunicator {
         data["alarm"] = getAlarmData(index)
       }
     case "cancelAlarms":
-      LocalNotificationManager.cancelAllLocalNotifications()
+      AlarmCenter.cancelAllNotifications()
       data = ["alarms": getAlarmsData()]
     case "cancelAlarm":
       if let index = message["index"] as? Int {
         let alarm = Alarm.create(index)
-        if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
+        if let notification = AlarmCenter.getNotification(alarm.alarmID!) {
           UIApplication.sharedApplication().cancelLocalNotification(notification)
         }
 
@@ -33,7 +33,7 @@ struct WatchCommunicator {
         let alarm = Alarm.create(index)
         var seconds: NSTimeInterval = 0
 
-        if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
+        if let notification = AlarmCenter.getNotification(alarm.alarmID!),
           userInfo = notification.userInfo,
           firedDate = userInfo[ThymeAlarmFireDataKey] as? NSDate,
           numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
@@ -47,7 +47,7 @@ struct WatchCommunicator {
           comment: "\(alarm.title) just finished")
         seconds += NSTimeInterval(60 * amount)
 
-        let notification = LocalNotificationManager.createNotification(seconds,
+        let notification = AlarmCenter.scheduleNotification(seconds,
           message: title,
           title: NSLocalizedString("View Details", comment: "View Details"),
           alarmID: alarm.alarmID!)
@@ -79,7 +79,7 @@ struct WatchCommunicator {
     let alarm = Alarm.create(index)
     var alarmData = [String: AnyObject]()
 
-    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
+    if let notification = AlarmCenter.getNotification(alarm.alarmID!) {
       alarmData = extractAlarmData(notification)
       alarmData["title"] = alarm.title
     }

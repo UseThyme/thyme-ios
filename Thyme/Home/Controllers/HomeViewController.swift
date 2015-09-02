@@ -470,7 +470,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func refreshTimerInCell(cell: PlateCell, alarm: Alarm) {
-    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
+    if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
       numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber
@@ -562,7 +562,7 @@ extension HomeViewController: UIAlertViewDelegate {
   func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
     let accepted: Bool = buttonIndex == 1
     if accepted == true {
-      LocalNotificationManager.cancelAllLocalNotifications()
+      AlarmCenter.cancelAllNotifications()
       maxMinutesLeft = nil
       plateCollectionView.reloadData()
       ovenCollectionView.reloadData()

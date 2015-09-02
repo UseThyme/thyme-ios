@@ -188,7 +188,7 @@ public class InstructionController: UIViewController {
   // MARK: - Actions
 
   func acceptButtonAction() {
-    LocalNotificationManager.registerUserNotificationSettings()
+    AlarmCenter.registerNotificationSettings()
   }
 
   func nextButtonAction() {

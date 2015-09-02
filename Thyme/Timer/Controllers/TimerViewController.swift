@@ -238,7 +238,7 @@ class TimerViewController: ViewController {
   }
 
   func refreshTimerForCurrentAlarm() {
-    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
+    if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
       refreshTimerForNotification(existingNotification)
     }
   }
