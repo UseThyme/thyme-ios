@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     pageControl.backgroundColor = UIColor(hex: "EDFFFF")
 
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
-      handleLocalNotification(notification, playingSound: false)
+      handleLocalNotification(notification)
     }
 
     if WCSession.isSupported() {
@@ -141,38 +141,41 @@ extension AppDelegate {
   }
 
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-    let state = UIApplication.sharedApplication().applicationState
-    var playingSound = true
+    if application.applicationState == .Active {
+      audioPlayer!.prepareToPlay()
+      audioPlayer!.play()
 
-    if state == .Background || state == .Inactive {
-      playingSound = false
+      handleLocalNotification(notification)
     }
-
-    handleLocalNotification(notification, playingSound: playingSound)
   }
 
-  // MARK: UIAlertViewDelegate
-
-  func alert(alertView: UIAlertView, clickedButtonAtIndex: NSInteger) {
-    audioPlayer!.stop()
+  func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+      // Pass the action name onto the manager
+      LocalNotificationManager.handleActionWithIdentifier(identifier)
+      completionHandler()
   }
 
   // MARK: Private methods
 
-  func handleLocalNotification(notification: UILocalNotification, playingSound: Bool) {
-    if let userInfo = notification.userInfo,
-      alarmID = userInfo[ThymeAlarmIDKey] as? String {
-        LocalNotificationManager.cleanUpLocalNotificationWithAlarmID(alarmID)
+  func handleLocalNotification(notification: UILocalNotification) {
+    if let userInfo = notification.userInfo, alarmID = userInfo[ThymeAlarmIDKey] as? String {
+      LocalNotificationManager.cleanUpLocalNotificationWithAlarmID(alarmID)
 
-        if playingSound {
-          audioPlayer!.prepareToPlay()
-          audioPlayer!.play()
+      let alert = UIAlertController(title: "Thyme", message: notification.alertBody, preferredStyle: .Alert)
+      let actionAndDismiss = { (action: String?) -> ((UIAlertAction!) -> Void) in
+        return { _ in
+          LocalNotificationManager.handleActionWithIdentifier(action)
+          self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
+          if let audioPlayer = self.audioPlayer where audioPlayer.playing {
+            self.audioPlayer!.stop()
+          }
         }
+      }
 
-        UIAlertView(title: notification.alertBody,
-          message: nil,
-          delegate: self,
-          cancelButtonTitle: "OK").show()
+      alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: actionAndDismiss(nil)))
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Add 3 mins", comment: ""), style: .Default, handler: actionAndDismiss("")))
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""), style: .Default, handler: actionAndDismiss("")))
+      window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
   }
 }

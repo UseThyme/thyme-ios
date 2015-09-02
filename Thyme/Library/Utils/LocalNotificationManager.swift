@@ -77,4 +77,8 @@ public class LocalNotificationManager {
 
     UIApplication.sharedApplication().registerUserNotificationSettings(settings)
   }
+
+  static func handleActionWithIdentifier(identifier: String?) {
+
+  }
 }
