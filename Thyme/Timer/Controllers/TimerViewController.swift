@@ -163,7 +163,7 @@ class TimerViewController: ViewController {
 
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "alarmsDidUpdate:",
-      name: WatchCommunicator.Notifications.AlarmsDidUpdate,
+      name: AlarmCenter.Notifications.AlarmsDidUpdate,
       object: nil)
   }
 
@@ -274,9 +274,10 @@ class TimerViewController: ViewController {
   }
 
   func alarmsDidUpdate(notification: NSNotification) {
-    if let localNotification = notification.object as? UILocalNotification where notification.name == WatchCommunicator.Notifications.AlarmsDidUpdate {
-      timerControl.stopTimer()
-      refreshTimerForNotification(localNotification)
+    if let localNotification = notification.object as? UILocalNotification
+      where notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
+        timerControl.stopTimer()
+        refreshTimerForNotification(localNotification)
     }
   }
 }

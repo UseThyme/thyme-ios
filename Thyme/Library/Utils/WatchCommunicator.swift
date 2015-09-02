@@ -2,10 +2,6 @@ import Foundation
 
 struct WatchCommunicator {
 
-  struct Notifications {
-    static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
-  }
-
   static func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
     var data = [String : AnyObject]()
 
@@ -31,30 +27,10 @@ struct WatchCommunicator {
     case "updateAlarmMinutes":
       if let index = message["index"] as? Int, amount = message["amount"] as? Int {
         let alarm = Alarm.create(index)
-        var seconds: NSTimeInterval = 0
-
-        if let notification = AlarmCenter.getNotification(alarm.alarmID!),
-          userInfo = notification.userInfo,
-          firedDate = userInfo[ThymeAlarmFireDataKey] as? NSDate,
-          numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
-            let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
-            let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
-            seconds = secondsLeft
-            UIApplication.sharedApplication().cancelLocalNotification(notification)
-        }
-
-        let title = NSLocalizedString("\(alarm.title) just finished",
-          comment: "\(alarm.title) just finished")
-        seconds += NSTimeInterval(60 * amount)
-
-        let notification = AlarmCenter.scheduleNotification(seconds,
-          message: title,
-          title: NSLocalizedString("View Details", comment: "View Details"),
-          alarmID: alarm.alarmID!)
-
-        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.AlarmsDidUpdate, object: notification)
-
+        let seconds = NSTimeInterval(60 * amount)
+        let notification = AlarmCenter.extendNotification(alarm.alarmID!, seconds: seconds)
         var alarmData = extractAlarmData(notification)
+
         alarmData["title"] = alarm.title
         data["alarm"] = alarmData
       }

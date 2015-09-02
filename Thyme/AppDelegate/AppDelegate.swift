@@ -149,7 +149,7 @@ extension AppDelegate {
   }
 
   func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
-      AlarmCenter.handleNotification(notification, action: identifier)
+      AlarmCenter.handleNotification(notification, actionID: identifier)
       completionHandler()
   }
 
@@ -157,12 +157,12 @@ extension AppDelegate {
 
   func handleLocalNotification(notification: UILocalNotification) {
     if let userInfo = notification.userInfo, alarmID = userInfo[ThymeAlarmIDKey] as? String {
-      AlarmCenter.cancelNotification(alarmID)
+      AlarmCenter.cleanUpNotification(alarmID)
 
       let alert = UIAlertController(title: "Thyme", message: notification.alertBody, preferredStyle: .Alert)
       let actionAndDismiss = { (action: String?) -> ((UIAlertAction!) -> Void) in
         return { _ in
-          AlarmCenter.handleNotification(notification, action: action)
+          AlarmCenter.handleNotification(notification, actionID: action)
           self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
           if let audioPlayer = self.audioPlayer where audioPlayer.playing {
             self.audioPlayer!.stop()
@@ -173,10 +173,10 @@ extension AppDelegate {
       alert.addAction(UIAlertAction(title: "OK",
         style: .Cancel, handler: actionAndDismiss(nil)))
       alert.addAction(UIAlertAction(title: NSLocalizedString("Add 3 mins", comment: ""),
-        style: .Default, handler: actionAndDismiss(AlarmCenter.Actions.AddThreeMinutes)))
+        style: .Default, handler: actionAndDismiss(AlarmCenter.Action.AddThreeMinutes.rawValue)))
       alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""),
-        style: .Default, handler: actionAndDismiss(AlarmCenter.Actions.AddFiveMinutes)))
-      
+        style: .Default, handler: actionAndDismiss(AlarmCenter.Action.AddFiveMinutes.rawValue)))
+
       window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
   }
