@@ -295,7 +295,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
       hasAction: true,
       isWelcome: true,
       index: -1)
-    controller.delegate = self
 
     return controller
   }()
@@ -553,17 +552,6 @@ extension HomeViewController: UICollectionViewDelegate {
     timerController.delegate = self
 
     presentViewController(timerController, animated: true, completion: nil)
-  }
-}
-
-// MARK: - InstructionDelegate
-
-extension HomeViewController: InstructionDelegate {
-
-  func instructionControllerDidTapAcceptButton(controller: InstructionController) {
-    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-    let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
-    UIApplication.sharedApplication().registerUserNotificationSettings(settings)
   }
 }
 
