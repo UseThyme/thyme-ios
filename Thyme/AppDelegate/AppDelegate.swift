@@ -2,6 +2,7 @@ import UIKit
 import AVFoundation
 import WatchConnectivity
 
+let ThymeUserNotificationCategory = "HYPUserNotificationCategory"
 let ThymeAlarmIDKey = "HYPAlarmID"
 let ThymeAlarmFireDataKey = "HYPAlarmFireDate"
 let ThymeAlarmFireInterval = "HYPAlarmFireInterval"

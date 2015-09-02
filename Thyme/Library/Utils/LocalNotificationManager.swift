@@ -59,7 +59,7 @@ public class LocalNotificationManager {
 
     let category = UIMutableUserNotificationCategory()
     category.setActions([add3MinutesAction, add5MinutesAction], forContext: .Default)
-    category.identifier = "thymeCategory"
+    category.identifier = ThymeUserNotificationCategory
 
     categories.insert(category)
 
