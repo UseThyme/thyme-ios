@@ -42,4 +42,30 @@ public class LocalNotificationManager {
     }
   }
 
+  static func registerUserNotificationSettings() {
+    var categories = Set<UIUserNotificationCategory>()
+
+    let add3MinutesAction = UIMutableUserNotificationAction()
+    add3MinutesAction.title = NSLocalizedString("Add 3 mins", comment: "")
+    add3MinutesAction.identifier = "add3Minutes"
+    add3MinutesAction.activationMode = .Background
+    add3MinutesAction.authenticationRequired = false
+
+    let add5MinutesAction = UIMutableUserNotificationAction()
+    add5MinutesAction.title = NSLocalizedString("Add 5 mins", comment: "")
+    add5MinutesAction.identifier = "add5Minutes"
+    add5MinutesAction.activationMode = .Background
+    add5MinutesAction.authenticationRequired = false
+
+    let category = UIMutableUserNotificationCategory()
+    category.setActions([add3MinutesAction, add5MinutesAction], forContext: .Default)
+    category.identifier = "thymeCategory"
+
+    categories.insert(category)
+
+    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
+    let settings = UIUserNotificationSettings(forTypes: types, categories: categories)
+
+    UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+  }
 }
