@@ -1,4 +1,5 @@
 import UIKit
+import Transition
 
 class HomeViewController: ViewController, ContentSizeChangable {
 
@@ -84,6 +85,19 @@ class HomeViewController: ViewController, ContentSizeChangable {
     }
 
     return alarms
+    }()
+
+  lazy var transition: Transition = {
+    let transition = Transition() { controller, show in
+      controller.view.transform = show
+        ? CGAffineTransformIdentity
+        : CGAffineTransformMakeScale(0.5, 0.5)
+
+      controller.view.alpha = show ? 1 : 0
+      controller.view.backgroundColor = UIColor.clearColor()
+    }
+
+    return transition
     }()
 
   lazy var titleLabel: UILabel = { [unowned self] in
@@ -340,7 +354,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
+    super.viewWillAppear(animated, addGradient: true)
 
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "dismissedTimerController:",
@@ -551,6 +565,7 @@ extension HomeViewController: UICollectionViewDelegate {
 
     timerController.theme = theme
     timerController.delegate = self
+    timerController.transitioningDelegate = transition
 
     presentViewController(timerController, animated: true, completion: nil)
   }

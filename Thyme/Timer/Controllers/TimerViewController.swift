@@ -170,6 +170,8 @@ class TimerViewController: ViewController {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
 
+    view.layer.insertSublayer(gradientLayer, atIndex: 0)
+
     let defaults = NSUserDefaults.standardUserDefaults()
     if defaults.boolForKey("presentedClue") == false {
       fingerView.hidden = false
@@ -195,6 +197,7 @@ class TimerViewController: ViewController {
 
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
+    gradientLayer.removeFromSuperlayer()
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
 
