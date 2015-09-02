@@ -170,14 +170,17 @@ extension AppDelegate {
         }
       }
 
-      alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: actionAndDismiss(nil)))
-      alert.addAction(UIAlertAction(title: NSLocalizedString("Add 3 mins", comment: ""), style: .Default, handler: actionAndDismiss("")))
-      alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""), style: .Default, handler: actionAndDismiss("")))
+      alert.addAction(UIAlertAction(title: "OK",
+        style: .Cancel, handler: actionAndDismiss(nil)))
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Add 3 mins", comment: ""),
+        style: .Default, handler: actionAndDismiss(AlarmCenter.Actions.AddThreeMinutes)))
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""),
+        style: .Default, handler: actionAndDismiss(AlarmCenter.Actions.AddFiveMinutes)))
+      
       window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
     }
   }
 }
-
 
 // MARK: - WatchKit
 
