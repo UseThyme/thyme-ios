@@ -24,10 +24,12 @@ public class TimerControl: UIControl, ContentSizeChangable {
     }
   }
 
-  lazy var player: AVAudioPlayer = {
+  lazy var player: AVAudioPlayer? = {
     let soundFilePath = NSBundle.mainBundle().pathForResource("tick", ofType: "wav")!
-    let url = NSURL(fileURLWithPath: soundFilePath)!
-    let player = AVAudioPlayer(contentsOfURL: url, error: nil)
+    let url = NSURL(fileURLWithPath: soundFilePath)
+    
+    var player: AVAudioPlayer?
+    do { try player = AVAudioPlayer(contentsOfURL: url) } catch {}
 
     return player
     }()
@@ -197,7 +199,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     addSubview(minutesValueLabel)
 
     if completedMode {
-      [minutesTitleLabel, hoursLabel].map { self.addSubview($0) }
+      for subview in [minutesTitleLabel, hoursLabel] { addSubview(subview) }
     }
 
     minutesValueLabel.addObserver(self,
@@ -221,12 +223,12 @@ public class TimerControl: UIControl, ContentSizeChangable {
     stopTimer()
   }
 
-  override public func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+  public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
     if (object as! NSObject).isEqual(minutesValueLabel) {
       var baseSize: CGFloat
-      if count(minutesValueLabel.text!) == 5 {
+      if minutesValueLabel.text!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 5 {
         baseSize = Screen.isPad ? 200 : minuteValueSize
-      } else if count(minutesValueLabel.text!) == 4 {
+      } else if minutesValueLabel.text!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 4 {
         baseSize = Screen.isPad ? 220 : 100
       } else {
         baseSize = Screen.isPad ? 280 : 120
@@ -258,14 +260,14 @@ public class TimerControl: UIControl, ContentSizeChangable {
       width: length - lineWidth,
       height: length - lineWidth)
 
-    drawCircle(context, color: circleColor, rect: circleRect)
+    drawCircle(context!, color: circleColor, rect: circleRect)
 
     self.circleRect = circleRect
 
     if active {
       let radius = CGRectGetWidth(circleRect) / 2
       let minutesColor = UIColor.whiteColor()
-      drawMinutes(context,
+      drawMinutes(context!,
         color: minutesColor,
         radius: radius,
         angle: CGFloat(angle),
@@ -273,7 +275,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     }
 
     if let theme = theme {
-      drawCircleOutline(context,
+      drawCircleOutline(context!,
         color: active ? theme.circleOutlineActive : theme.circleOutlineInactive,
         rect: circleOutlineRect,
         lineWidth: lineWidth)
@@ -283,20 +285,20 @@ public class TimerControl: UIControl, ContentSizeChangable {
       let secondsColor = UIColor.redColor()
       if let timer = timer where timer.valid {
         let factor: CGFloat = completedMode ? 0.1 : 0.2
-        drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect)
+        drawSecondsIndicator(context!, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect)
       }
 
-      if completedMode { drawText(context, rect: rect) }
+      if completedMode { drawText(context!, rect: rect) }
     } else {
       let secondsColor = UIColor.whiteColor()
-      drawSecondsIndicator(context, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect)
+      drawSecondsIndicator(context!, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect)
     }
   }
 
   func attributedString() -> NSAttributedString {
     let font: UIFont = Font.TimerControl.arcText
 
-    var attributes = [NSObject : AnyObject]()
+    var attributes = [String : AnyObject]()
     if let theme = theme {
       attributes = [NSFontAttributeName : font, NSForegroundColorAttributeName: theme.labelColor]
     }
@@ -307,21 +309,15 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
   func colorForMinutesIndicator() -> UIColor {
     let color: UIColor
-    let saturationBaseOffset: CGFloat = 0.10
-    let saturationBase: CGFloat = 0.20
-    let saturationBasedOnAngle: CGFloat = saturationBase * (CGFloat(angle)/360.0) + saturationBaseOffset
     let unactiveCircleColor = UIColor(white: 1.0, alpha: 0.4)
-
-    var calculatedColor = UIColor(hue: 255, saturation: saturationBasedOnAngle, brightness: 0.96, alpha: 1.0)
 
     if let topColor = theme?.colors.first {
       var red: CGFloat = 0
       var blue: CGFloat = 0
       var green: CGFloat = 0
       var alpha: CGFloat = 0
-      UIColor(CGColor: topColor!)!.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+      UIColor(CGColor: topColor).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
       alpha = CGFloat(angle)/360.0 + 0.25
-      calculatedColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
     if let theme = theme where active {
@@ -399,8 +395,8 @@ public class TimerControl: UIControl, ContentSizeChangable {
   }
 
   func playInputClick() {
-    player.prepareToPlay()
-    player.play()
+    player!.prepareToPlay()
+    player!.play()
   }
 
   func startAlarm() {
@@ -462,7 +458,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
   func evaluateMinutesUsingPoint(currentPoint: CGPoint) {
     let centerPoint = CGPointMake(frame.width / 2, frame.height / 2)
-    let currentAngle: Float = AngleFromNorth(centerPoint, currentPoint, true)
+    let currentAngle: Float = AngleFromNorth(centerPoint, p2: currentPoint, flipped: true)
     let angle = floor(currentAngle)
 
     if pointIsComingFromSecondQuadrand(currentPoint) == true {
@@ -501,7 +497,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
       alarmID: alarmID!)
   }
 
-  override public func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+  override public func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
     super.beginTrackingWithTouch(touch, withEvent: event)
 
     title = Alarm.messageForReleaseToSetAlarm()
@@ -509,7 +505,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     return true
   }
 
-  override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) -> Bool {
+  override public func continueTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
     super.continueTrackingWithTouch(touch, withEvent: event)
     let currentPoint = touch.locationInView(self)
 
@@ -532,10 +528,10 @@ public class TimerControl: UIControl, ContentSizeChangable {
     return true
   }
 
-  override public func endTrackingWithTouch(touch: UITouch, withEvent event: UIEvent) {
+  public override func endTrackingWithTouch(touch: UITouch?, withEvent event: UIEvent?) {
     super.endTrackingWithTouch(touch, withEvent: event)
 
-    let currentPoint = touch.locationInView(self)
+    let currentPoint = touch!.locationInView(self)
 
     if (pointIsComingFromFirstQuadrand(currentPoint) && hours == 0) ||
       (angle == 0 && hours == 0) ||

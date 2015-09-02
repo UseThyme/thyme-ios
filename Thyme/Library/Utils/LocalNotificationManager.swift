@@ -1,6 +1,6 @@
 import Foundation
 
-@objc public class LocalNotificationManager {
+public class LocalNotificationManager {
 
   static func createNotification(seconds: NSTimeInterval, message: String, title: String?, alarmID: String) -> UILocalNotification {
     let fireDate = NSDate().dateByAddingTimeInterval(seconds)
@@ -25,21 +25,19 @@ import Foundation
   }
 
   static func existingNotificationWithAlarmID(alarmID: String) -> UILocalNotification? {
-    for notification in UIApplication.sharedApplication().scheduledLocalNotifications {
-      if let foundNotification = notification as? UILocalNotification,
-        notificationAlarmID = foundNotification.userInfo?[ThymeAlarmIDKey] as? String
+    for notification in UIApplication.sharedApplication().scheduledLocalNotifications! {
+      if let notificationAlarmID = notification.userInfo?[ThymeAlarmIDKey] as? String
         where notificationAlarmID == alarmID {
-          return foundNotification
+          return notification
       }
     }
     return nil
   }
 
   static func cancelAllLocalNotifications() {
-    for notification in UIApplication.sharedApplication().scheduledLocalNotifications {
-      if let notification = notification as? UILocalNotification,
-        notificationAlarmID = notification.userInfo?[ThymeAlarmIDKey] as? String {
-          UIApplication.sharedApplication().cancelLocalNotification(notification)
+    for notification in UIApplication.sharedApplication().scheduledLocalNotifications! {
+      if let _ = notification.userInfo?[ThymeAlarmIDKey] as? String {
+        UIApplication.sharedApplication().cancelLocalNotification(notification)
       }
     }
   }

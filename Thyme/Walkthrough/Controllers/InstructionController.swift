@@ -138,7 +138,7 @@ public class InstructionController: UIViewController {
     }()
 
   lazy var acceptButton: UIButton = {
-    let button = UIButton.buttonWithType(.Custom) as! UIButton
+    let button = UIButton(type: .Custom)
     button.backgroundColor = UIColor(hex: "FF5C5C")
     button.highlightedBackgroundColor = UIColor(hex: "E94F4F")
     button.layer.cornerRadius = 5
@@ -150,7 +150,7 @@ public class InstructionController: UIViewController {
     }()
 
   lazy var previousButton: UIButton = {
-    let button = UIButton.buttonWithType(.Custom) as! UIButton
+    let button = UIButton(type: .Custom)
     button.frame = self.previousButtonFrame
     button.titleLabel?.font = Font.Instruction.previousButton
     button.setTitleColor(UIColor(hex: "FA5A58"), forState: .Normal)
@@ -160,7 +160,7 @@ public class InstructionController: UIViewController {
     }()
 
   lazy var nextButton: UIButton = {
-    let button = UIButton.buttonWithType(.Custom) as! UIButton
+    let button = UIButton(type: .Custom)
     button.frame = self.nextButtonFrame
     button.titleLabel?.font = Font.Instruction.nextButton
     button.setTitleColor(UIColor(hex: "FA5A58"), forState: .Normal)

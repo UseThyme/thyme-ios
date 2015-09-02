@@ -35,7 +35,7 @@ public class InstructionsPageController: UIPageViewController, InstructionDelega
     ]
 
 
-    for (index, entry) in enumerate(array) {
+    for (index, entry) in array.enumerate() {
       let hasAction = index == array.count - 1 ? true : false
       let controller = InstructionController(image: UIImage(named: entry["image"]!)!,
         title: NSLocalizedString(entry["title"]!, comment: ""),
@@ -51,7 +51,7 @@ public class InstructionsPageController: UIPageViewController, InstructionDelega
     return instructions
   }()
 
-  public override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [NSObject : AnyObject]?) {
+  public override init(transitionStyle style: UIPageViewControllerTransitionStyle, navigationOrientation: UIPageViewControllerNavigationOrientation, options: [String : AnyObject]?) {
     super.init(transitionStyle: style, navigationOrientation: navigationOrientation, options: options)
 
     dataSource = self
@@ -114,11 +114,10 @@ extension InstructionsPageController: UIPageViewControllerDataSource {
 
 // MARK: - InstructionDelegate
 
-extension InstructionsPageController: InstructionDelegate {
+extension InstructionsPageController {
 
   public func instructionControllerDidTapAcceptButton(controller: InstructionController) {
-    let types: UIUserNotificationType = .Alert | .Badge
-    let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
+    let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge], categories: nil)
     UIApplication.sharedApplication().registerUserNotificationSettings(settings)
   }
 

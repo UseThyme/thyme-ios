@@ -13,6 +13,11 @@ class GlanceController: WKInterfaceController {
   @IBOutlet weak var happyHerbie: WKInterfaceGroup!
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
+  lazy var communicator: Communicator = {
+    let communicator = Communicator()
+    return communicator
+    }()
+
   // MARK: - Lifecycle
 
   override func awakeWithContext(context: AnyObject?) {
@@ -23,17 +28,17 @@ class GlanceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    request(.GetAlarms)
+    sendMessage(Message(.GetAlarms))
   }
 
   override func didDeactivate() {
     super.didDeactivate()
   }
 
-  // MARK: - Communication
+  // MARK: - Connectivity
 
-  func request(kind: Communication.Kind) {
-    Communication.request(kind) {
+  func sendMessage(message: Message) {
+    communicator.sendMessage(message) {
       [unowned self] response, error in
       if let response = response,
         alarmData = response["alarms"] as? [AnyObject] {
@@ -49,7 +54,7 @@ class GlanceController: WKInterfaceController {
   func setupInterface(alarmData: [AnyObject]) {
     var closestAlarm: Alarm?
 
-    for (index, alarmInfo) in enumerate(alarmData) {
+    for (_, alarmInfo) in alarmData.enumerate() {
       if let alarmInfo = alarmInfo as? [String: AnyObject],
         title = alarmInfo["title"] as? String,
         firedDate = alarmInfo["firedDate"] as? NSDate,

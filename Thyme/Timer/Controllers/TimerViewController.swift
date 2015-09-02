@@ -82,7 +82,7 @@ class TimerViewController: ViewController {
   }()
 
   lazy var kitchenButton: UIButton = {
-    let button = UIButton.buttonWithType(.Custom) as! UIButton
+    let button = UIButton(type: .Custom)
     let imageName = self.alarm.type == .Oven
       ? "oven"
       : "\(self.alarm.indexPath!.row)-\(self.alarm.indexPath!.section)"
@@ -125,7 +125,10 @@ class TimerViewController: ViewController {
     button.frame = CGRect(x: x, y: y, width: width, height: height)
     button.imageEdgeInsets = UIEdgeInsetsZero
 
-    [.Highlighted, .Normal, .Selected].map { button.setBackgroundImage(image, forState: $0) }
+    let states: [UIControlState] = [.Highlighted, .Normal, .Selected]
+    for state in states {
+      button.setBackgroundImage(image, forState: state)
+    }
 
     return button
   }()
@@ -143,7 +146,7 @@ class TimerViewController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    [timerControl, kitchenButton, fingerView].map { self.view.addSubview($0) }
+    for subview in [timerControl, kitchenButton, fingerView] { view.addSubview(subview) }
   }
 
   override func viewWillAppear(animated: Bool) {
@@ -160,7 +163,7 @@ class TimerViewController: ViewController {
 
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "alarmsDidUpdate:",
-      name: WatchHandler.Notifications.AlarmsDidUpdate,
+      name: WatchCommunicator.Notifications.AlarmsDidUpdate,
       object: nil)
   }
 
@@ -220,8 +223,6 @@ class TimerViewController: ViewController {
           userInfo: nil,
           repeats: true)
         break
-      default:
-        break
       }
 
       NSRunLoop.currentRunLoop().addTimer(timer!,
@@ -273,7 +274,7 @@ class TimerViewController: ViewController {
   }
 
   func alarmsDidUpdate(notification: NSNotification) {
-    if let localNotification = notification.object as? UILocalNotification where notification.name == WatchHandler.Notifications.AlarmsDidUpdate {
+    if let localNotification = notification.object as? UILocalNotification where notification.name == WatchCommunicator.Notifications.AlarmsDidUpdate {
       timerControl.stopTimer()
       refreshTimerForNotification(localNotification)
     }

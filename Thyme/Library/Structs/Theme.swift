@@ -1,6 +1,6 @@
 protocol Themable {
   var name: ThemeName { get }
-  var colors: [CGColor!] { get }
+  var colors: [CGColor] { get }
   var locations: [CGFloat] { get }
   var textColor: UIColor { get }
   var labelColor: UIColor { get }

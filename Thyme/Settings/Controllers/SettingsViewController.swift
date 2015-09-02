@@ -41,7 +41,7 @@ class SettingsViewController: UITableViewController {
 
 // MARK: - UITableViewDataSource
 
-extension SettingsViewController: UITableViewDataSource {
+extension SettingsViewController {
 
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return data.count

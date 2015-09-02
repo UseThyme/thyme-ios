@@ -27,6 +27,11 @@ class HomeInterfaceController: WKInterfaceController {
 
   var alarmTimer: AlarmTimer?
 
+  lazy var communicator: Communicator = {
+    let communicator = Communicator()
+    return communicator
+    }()
+
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
 
@@ -40,7 +45,7 @@ class HomeInterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    request(.GetAlarms)
+    sendMessage(Message(.GetAlarms))
   }
 
   override func didDeactivate() {
@@ -50,19 +55,19 @@ class HomeInterfaceController: WKInterfaceController {
   // MARK: - Actions
 
   @IBAction func topLeftButtonDidTap() {
-    presentController(0, title: NSLocalizedString("Upper Left", comment: ""))
+    presentController(0, title: NSLocalizedString("Top Left", comment: ""))
   }
 
   @IBAction func topRightButtonDidTap() {
-    presentController(1, title: NSLocalizedString("Upper Right", comment: ""))
+    presentController(1, title: NSLocalizedString("Top Right", comment: ""))
   }
 
   @IBAction func bottomLeftButtonDidTap() {
-    presentController(2, title: NSLocalizedString("Lower Left", comment: ""))
+    presentController(2, title: NSLocalizedString("Bottom Left", comment: ""))
   }
 
   @IBAction func bottomRightButtonDidTap() {
-    presentController(3, title: NSLocalizedString("Lower Right", comment: ""))
+    presentController(3, title: NSLocalizedString("Bottom Right", comment: ""))
   }
 
   @IBAction func ovenButtonDidTap() {
@@ -70,13 +75,13 @@ class HomeInterfaceController: WKInterfaceController {
   }
 
   @IBAction func menuCancelAllButtonDidTap() {
-    request(.CancelAlarms)
+    sendMessage(Message(.CancelAlarms))
   }
 
   // MARK: - Communication
 
-  func request(kind: Communication.Kind) {
-    Communication.request(kind) {
+  func sendMessage(message: Message) {
+    communicator.sendMessage(message) {
       [unowned self] response, error in
       if let response = response,
         alarmData = response["alarms"] as? [AnyObject] {
@@ -127,7 +132,7 @@ class HomeInterfaceController: WKInterfaceController {
   func setupAlarms(alarmData: [AnyObject]) {
     var alarms = [Alarm]()
 
-    for (index, alarmInfo) in enumerate(alarmData) {
+    for (index, alarmInfo) in alarmData.enumerate() {
       if index == self.minutesGroups.count {
         break
       }
@@ -158,7 +163,7 @@ class HomeInterfaceController: WKInterfaceController {
 extension HomeInterfaceController: AlarmTimerDelegate {
 
   func alarmTimerDidTick(alarmTimer: AlarmTimer, alarms: [Alarm]) {
-    for (index, alarm) in enumerate(alarms) {
+    for (index, alarm) in alarms.enumerate() {
       updatePlate(index, alarm: alarm)
     }
 

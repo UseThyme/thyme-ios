@@ -1,10 +1,12 @@
 import UIKit
 import AVFoundation
+import WatchConnectivity
 
 let ThymeAlarmIDKey = "HYPAlarmID"
 let ThymeAlarmFireDataKey = "HYPAlarmFireDate"
 let ThymeAlarmFireInterval = "HYPAlarmFireInterval"
 
+@available(iOS 9.0, *)
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate, UIAlertViewDelegate {
 
@@ -12,41 +14,50 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     return UIWindow(frame: UIScreen.mainScreen().bounds)
     }()
 
-  lazy var navigationController: UINavigationController = {
+  lazy var navigationController: UINavigationController = { [unowned self] in
     let navigationController = UINavigationController(rootViewController: self.homeController)
     navigationController.navigationBarHidden = true
 
     return navigationController
     }()
 
-  lazy var audioPlayer: AVAudioPlayer = {
+  lazy var audioPlayer: AVAudioPlayer? = {
     var error: NSError?
 
     let path = NSBundle.mainBundle().pathForResource("alarm", ofType: "caf")
     let file = NSURL(fileURLWithPath: path!)
-    let audioPlayer = AVAudioPlayer(contentsOfURL: file, error: &error)
-
-    if error != nil {
-      print("error loading sound")
-    }
+    var audioPlayer: AVAudioPlayer? = nil
+    do { try audioPlayer = AVAudioPlayer(contentsOfURL: file) } catch { print("error loading sound") }
 
     return audioPlayer
   }()
 
-  lazy var homeController = {
-    return HomeViewController()
+  lazy var homeController: HomeViewController = {
+    var theme: Themable = Theme.Main()
+
+    if UIAccessibilityDarkerSystemColorsEnabled() {
+      theme = Theme.DarkColors()
+
+      if UIAccessibilityIsReduceTransparencyEnabled() {
+        theme = Theme.HighContrast()
+      }
+    }
+    let controller = HomeViewController(theme: theme)
+    return controller
     }()
 
   lazy var isUnitTesting: Bool = {
     let enviorment = NSProcessInfo.processInfo().environment
 
-    if let injectBundlePath = enviorment["XCInjectBundle"] as? String
-      where injectBundlePath.pathExtension == "xctest" {
+    if let injectBundlePath = enviorment["XCInjectBundle"]
+      where injectBundlePath.hasSuffix("xctest") {
         return true
     }
 
     return false
     }()
+
+  var session: WCSession!
 
   // MARK: UIApplicationDelegate
 
@@ -62,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     #endif
 
     let audioSession = AVAudioSession.sharedInstance()
-    audioSession.setCategory(AVAudioSessionCategoryPlayback, error: nil)
-    audioSession.setActive(true, error: nil)
+    do { try audioSession.setCategory(AVAudioSessionCategoryPlayback) } catch {}
+    do { try audioSession.setActive(true) } catch {}
     application.beginReceivingRemoteControlEvents()
 
     let pageControl = UIPageControl.appearance()
@@ -73,6 +84,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
       handleLocalNotification(notification, playingSound: false)
+    }
+
+    if WCSession.isSupported() {
+      session = WCSession.defaultSession()
+      session.delegate = self
+      session.activateSession()
     }
 
     window!.rootViewController = navigationController
@@ -113,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   }
 
   func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-    let types: UIUserNotificationType = .Alert | .Badge | .Sound
+    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
     if notificationSettings.types != types {
       homeController.cancelledNotifications()
     } else {
@@ -124,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   // MARK: UIAlertViewDelegate
 
   func alert(alertView: UIAlertView, clickedButtonAtIndex: NSInteger) {
-    audioPlayer.stop()
+    audioPlayer!.stop()
   }
 
   // MARK: Private methods
@@ -135,8 +152,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       cleanUpLocalNotificationWithAlarmID(alarmID)
 
       if playingSound {
-        audioPlayer.prepareToPlay()
-        audioPlayer.play()
+        audioPlayer!.prepareToPlay()
+        audioPlayer!.play()
       }
 
       UIAlertView(title: notification.alertBody,
@@ -155,7 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     }
   }
 
-  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent) {
+  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
     if motion == .MotionShake {
       NSNotificationCenter.defaultCenter().postNotificationName("appWasShaked", object: nil)
     }
@@ -164,30 +181,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
 // MARK: - WatchKit
 
-extension AppDelegate {
+@available(iOS 9.0, *)
+extension AppDelegate: WCSessionDelegate {
 
-  func application(application: UIApplication, handleWatchKitExtensionRequest userInfo: [NSObject : AnyObject]?, reply: (([NSObject : AnyObject]!) -> Void)!) {
-
-    if let userInfo = userInfo, request = userInfo["request"] as? String {
-      var workaround: UIBackgroundTaskIdentifier?
-      workaround = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-        UIApplication.sharedApplication().endBackgroundTask(workaround!)
-      })
-
-      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), {
-        UIApplication.sharedApplication().endBackgroundTask(workaround!)
-      })
-
-      var realBackgroundTask: UIBackgroundTaskIdentifier?
-      realBackgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler({
-        reply(nil)
-        UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
-      })
-
-      var response = WatchHandler.response(request, userInfo)
-      reply(response)
-
-      UIApplication.sharedApplication().endBackgroundTask(realBackgroundTask!)
-    }
+  func session(session: WCSession, didReceiveMessage message: [String : AnyObject],
+    replyHandler: ([String : AnyObject]) -> Void) {
+      if let request = message["request"] as? String {
+        replyHandler(WatchCommunicator.response(request, message))
+      }
   }
 }
