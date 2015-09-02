@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="8187.4" systemVersion="14E46" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AgC-eL-Hgc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="8092"/>
     </dependencies>
     <scenes>
         <!--Thyme-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="PlateController" title="Thyme" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
+                <controller identifier="HomeController" title="Thyme" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="eAh-Dn-oy7">
                             <items>
@@ -195,10 +195,10 @@
             </objects>
             <point key="canvasLocation" x="430" y="314"/>
         </scene>
-        <!--Glance Interface Controller-->
+        <!--GlanceController-->
         <scene sceneID="BOz-TT-tkC">
             <objects>
-                <glanceController spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
+                <glanceController identifier="GlanceController" spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
                     <items>
                         <group alignment="left" id="t8f-Gd-c4y">
                             <items>

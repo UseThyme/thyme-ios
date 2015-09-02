@@ -1,26 +1,26 @@
 import Foundation
 
-struct WatchHandler {
+struct WatchCommunicator {
 
   struct Notifications {
     static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
   }
 
-  static func response(request: String, _ userInfo: [NSObject : AnyObject]?) -> [NSObject : AnyObject] {
-    var data = [NSObject : AnyObject]()
+  static func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
+    var data = [String : AnyObject]()
 
     switch request {
     case "getAlarms":
       data = ["alarms": getAlarmsData()]
     case "getAlarm":
-      if let userInfo = userInfo, index = userInfo["index"] as? Int {
+      if let index = message["index"] as? Int {
         data["alarm"] = getAlarmData(index)
       }
     case "cancelAlarms":
       LocalNotificationManager.cancelAllLocalNotifications()
       data = ["alarms": getAlarmsData()]
     case "cancelAlarm":
-      if let userInfo = userInfo, index = userInfo["index"] as? Int {
+      if let index = message["index"] as? Int {
         let alarm = Alarm.create(index)
         if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
           UIApplication.sharedApplication().cancelLocalNotification(notification)
@@ -29,7 +29,7 @@ struct WatchHandler {
         data["alarm"] = getAlarmData(index)
       }
     case "updateAlarmMinutes":
-      if let userInfo = userInfo, index = userInfo["index"] as? Int, amount = userInfo["amount"] as? Int {
+      if let index = message["index"] as? Int, amount = message["amount"] as? Int {
         let alarm = Alarm.create(index)
         var seconds: NSTimeInterval = 0
 
@@ -65,9 +65,9 @@ struct WatchHandler {
     return data
   }
 
-  private static func getAlarmsData() -> [AnyObject] {
+  static func getAlarmsData() -> [AnyObject] {
     var alarms = [AnyObject]()
-    
+
     for index in 0...4 {
       alarms.append(getAlarmData(index))
     }
@@ -75,7 +75,7 @@ struct WatchHandler {
     return alarms
   }
 
-  private static func getAlarmData(index: Int) -> [String: AnyObject] {
+  static func getAlarmData(index: Int) -> [String: AnyObject] {
     let alarm = Alarm.create(index)
     var alarmData = [String: AnyObject]()
 
@@ -87,7 +87,7 @@ struct WatchHandler {
     return alarmData
   }
 
-  private static func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
+  static func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
     var alarmData = [String: AnyObject]()
 
     if let userInfo = notification.userInfo,

@@ -324,7 +324,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "alarmsDidUpdate:",
-      name: WatchHandler.Notifications.AlarmsDidUpdate,
+      name: WatchCommunicator.Notifications.AlarmsDidUpdate,
       object: nil)
 
     plateCollectionView.registerClass(PlateCell.classForCoder(),
@@ -391,7 +391,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func alarmsDidUpdate(notification: NSNotification) {
-    if notification.name == WatchHandler.Notifications.AlarmsDidUpdate {
+    if notification.name == WatchCommunicator.Notifications.AlarmsDidUpdate {
       maxMinutesLeft = nil
       plateCollectionView.reloadData()
       ovenCollectionView.reloadData()

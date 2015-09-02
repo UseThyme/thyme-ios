@@ -199,7 +199,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     addSubview(minutesValueLabel)
 
     if completedMode {
-      [minutesTitleLabel, hoursLabel].map { self.addSubview($0) }
+      for subview in [minutesTitleLabel, hoursLabel] { addSubview(subview) }
     }
 
     minutesValueLabel.addObserver(self,
@@ -309,12 +309,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
   func colorForMinutesIndicator() -> UIColor {
     let color: UIColor
-    let saturationBaseOffset: CGFloat = 0.10
-    let saturationBase: CGFloat = 0.20
-    let saturationBasedOnAngle: CGFloat = saturationBase * (CGFloat(angle)/360.0) + saturationBaseOffset
     let unactiveCircleColor = UIColor(white: 1.0, alpha: 0.4)
-
-    var calculatedColor = UIColor(hue: 255, saturation: saturationBasedOnAngle, brightness: 0.96, alpha: 1.0)
 
     if let topColor = theme?.colors.first {
       var red: CGFloat = 0
@@ -323,7 +318,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
       var alpha: CGFloat = 0
       UIColor(CGColor: topColor).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
       alpha = CGFloat(angle)/360.0 + 0.25
-      calculatedColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 
     if let theme = theme where active {
