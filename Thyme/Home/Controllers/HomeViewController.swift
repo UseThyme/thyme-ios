@@ -78,9 +78,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   lazy var alarms: [[Alarm]] = {
     var alarms = [[Alarm]]()
 
-    for i in 0..<2 {
-      alarms.append([Alarm(), Alarm()])
-    }
+    for i in 0..<2 { alarms.append([Alarm(), Alarm()]) }
 
     return alarms
     }()
@@ -88,10 +86,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   lazy var ovenAlarms: [[Alarm]] = {
     var alarms = [[Alarm]]()
 
-    for i in 0..<1 {
-      let alarm = Alarm(type: .Oven)
-      alarms.append([alarm])
-    }
+    for i in 0..<1 { alarms.append([Alarm(type: .Oven)]) }
 
     return alarms
     }()
@@ -172,7 +167,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return label
     }()
 
-  lazy var subtitleLabel: UILabel = {
+  lazy var subtitleLabel: UILabel = { [unowned self] in
     let sideMargin: CGFloat = 20
     let width = Screen.width - 2 * sideMargin
     let height = CGRectGetHeight(self.titleLabel.frame)
@@ -191,7 +186,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return label
     }()
 
-  lazy var plateCollectionView: UICollectionView = {
+  lazy var plateCollectionView: UICollectionView = { [unowned self] in
     let layout = UICollectionViewFlowLayout()
     var cellWidth: CGFloat = 0
     var sideMargin: CGFloat = 0
@@ -231,7 +226,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return collectionView
     }()
 
-  lazy var ovenCollectionView: UICollectionView = {
+  lazy var ovenCollectionView: UICollectionView = { [unowned self] in
     let layout = UICollectionViewFlowLayout()
     var topMargin: CGFloat = self.plateCollectionView.frame.height + self.topMargin * 2
     var cellWidth: CGFloat = 0
@@ -310,7 +305,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return imageView
     }()
 
-  lazy var ovenShineImageView: UIImageView = {
+  lazy var ovenShineImageView: UIImageView = { [unowned self] in
     let imageView: UIImageView
     let imageName = Screen.isPad
       ? "ovenShine~iPad"
@@ -338,7 +333,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return button
   }()
 
-  lazy var tapRecognizer: UITapGestureRecognizer = {
+  lazy var tapRecognizer: UITapGestureRecognizer = { [unowned self] in
     return UITapGestureRecognizer(target: self,
       action: "backgroundTapped:")
   }()
