@@ -1,6 +1,7 @@
 import UIKit
 import AVFoundation
 import WatchConnectivity
+import HockeySDK
 
 let ThymeAlarmIDKey = "HYPAlarmID"
 let ThymeAlarmFireDataKey = "HYPAlarmFireDate"

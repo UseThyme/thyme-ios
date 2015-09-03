@@ -129,6 +129,7 @@ class TimerViewController: ViewController {
     for state in states {
       button.setBackgroundImage(image, forState: state)
     }
+    button.alpha = UIAccessibilityIsReduceMotionEnabled() ? 1.0 : 0.0
 
     return button
   }()
@@ -165,10 +166,18 @@ class TimerViewController: ViewController {
       selector: "alarmsDidUpdate:",
       name: AlarmCenter.Notifications.AlarmsDidUpdate,
       object: nil)
+
+    if UIAccessibilityIsReduceMotionEnabled() {
+      view.layer.insertSublayer(gradientLayer, atIndex: 0)
+    }
   }
 
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+
+    if !UIAccessibilityIsReduceMotionEnabled() {
+      view.layer.insertSublayer(gradientLayer, atIndex: 0)
+    }
 
     let defaults = NSUserDefaults.standardUserDefaults()
     if defaults.boolForKey("presentedClue") == false {
@@ -195,6 +204,9 @@ class TimerViewController: ViewController {
 
   override func viewWillDisappear(animated: Bool) {
     super.viewWillDisappear(animated)
+    if !UIAccessibilityIsReduceMotionEnabled() {
+      gradientLayer.removeFromSuperlayer()
+    }
     NSNotificationCenter.defaultCenter().removeObserver(self)
   }
 

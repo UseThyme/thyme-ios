@@ -30,11 +30,12 @@ class ViewController: UIViewController {
     view.autoresizesSubviews = true
 
     gradientLayer.bounds = view.bounds
-    view.layer.addSublayer(gradientLayer)
   }
 
-  override func viewWillAppear(animated: Bool) {
+  func viewWillAppear(animated: Bool, addGradient: Bool = true) {
     super.viewWillAppear(animated)
+
+    if addGradient { view.layer.insertSublayer(gradientLayer, atIndex: 0) }
   }
 
   override func viewWillDisappear(animated: Bool) {
