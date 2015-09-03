@@ -338,15 +338,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
       action: "backgroundTapped:")
   }()
 
-  lazy var welcomeController: InstructionController = {
-    let controller = InstructionController(
-      image: UIImage(named: "welcomeIcon")!,
-      title: NSLocalizedString("WelcomeTitle", comment: ""),
-      message: NSLocalizedString("WelcomeMessage", comment: ""),
-      hasAction: true,
-      isWelcome: true,
-      index: -1)
-
+  lazy var herbieController: HerbieController = {
+    let controller = HerbieController()
     return controller
   }()
 
@@ -415,13 +408,14 @@ class HomeViewController: ViewController, ContentSizeChangable {
     let registredSettings = UIApplication.sharedApplication().currentUserNotificationSettings()
     let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
 
-    if registredSettings!.types != types {
-      let navigationController = UINavigationController(rootViewController: welcomeController)
+    //if registredSettings!.types != types {
+      let navigationController = UINavigationController(rootViewController: herbieController)
+      herbieController.theme = theme
       navigationController.navigationBarHidden = true
       presentViewController(navigationController,
         animated: true,
         completion: nil)
-    }
+    //}
   }
 
   override func prefersStatusBarHidden() -> Bool {
@@ -492,7 +486,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func cancelledNotifications() {
-    welcomeController.cancelledNotifications()
+    herbieController.cancelledNotifications()
   }
 
   func applyTransformToLayer(layer: CALayer, factor: CGFloat) {
@@ -610,8 +604,8 @@ extension HomeViewController: UICollectionViewDataSource {
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return collectionView.isEqual(plateCollectionView)
-    ? alarms[0].count
-    : ovenAlarms[0].count
+    ? alarms.first!.count
+    : ovenAlarms.first!.count
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {

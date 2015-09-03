@@ -3,12 +3,10 @@ PODS:
     - HockeySDK/AllFeaturesLib (= 3.7.3)
   - HockeySDK/AllFeaturesLib (3.7.3)
   - Transition (0.1.0)
-  - UIButton-ANDYHighlighted (0.2.1)
 
 DEPENDENCIES:
   - HockeySDK
   - Transition (from `https://github.com/hyperoslo/Transition.git`, branch `swift2`)
-  - UIButton-ANDYHighlighted
 
 EXTERNAL SOURCES:
   Transition:
@@ -23,6 +21,5 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   HockeySDK: a0b915dc081f1ba67782a347220a8623dbe93b8a
   Transition: 66d86e3ae1b8f0b3d9ba2000c7a45fbc17b066f2
-  UIButton-ANDYHighlighted: 3f5e9fb68fb3425bd9fddc030af452d3ac9d1613
 
 COCOAPODS: 0.39.0.beta.4

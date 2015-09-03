@@ -65,11 +65,10 @@
 		BD2C3B381B3B44F900ACCFAA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD2C3B371B3B44F900ACCFAA /* Images.xcassets */; };
 		BD3B8B8F1B8F755600AAC2A9 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3B8B8E1B8F755600AAC2A9 /* UIColor+Hex.swift */; };
 		BD6E97431B8BC1D1004C83D4 /* UIView+ToImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6E97421B8BC1D1004C83D4 /* UIView+ToImage.swift */; };
-		BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7626CE1B32A1BF000A317A /* InstructionController.swift */; };
 		BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */; };
 		BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */; };
 		BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF14A1B32CC8100D00AC2 /* ViewController.swift */; };
-		BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8CF14D1B32D05C00D00AC2 /* InstructionsPageController.swift */; };
+		BD9705F21B9847560094574C /* HerbieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9705F11B9847560094574C /* HerbieController.swift */; };
 		BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBE46D11B3150D100E2896B /* AppDelegate.swift */; };
 		BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D981B343F02005E2C51 /* Fonts.swift */; };
 		BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC80D9A1B343F3B005E2C51 /* SettingsViewController.swift */; };
@@ -211,11 +210,10 @@
 		BD2C3B371B3B44F900ACCFAA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BD3B8B8E1B8F755600AAC2A9 /* UIColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		BD6E97421B8BC1D1004C83D4 /* UIView+ToImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ToImage.swift"; sourceTree = "<group>"; };
-		BD7626CE1B32A1BF000A317A /* InstructionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionController.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1461B32C6F600D00AC2 /* PlatCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = PlatCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF1481B32C8F600D00AC2 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BD8CF14A1B32CC8100D00AC2 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
-		BD8CF14D1B32D05C00D00AC2 /* InstructionsPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = InstructionsPageController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		BD9705F11B9847560094574C /* HerbieController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HerbieController.swift; sourceTree = "<group>"; };
 		BDBE46D01B3150D100E2896B /* Thyme-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDBE46D11B3150D100E2896B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDC80D981B343F02005E2C51 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; tabWidth = 2; };
@@ -315,8 +313,7 @@
 		146997341A2E7FB100171115 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BD7626CE1B32A1BF000A317A /* InstructionController.swift */,
-				BD8CF14D1B32D05C00D00AC2 /* InstructionsPageController.swift */,
+				BD9705F11B9847560094574C /* HerbieController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -948,13 +945,12 @@
 				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
 				BD3B8B8F1B8F755600AAC2A9 /* UIColor+Hex.swift in Sources */,
 				BD6E97431B8BC1D1004C83D4 /* UIView+ToImage.swift in Sources */,
-				BD7626CF1B32A1BF000A317A /* InstructionController.swift in Sources */,
 				BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */,
 				BD8CF1491B32C8F600D00AC2 /* SettingTableViewCell.swift in Sources */,
 				D5A2383A1B8BD75F00863023 /* WatchCommunicator.swift in Sources */,
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
+				BD9705F21B9847560094574C /* HerbieController.swift in Sources */,
 				BDF6EC8A1B8E3685002A051B /* Device.swift in Sources */,
-				BD8CF14E1B32D05C00D00AC2 /* InstructionsPageController.swift in Sources */,
 				BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */,
 				BDC80D9B1B343F3B005E2C51 /* SettingsViewController.swift in Sources */,
 				BD08D10A1B8B82CF009EAD75 /* Screen.swift in Sources */,
