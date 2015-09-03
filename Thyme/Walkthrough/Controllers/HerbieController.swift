@@ -27,6 +27,7 @@ struct Reason {
   var titleColor: UIColor
   var text: String
   var textColor: UIColor
+  var imageName: String?
   var imageType: ImageType
   var tryText: String
   var tryTextColor: UIColor
@@ -34,13 +35,14 @@ struct Reason {
   var reasonText: String
   var herbieMood: HerbieMood?
 
-  init(backgroundColor: UIColor, title: String, titleColor: UIColor = UIColor(hex: "FF4963"), text: String, textColor: UIColor = UIColor(hex: "FF7A7A"), imageType: ImageType, tryText: String = "Let's give it another try!", tryTextColor: UIColor = UIColor.whiteColor(), tryBackground: UIColor = UIColor.whiteColor(), reasonText: String = "Give me a real reason", herbieMood: HerbieMood = .Neutral) {
+  init(backgroundColor: UIColor, title: String, titleColor: UIColor = UIColor(hex: "FF4963"), text: String, textColor: UIColor = UIColor(hex: "FF7A7A"), imageName: String? = nil, imageType: ImageType, tryText: String = "Let's give it another try!", tryTextColor: UIColor = UIColor.whiteColor(), tryBackground: UIColor = UIColor.whiteColor(), reasonText: String = "Give me a real reason", herbieMood: HerbieMood = .Neutral) {
     self.backgroundColor = backgroundColor
     self.title = title
     self.titleColor = titleColor
     self.text = text
     self.textColor = textColor
     self.imageType = imageType
+    self.imageName = imageName
     self.tryText = tryText
     self.tryTextColor = tryTextColor
     self.tryBackground = tryBackground
@@ -57,6 +59,7 @@ struct Reason {
       titleColor: UIColor(hex: "FF5858"),
       text: "Without notifications and sounds, we\nsimply can’t tell you when your lobster\nis ready! It might get rubbery :(",
       textColor: UIColor(hex: "FF5858"),
+      imageName: "Lobster",
       imageType: .Background,
       tryText: "Let’s give it another try!",
       tryTextColor: UIColor(hex: "FF5858"),
@@ -70,6 +73,7 @@ struct Reason {
       titleColor: UIColor(hex: "FF5858"),
       text: "Without notifications and sounds, we\nsimply can’t tell you when your turkey is\nready! It might get burned :(",
       textColor: UIColor(hex: "FF5858"),
+      imageName: "Turkey",
       imageType: .Background,
       tryText: "Let’s give it another try!",
       tryTextColor: UIColor(hex: "FF5858"),
@@ -83,6 +87,7 @@ struct Reason {
       titleColor: UIColor(hex: "FF5858"),
       text: "Without notifications and sounds, we\nsimply can’t tell you when your bacon is\nready! It might get burned :(",
       textColor: UIColor(hex: "FF5858"),
+      imageName: "Bacon",
       imageType: .Background,
       tryText: "Let’s give it another try!",
       tryTextColor: UIColor(hex: "FF5858"),
@@ -96,6 +101,7 @@ struct Reason {
       titleColor: UIColor(hex: "FF5858"),
       text: "Without notifications and sounds, we\nsimply can’t tell you when your octopus\nis ready! Nobody likes rubbery octopus.",
       textColor: UIColor(hex: "FF5858"),
+      imageName: "Octopus",
       imageType: .Background,
       tryText: "Let’s give it another try!",
       tryTextColor: UIColor(hex: "FF5858"),
@@ -109,6 +115,7 @@ struct Reason {
       titleColor: UIColor(hex: "FF5858"),
       text: "Without notifications and sounds, we\nsimply can’t tell you when the cake\nyou’ve spent all day on is done.\nMake it count!",
       textColor: UIColor(hex: "FF5858"),
+      imageName: "Birthday",
       imageType: .Background,
       tryText: "Let’s give it another try!",
       tryTextColor: UIColor(hex: "FF5858"),
@@ -122,6 +129,7 @@ struct Reason {
       titleColor: UIColor(hex: "FF5858"),
       text: "Without notifications and sounds, we\nsimply can’t tell you when you can hang\nout with the plates again :(",
       textColor: UIColor(hex: "FF5858"),
+      imageName: "Dinner",
       imageType: .Background,
       tryText: "Let’s give it another try!",
       tryTextColor: UIColor(hex: "FF5858"),
@@ -141,6 +149,10 @@ class HerbieController: ViewController {
       let width: CGFloat = 295
       let bottomMargin: CGFloat = 42
 
+      if reason?.imageName != nil {
+        self.reasonImage.image = UIImage(named: reason!.imageName!)
+        self.titleLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
+      }
       self.titleLabel.transform = CGAffineTransformMakeTranslation(1000,0)
       self.textLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
 
@@ -151,6 +163,7 @@ class HerbieController: ViewController {
         }
         self.titleLabel.transform = CGAffineTransformIdentity
         self.textLabel.transform = CGAffineTransformIdentity
+        self.reasonImage.transform = CGAffineTransformIdentity
         self.tryButton.setTitle(self.reason?.tryText, forState: .Normal)
         self.tryButton.setTitleColor(self.reason?.tryTextColor, forState: .Normal)
         self.tryButton.backgroundColor = self.reason?.tryBackground
@@ -170,8 +183,10 @@ class HerbieController: ViewController {
         if self.reason?.herbieMood == .Happy {
         } else if self.reason?.herbieMood == .Sad {
           self.reasonButton.alpha = 1.0
+          self.reasonImage.alpha = 0.0
         } else {
           self.herbie.alpha = 0.0
+          self.reasonImage.alpha = 1.0
         }
 
         if self.reason?.imageType == .Animated && self.reason?.herbieMood == .Happy {
@@ -235,6 +250,16 @@ class HerbieController: ViewController {
     return imageView
     }()
 
+  lazy var reasonImage: UIImageView = {
+    let width: CGFloat = 375
+    let height: CGFloat = 300
+    let imageView = UIImageView(frame: CGRect(x: Screen.width / 2 - width / 2,
+      y: 0,
+      width: width, height: height))
+
+    return imageView
+    }()
+
   lazy var titleLabel: UILabel = {
     let height: CGFloat = 72
     let topOffset: CGFloat = -17
@@ -273,7 +298,7 @@ class HerbieController: ViewController {
 
     view.backgroundColor = UIColor(hex: "E3FFFF")
 
-    for subview in [herbie, titleLabel, textLabel, tryButton, reasonButton] { view.addSubview(subview) }
+    for subview in [herbie, titleLabel, textLabel, tryButton, reasonImage, reasonButton] { view.addSubview(subview) }
 
     reason = Reason(backgroundColor: UIColor(hex: "E3FFFF"), title: "Hello, I'm Herbie!",
       text: "In order for me to help you keep track of\nall that delicious food, yum, I need you to\nlet me notify you and make a sound when\nI'm finished counting.\n\nNever otherwise, I promise!",
@@ -316,10 +341,12 @@ class HerbieController: ViewController {
       newReason = reasons[Int.random(0, upper: reasons.count - 1)]
     }
 
+    reasonImage.transform = CGAffineTransformIdentity
     titleLabel.transform = CGAffineTransformIdentity
     textLabel.transform = CGAffineTransformIdentity
 
     UIView.animateWithDuration(0.3, animations: {
+      self.reasonImage.transform = CGAffineTransformMakeTranslation(0,-1000)
       self.titleLabel.transform = CGAffineTransformMakeTranslation(1000,0)
       self.textLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
       }, completion: { _ in
