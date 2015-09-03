@@ -408,14 +408,9 @@ class HomeViewController: ViewController, ContentSizeChangable {
     let registredSettings = UIApplication.sharedApplication().currentUserNotificationSettings()
     let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
 
-    //if registredSettings!.types != types {
-      let navigationController = UINavigationController(rootViewController: herbieController)
-      herbieController.theme = theme
-      navigationController.navigationBarHidden = true
-      presentViewController(navigationController,
-        animated: true,
-        completion: nil)
-    //}
+    if registredSettings!.types != types {
+      presentHerbie()
+    }
   }
 
   override func prefersStatusBarHidden() -> Bool {
@@ -479,6 +474,15 @@ class HomeViewController: ViewController, ContentSizeChangable {
       self.settingsController.view.frame = frame
       self.view.addGestureRecognizer(self.tapRecognizer)
     })
+  }
+
+  func presentHerbie() {
+    let navigationController = UINavigationController(rootViewController: herbieController)
+    herbieController.theme = theme
+    navigationController.navigationBarHidden = true
+    presentViewController(navigationController,
+      animated: true,
+      completion: nil)
   }
 
   func registeredForNotifications() {

@@ -15,7 +15,7 @@ public struct AlarmCenter {
 
   // MARK: - Local notification management
 
-  static func registerNotificationSettings() {
+  static func notificationsSettings() -> UIUserNotificationSettings {
     var categories = Set<UIUserNotificationCategory>()
 
     let threeMinutesAction = UIMutableUserNotificationAction()
@@ -39,6 +39,11 @@ public struct AlarmCenter {
     let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
     let settings = UIUserNotificationSettings(forTypes: types, categories: categories)
 
+    return settings
+  }
+
+  static func registerNotificationSettings() {
+    let settings = AlarmCenter.notificationsSettings()
     UIApplication.sharedApplication().registerUserNotificationSettings(settings)
   }
 

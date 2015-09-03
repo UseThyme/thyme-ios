@@ -1,5 +1,18 @@
 import UIKit
 
+public func arc4random <T: IntegerLiteralConvertible> (type: T.Type) -> T {
+
+  var r: T = 0
+  arc4random_buf(&r, sizeof(T))
+  return r
+}
+public extension Int {
+
+  public static func random (lower: Int , upper: Int) -> Int {
+    return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
+  }
+}
+
 enum ImageType {
   case Animated, Background
 }
@@ -35,8 +48,88 @@ struct Reason {
     self.herbieMood = herbieMood
   }
 
-  static func reasons() {
+  static func reasons() -> [Reason] {
+    var reasons = [Reason]()
 
+    reasons.append(Reason(
+      backgroundColor: UIColor(hex: "FFDBDB"),
+      title: "That lobster looks\nfrickin’ expensive",
+      titleColor: UIColor(hex: "FF5858"),
+      text: "Without notifications and sounds, we\nsimply can’t tell you when your lobster\nis ready! It might get rubbery :(",
+      textColor: UIColor(hex: "FF5858"),
+      imageType: .Background,
+      tryText: "Let’s give it another try!",
+      tryTextColor: UIColor(hex: "FF5858"),
+      tryBackground: UIColor.whiteColor(),
+      herbieMood: .Neutral
+      ))
+
+    reasons.append(Reason(
+      backgroundColor: UIColor(hex: "FFF3D2"),
+      title: "That Thanksgiving\n turkey will be ruined",
+      titleColor: UIColor(hex: "FF5858"),
+      text: "Without notifications and sounds, we\nsimply can’t tell you when your turkey is\nready! It might get burned :(",
+      textColor: UIColor(hex: "FF5858"),
+      imageType: .Background,
+      tryText: "Let’s give it another try!",
+      tryTextColor: UIColor(hex: "FF5858"),
+      tryBackground: UIColor.whiteColor(),
+      herbieMood: .Neutral
+      ))
+
+    reasons.append(Reason(
+      backgroundColor: UIColor(hex: "FFF3D2"),
+      title: "Because bacon tastes\nbetter than charcoal",
+      titleColor: UIColor(hex: "FF5858"),
+      text: "Without notifications and sounds, we\nsimply can’t tell you when your bacon is\nready! It might get burned :(",
+      textColor: UIColor(hex: "FF5858"),
+      imageType: .Background,
+      tryText: "Let’s give it another try!",
+      tryTextColor: UIColor(hex: "FF5858"),
+      tryBackground: UIColor.whiteColor(),
+      herbieMood: .Neutral
+      ))
+
+    reasons.append(Reason(
+      backgroundColor: UIColor(hex: "FFE8FC"),
+      title: "That octopus is\ngonna get SO rubbery",
+      titleColor: UIColor(hex: "FF5858"),
+      text: "Without notifications and sounds, we\nsimply can’t tell you when your octopus\nis ready! Nobody likes rubbery octopus.",
+      textColor: UIColor(hex: "FF5858"),
+      imageType: .Background,
+      tryText: "Let’s give it another try!",
+      tryTextColor: UIColor(hex: "FF5858"),
+      tryBackground: UIColor.whiteColor(),
+      herbieMood: .Neutral
+      ))
+
+    reasons.append(Reason(
+      backgroundColor: UIColor(hex: "D7F5FF"),
+      title: "Birthdays only\ncome once a year",
+      titleColor: UIColor(hex: "FF5858"),
+      text: "Without notifications and sounds, we\nsimply can’t tell you when the cake\nyou’ve spent all day on is done.\nMake it count!",
+      textColor: UIColor(hex: "FF5858"),
+      imageType: .Background,
+      tryText: "Let’s give it another try!",
+      tryTextColor: UIColor(hex: "FF5858"),
+      tryBackground: UIColor.whiteColor(),
+      herbieMood: .Neutral
+      ))
+
+    reasons.append(Reason(
+      backgroundColor: UIColor(hex: "D7F8AC"),
+      title: "Because your plate\nneeds a friend",
+      titleColor: UIColor(hex: "FF5858"),
+      text: "Without notifications and sounds, we\nsimply can’t tell you when you can hang\nout with the plates again :(",
+      textColor: UIColor(hex: "FF5858"),
+      imageType: .Background,
+      tryText: "Let’s give it another try!",
+      tryTextColor: UIColor(hex: "FF5858"),
+      tryBackground: UIColor.whiteColor(),
+      herbieMood: .Neutral
+      ))
+
+    return reasons
   }
 }
 
@@ -52,15 +145,25 @@ class HerbieController: ViewController {
       tryButton.setTitle(reason?.tryText, forState: .Normal)
       tryButton.setTitleColor(reason?.tryTextColor, forState: .Normal)
       tryButton.backgroundColor = reason?.tryBackground
+      
+      tryButton.layer.cornerRadius = height / 2
+      titleLabel.text = reason?.title
+      titleLabel.textColor = reason?.titleColor
+
+      textLabel.text = reason?.text
+      textLabel.textColor = reason?.textColor
 
       if reason?.herbieMood == .Happy {
         tryButton.frame = CGRect(
           x: view.bounds.width / 2 - width / 2,
           y: view.bounds.height - height - bottomMargin,
           width: width, height: height)
-      } else {
+      } else if reason?.herbieMood == .Sad {
         reasonButton.alpha = 1.0
-        reasonButton.frame = tryButton.frame
+        reasonButton.frame = CGRect(
+          x: view.bounds.width / 2 - width / 2,
+          y: view.bounds.height - height - bottomMargin,
+          width: width, height: height)
 
         reasonButton.setTitle("Give me another reason", forState: .Normal)
         reasonButton.setTitleColor(reason?.tryTextColor, forState: .Normal)
@@ -69,17 +172,17 @@ class HerbieController: ViewController {
 
         tryButton.frame = CGRect(
           x: view.bounds.width / 2 - width / 2,
-          y: view.bounds.height - height - bottomMargin * 1.5 - reasonButton.frame.height,
+          y: view.bounds.height - height - bottomMargin * 1.5 - height,
           width: width, height: height)
+      } else {
+        herbie.alpha = 0.0
+        var frame = titleLabel.frame
+        frame.size.width = Screen.width
+        frame.size.height = 72 * 2
+        frame.origin.x = 0
+        frame.origin.y = Screen.height / 2 - frame.size.height / 2 - 17
+        titleLabel.frame = frame
       }
-
-      tryButton.layer.cornerRadius = height / 2
-
-      titleLabel.text = reason?.title
-      titleLabel.textColor = reason?.titleColor
-
-      textLabel.text = reason?.text
-      textLabel.textColor = reason?.textColor
 
       if reason?.imageType == .Animated && reason?.herbieMood == .Happy {
         var images = [UIImage]()
@@ -88,6 +191,7 @@ class HerbieController: ViewController {
         }
         herbie.animationImages = images
         herbie.startAnimating()
+        herbie.alpha = 1.0
       } else if reason?.imageType == .Animated && reason?.herbieMood == .Sad {
         var frame = herbie.frame
         frame.size.height = 225
@@ -98,6 +202,7 @@ class HerbieController: ViewController {
         }
         herbie.animationImages = images
         herbie.startAnimating()
+        herbie.alpha = 1.0
       }
     }
   }
@@ -167,6 +272,13 @@ class HerbieController: ViewController {
 
   func registerNotificationSettings() {
     AlarmCenter.registerNotificationSettings()
+
+    let registredSettings = UIApplication.sharedApplication().currentUserNotificationSettings()
+    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
+    if registredSettings!.types != types {
+      let url = NSURL(string:UIApplicationOpenSettingsURLString)!
+      UIApplication.sharedApplication().openURL(url)
+    }
   }
   
   func cancelledNotifications() {
@@ -181,7 +293,12 @@ class HerbieController: ViewController {
   }
 
   func anotherReason() {
-
+    let reasons = Reason.reasons()
+    var newReason = reasons[Int.random(0, upper: reasons.count - 1)]
+    while reason?.title == newReason.title {
+      newReason = reasons[Int.random(0, upper: reasons.count - 1)]
+    }
+    reason = newReason
   }
 
 }
