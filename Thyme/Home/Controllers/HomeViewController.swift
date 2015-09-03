@@ -101,13 +101,15 @@ class HomeViewController: ViewController, ContentSizeChangable {
       if !UIAccessibilityIsReduceMotionEnabled() {
         if let timerController = controller as? TimerViewController {
           if show {
-            UIView.animateWithDuration(0.5) {
+            UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
               self.titleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
               self.subtitleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
               self.stoveView.transform = CGAffineTransformMakeScale(0.2, 0.2)
               self.stoveView.frame.origin.x = timerController.kitchenButton.frame.origin.x
               self.stoveView.frame.origin.y = timerController.kitchenButton.frame.origin.y - 24
-            }
+              }, completion: { _ in
+                timerController.kitchenButton.alpha = 1.0
+              })
 
             if controller.isBeingPresented() {
               timerController.timerControl.transform = CGAffineTransformMakeScale(0.5, 0.5)

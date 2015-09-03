@@ -129,7 +129,7 @@ class TimerViewController: ViewController {
     for state in states {
       button.setBackgroundImage(image, forState: state)
     }
-    button.alpha = 0.0
+    button.alpha = UIAccessibilityIsReduceMotionEnabled() ? 1.0 : 0.0
 
     return button
   }()
@@ -174,8 +174,6 @@ class TimerViewController: ViewController {
 
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-
-    kitchenButton.alpha = 1.0
 
     if !UIAccessibilityIsReduceMotionEnabled() {
       view.layer.insertSublayer(gradientLayer, atIndex: 0)
