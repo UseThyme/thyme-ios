@@ -18,9 +18,7 @@ struct WatchCommunicator {
     case "cancelAlarm":
       if let index = message["index"] as? Int {
         let alarm = Alarm.create(index)
-        if let notification = AlarmCenter.getNotification(alarm.alarmID!) {
-          UIApplication.sharedApplication().cancelLocalNotification(notification)
-        }
+        AlarmCenter.cleanUpNotification(alarm.alarmID!)
 
         data["alarm"] = getAlarmData(index)
       }
