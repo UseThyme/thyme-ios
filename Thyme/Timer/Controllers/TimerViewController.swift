@@ -164,7 +164,7 @@ class TimerViewController: ViewController {
 
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "alarmsDidUpdate:",
-      name: WatchCommunicator.Notifications.AlarmsDidUpdate,
+      name: AlarmCenter.Notifications.AlarmsDidUpdate,
       object: nil)
 
     if UIAccessibilityIsReduceMotionEnabled() {
@@ -252,7 +252,7 @@ class TimerViewController: ViewController {
   }
 
   func refreshTimerForCurrentAlarm() {
-    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!) {
+    if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
       refreshTimerForNotification(existingNotification)
     }
   }
@@ -288,9 +288,10 @@ class TimerViewController: ViewController {
   }
 
   func alarmsDidUpdate(notification: NSNotification) {
-    if let localNotification = notification.object as? UILocalNotification where notification.name == WatchCommunicator.Notifications.AlarmsDidUpdate {
-      timerControl.stopTimer()
-      refreshTimerForNotification(localNotification)
+    if let localNotification = notification.object as? UILocalNotification
+      where notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
+        timerControl.stopTimer()
+        refreshTimerForNotification(localNotification)
     }
   }
 }

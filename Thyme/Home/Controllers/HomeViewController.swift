@@ -340,7 +340,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
       hasAction: true,
       isWelcome: true,
       index: -1)
-    controller.delegate = self
 
     return controller
   }()
@@ -369,7 +368,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "alarmsDidUpdate:",
-      name: WatchCommunicator.Notifications.AlarmsDidUpdate,
+      name: AlarmCenter.Notifications.AlarmsDidUpdate,
       object: nil)
 
     UIViewAnimationOptions.CurveEaseIn
@@ -447,7 +446,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func alarmsDidUpdate(notification: NSNotification) {
-    if notification.name == WatchCommunicator.Notifications.AlarmsDidUpdate {
+    if notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
       maxMinutesLeft = nil
       plateCollectionView.reloadData()
       ovenCollectionView.reloadData()
@@ -527,7 +526,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func refreshTimerInCell(cell: PlateCell, alarm: Alarm) {
-    if let existingNotification = LocalNotificationManager.existingNotificationWithAlarmID(alarm.alarmID!),
+    if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!),
       userinfo = existingNotification.userInfo,
       firedDate = userinfo[ThymeAlarmFireDataKey] as? NSDate,
       numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber
@@ -646,17 +645,6 @@ extension HomeViewController: UICollectionViewDelegate {
   }
 }
 
-// MARK: - InstructionDelegate
-
-extension HomeViewController: InstructionDelegate {
-
-  func instructionControllerDidTapAcceptButton(controller: InstructionController) {
-    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-    let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
-    UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-  }
-}
-
 // MARK: - UIAlertViewDelegate
 
 extension HomeViewController: UIAlertViewDelegate {
@@ -664,7 +652,7 @@ extension HomeViewController: UIAlertViewDelegate {
   func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
     let accepted: Bool = buttonIndex == 1
     if accepted == true {
-      LocalNotificationManager.cancelAllLocalNotifications()
+      AlarmCenter.cancelAllNotifications()
       maxMinutesLeft = nil
       plateCollectionView.reloadData()
       ovenCollectionView.reloadData()

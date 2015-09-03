@@ -189,7 +189,7 @@ public class InstructionController: UIViewController {
   // MARK: - Actions
 
   func acceptButtonAction() {
-    delegate?.instructionControllerDidTapAcceptButton(self)
+    AlarmCenter.registerNotificationSettings()
   }
 
   func nextButtonAction() {
@@ -262,7 +262,6 @@ extension InstructionController {
 }
 
 @objc public protocol InstructionDelegate {
-  func instructionControllerDidTapAcceptButton(controller: InstructionController)
   optional func instructionControllerDidTapNextButton(controller: InstructionController)
   optional func instructionControllerDidTapPreviousButton(controller: InstructionController)
 }

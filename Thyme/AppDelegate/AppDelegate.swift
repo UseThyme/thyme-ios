@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
   var session: WCSession!
 
-  // MARK: UIApplicationDelegate
+  // MARK: - UIApplicationDelegate
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
@@ -119,16 +119,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     application.beginReceivingRemoteControlEvents()
   }
 
-  func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-    let state = UIApplication.sharedApplication().applicationState
-    var playingSound = true
-
-    if state == .Background || state == .Inactive {
-      playingSound = false
+  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
+    if motion == .MotionShake {
+      NSNotificationCenter.defaultCenter().postNotificationName("appWasShaked", object: nil)
     }
-
-    handleLocalNotification(notification, playingSound: playingSound)
   }
+}
+
+// MARK: - Local Notifications
+
+@available(iOS 9.0, *)
+extension AppDelegate {
 
   func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
     let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
@@ -139,43 +140,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     }
   }
 
-  // MARK: UIAlertViewDelegate
+  func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+    if UIApplication.sharedApplication().applicationState == .Active {
+      handleLocalNotification(notification, playingSound: true)
+    }
+  }
 
-  func alert(alertView: UIAlertView, clickedButtonAtIndex: NSInteger) {
-    audioPlayer!.stop()
+  func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+    AlarmCenter.handleNotification(notification, actionID: identifier)
+    if let audioPlayer = self.audioPlayer where audioPlayer.playing {
+      self.audioPlayer!.stop()
+    }
+
+    completionHandler()
   }
 
   // MARK: Private methods
 
   func handleLocalNotification(notification: UILocalNotification, playingSound: Bool) {
-    if let userInfo = notification.userInfo,
-    alarmID = userInfo[ThymeAlarmIDKey] as? String {
-      cleanUpLocalNotificationWithAlarmID(alarmID)
-
+    if let userInfo = notification.userInfo, _ = userInfo[ThymeAlarmIDKey] as? String {
       if playingSound {
         audioPlayer!.prepareToPlay()
         audioPlayer!.play()
       }
 
-      UIAlertView(title: notification.alertBody,
-        message: nil,
-        delegate: self,
-        cancelButtonTitle: "OK").show()
-    }
-  }
+      let alert = UIAlertController(title: "Thyme", message: notification.alertBody, preferredStyle: .Alert)
+      let actionAndDismiss = { (action: String?) -> ((UIAlertAction!) -> Void) in
+        return { _ in
+          AlarmCenter.handleNotification(notification, actionID: action)
+          if let audioPlayer = self.audioPlayer where audioPlayer.playing {
+            self.audioPlayer!.stop()
+          }
+        }
+      }
 
-  func cleanUpLocalNotificationWithAlarmID(alarmID: String) {
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+      alert.addAction(UIAlertAction(title: "OK",
+        style: .Cancel, handler: actionAndDismiss(nil)))
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Add 3 mins", comment: ""),
+        style: .Default, handler: actionAndDismiss(AlarmCenter.Action.AddThreeMinutes.rawValue)))
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""),
+        style: .Default, handler: actionAndDismiss(AlarmCenter.Action.AddFiveMinutes.rawValue)))
 
-    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarmID) {
-      UIApplication.sharedApplication().cancelLocalNotification(notification)
-    }
-  }
-
-  override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
-    if motion == .MotionShake {
-      NSNotificationCenter.defaultCenter().postNotificationName("appWasShaked", object: nil)
+      navigationController.visibleViewController?.presentViewController(alert, animated: true, completion: nil)
     }
   }
 }

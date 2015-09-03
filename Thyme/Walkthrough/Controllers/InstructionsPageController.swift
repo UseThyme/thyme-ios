@@ -1,6 +1,6 @@
 import UIKit
 
-public class InstructionsPageController: UIPageViewController, InstructionDelegate {
+public class InstructionsPageController: UIPageViewController {
 
   var index: NSInteger = 0
 
@@ -114,12 +114,7 @@ extension InstructionsPageController: UIPageViewControllerDataSource {
 
 // MARK: - InstructionDelegate
 
-extension InstructionsPageController {
-
-  public func instructionControllerDidTapAcceptButton(controller: InstructionController) {
-    let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge], categories: nil)
-    UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-  }
+extension InstructionsPageController: InstructionDelegate {
 
   public func instructionControllerDidTapNextButton(controller: InstructionController) {
     if index == self.instructions.count - 1 { return }
