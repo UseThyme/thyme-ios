@@ -141,69 +141,86 @@ class HerbieController: ViewController {
       let width: CGFloat = 295
       let bottomMargin: CGFloat = 42
 
-      view.backgroundColor = reason?.backgroundColor
-      tryButton.setTitle(reason?.tryText, forState: .Normal)
-      tryButton.setTitleColor(reason?.tryTextColor, forState: .Normal)
-      tryButton.backgroundColor = reason?.tryBackground
-      
-      tryButton.layer.cornerRadius = height / 2
-      titleLabel.text = reason?.title
-      titleLabel.textColor = reason?.titleColor
+      self.titleLabel.transform = CGAffineTransformMakeTranslation(1000,0)
+      self.textLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
 
-      textLabel.text = reason?.text
-      textLabel.textColor = reason?.textColor
-
-      if reason?.herbieMood == .Happy {
-        tryButton.frame = CGRect(
-          x: view.bounds.width / 2 - width / 2,
-          y: view.bounds.height - height - bottomMargin,
-          width: width, height: height)
-      } else if reason?.herbieMood == .Sad {
-        reasonButton.alpha = 1.0
-        reasonButton.frame = CGRect(
-          x: view.bounds.width / 2 - width / 2,
-          y: view.bounds.height - height - bottomMargin,
-          width: width, height: height)
-
-        reasonButton.setTitle("Give me another reason", forState: .Normal)
-        reasonButton.setTitleColor(reason?.tryTextColor, forState: .Normal)
-        reasonButton.backgroundColor = reason?.tryBackground
-        reasonButton.layer.cornerRadius = height / 2
-
-        tryButton.frame = CGRect(
-          x: view.bounds.width / 2 - width / 2,
-          y: view.bounds.height - height - bottomMargin * 1.5 - height,
-          width: width, height: height)
-      } else {
-        herbie.alpha = 0.0
-        var frame = titleLabel.frame
-        frame.size.width = Screen.width
-        frame.size.height = 72 * 2
-        frame.origin.x = 0
-        frame.origin.y = Screen.height / 2 - frame.size.height / 2 - 17
-        titleLabel.frame = frame
-      }
-
-      if reason?.imageType == .Animated && reason?.herbieMood == .Happy {
-        var images = [UIImage]()
-        for x in 0...23 {
-          images.append(UIImage(named: "HappyHerbie_\(x)")!)
+      UIView.animateWithDuration(0.3, animations: {
+        self.view.backgroundColor = self.reason?.backgroundColor
+        if self.reason?.herbieMood == .Neutral {
+          self.herbie.alpha = 0.0
         }
-        herbie.animationImages = images
-        herbie.startAnimating()
-        herbie.alpha = 1.0
-      } else if reason?.imageType == .Animated && reason?.herbieMood == .Sad {
-        var frame = herbie.frame
-        frame.size.height = 225
-        herbie.frame = frame
-        var images = [UIImage]()
-        for x in 0...39 {
-          images.append(UIImage(named: "SadHerbie_\(x)")!)
+        self.titleLabel.transform = CGAffineTransformIdentity
+        self.textLabel.transform = CGAffineTransformIdentity
+        self.tryButton.setTitle(self.reason?.tryText, forState: .Normal)
+        self.tryButton.setTitleColor(self.reason?.tryTextColor, forState: .Normal)
+        self.tryButton.backgroundColor = self.reason?.tryBackground
+
+        self.tryButton.layer.cornerRadius = height / 2
+        self.titleLabel.text = self.reason?.title
+        self.titleLabel.textColor = self.reason?.titleColor
+
+        self.textLabel.text = self.reason?.text
+        self.textLabel.textColor = self.reason?.textColor
+
+        self.reasonButton.setTitle("Give me another reason", forState: .Normal)
+        self.reasonButton.setTitleColor(self.reason?.tryTextColor, forState: .Normal)
+        self.reasonButton.backgroundColor = self.reason?.tryBackground
+        self.reasonButton.layer.cornerRadius = height / 2
+
+        if self.reason?.herbieMood == .Happy {
+        } else if self.reason?.herbieMood == .Sad {
+          self.reasonButton.alpha = 1.0
+        } else {
+          self.herbie.alpha = 0.0
         }
-        herbie.animationImages = images
-        herbie.startAnimating()
-        herbie.alpha = 1.0
-      }
+
+        if self.reason?.imageType == .Animated && self.reason?.herbieMood == .Happy {
+          var images = [UIImage]()
+          for x in 0...23 {
+            images.append(UIImage(named: "HappyHerbie_\(x)")!)
+          }
+          self.herbie.animationImages = images
+          self.herbie.startAnimating()
+          self.herbie.alpha = 1.0
+        } else if self.reason?.imageType == .Animated && self.reason?.herbieMood == .Sad {
+          var frame = self.herbie.frame
+          frame.size.height = 225
+          self.herbie.frame = frame
+          var images = [UIImage]()
+          for x in 0...39 {
+            images.append(UIImage(named: "SadHerbie_\(x)")!)
+          }
+          self.herbie.animationImages = images
+          self.herbie.startAnimating()
+          self.herbie.alpha = 1.0
+        }
+
+        }, completion: { _ in
+
+          if self.reason?.herbieMood == .Happy {
+            self.tryButton.frame = CGRect(
+              x: self.view.bounds.width / 2 - width / 2,
+              y: self.view.bounds.height - height - bottomMargin,
+              width: width, height: height)
+          } else if self.reason?.herbieMood == .Sad {
+            self.reasonButton.frame = CGRect(
+              x: self.view.bounds.width / 2 - width / 2,
+              y: self.view.bounds.height - height - bottomMargin,
+              width: width, height: height)
+
+            self.tryButton.frame = CGRect(
+              x: self.view.bounds.width / 2 - width / 2,
+              y: self.view.bounds.height - height - bottomMargin * 1.5 - height,
+              width: width, height: height)
+          } else {
+            var frame = self.titleLabel.frame
+            frame.size.width = Screen.width
+            frame.size.height = 72 * 2
+            frame.origin.x = 0
+            frame.origin.y = Screen.height / 2 - frame.size.height / 2 - 17
+            self.titleLabel.frame = frame
+          }
+      })
     }
   }
 
@@ -280,7 +297,7 @@ class HerbieController: ViewController {
       UIApplication.sharedApplication().openURL(url)
     }
   }
-  
+
   func cancelledNotifications() {
     reason = Reason(backgroundColor: UIColor(hex: "FF7A7A"), title: "What's that smell?",
       titleColor: UIColor.whiteColor(),
@@ -298,7 +315,15 @@ class HerbieController: ViewController {
     while reason?.title == newReason.title {
       newReason = reasons[Int.random(0, upper: reasons.count - 1)]
     }
-    reason = newReason
-  }
 
+    titleLabel.transform = CGAffineTransformIdentity
+    textLabel.transform = CGAffineTransformIdentity
+
+    UIView.animateWithDuration(0.3, animations: {
+      self.titleLabel.transform = CGAffineTransformMakeTranslation(1000,0)
+      self.textLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
+      }, completion: { _ in
+        self.reason = newReason
+    })
+  }
 }
