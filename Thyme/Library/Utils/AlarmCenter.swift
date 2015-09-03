@@ -75,9 +75,7 @@ public struct AlarmCenter {
         let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
         let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
 
-        if secondsLeft > 0 {
-          secondsAmount += secondsLeft
-        }
+        if secondsLeft > 0 { secondsAmount += secondsLeft }
 
         UIApplication.sharedApplication().cancelLocalNotification(notification)
 
