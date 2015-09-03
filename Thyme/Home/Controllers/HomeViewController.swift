@@ -427,13 +427,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
         animated: true,
         completion: nil)
     }
-
-//    UIView.animateWithDuration(1.0, animations: {
-//      self.scaleSubviews(2.0, to: 1.0, duration: 1.0)
-//      self.applyTransformToLayer(self.plateCollectionView.layer, factor: self.plateFactor)
-//      self.applyTransformToLayer(self.ovenCollectionView.layer, factor: self.ovenFactor)
-//    })
-
   }
 
   override func prefersStatusBarHidden() -> Bool {
