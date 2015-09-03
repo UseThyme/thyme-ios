@@ -52,6 +52,20 @@ class HomeInterfaceController: WKInterfaceController {
     super.didDeactivate()
   }
 
+  // MARK: - Local notifications
+
+  override func handleActionWithIdentifier(identifier: String?, forLocalNotification localNotification: UILocalNotification) {
+    if let alarmID = localNotification.userInfo?["HYPAlarmID"] as? String, actionID = identifier {
+      switch actionID {
+      case "AddThreeMinutes":
+        
+        extendNotification(notification, seconds: NSTimeInterval(60 * 3))
+      case "AddFiveMinutes":
+        extendNotification(notification, seconds: NSTimeInterval(60 * 5))
+      }
+    }
+  }
+
   // MARK: - Actions
 
   @IBAction func topLeftButtonDidTap() {
