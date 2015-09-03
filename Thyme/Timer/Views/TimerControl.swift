@@ -473,7 +473,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
   }
 
   func cancelCurrentLocalNotification() {
-    if let notification = LocalNotificationManager.existingNotificationWithAlarmID(alarmID!) {
+    if let notification = AlarmCenter.getNotification(alarmID!) {
       UIApplication.sharedApplication().cancelLocalNotification(notification)
     }
   }
@@ -489,12 +489,9 @@ public class TimerControl: UIControl, ContentSizeChangable {
     seconds = 0
     startTimer()
 
-    let title = NSLocalizedString("\(alarm!.title) just finished",
-      comment: "\(alarm!.title) just finished")
-    LocalNotificationManager.createNotification(numberOfSeconds,
-      message: title,
-      title: NSLocalizedString("View Details", comment: "View Details"),
-      alarmID: alarmID!)
+    AlarmCenter.scheduleNotification(alarmID!,
+      seconds: numberOfSeconds,
+      message: NSLocalizedString("\(alarm!.title) just finished", comment: ""))
   }
 
   override public func beginTrackingWithTouch(touch: UITouch, withEvent event: UIEvent?) -> Bool {
