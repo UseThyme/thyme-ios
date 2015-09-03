@@ -4,6 +4,10 @@ enum ImageType {
   case Animated, Background
 }
 
+enum HerbieMood {
+  case Happy, Sad, Neutral
+}
+
 struct Reason {
   var title: String
   var titleColor: UIColor
@@ -13,8 +17,9 @@ struct Reason {
   var tryText: String
   var tryBackground: UIColor = UIColor.whiteColor()
   var reasonText: String
+  var herbieMood: HerbieMood?
 
-  init(title: String, titleColor: UIColor = UIColor(hex: "FF4963"), text: String, textColor: UIColor, imageType: ImageType, tryText: String = "Let's give it another try!", tryBackground: UIColor = UIColor.whiteColor(), reasonText: String = "Give me a real reason") {
+  init(title: String, titleColor: UIColor = UIColor(hex: "FF4963"), text: String, textColor: UIColor, imageType: ImageType, tryText: String = "Let's give it another try!", tryBackground: UIColor = UIColor.whiteColor(), reasonText: String = "Give me a real reason", herbieMood: HerbieMood = .Neutral) {
     self.title = title
     self.titleColor = titleColor
     self.text = text
@@ -23,6 +28,7 @@ struct Reason {
     self.tryText = tryText
     self.tryBackground = tryBackground
     self.reasonText = reasonText
+    self.herbieMood = herbieMood
   }
 }
 
@@ -47,8 +53,28 @@ class HerbieController: ViewController {
 
       textLabel.text = reason?.text
       textLabel.textColor = reason?.textColor
+
+      if reason?.imageType == .Animated && reason?.herbieMood == .Happy {
+        var images = [UIImage]()
+        for x in 0...23 {
+          images.append(UIImage(named: "HappyHerbie_\(x)")!)
+        }
+        herbie.animationImages = images
+        herbie.startAnimating()
+      }
     }
   }
+
+  lazy var herbie: UIImageView = {
+    let width: CGFloat = 160
+    let height: CGFloat = 214
+    let topOffset: CGFloat = -100
+    let imageView = UIImageView(frame: CGRect(x: Screen.width / 2 - width / 2,
+      y: Screen.height / 2 - height / 2 + topOffset,
+      width: width, height: height))
+
+    return imageView
+    }()
 
   lazy var titleLabel: UILabel = {
     let height: CGFloat = 72
@@ -80,14 +106,14 @@ class HerbieController: ViewController {
 
     view.backgroundColor = UIColor(hex: "E3FFFF")
 
-    for subview in [titleLabel, textLabel, tryButton] { view.addSubview(subview) }
+    for subview in [herbie, titleLabel, textLabel, tryButton] { view.addSubview(subview) }
 
     reason = Reason(title: "Hello, I'm Herbie!",
       text: "In order for me to help you keep track of\nall that delicious food, yum, I need you to\nlet me notify you and make a sound when\nI'm finished counting.\n\nNever otherwise, I promise!",
       textColor: UIColor(hex: "0896A2"),
       imageType: .Animated,
       tryText: "Ok, got it!",
-      tryBackground: UIColor(hex: "04BAC0"))
+      tryBackground: UIColor(hex: "04BAC0"), herbieMood: .Happy)
   }
 
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
