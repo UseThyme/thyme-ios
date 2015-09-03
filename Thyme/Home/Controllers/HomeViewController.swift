@@ -99,24 +99,32 @@ class HomeViewController: ViewController, ContentSizeChangable {
     let transition = Transition() {  controller, show in
 
       if !UIAccessibilityIsReduceMotionEnabled() {
-        if let timerViewController = controller as? TimerViewController {
+        if let timerController = controller as? TimerViewController {
           if show {
             UIView.animateWithDuration(0.5) {
               self.titleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
               self.subtitleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
               self.stoveView.transform = CGAffineTransformMakeScale(0.2, 0.2)
-              self.stoveView.frame.origin.x = timerViewController.kitchenButton.frame.origin.x
-              self.stoveView.frame.origin.y = timerViewController.kitchenButton.frame.origin.y - 24
+              self.stoveView.frame.origin.x = timerController.kitchenButton.frame.origin.x
+              self.stoveView.frame.origin.y = timerController.kitchenButton.frame.origin.y - 24
             }
 
-            timerViewController.timerControl.transform = CGAffineTransformMakeScale(0.5, 0.5)
-            timerViewController.timerControl.alpha = 0.0
-            UIView.animateWithDuration(0.8, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .BeginFromCurrentState, animations: {
-              timerViewController.timerControl.transform = CGAffineTransformIdentity
-              timerViewController.timerControl.alpha = 1.0
-              }, completion: nil)
-
+            if controller.isBeingPresented() {
+              timerController.timerControl.transform = CGAffineTransformMakeScale(0.5, 0.5)
+              timerController.timerControl.alpha = 0.0
+              UIView.animateWithDuration(0.8, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .BeginFromCurrentState, animations: {
+                timerController.timerControl.transform = CGAffineTransformIdentity
+                timerController.timerControl.alpha = 1.0
+                }, completion: nil)
+            }
           } else {
+            if controller.isBeingDismissed() {
+              UIView.animateWithDuration(0.25) {
+                timerController.timerControl.alpha = 0.0
+                timerController.timerControl.transform = CGAffineTransformMakeScale(0.5, 0.5)
+              }
+            }
+          
             self.titleLabel.transform = CGAffineTransformIdentity
             self.subtitleLabel.transform = CGAffineTransformIdentity
             self.stoveView.transform = CGAffineTransformIdentity
