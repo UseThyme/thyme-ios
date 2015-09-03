@@ -56,13 +56,23 @@ class HomeInterfaceController: WKInterfaceController {
 
   override func handleActionWithIdentifier(identifier: String?, forLocalNotification localNotification: UILocalNotification) {
     if let alarmID = localNotification.userInfo?["HYPAlarmID"] as? String, actionID = identifier {
+      var parameters = [String: AnyObject]()
+      var kind: Message.Kind
+
       switch actionID {
       case "AddThreeMinutes":
-        
-        extendNotification(notification, seconds: NSTimeInterval(60 * 3))
+        parameters["amount"] = 3
+        kind = .UpdateAlarmMinutes
       case "AddFiveMinutes":
-        extendNotification(notification, seconds: NSTimeInterval(60 * 5))
+        parameters["amount"] = 5
+        kind = .UpdateAlarmMinutes
+      default:
+        kind = .CancelAlarm
+        break
       }
+
+      parameters["index"] = Alarm.indexFromString(alarmID)
+      sendMessage(Message(kind, parameters))
     }
   }
 
