@@ -7,6 +7,7 @@ class NotificationController: WKUserNotificationInterfaceController {
 
   override func didReceiveLocalNotification(localNotification: UILocalNotification, withCompletion completionHandler: (WKUserNotificationInterfaceType) -> Void) {
     alertLabel.setText(localNotification.alertBody)
+    WKInterfaceDevice.currentDevice().playHaptic(.Notification)
     completionHandler(.Custom)
   }
 }
