@@ -15,15 +15,15 @@ class HomeInterfaceController: WKInterfaceController {
   @IBOutlet weak var bottomRightSecondsGroup: WKInterfaceGroup!
   @IBOutlet weak var ovenSecondsGroup: WKInterfaceGroup!
 
-  @IBOutlet weak var topLeftButton: WKInterfaceButton!
-  @IBOutlet weak var topRightButton: WKInterfaceButton!
-  @IBOutlet weak var bottomLeftButton: WKInterfaceButton!
-  @IBOutlet weak var bottomRightButton: WKInterfaceButton!
-  @IBOutlet weak var ovenButton: WKInterfaceButton!
+  @IBOutlet var topLeftLabel: WKInterfaceLabel!
+  @IBOutlet var topRightLabel: WKInterfaceLabel!
+  @IBOutlet var bottomLeftLabel: WKInterfaceLabel!
+  @IBOutlet var bottomRightLabel: WKInterfaceLabel!
+  @IBOutlet var ovenLabel: WKInterfaceLabel!
 
   var minutesGroups = [WKInterfaceGroup]()
   var secondsGroups = [WKInterfaceGroup]()
-  var buttons = [WKInterfaceButton]()
+  var labels = [WKInterfaceLabel]()
 
   var alarmTimer: AlarmTimer?
 
@@ -39,8 +39,8 @@ class HomeInterfaceController: WKInterfaceController {
       bottomLeftMinutesGroup, bottomRightMinutesGroup, ovenMinutesGroup]
     secondsGroups = [topLeftSecondsGroup, topRightSecondsGroup,
       bottomLeftSecondsGroup, bottomRightSecondsGroup, ovenSecondsGroup]
-    buttons = [topLeftButton, topRightButton,
-      bottomLeftButton, bottomRightButton, ovenButton]
+    labels = [topLeftLabel, topRightLabel,
+      bottomLeftLabel, bottomRightLabel, ovenLabel]
   }
 
   override func willActivate() {
@@ -148,7 +148,7 @@ class HomeInterfaceController: WKInterfaceController {
       secondsGroups[index].setBackgroundImageNamed(nil)
     }
 
-    buttons[index].setTitle(text)
+    labels[index].setText(text)
   }
 
   // MARK: - Alarms
