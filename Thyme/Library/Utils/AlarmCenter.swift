@@ -101,8 +101,7 @@ public struct AlarmCenter {
   }
 
   static func cleanUpNotification(alarmID: String) {
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    for badgeCount in [1, 0] { UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount }
 
     if let notification = getNotification(alarmID) {
       UIApplication.sharedApplication().cancelLocalNotification(notification)
