@@ -567,35 +567,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
       cell.timerControl.stopTimer()
     }
   }
-
-  func scaleSubviews(from: CGFloat, to: CGFloat, duration: CFTimeInterval = 0.3, exluded: [AnyObject] = []) {
-    let easingCurve = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-    let xScaleAnimation = CABasicAnimation(keyPath: "transform.scale.x")
-    xScaleAnimation.timingFunction = easingCurve
-    xScaleAnimation.duration = duration
-    xScaleAnimation.repeatCount=0
-    xScaleAnimation.autoreverses=false
-    xScaleAnimation.removedOnCompletion = false
-    xScaleAnimation.fillMode = kCAFillModeForwards
-    xScaleAnimation.fromValue = from
-    xScaleAnimation.toValue = to
-
-    let yScaleAnimation = CABasicAnimation(keyPath: "transform.scale.y")
-    yScaleAnimation.timingFunction = easingCurve
-    yScaleAnimation.duration = duration
-    yScaleAnimation.repeatCount = 0
-    yScaleAnimation.autoreverses = false
-    yScaleAnimation.removedOnCompletion = false
-    yScaleAnimation.fillMode = kCAFillModeForwards
-    yScaleAnimation.fromValue = from
-    yScaleAnimation.toValue = to
-
-    for subview in stoveView.subviews {
-      let layer = subview.layer
-      layer.addAnimation(xScaleAnimation, forKey: "animateScaleX")
-      layer.addAnimation(yScaleAnimation, forKey: "animateScaleY")
-    }
-  }
 }
 
 // MARK: - UICollectionViewDataSource
