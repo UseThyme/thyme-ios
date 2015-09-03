@@ -28,11 +28,12 @@ struct WatchCommunicator {
       if let index = message["index"] as? Int, amount = message["amount"] as? Int {
         let alarm = Alarm.create(index)
         let seconds = NSTimeInterval(60 * amount)
-        let notification = AlarmCenter.extendNotification(alarm.alarmID!, seconds: seconds)
-        var alarmData = extractAlarmData(notification)
-
-        alarmData["title"] = alarm.title
-        data["alarm"] = alarmData
+        if let notification = AlarmCenter.getNotification(alarm.alarmID!),
+          extendedNotification = AlarmCenter.extendNotification(notification, seconds: seconds) {
+            var alarmData = extractAlarmData(extendedNotification)
+            alarmData["title"] = alarm.title
+            data["alarm"] = alarmData
+        }
       }
     default:
       break

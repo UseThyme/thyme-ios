@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
     pageControl.backgroundColor = UIColor(hex: "EDFFFF")
 
     if let notification = launchOptions?[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
-      handleLocalNotification(notification)
+      handleLocalNotification(notification, playingSound: false)
     }
 
     if WCSession.isSupported() {
@@ -140,30 +140,33 @@ extension AppDelegate {
   }
 
   func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-    if application.applicationState == .Active {
-      audioPlayer!.prepareToPlay()
-      audioPlayer!.play()
-
-      handleLocalNotification(notification)
+    if UIApplication.sharedApplication().applicationState == .Active {
+      handleLocalNotification(notification, playingSound: true)
     }
   }
 
   func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
-      AlarmCenter.handleNotification(notification, actionID: identifier)
-      completionHandler()
+    AlarmCenter.handleNotification(notification, actionID: identifier)
+    if let audioPlayer = self.audioPlayer where audioPlayer.playing {
+      self.audioPlayer!.stop()
+    }
+
+    completionHandler()
   }
 
   // MARK: Private methods
 
-  func handleLocalNotification(notification: UILocalNotification) {
-    if let userInfo = notification.userInfo, alarmID = userInfo[ThymeAlarmIDKey] as? String {
-      AlarmCenter.cleanUpNotification(alarmID)
+  func handleLocalNotification(notification: UILocalNotification, playingSound: Bool) {
+    if let userInfo = notification.userInfo, _ = userInfo[ThymeAlarmIDKey] as? String {
+      if playingSound {
+        audioPlayer!.prepareToPlay()
+        audioPlayer!.play()
+      }
 
       let alert = UIAlertController(title: "Thyme", message: notification.alertBody, preferredStyle: .Alert)
       let actionAndDismiss = { (action: String?) -> ((UIAlertAction!) -> Void) in
         return { _ in
           AlarmCenter.handleNotification(notification, actionID: action)
-          self.window?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
           if let audioPlayer = self.audioPlayer where audioPlayer.playing {
             self.audioPlayer!.stop()
           }
@@ -177,7 +180,7 @@ extension AppDelegate {
       alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""),
         style: .Default, handler: actionAndDismiss(AlarmCenter.Action.AddFiveMinutes.rawValue)))
 
-      window?.rootViewController?.presentViewController(alert, animated: true, completion: nil)
+      navigationController.visibleViewController?.presentViewController(alert, animated: true, completion: nil)
     }
   }
 }

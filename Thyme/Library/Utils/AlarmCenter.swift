@@ -63,35 +63,33 @@ public struct AlarmCenter {
     return notification
   }
 
-  static func extendNotification(alarmID: String, seconds: NSTimeInterval) -> UILocalNotification {
-    var secondsAmount: NSTimeInterval = 0
-    var alertBody = ""
+  static func extendNotification(notification: UILocalNotification, seconds: NSTimeInterval) -> UILocalNotification? {
+    var updatedNotification: UILocalNotification?
 
-    if let notification = AlarmCenter.getNotification(alarmID),
+    if let alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String,
       userInfo = notification.userInfo,
       firedDate = userInfo[ThymeAlarmFireDataKey] as? NSDate,
       numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
+        var secondsAmount = seconds
+
         let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
         let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
-        secondsAmount = secondsLeft
 
-        if let text = notification.alertBody {
-          alertBody = text
+        if secondsLeft > 0 {
+          secondsAmount += secondsLeft
         }
 
         UIApplication.sharedApplication().cancelLocalNotification(notification)
+
+        updatedNotification = AlarmCenter.scheduleNotification(alarmID,
+          seconds: secondsAmount,
+          message: notification.alertBody)
+
+        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.AlarmsDidUpdate,
+          object: updatedNotification)
     }
 
-    secondsAmount += seconds
-
-    let notification = AlarmCenter.scheduleNotification(alarmID,
-      seconds: secondsAmount,
-      message: alertBody)
-
-    NSNotificationCenter.defaultCenter().postNotificationName(Notifications.AlarmsDidUpdate,
-      object: notification)
-
-    return notification
+    return updatedNotification
   }
 
   static func getNotification(alarmID: String) -> UILocalNotification? {
@@ -124,15 +122,17 @@ public struct AlarmCenter {
   // MARK: - Handling
 
   static func handleNotification(notification: UILocalNotification, actionID: String?) {
-    if let actionID = actionID,
-      action = Action(rawValue: actionID),
-      alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String {
+    if let alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String {
+      cleanUpNotification(alarmID)
+
+      if let actionID = actionID, action = Action(rawValue: actionID) {
         switch action {
         case .AddThreeMinutes:
-          extendNotification(alarmID, seconds: NSTimeInterval(60 * 3))
+          extendNotification(notification, seconds: NSTimeInterval(60 * 3))
         case .AddFiveMinutes:
-          extendNotification(alarmID, seconds: NSTimeInterval(60 * 5))
+          extendNotification(notification, seconds: NSTimeInterval(60 * 5))
         }
+      }
     }
   }
 }
