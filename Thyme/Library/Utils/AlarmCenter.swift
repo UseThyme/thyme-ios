@@ -7,7 +7,7 @@ public struct AlarmCenter {
     case AddFiveMinutes = "AddFiveMinutes"
   }
 
-  static let categoryIdentifier = "ThymeCategory"
+  static let categoryIdentifier = "ThymeNotificationCategory"
 
   struct Notifications {
     static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
