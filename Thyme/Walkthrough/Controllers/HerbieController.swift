@@ -154,7 +154,7 @@ class HerbieController: ViewController {
         self.titleLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
       }
       self.titleLabel.transform = CGAffineTransformMakeTranslation(1000,0)
-      self.textLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
+      self.textLabel.transform = CGAffineTransformMakeTranslation(1000,0)
 
       UIView.animateWithDuration(0.3, animations: {
         self.view.backgroundColor = self.reason?.backgroundColor
@@ -347,7 +347,7 @@ class HerbieController: ViewController {
 
     UIView.animateWithDuration(0.3, animations: {
       self.reasonImage.transform = CGAffineTransformMakeTranslation(0,-1000)
-      self.titleLabel.transform = CGAffineTransformMakeTranslation(1000,0)
+      self.titleLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
       self.textLabel.transform = CGAffineTransformMakeTranslation(-1000,0)
       }, completion: { _ in
         self.reason = newReason
