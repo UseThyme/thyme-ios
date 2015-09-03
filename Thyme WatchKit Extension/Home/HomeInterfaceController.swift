@@ -130,9 +130,7 @@ class HomeInterfaceController: WKInterfaceController {
     if alarm.active {
       text = alarm.shortText
 
-      minutesGroups[index].setBackgroundImageNamed(alarm.hours > 0
-        ? ImageList.Timer.minuteHourSequence
-        : ImageList.Timer.minuteSequence)
+      minutesGroups[index].setBackgroundImageNamed(ImageList.Timer.minuteSequence)
       minutesGroups[index].startAnimatingWithImagesInRange(
         NSRange(location: alarm.minutes, length: 1),
         duration: 0, repeatCount: 1)

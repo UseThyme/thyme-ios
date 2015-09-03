@@ -71,35 +71,28 @@ class TimerInterfaceController: WKInterfaceController {
   // MARK: - UI
 
   func updatePlate(alarm: Alarm) {
-    var minutesText = ""
     var hoursText = ""
 
     if alarm.active {
-      minutesText = "\(alarm.minutes)"
-
       if alarm.hours > 0 {
         hoursText = "\(alarm.hours) " + NSLocalizedString("hour", comment: "")
       }
-
-      minutesGroup.setBackgroundImageNamed(alarm.hours > 0
-        ? ImageList.Timer.minuteHourSequence
-        : ImageList.Timer.minuteSequence)
-      minutesGroup.startAnimatingWithImagesInRange(
-        NSRange(location: alarm.minutes, length: 1),
-        duration: 0, repeatCount: 1)
 
       secondsGroup.setBackgroundImageNamed(ImageList.Timer.secondSequence)
       secondsGroup.startAnimatingWithImagesInRange(
         NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)
     } else {
-      minutesGroup.setBackgroundImageNamed(ImageList.Main.plateBackground)
       secondsGroup.setBackgroundImageNamed(nil)
     }
 
-    minutesLabel.setText(minutesText)
-    minutesTextLabel.setText(alarm.active ?
-      NSLocalizedString("minutes", comment: "").uppercaseString : "")
+    minutesGroup.setBackgroundImageNamed(ImageList.Timer.minuteSequence)
+    minutesGroup.startAnimatingWithImagesInRange(
+      NSRange(location: alarm.minutes, length: 1),
+      duration: 0, repeatCount: 1)
+
+    minutesLabel.setText("\(alarm.minutes)")
+    minutesTextLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
     hoursTextLabel.setText(hoursText.uppercaseString)
   }
 
