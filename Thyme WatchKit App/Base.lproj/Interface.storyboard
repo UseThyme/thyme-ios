@@ -257,9 +257,7 @@
                                 </group>
                                 <group width="1" height="1" alignment="left" layout="vertical" id="x4z-Zx-obq" userLabel="InactiveGroup">
                                     <items>
-                                        <group width="70" height="70" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie">
-                                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                        </group>
+                                        <group width="70" height="70" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie"/>
                                         <group width="1" height="28" alignment="left" radius="7" id="fcR-CC-Qk7" userLabel="StartCooking">
                                             <items>
                                                 <label alignment="center" verticalAlignment="center" alpha="0.69999999999999973" id="5nm-g6-tDd">

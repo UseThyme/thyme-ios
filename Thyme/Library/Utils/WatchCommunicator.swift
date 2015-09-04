@@ -1,6 +1,18 @@
 import Foundation
+import WatchConnectivity
 
 struct WatchCommunicator {
+
+  static func updateApplicationContext() {
+    do {
+      let context = ["alarms": getAlarmsData()]
+      if #available(iOS 9.0, *) {
+        try WCSession.defaultSession().updateApplicationContext(context)
+      }
+    } catch {
+      print("Error with saving application context to WCSession")
+    }
+  }
 
   static func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
     var data = [String : AnyObject]()

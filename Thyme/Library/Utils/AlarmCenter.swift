@@ -59,6 +59,7 @@ public struct AlarmCenter {
     notification.userInfo = userInfo
     
     UIApplication.sharedApplication().scheduleLocalNotification(notification)
+    WatchCommunicator.updateApplicationContext()
 
     return notification
   }
@@ -105,6 +106,7 @@ public struct AlarmCenter {
 
     if let notification = getNotification(alarmID) {
       UIApplication.sharedApplication().cancelLocalNotification(notification)
+      WatchCommunicator.updateApplicationContext()
     }
   }
 
@@ -114,6 +116,7 @@ public struct AlarmCenter {
         UIApplication.sharedApplication().cancelLocalNotification(notification)
       }
     }
+    WatchCommunicator.updateApplicationContext()
   }
 
   // MARK: - Handling

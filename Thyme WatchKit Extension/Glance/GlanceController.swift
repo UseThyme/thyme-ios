@@ -13,45 +13,30 @@ class GlanceController: WKInterfaceController {
   @IBOutlet weak var happyHerbie: WKInterfaceGroup!
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
-  lazy var communicator: Communicator = {
-    let communicator = Communicator()
-    return communicator
-    }()
+  var communicator: Communicator!
 
   // MARK: - Lifecycle
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
+    communicator = Communicator(self)
+
     infoLabel.setText(NSLocalizedString("Yum! That smells amazing!", comment: ""))
     startLabel.setText(NSLocalizedString("Start cooking", comment: ""))
+    setupInterface()
   }
 
   override func willActivate() {
     super.willActivate()
-    sendMessage(Message(.GetAlarms))
   }
 
   override func didDeactivate() {
     super.didDeactivate()
   }
 
-  // MARK: - Connectivity
-
-  func sendMessage(message: Message) {
-    communicator.sendMessage(message) {
-      [unowned self] response, error in
-      if let response = response,
-        alarmData = response["alarms"] as? [AnyObject] {
-          self.setupInterface(alarmData)
-      } else {
-        print("Error with fetching of alarms from the parent app")
-      }
-    }
-  }
-
   // MARK: - UI
 
-  func setupInterface(alarmData: [AnyObject]) {
+  func setupInterface(alarmData: [AnyObject] = []) {
     var closestAlarm: Alarm?
 
     for (_, alarmInfo) in alarmData.enumerate() {
@@ -94,7 +79,22 @@ class GlanceController: WKInterfaceController {
       happyHerbie.setBackgroundImageNamed(ImageList.Glance.happyHerbieSequence)
       happyHerbie.startAnimatingWithImagesInRange(
         NSRange(location: 0, length: 24),
-        duration: 0, repeatCount: Int.max)
+        duration: 1, repeatCount: Int.max)
     }
+  }
+}
+
+extension GlanceController: CommunicatorDelegate {
+
+  func communicatorDidReceiveApplicationContext(context: [String : AnyObject]) {
+    var data = [AnyObject]()
+
+    if let alarmData = context["alarms"] as? [AnyObject] {
+      data = alarmData
+    } else {
+      print("Error with fetching of application context from the parent app")
+    }
+
+    setupInterface(data)
   }
 }

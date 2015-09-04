@@ -55,7 +55,7 @@ class TimerInterfaceController: WKInterfaceController {
 
   func sendMessage(var message: Message) {
     message.parameters["index"] = index
-    
+
     communicator.sendMessage(message) {
       [unowned self] response, error in
       if let response = response,
