@@ -23,14 +23,29 @@ struct WatchCommunicator {
         data["alarm"] = getAlarmData(index)
       }
     case "updateAlarmMinutes":
+      print("App updated")
       if let index = message["index"] as? Int, amount = message["amount"] as? Int {
         let alarm = Alarm.create(index)
         let seconds = NSTimeInterval(60 * amount)
-        if let notification = AlarmCenter.getNotification(alarm.alarmID!),
-          extendedNotification = AlarmCenter.extendNotification(notification, seconds: seconds) {
-            var alarmData = extractAlarmData(extendedNotification)
-            alarmData["title"] = alarm.title
-            data["alarm"] = alarmData
+
+        var notification: UILocalNotification?
+
+        if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
+          notification = AlarmCenter.extendNotification(existingNotification, seconds: seconds)
+        } else {
+          notification = AlarmCenter.scheduleNotification(alarm.alarmID!,
+            seconds: seconds,
+            message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
+
+          NSNotificationCenter.defaultCenter().postNotificationName(
+            AlarmCenter.Notifications.AlarmsDidUpdate,
+            object: notification)
+        }
+
+        if let notification = notification {
+          var alarmData = extractAlarmData(notification)
+          alarmData["title"] = alarm.title
+          data["alarm"] = alarmData
         }
       }
     default:
