@@ -2,6 +2,25 @@ import Foundation
 
 class Alarm {
 
+  static func indexFromString(string: String) -> Int {
+    var index = 4
+
+    switch string {
+    case "HYPAlert section: 0 row: 0":
+      index = 0
+    case "HYPAlert section: 1 row: 0":
+      index = 1
+    case "HYPAlert section: 0 row: 1":
+      index = 2
+    case "HYPAlert section: 1 row: 1":
+      index = 3
+    default:
+      break
+    }
+
+    return index
+  }
+
   var title: String
   var firedDate: NSDate?
   var numberOfSeconds: NSNumber?

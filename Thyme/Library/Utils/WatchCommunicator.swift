@@ -1,6 +1,18 @@
 import Foundation
+import WatchConnectivity
 
 struct WatchCommunicator {
+
+  static func updateApplicationContext() {
+    do {
+      let context = ["alarms": getAlarmsData()]
+      if #available(iOS 9.0, *) {
+        try WCSession.defaultSession().updateApplicationContext(context)
+      }
+    } catch {
+      print("Error with saving application context to WCSession")
+    }
+  }
 
   static func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
     var data = [String : AnyObject]()
@@ -18,9 +30,7 @@ struct WatchCommunicator {
     case "cancelAlarm":
       if let index = message["index"] as? Int {
         let alarm = Alarm.create(index)
-        if let notification = AlarmCenter.getNotification(alarm.alarmID!) {
-          UIApplication.sharedApplication().cancelLocalNotification(notification)
-        }
+        AlarmCenter.cleanUpNotification(alarm.alarmID!)
 
         data["alarm"] = getAlarmData(index)
       }
@@ -28,11 +38,25 @@ struct WatchCommunicator {
       if let index = message["index"] as? Int, amount = message["amount"] as? Int {
         let alarm = Alarm.create(index)
         let seconds = NSTimeInterval(60 * amount)
-        if let notification = AlarmCenter.getNotification(alarm.alarmID!),
-          extendedNotification = AlarmCenter.extendNotification(notification, seconds: seconds) {
-            var alarmData = extractAlarmData(extendedNotification)
-            alarmData["title"] = alarm.title
-            data["alarm"] = alarmData
+
+        var notification: UILocalNotification?
+
+        if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
+          notification = AlarmCenter.extendNotification(existingNotification, seconds: seconds)
+        } else {
+          notification = AlarmCenter.scheduleNotification(alarm.alarmID!,
+            seconds: seconds,
+            message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
+
+          NSNotificationCenter.defaultCenter().postNotificationName(
+            AlarmCenter.Notifications.AlarmsDidUpdate,
+            object: notification)
+        }
+
+        if let notification = notification {
+          var alarmData = extractAlarmData(notification)
+          alarmData["title"] = alarm.title
+          data["alarm"] = alarmData
         }
       }
     default:

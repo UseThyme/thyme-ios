@@ -3,15 +3,11 @@ import Foundation
 
 class NotificationController: WKUserNotificationInterfaceController {
 
-  override init() {
-    super.init()
-  }
+  @IBOutlet var alertLabel: WKInterfaceLabel!
 
-  override func willActivate() {
-    super.willActivate()
-  }
-
-  override func didDeactivate() {
-    super.didDeactivate()
+  override func didReceiveLocalNotification(localNotification: UILocalNotification, withCompletion completionHandler: (WKUserNotificationInterfaceType) -> Void) {
+    alertLabel.setText(localNotification.alertBody)
+    WKInterfaceDevice.currentDevice().playHaptic(.Notification)
+    completionHandler(.Custom)
   }
 }

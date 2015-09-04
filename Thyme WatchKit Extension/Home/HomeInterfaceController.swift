@@ -15,15 +15,15 @@ class HomeInterfaceController: WKInterfaceController {
   @IBOutlet weak var bottomRightSecondsGroup: WKInterfaceGroup!
   @IBOutlet weak var ovenSecondsGroup: WKInterfaceGroup!
 
-  @IBOutlet weak var topLeftButton: WKInterfaceButton!
-  @IBOutlet weak var topRightButton: WKInterfaceButton!
-  @IBOutlet weak var bottomLeftButton: WKInterfaceButton!
-  @IBOutlet weak var bottomRightButton: WKInterfaceButton!
-  @IBOutlet weak var ovenButton: WKInterfaceButton!
+  @IBOutlet var topLeftLabel: WKInterfaceLabel!
+  @IBOutlet var topRightLabel: WKInterfaceLabel!
+  @IBOutlet var bottomLeftLabel: WKInterfaceLabel!
+  @IBOutlet var bottomRightLabel: WKInterfaceLabel!
+  @IBOutlet var ovenLabel: WKInterfaceLabel!
 
   var minutesGroups = [WKInterfaceGroup]()
   var secondsGroups = [WKInterfaceGroup]()
-  var buttons = [WKInterfaceButton]()
+  var labels = [WKInterfaceLabel]()
 
   var alarmTimer: AlarmTimer?
 
@@ -39,8 +39,8 @@ class HomeInterfaceController: WKInterfaceController {
       bottomLeftMinutesGroup, bottomRightMinutesGroup, ovenMinutesGroup]
     secondsGroups = [topLeftSecondsGroup, topRightSecondsGroup,
       bottomLeftSecondsGroup, bottomRightSecondsGroup, ovenSecondsGroup]
-    buttons = [topLeftButton, topRightButton,
-      bottomLeftButton, bottomRightButton, ovenButton]
+    labels = [topLeftLabel, topRightLabel,
+      bottomLeftLabel, bottomRightLabel, ovenLabel]
   }
 
   override func willActivate() {
@@ -50,6 +50,30 @@ class HomeInterfaceController: WKInterfaceController {
 
   override func didDeactivate() {
     super.didDeactivate()
+  }
+
+  // MARK: - Local notifications
+
+  override func handleActionWithIdentifier(identifier: String?, forLocalNotification localNotification: UILocalNotification) {
+    if let alarmID = localNotification.userInfo?["HYPAlarmID"] as? String, actionID = identifier {
+      var parameters = [String: AnyObject]()
+      var kind: Message.Kind
+
+      switch actionID {
+      case "AddThreeMinutes":
+        parameters["amount"] = 3
+        kind = .UpdateAlarmMinutes
+      case "AddFiveMinutes":
+        parameters["amount"] = 5
+        kind = .UpdateAlarmMinutes
+      default:
+        kind = .CancelAlarm
+        break
+      }
+
+      parameters["index"] = Alarm.indexFromString(alarmID)
+      sendMessage(Message(kind, parameters))
+    }
   }
 
   // MARK: - Actions
@@ -106,9 +130,7 @@ class HomeInterfaceController: WKInterfaceController {
     if alarm.active {
       text = alarm.shortText
 
-      minutesGroups[index].setBackgroundImageNamed(alarm.hours > 0
-        ? ImageList.Timer.minuteHourSequence
-        : ImageList.Timer.minuteSequence)
+      minutesGroups[index].setBackgroundImageNamed(ImageList.Timer.minuteSequence)
       minutesGroups[index].startAnimatingWithImagesInRange(
         NSRange(location: alarm.minutes, length: 1),
         duration: 0, repeatCount: 1)
@@ -124,7 +146,7 @@ class HomeInterfaceController: WKInterfaceController {
       secondsGroups[index].setBackgroundImageNamed(nil)
     }
 
-    buttons[index].setTitle(text)
+    labels[index].setText(text)
   }
 
   // MARK: - Alarms

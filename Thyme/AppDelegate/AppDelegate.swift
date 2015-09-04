@@ -91,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       session = WCSession.defaultSession()
       session.delegate = self
       session.activateSession()
+      WatchCommunicator.updateApplicationContext()
     }
 
     window!.rootViewController = navigationController
