@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "HappyHerbie16.png"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "HappyHerbie16@2x.png",
       "scale" : "2x"
     },
     {
