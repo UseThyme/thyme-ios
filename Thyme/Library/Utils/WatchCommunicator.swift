@@ -23,7 +23,6 @@ struct WatchCommunicator {
         data["alarm"] = getAlarmData(index)
       }
     case "updateAlarmMinutes":
-      print("App updated")
       if let index = message["index"] as? Int, amount = message["amount"] as? Int {
         let alarm = Alarm.create(index)
         let seconds = NSTimeInterval(60 * amount)
