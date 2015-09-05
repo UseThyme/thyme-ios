@@ -35,7 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
   lazy var homeController: HomeViewController = {
     var theme: Themable = Theme.Main()
-
     if UIAccessibilityDarkerSystemColorsEnabled() {
       theme = Theme.DarkColors()
 
@@ -113,6 +112,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
     homeController.theme = theme
     homeController.setNeedsStatusBarAppearanceUpdate()
+
+    if !AlarmCenter.hasCorrectNotificationTypes() {
+      if !homeController.herbieController.isBeingPresented() {
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+          if !AlarmCenter.hasCorrectNotificationTypes() {
+            self.homeController.presentHerbie()
+          }
+        }
+      } else {
+        homeController.cancelledNotifications()
+      }
+    } else {
+      homeController.registeredForNotifications()
+    }
   }
 
   func applicationDidEnterBackground(application: UIApplication) {
@@ -133,8 +147,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 extension AppDelegate {
 
   func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-    if notificationSettings.types != types {
+    if AlarmCenter.notificationsSettings().types != UIApplication.sharedApplication().currentUserNotificationSettings()?.types {
       homeController.cancelledNotifications()
     } else {
       homeController.registeredForNotifications()

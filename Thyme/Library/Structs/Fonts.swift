@@ -48,12 +48,8 @@ struct Font {
     static var arcText: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(14)) }
   }
 
-  struct Instruction {
-    static var title: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(27)) }
-    static var message: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(14)) }
-    static var acceptButton: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(15)) }
-    static var previousButton: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(15)) }
-    static var nextButton: UIFont { return UIFont.systemFontOfSize(Font.dynamicSize(15)) }
+  struct Herbie {
+    static var title: UIFont { return UIFont.boldSystemFontOfSize(Font.dynamicSize(30)) }
   }
 
   struct Settings {
