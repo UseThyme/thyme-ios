@@ -47,14 +47,17 @@ class TimerInterfaceController: WKInterfaceController {
       case .Active:
         inactiveGroup.setHidden(true)
         activeGroup.setHidden(false)
+
         button.setTitle(NSLocalizedString("End timer", comment: ""))
         button.setHidden(false)
+        button.setEnabled(true)
       case .Inactive:
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(false)
 
         button.setTitle(NSLocalizedString("Start timer", comment: ""))
         button.setHidden(false)
+        button.setEnabled(true)
 
         hourPicker.resignFocus()
         minutePicker.focus()
@@ -111,7 +114,7 @@ class TimerInterfaceController: WKInterfaceController {
       hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
       inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerHours)
 
-      minutePicker.setSelectedItemIndex(pickerHours)
+      hourPicker.setSelectedItemIndex(pickerHours)
     }
   }
 
@@ -135,16 +138,18 @@ class TimerInterfaceController: WKInterfaceController {
     if state == .Active {
       sendMessage(Message(.CancelAlarm))
     } else {
-      sendMessage(Message(.StartAlarm))
+      button.setEnabled(false)
+      let amount = pickerHours * 60 * 60 + pickerMinutes * 60
+      sendMessage(Message(.UpdateAlarm, ["amount": amount]))
     }
   }
 
   @IBAction func menu3MinutesButtonDidTap() {
-    sendMessage(Message(.UpdateAlarmMinutes, ["amount": 3]))
+    sendMessage(Message(.UpdateAlarm, ["amount": 3 * 60]))
   }
   
   @IBAction func menu5MinutesButtonDidTap() {
-    sendMessage(Message(.UpdateAlarmMinutes, ["amount": 5]))
+    sendMessage(Message(.UpdateAlarm, ["amount": 5 * 60]))
   }
 
   // MARK: - Communication
