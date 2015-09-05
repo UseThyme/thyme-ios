@@ -63,11 +63,11 @@ class HomeInterfaceController: WKInterfaceController {
 
       switch actionID {
       case "AddThreeMinutes":
-        parameters["amount"] = 3
-        kind = .UpdateAlarmMinutes
+        parameters["amount"] = 3 * 60
+        kind = .UpdateAlarm
       case "AddFiveMinutes":
-        parameters["amount"] = 5
-        kind = .UpdateAlarmMinutes
+        parameters["amount"] = 5 * 60
+        kind = .UpdateAlarm
       default:
         kind = .CancelAlarm
         break

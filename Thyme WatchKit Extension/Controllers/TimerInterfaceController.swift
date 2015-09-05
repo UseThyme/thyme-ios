@@ -47,6 +47,10 @@ class TimerInterfaceController: WKInterfaceController {
       case .Active:
         inactiveGroup.setHidden(true)
         activeGroup.setHidden(false)
+        activeGroup.setAlpha(0)
+        animateWithDuration(1) {
+          self.activeGroup.setAlpha(1)
+        }
 
         button.setTitle(NSLocalizedString("End timer", comment: ""))
         button.setHidden(false)
@@ -54,10 +58,14 @@ class TimerInterfaceController: WKInterfaceController {
       case .Inactive:
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(false)
+        inactiveGroup.setAlpha(0)
+        animateWithDuration(1) {
+          self.inactiveGroup.setAlpha(1)
+        }
 
         button.setTitle(NSLocalizedString("Start timer", comment: ""))
         button.setHidden(false)
-        button.setEnabled(true)
+        button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
 
         hourPicker.resignFocus()
         minutePicker.focus()
@@ -125,6 +133,7 @@ class TimerInterfaceController: WKInterfaceController {
     inactiveGroup.startAnimatingWithImagesInRange(
       NSRange(location: value, length: 1),
       duration: 0, repeatCount: 1)
+    button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
   }
 
   @IBAction func minutePickerChanged(value: Int) {
@@ -132,6 +141,7 @@ class TimerInterfaceController: WKInterfaceController {
     inactiveGroup.startAnimatingWithImagesInRange(
       NSRange(location: value, length: 1),
       duration: 0, repeatCount: 1)
+    button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
   }
 
   @IBAction func buttonDidTap() {
