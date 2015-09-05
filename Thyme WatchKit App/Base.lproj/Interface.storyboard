@@ -18,12 +18,18 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="OCB-gc-2ju" userLabel="Plate1Seconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" id="EdL-CP-mi3" userLabel="Button">
-                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="font" type="system" pointSize="30"/>
+                                                        <button alignment="left" id="Saa-eQ-PQo" userLabel="Button">
+                                                            <group key="contentGroup" width="1" height="1" alignment="left" id="pQi-T7-FfM">
+                                                                <items>
+                                                                    <label width="1" height="1" alignment="left" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="LqV-cZ-hdN">
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <fontDescription key="font" type="system" pointSize="30"/>
+                                                                    </label>
+                                                                </items>
+                                                                <edgeInsets key="margins" left="4" right="4" top="0.0" bottom="0.0"/>
+                                                            </group>
                                                             <connections>
-                                                                <action selector="topLeftButtonDidTap" destination="AgC-eL-Hgc" id="LX3-Ad-lTE"/>
+                                                                <action selector="topLeftButtonDidTap" destination="AgC-eL-Hgc" id="6rk-0H-Iw4"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -34,10 +40,16 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="YvT-fo-P3F" userLabel="Plate2Seconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" id="Ryb-YQ-Ip2" userLabel="Button">
-                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="font" type="system" pointSize="30"/>
+                                                        <button alignment="left" id="Ryb-YQ-Ip2" userLabel="Button">
+                                                            <group key="contentGroup" width="1" height="1" alignment="left" id="xV8-4d-v4P">
+                                                                <items>
+                                                                    <label width="1" height="1" alignment="left" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="fH6-hc-jwS">
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <fontDescription key="font" type="system" pointSize="30"/>
+                                                                    </label>
+                                                                </items>
+                                                                <edgeInsets key="margins" left="4" right="4" top="0.0" bottom="0.0"/>
+                                                            </group>
                                                             <connections>
                                                                 <action selector="topRightButtonDidTap" destination="AgC-eL-Hgc" id="e2C-62-skq"/>
                                                             </connections>
@@ -55,12 +67,18 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="FSB-D2-dot" userLabel="Plate3Seconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" id="Dcs-qa-nqf" userLabel="Button">
-                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="font" type="system" pointSize="30"/>
+                                                        <button alignment="left" id="J1g-SD-Lfh" userLabel="Button">
+                                                            <group key="contentGroup" width="1" height="1" alignment="left" id="1NS-Wc-KsX">
+                                                                <items>
+                                                                    <label width="1" height="1" alignment="left" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="Zqs-kh-MyQ">
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <fontDescription key="font" type="system" pointSize="30"/>
+                                                                    </label>
+                                                                </items>
+                                                                <edgeInsets key="margins" left="4" right="4" top="0.0" bottom="0.0"/>
+                                                            </group>
                                                             <connections>
-                                                                <action selector="bottomLeftButtonDidTap" destination="AgC-eL-Hgc" id="fqy-x6-EAd"/>
+                                                                <action selector="bottomLeftButtonDidTap" destination="AgC-eL-Hgc" id="nPv-CZ-1sp"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -71,12 +89,18 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="c8n-o3-u61" userLabel="Plate4Seconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" id="BD9-Xf-aqT" userLabel="Button">
-                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="font" type="system" pointSize="30"/>
+                                                        <button alignment="left" id="wwA-d0-ope" userLabel="Button">
+                                                            <group key="contentGroup" width="1" height="1" alignment="left" id="0qU-7e-lG4">
+                                                                <items>
+                                                                    <label width="1" height="1" alignment="left" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="PdM-yI-7iM">
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <fontDescription key="font" type="system" pointSize="30"/>
+                                                                    </label>
+                                                                </items>
+                                                                <edgeInsets key="margins" left="4" right="4" top="0.0" bottom="0.0"/>
+                                                            </group>
                                                             <connections>
-                                                                <action selector="bottomRightButtonDidTap" destination="AgC-eL-Hgc" id="Dwf-Me-oNt"/>
+                                                                <action selector="bottomRightButtonDidTap" destination="AgC-eL-Hgc" id="yRg-gx-Pqp"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -92,12 +116,18 @@
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="DDL-t2-Df7" userLabel="OvenSeconds">
                                                     <items>
-                                                        <button width="1" height="1" alignment="left" id="b2v-j6-f75" userLabel="Button">
-                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            <fontDescription key="font" type="system" pointSize="30"/>
+                                                        <button alignment="left" id="w9M-BA-lKB" userLabel="Button">
+                                                            <group key="contentGroup" width="1" height="1" alignment="left" id="rmg-rN-nXe">
+                                                                <items>
+                                                                    <label width="1" height="1" alignment="left" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="1Jo-WW-6iT">
+                                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <fontDescription key="font" type="system" pointSize="30"/>
+                                                                    </label>
+                                                                </items>
+                                                                <edgeInsets key="margins" left="4" right="4" top="0.0" bottom="0.0"/>
+                                                            </group>
                                                             <connections>
-                                                                <action selector="ovenButtonDidTap" destination="AgC-eL-Hgc" id="esQ-tk-arM"/>
+                                                                <action selector="ovenButtonDidTap" destination="AgC-eL-Hgc" id="qeQ-cC-5aO"/>
                                                             </connections>
                                                         </button>
                                                     </items>
@@ -119,19 +149,19 @@
                         </items>
                     </menu>
                     <connections>
-                        <outlet property="bottomLeftButton" destination="Dcs-qa-nqf" id="TDh-bR-4pu"/>
+                        <outlet property="bottomLeftLabel" destination="Zqs-kh-MyQ" id="TXY-3Y-eyX"/>
                         <outlet property="bottomLeftMinutesGroup" destination="VPm-2m-QFF" id="FwD-cC-gus"/>
                         <outlet property="bottomLeftSecondsGroup" destination="FSB-D2-dot" id="sYt-YZ-YVf"/>
-                        <outlet property="bottomRightButton" destination="BD9-Xf-aqT" id="Ia3-Hw-jud"/>
+                        <outlet property="bottomRightLabel" destination="PdM-yI-7iM" id="seu-Uw-lpF"/>
                         <outlet property="bottomRightMinutesGroup" destination="bwr-Da-ckz" id="RbV-X2-zor"/>
                         <outlet property="bottomRightSecondsGroup" destination="c8n-o3-u61" id="Efp-vf-7Ce"/>
-                        <outlet property="ovenButton" destination="b2v-j6-f75" id="Hnp-fl-0yW"/>
+                        <outlet property="ovenLabel" destination="1Jo-WW-6iT" id="JIP-mA-kKm"/>
                         <outlet property="ovenMinutesGroup" destination="5rp-hX-mb1" id="6Ig-DR-9Nb"/>
                         <outlet property="ovenSecondsGroup" destination="DDL-t2-Df7" id="GUY-Re-8aQ"/>
-                        <outlet property="topLeftButton" destination="EdL-CP-mi3" id="mKP-wp-S33"/>
+                        <outlet property="topLeftLabel" destination="LqV-cZ-hdN" id="2i0-kt-sMA"/>
                         <outlet property="topLeftMinutesGroup" destination="ZHh-fz-8ix" id="peU-Bn-C8T"/>
                         <outlet property="topLeftSecondsGroup" destination="OCB-gc-2ju" id="AR2-6t-7wZ"/>
-                        <outlet property="topRightButton" destination="Ryb-YQ-Ip2" id="9L2-FH-XgY"/>
+                        <outlet property="topRightLabel" destination="fH6-hc-jwS" id="6eC-Hu-Gu2"/>
                         <outlet property="topRightMinutesGroup" destination="eQu-bp-ges" id="lit-2e-2OF"/>
                         <outlet property="topRightSecondsGroup" destination="YvT-fo-P3F" id="D7N-mW-Wzt"/>
                     </connections>
@@ -144,23 +174,24 @@
             <objects>
                 <controller identifier="TimerController" id="53Q-sK-jl1" customClass="TimerInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
-                        <group width="1" height="129" alignment="left" backgroundImage="mainPlateBackground" id="DYZ-Sz-4Ba" userLabel="Minutes">
+                        <group width="129" height="129" alignment="center" backgroundImage="mainPlateBackground" id="DYZ-Sz-4Ba" userLabel="Minutes">
                             <items>
                                 <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="EOe-jn-aLf" userLabel="Seconds">
                                     <items>
-                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="t4s-q4-Jm5" userLabel="HoursText">
+                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" minimumScaleFactor="0.5" id="t4s-q4-Jm5" userLabel="HoursText">
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="font" type="system" weight="semibold" pointSize="13"/>
                                         </label>
-                                        <label width="1" height="40" alignment="left" verticalAlignment="center" textAlignment="center" id="yyE-gq-tIP" userLabel="Minutes">
+                                        <label width="1" height="40" alignment="left" verticalAlignment="center" textAlignment="center" minimumScaleFactor="0.5" id="yyE-gq-tIP" userLabel="Minutes">
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="font" type="system" weight="light" pointSize="47"/>
                                         </label>
-                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" id="jue-ld-zB4" userLabel="MinutesText">
+                                        <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" minimumScaleFactor="0.5" id="jue-ld-zB4" userLabel="MinutesText">
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="font" type="system" pointSize="13"/>
                                         </label>
                                     </items>
+                                    <edgeInsets key="margins" left="15" right="15" top="0.0" bottom="0.0"/>
                                 </group>
                             </items>
                         </group>
@@ -213,11 +244,11 @@
                                         <label alignment="left" id="WHt-a5-km0" userLabel="titleLabel">
                                             <fontDescription key="font" type="system" weight="medium" pointSize="11"/>
                                         </label>
-                                        <label alignment="left" id="bwE-Pf-LAF" userLabel="timeLabel">
+                                        <label alignment="left" minimumScaleFactor="0.5" id="bwE-Pf-LAF" userLabel="timeLabel">
                                             <color key="textColor" red="1" green="0.19607843137254902" blue="0.19607843137254902" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" pointSize="25"/>
                                         </label>
-                                        <label alignment="left" numberOfLines="2" id="xba-B4-3Ct">
+                                        <label alignment="left" numberOfLines="2" minimumScaleFactor="0.5" id="xba-B4-3Ct">
                                             <color key="textColor" red="0.46274509803921571" green="0.46274509803921571" blue="0.46274509803921571" alpha="1" colorSpace="calibratedRGB"/>
                                             <fontDescription key="font" type="system" weight="medium" pointSize="15"/>
                                         </label>
@@ -226,9 +257,7 @@
                                 </group>
                                 <group width="1" height="1" alignment="left" layout="vertical" id="x4z-Zx-obq" userLabel="InactiveGroup">
                                     <items>
-                                        <group width="70" height="70" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie">
-                                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                                        </group>
+                                        <group width="70" height="70" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie"/>
                                         <group width="1" height="28" alignment="left" radius="7" id="fcR-CC-Qk7" userLabel="StartCooking">
                                             <items>
                                                 <label alignment="center" verticalAlignment="center" alpha="0.69999999999999973" id="5nm-g6-tDd">
@@ -261,9 +290,22 @@
             <objects>
                 <notificationController id="YCC-NB-fut">
                     <items>
-                        <label alignment="left" text="Alert Label" id="XkS-y5-khE"/>
+                        <group width="1" alignment="left" layout="vertical" id="HWr-yF-4J3">
+                            <items>
+                                <label alignment="left" text="Time's up!" id="S65-38-dqh">
+                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                </label>
+                                <label alignment="left" text="Alert Label" numberOfLines="2" id="XkS-y5-khE">
+                                    <color key="textColor" red="0.72156862745098038" green="0.72156862745098038" blue="0.72156862745098038" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                </label>
+                            </items>
+                            <edgeInsets key="margins" left="4" right="0.0" top="0.0" bottom="0.0"/>
+                        </group>
                     </items>
-                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <notificationCategory key="notificationCategory" identifier="ThymeNotificationCategory" id="JfB-70-Muf">
+                        <color key="sashColor" red="1" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                    </notificationCategory>
                     <connections>
                         <outlet property="notificationAlertLabel" destination="XkS-y5-khE" id="49B-RR-99y"/>
                         <segue destination="gdX-wl-uQE" kind="relationship" relationship="dynamicNotificationInterface" id="fKh-qV-3T2"/>
@@ -275,7 +317,25 @@
         <!--Notification Controller-->
         <scene sceneID="KIl-fV-djm">
             <objects>
-                <controller id="gdX-wl-uQE" customClass="NotificationController" customModule="Thyme_WatchKit_App" customModuleProvider="target"/>
+                <controller id="gdX-wl-uQE" customClass="NotificationController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="lZQ-Bu-dnk">
+                            <items>
+                                <label alignment="left" text="Time's up!" id="ad4-iG-6IT">
+                                    <fontDescription key="font" type="system" pointSize="25"/>
+                                </label>
+                                <label alignment="left" text="Alert Label" numberOfLines="2" id="B1K-0Q-f2q">
+                                    <color key="textColor" red="0.72156862749999995" green="0.72156862749999995" blue="0.72156862749999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                </label>
+                            </items>
+                            <edgeInsets key="margins" left="3" right="0.0" top="0.0" bottom="0.0"/>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="alertLabel" destination="B1K-0Q-f2q" id="E3i-gJ-9lJ"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="553" y="1001"/>
         </scene>

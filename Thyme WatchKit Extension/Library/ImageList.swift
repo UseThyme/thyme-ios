@@ -9,7 +9,6 @@ public struct ImageList {
 
   struct Timer {
     static let minuteSequence = "timerMinute"
-    static let minuteHourSequence = "timerHourMinute"
     static let secondSequence = "timerSecond"
   }
 

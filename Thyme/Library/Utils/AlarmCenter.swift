@@ -7,7 +7,7 @@ public struct AlarmCenter {
     case AddFiveMinutes = "AddFiveMinutes"
   }
 
-  static let categoryIdentifier = "ThymeCategory"
+  static let categoryIdentifier = "ThymeNotificationCategory"
 
   struct Notifications {
     static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
@@ -64,6 +64,7 @@ public struct AlarmCenter {
     notification.userInfo = userInfo
     
     UIApplication.sharedApplication().scheduleLocalNotification(notification)
+    WatchCommunicator.updateApplicationContext()
 
     return notification
   }
@@ -80,9 +81,7 @@ public struct AlarmCenter {
         let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
         let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
 
-        if secondsLeft > 0 {
-          secondsAmount += secondsLeft
-        }
+        if secondsLeft > 0 { secondsAmount += secondsLeft }
 
         UIApplication.sharedApplication().cancelLocalNotification(notification)
 
@@ -108,11 +107,11 @@ public struct AlarmCenter {
   }
 
   static func cleanUpNotification(alarmID: String) {
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 1
-    UIApplication.sharedApplication().applicationIconBadgeNumber = 0
+    for badgeCount in [1, 0] { UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount }
 
     if let notification = getNotification(alarmID) {
       UIApplication.sharedApplication().cancelLocalNotification(notification)
+      WatchCommunicator.updateApplicationContext()
     }
   }
 
@@ -122,6 +121,7 @@ public struct AlarmCenter {
         UIApplication.sharedApplication().cancelLocalNotification(notification)
       }
     }
+    WatchCommunicator.updateApplicationContext()
   }
 
   // MARK: - Handling

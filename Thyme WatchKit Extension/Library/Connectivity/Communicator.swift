@@ -2,16 +2,22 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
+protocol CommunicatorDelegate: class {
+  func communicatorDidReceiveApplicationContext(context: [String : AnyObject])
+}
+
 class Communicator: NSObject, WCSessionDelegate {
 
   typealias Completion = (response: [String : AnyObject]?, error: NSError?) -> Void
 
   var session: WCSession
+  weak var delegate: CommunicatorDelegate?
 
-  override init() {
+  init(_ delegate: CommunicatorDelegate? = nil) {
     session = WCSession.defaultSession()
     super.init()
 
+    self.delegate = delegate
     session.delegate = self
     session.activateSession()
   }
@@ -22,5 +28,9 @@ class Communicator: NSObject, WCSessionDelegate {
       }, errorHandler: { error in
         completion(response: nil, error: error)
     })
+  }
+
+  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+    delegate?.communicatorDidReceiveApplicationContext(applicationContext)
   }
 }
