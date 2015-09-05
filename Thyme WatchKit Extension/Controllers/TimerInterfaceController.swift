@@ -69,6 +69,9 @@ class TimerInterfaceController: WKInterfaceController {
   override func willActivate() {
     super.willActivate()
 
+    alarmTimer?.stop()
+    setupPickers()
+
     if WCSession.isSupported() {
       session = WCSession.defaultSession()
       session.delegate = self
@@ -120,6 +123,26 @@ class TimerInterfaceController: WKInterfaceController {
 
   // MARK: - UI
 
+  func setupPickers() {
+    let minutePickerItems: [WKPickerItem] = [0...58].map {
+      let pickerItem = WKPickerItem()
+      pickerItem.title = "\($0)"
+
+      return pickerItem
+    }
+
+    minutePicker.setItems(minutePickerItems)
+
+    let hourPickerItems: [WKPickerItem] = [0...12].map {
+      let pickerItem = WKPickerItem()
+      pickerItem.title = "\($0)"
+
+      return pickerItem
+    }
+
+    hourPicker.setItems(hourPickerItems)
+  }
+
   func updatePlate(alarm: Alarm) {
     var hoursText = ""
 
@@ -167,9 +190,9 @@ class TimerInterfaceController: WKInterfaceController {
 extension TimerInterfaceController: WCSessionDelegate {
 
   func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+    alarmTimer?.stop()
     if let alarms = applicationContext["alarms"] as? [AnyObject],
       alarmData = alarms[index] as? [String: AnyObject] where alarms.count > index {
-        alarmTimer?.stop()
         setupAlarm(alarmData)
     }
   }
