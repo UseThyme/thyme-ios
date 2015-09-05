@@ -111,19 +111,27 @@ class TimerInterfaceController: WKInterfaceController {
   }
 
   override func pickerDidFocus(picker: WKInterfacePicker) {
+    var location: Int
+
     if picker == minutePicker {
       hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
       minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
       inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerMinutes)
 
       minutePicker.setSelectedItemIndex(pickerMinutes)
+      location = pickerMinutes
     } else {
       minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
       hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
       inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerHours)
 
       hourPicker.setSelectedItemIndex(pickerHours)
+      location = pickerHours
     }
+
+    inactiveGroup.startAnimatingWithImagesInRange(
+      NSRange(location: location, length: 1),
+      duration: 0, repeatCount: 1)
   }
 
   // MARK: - Actions
@@ -134,6 +142,7 @@ class TimerInterfaceController: WKInterfaceController {
       NSRange(location: value, length: 1),
       duration: 0, repeatCount: 1)
     button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
+    WKInterfaceDevice.currentDevice().playHaptic(.Click)
   }
 
   @IBAction func minutePickerChanged(value: Int) {
@@ -142,12 +151,15 @@ class TimerInterfaceController: WKInterfaceController {
       NSRange(location: value, length: 1),
       duration: 0, repeatCount: 1)
     button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
+    WKInterfaceDevice.currentDevice().playHaptic(.Click)
   }
 
   @IBAction func buttonDidTap() {
     if state == .Active {
+      WKInterfaceDevice.currentDevice().playHaptic(.Stop)
       sendMessage(Message(.CancelAlarm))
     } else {
+      WKInterfaceDevice.currentDevice().playHaptic(.Start)
       button.setEnabled(false)
       let amount = pickerHours * 60 * 60 + pickerMinutes * 60
       sendMessage(Message(.UpdateAlarm, ["amount": amount]))
@@ -155,10 +167,12 @@ class TimerInterfaceController: WKInterfaceController {
   }
 
   @IBAction func menu3MinutesButtonDidTap() {
+    WKInterfaceDevice.currentDevice().playHaptic(.Start)
     sendMessage(Message(.UpdateAlarm, ["amount": 3 * 60]))
   }
   
   @IBAction func menu5MinutesButtonDidTap() {
+    WKInterfaceDevice.currentDevice().playHaptic(.Start)
     sendMessage(Message(.UpdateAlarm, ["amount": 5 * 60]))
   }
 

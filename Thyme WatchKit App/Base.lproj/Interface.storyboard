@@ -317,7 +317,7 @@
                                 </group>
                                 <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="x4z-Zx-obq" userLabel="InactiveGroup">
                                     <items>
-                                        <group width="84" height="84" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie"/>
+                                        <imageView width="84" height="84" alignment="center" image="HappyHerbie" initiallyAnimated="NO" id="1g8-Ft-k7V"/>
                                         <group width="1" height="28" alignment="left" radius="7" id="fcR-CC-Qk7" userLabel="StartCooking">
                                             <items>
                                                 <label alignment="center" alpha="0.69999999999999973" text="Start cooking" id="5nm-g6-tDd">
@@ -333,7 +333,7 @@
                     <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="14"/>
                     <connections>
                         <outlet property="activeGroup" destination="rXR-HK-PDc" id="Olm-wo-pFb"/>
-                        <outlet property="happyHerbie" destination="gpy-ZL-ouF" id="Isi-Uz-Hrg"/>
+                        <outlet property="herbieImage" destination="1g8-Ft-k7V" id="n13-Gr-Cpf"/>
                         <outlet property="inactiveGroup" destination="x4z-Zx-obq" id="Ppt-UT-bNv"/>
                         <outlet property="infoLabel" destination="xba-B4-3Ct" id="JVJ-TO-UDG"/>
                         <outlet property="startLabel" destination="5nm-g6-tDd" id="pxG-zV-9UM"/>

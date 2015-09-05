@@ -101,6 +101,7 @@ class HomeInterfaceController: WKInterfaceController {
   }
 
   @IBAction func menuCancelAllButtonDidTap() {
+    WKInterfaceDevice.currentDevice().playHaptic(.Stop)
     sendMessage(Message(.CancelAlarms))
   }
 

@@ -6,12 +6,10 @@ class GlanceController: WKInterfaceController {
 
   @IBOutlet weak var activeGroup: WKInterfaceGroup!
   @IBOutlet weak var inactiveGroup: WKInterfaceGroup!
-
+  @IBOutlet var herbieImage: WKInterfaceImage!
   @IBOutlet weak var titleLabel: WKInterfaceLabel!
   @IBOutlet weak var timeLabel: WKInterfaceLabel!
   @IBOutlet weak var infoLabel: WKInterfaceLabel!
-
-  @IBOutlet weak var happyHerbie: WKInterfaceGroup!
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
   var session : WCSession!
@@ -23,6 +21,7 @@ class GlanceController: WKInterfaceController {
 
     infoLabel.setText(NSLocalizedString("Yum! That smells amazing!", comment: ""))
     startLabel.setText(NSLocalizedString("Start cooking", comment: ""))
+    herbieImage.stopAnimating()
     setupInterface()
   }
 
@@ -65,7 +64,7 @@ class GlanceController: WKInterfaceController {
     inactiveGroup.setHidden(closestAlarm != nil)
 
     if let alarm = closestAlarm {
-      happyHerbie.setBackgroundImageNamed(nil)
+      herbieImage.stopAnimating()
       titleLabel.setText(alarm.title.uppercaseString)
 
       var timeText = ""
@@ -82,10 +81,7 @@ class GlanceController: WKInterfaceController {
 
       timeLabel.setText(timeText)
     } else {
-      happyHerbie.setBackgroundImageNamed(ImageList.Glance.happyHerbieSequence)
-      happyHerbie.startAnimatingWithImagesInRange(
-        NSRange(location: 0, length: 24),
-        duration: 1, repeatCount: Int.max)
+      herbieImage.startAnimating()
     }
   }
 }
