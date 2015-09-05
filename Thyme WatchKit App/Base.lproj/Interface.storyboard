@@ -231,13 +231,13 @@
             <objects>
                 <glanceController identifier="GlanceController" spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group alignment="left" id="t8f-Gd-c4y">
+                        <group alignment="left" spacing="0.0" id="t8f-Gd-c4y">
                             <items>
                                 <imageView width="40" height="40" alignment="left" image="iconThyme" id="XLD-or-pM8"/>
                             </items>
                             <edgeInsets key="margins" left="3" right="0.0" top="4" bottom="0.0"/>
                         </group>
-                        <group alignment="left" layout="vertical" id="uCw-4Q-Ouw">
+                        <group alignment="left" layout="vertical" spacing="0.0" id="uCw-4Q-Ouw">
                             <items>
                                 <group width="1" height="1" alignment="left" hidden="YES" layout="vertical" spacing="1" id="rXR-HK-PDc" userLabel="ActiveGroup">
                                     <items>
@@ -255,9 +255,9 @@
                                     </items>
                                     <edgeInsets key="margins" left="3" right="0.0" top="0.0" bottom="0.0"/>
                                 </group>
-                                <group width="1" height="1" alignment="left" layout="vertical" id="x4z-Zx-obq" userLabel="InactiveGroup">
+                                <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="x4z-Zx-obq" userLabel="InactiveGroup">
                                     <items>
-                                        <group width="80" height="80" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie"/>
+                                        <group width="84" height="84" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie"/>
                                         <group width="1" height="28" alignment="left" radius="7" id="fcR-CC-Qk7" userLabel="StartCooking">
                                             <items>
                                                 <label alignment="center" alpha="0.69999999999999973" text="Start cooking" id="5nm-g6-tDd">
