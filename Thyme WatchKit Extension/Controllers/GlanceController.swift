@@ -1,5 +1,6 @@
 import WatchKit
 import Foundation
+import WatchConnectivity
 
 class GlanceController: WKInterfaceController {
 
@@ -13,13 +14,12 @@ class GlanceController: WKInterfaceController {
   @IBOutlet weak var happyHerbie: WKInterfaceGroup!
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
-  var communicator: Communicator!
+  var session : WCSession!
 
   // MARK: - Lifecycle
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
-    communicator = Communicator(self)
 
     infoLabel.setText(NSLocalizedString("Yum! That smells amazing!", comment: ""))
     startLabel.setText(NSLocalizedString("Start cooking", comment: ""))
@@ -28,6 +28,12 @@ class GlanceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
+
+    if WCSession.isSupported() {
+      session = WCSession.defaultSession()
+      session.delegate = self
+      session.activateSession()
+    }
   }
 
   override func didDeactivate() {
@@ -84,12 +90,14 @@ class GlanceController: WKInterfaceController {
   }
 }
 
-extension GlanceController: CommunicatorDelegate {
+// MARK: - WCSessionDelegate
 
-  func communicatorDidReceiveApplicationContext(context: [String : AnyObject]) {
+extension GlanceController: WCSessionDelegate {
+
+  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
     var data = [AnyObject]()
 
-    if let alarmData = context["alarms"] as? [AnyObject] {
+    if let alarmData = applicationContext["alarms"] as? [AnyObject] {
       data = alarmData
     } else {
       print("Error with fetching of application context from the parent app")
