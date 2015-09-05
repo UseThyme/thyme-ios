@@ -157,10 +157,13 @@ class TimerInterfaceController: WKInterfaceController {
   @IBAction func buttonDidTap() {
     if state == .Active {
       WKInterfaceDevice.currentDevice().playHaptic(.Stop)
+      button.setEnabled(false)
       sendMessage(Message(.CancelAlarm))
     } else {
       WKInterfaceDevice.currentDevice().playHaptic(.Start)
       button.setEnabled(false)
+      pickerHours = 0
+      pickerMinutes = 0
       let amount = pickerHours * 60 * 60 + pickerMinutes * 60
       sendMessage(Message(.UpdateAlarm, ["amount": amount]))
     }

@@ -47,11 +47,11 @@ struct WatchCommunicator {
           notification = AlarmCenter.scheduleNotification(alarm.alarmID!,
             seconds: seconds,
             message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
-
-          NSNotificationCenter.defaultCenter().postNotificationName(
-            AlarmCenter.Notifications.AlarmsDidUpdate,
-            object: notification)
         }
+
+        NSNotificationCenter.defaultCenter().postNotificationName(
+          AlarmCenter.Notifications.AlarmsDidUpdate,
+          object: notification)
 
         if let notification = notification {
           var alarmData = extractAlarmData(notification)
