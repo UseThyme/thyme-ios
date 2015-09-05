@@ -209,9 +209,7 @@ class HerbieController: ViewController {
           self.herbie.startAnimating()
           self.herbie.alpha = 1.0
         }
-
         }, completion: { _ in
-
           if self.reason?.herbieMood == .Happy {
             self.tryButton.frame = CGRect(
               x: self.view.bounds.width / 2 - width / 2,
