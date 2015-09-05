@@ -257,14 +257,13 @@
                                 </group>
                                 <group width="1" height="1" alignment="left" layout="vertical" id="x4z-Zx-obq" userLabel="InactiveGroup">
                                     <items>
-                                        <group width="70" height="70" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie"/>
+                                        <group width="80" height="80" alignment="center" id="gpy-ZL-ouF" userLabel="HappyHerbie"/>
                                         <group width="1" height="28" alignment="left" radius="7" id="fcR-CC-Qk7" userLabel="StartCooking">
                                             <items>
-                                                <label alignment="center" verticalAlignment="center" alpha="0.69999999999999973" id="5nm-g6-tDd">
-                                                    <fontDescription key="font" type="system" pointSize="16"/>
+                                                <label alignment="center" alpha="0.69999999999999973" text="Start cooking" id="5nm-g6-tDd">
+                                                    <fontDescription key="font" type="system" pointSize="15"/>
                                                 </label>
                                             </items>
-                                            <color key="backgroundColor" red="0.20784313725490194" green="0.20784313725490194" blue="0.20784313725490194" alpha="1" colorSpace="calibratedRGB"/>
                                         </group>
                                     </items>
                                 </group>
