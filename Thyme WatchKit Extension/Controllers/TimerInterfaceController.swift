@@ -1,5 +1,6 @@
 import WatchKit
 import Foundation
+import WatchConnectivity
 
 class TimerInterfaceController: WKInterfaceController {
 
@@ -10,13 +11,9 @@ class TimerInterfaceController: WKInterfaceController {
   @IBOutlet weak var hoursTextLabel: WKInterfaceLabel!
   @IBOutlet weak var minutesLabel: WKInterfaceLabel!
 
+  var session : WCSession!
   var alarmTimer: AlarmTimer?
   var index = 0
-
-  lazy var communicator: Communicator = {
-    let communicator = Communicator()
-    return communicator
-    }()
 
   // MARK: - Lifecycle
 
@@ -30,7 +27,12 @@ class TimerInterfaceController: WKInterfaceController {
 
   override func willActivate() {
     super.willActivate()
-    sendMessage(Message(.GetAlarm))
+
+    if WCSession.isSupported() {
+      session = WCSession.defaultSession()
+      session.delegate = self
+      session.activateSession()
+    }
   }
 
   override func didDeactivate() {
@@ -56,16 +58,15 @@ class TimerInterfaceController: WKInterfaceController {
   func sendMessage(var message: Message) {
     message.parameters["index"] = index
 
-    communicator.sendMessage(message) {
-      [unowned self] response, error in
-      if let response = response,
-        alarmInfo = response["alarm"] as? [String: AnyObject] where error == nil {
-          self.alarmTimer?.stop()
-          self.setupAlarm(alarmInfo)
-      } else {
-        print("Error with fetching of the alarm with index = \(self.index) from the parent app")
-      }
-    }
+    session.sendMessage(message.data,
+      replyHandler: { [weak self] response in
+        if let weakSelf = self, alarmData = response["alarm"] as? [String: AnyObject] {
+          weakSelf.alarmTimer?.stop()
+          weakSelf.setupAlarm(alarmData)
+        }
+      }, errorHandler: { error in
+        print(error)
+    })
   }
 
   // MARK: - UI
@@ -108,6 +109,19 @@ class TimerInterfaceController: WKInterfaceController {
     if alarm.active {
       alarmTimer = AlarmTimer(alarms: [alarm], delegate: self)
       alarmTimer?.start()
+    }
+  }
+}
+
+// MARK: - WCSessionDelegate
+
+extension TimerInterfaceController: WCSessionDelegate {
+
+  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+    if let alarms = applicationContext["alarms"] as? [AnyObject],
+      alarmData = alarms[index] as? [String: AnyObject] where alarms.count > index {
+        alarmTimer?.stop()
+        setupAlarm(alarmData)
     }
   }
 }

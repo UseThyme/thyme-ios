@@ -645,8 +645,8 @@
 			children = (
 				D563F9591B9B33E700FF60AC /* GlanceController.swift */,
 				D563F95A1B9B33E700FF60AC /* HomeInterfaceController.swift */,
-				D563F95B1B9B33E700FF60AC /* NotificationController.swift */,
 				D563F95C1B9B33E700FF60AC /* TimerInterfaceController.swift */,
+				D563F95B1B9B33E700FF60AC /* NotificationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
