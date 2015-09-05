@@ -4,16 +4,55 @@ import WatchConnectivity
 
 class TimerInterfaceController: WKInterfaceController {
 
+  enum State {
+    case Unknown, Active, Inactive
+  }
+
+  // MARK: - Root interface views
+
+  @IBOutlet var activeGroup: WKInterfaceGroup!
+  @IBOutlet var inactiveGroup: WKInterfaceGroup!
+  @IBOutlet var button: WKInterfaceButton!
+
+  // MARK: - Active group views
+
   @IBOutlet weak var minutesGroup: WKInterfaceGroup!
   @IBOutlet weak var secondsGroup: WKInterfaceGroup!
-
   @IBOutlet weak var minutesTextLabel: WKInterfaceLabel!
   @IBOutlet weak var hoursTextLabel: WKInterfaceLabel!
   @IBOutlet weak var minutesLabel: WKInterfaceLabel!
 
+  // MARK: - Inactive group views
+
+  @IBOutlet var hourPicker: WKInterfacePicker!
+  @IBOutlet var minutePicker: WKInterfacePicker!
+
+  // MARK: - Class variables
+
   var session : WCSession!
   var alarmTimer: AlarmTimer?
   var index = 0
+
+  var state: State = .Unknown {
+    didSet(value) {
+      switch value {
+      case .Active:
+        inactiveGroup.setHidden(true)
+        activeGroup.setHidden(false)
+        button.setTitle(NSLocalizedString("End timer", comment: ""))
+        button.setHidden(false)
+      case .Inactive:
+        activeGroup.setHidden(true)
+        inactiveGroup.setHidden(false)
+        button.setTitle(NSLocalizedString("Start timer", comment: ""))
+        button.setHidden(false)
+      default:
+        activeGroup.setHidden(true)
+        inactiveGroup.setHidden(true)
+        button.setHidden(true)
+      }
+    }
+  }
 
   // MARK: - Lifecycle
 
@@ -22,6 +61,8 @@ class TimerInterfaceController: WKInterfaceController {
     if let context = context as? TimerContext {
       index = context.index
       setTitle(context.title)
+
+      state = .Unknown
     }
   }
 
@@ -40,6 +81,14 @@ class TimerInterfaceController: WKInterfaceController {
   }
 
   // MARK: - Actions
+
+  @IBAction func buttonDidTap() {
+    if state == .Active {
+      sendMessage(Message(.CancelAlarm))
+    } else {
+      sendMessage(Message(.StartAlarm))
+    }
+  }
 
   @IBAction func menu3MinutesButtonDidTap() {
     sendMessage(Message(.UpdateAlarmMinutes, ["amount": 3]))

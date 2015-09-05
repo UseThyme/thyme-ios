@@ -215,6 +215,9 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" type="system" pointSize="15"/>
+                                    <connections>
+                                        <action selector="buttonDidTap" destination="53Q-sK-jl1" id="WhE-ho-Wlc"/>
+                                    </connections>
                                 </button>
                             </items>
                         </group>
@@ -234,7 +237,12 @@
                         </items>
                     </menu>
                     <connections>
+                        <outlet property="activeGroup" destination="lC6-fL-vpY" id="dKN-5d-OqJ"/>
+                        <outlet property="button" destination="Dp3-5L-RAg" id="gta-4E-KOj"/>
+                        <outlet property="hourPicker" destination="Ipl-GO-x2u" id="3w2-YN-tv3"/>
                         <outlet property="hoursTextLabel" destination="t4s-q4-Jm5" id="dNU-Er-tng"/>
+                        <outlet property="inactiveGroup" destination="Jyb-f5-edO" id="QeY-vT-rsk"/>
+                        <outlet property="minutePicker" destination="9LU-XD-lhN" id="Bea-yo-Wb7"/>
                         <outlet property="minutesGroup" destination="DYZ-Sz-4Ba" id="XQY-h1-qPd"/>
                         <outlet property="minutesLabel" destination="yyE-gq-tIP" id="gLx-tT-eWc"/>
                         <outlet property="minutesTextLabel" destination="jue-ld-zB4" id="G4g-N3-Yzz"/>

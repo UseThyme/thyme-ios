@@ -9,6 +9,7 @@ struct Message {
     case CancelAlarms = "cancelAlarms"
     case GetAlarm = "getAlarm"
     case UpdateAlarmMinutes = "updateAlarmMinutes"
+    case StartAlarm = "startAlarm"
     case CancelAlarm = "cancelAlarm"
   }
 
