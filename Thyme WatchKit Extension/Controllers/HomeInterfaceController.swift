@@ -2,7 +2,7 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-class HomeInterfaceController: WKInterfaceController, WCSessionDelegate {
+class HomeInterfaceController: WKInterfaceController {
 
   @IBOutlet weak var topLeftMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var topRightMinutesGroup: WKInterfaceGroup!
@@ -48,8 +48,6 @@ class HomeInterfaceController: WKInterfaceController, WCSessionDelegate {
       session.delegate = self
       session.activateSession()
     }
-
-    sendMessage(Message(.GetAlarms))
   }
 
   override func didDeactivate() {
@@ -179,6 +177,18 @@ class HomeInterfaceController: WKInterfaceController, WCSessionDelegate {
     if alarms.filter({ $0.active }).count > 0 {
       alarmTimer = AlarmTimer(alarms: alarms, delegate: self)
       alarmTimer?.start()
+    }
+  }
+}
+
+// MARK: - WCSessionDelegate
+
+extension HomeInterfaceController: WCSessionDelegate {
+
+  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
+    if let alarmData = applicationContext["alarms"] as? [AnyObject] {
+      alarmTimer?.stop()
+      setupAlarms(alarmData)
     }
   }
 }
