@@ -12,6 +12,7 @@ class TimerInterfaceController: WKInterfaceController {
 
   @IBOutlet var activeGroup: WKInterfaceGroup!
   @IBOutlet var inactiveGroup: WKInterfaceGroup!
+  
   @IBOutlet var button: WKInterfaceButton!
 
   // MARK: - Active group views
@@ -25,13 +26,20 @@ class TimerInterfaceController: WKInterfaceController {
   // MARK: - Inactive group views
 
   @IBOutlet var hourPicker: WKInterfacePicker!
+  @IBOutlet var hourLabel: WKInterfaceLabel!
+  @IBOutlet var hourOutlineGroup: WKInterfaceGroup!
+
   @IBOutlet var minutePicker: WKInterfacePicker!
+  @IBOutlet var minuteLabel: WKInterfaceLabel!
+  @IBOutlet var minuteOutlineGroup: WKInterfaceGroup!
 
   // MARK: - Class variables
 
   var session : WCSession!
   var alarmTimer: AlarmTimer?
   var index = 0
+  var pickerHours = 0
+  var pickerMinutes = 0
 
   var state: State = .Unknown {
     didSet(value) {
@@ -44,8 +52,12 @@ class TimerInterfaceController: WKInterfaceController {
       case .Inactive:
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(false)
+
         button.setTitle(NSLocalizedString("Start timer", comment: ""))
         button.setHidden(false)
+
+        hourPicker.resignFocus()
+        minutePicker.focus()
       default:
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(true)
@@ -61,6 +73,8 @@ class TimerInterfaceController: WKInterfaceController {
     if let context = context as? TimerContext {
       index = context.index
       setTitle(context.title)
+      hourLabel.setText(NSLocalizedString("hr", comment: "").uppercaseString)
+      minuteLabel.setText(NSLocalizedString("min", comment: "").uppercaseString)
 
       state = .Unknown
     }
@@ -77,13 +91,45 @@ class TimerInterfaceController: WKInterfaceController {
       session.delegate = self
       session.activateSession()
     }
+
+    sendMessage(Message(.GetAlarm))
   }
 
   override func didDeactivate() {
     super.didDeactivate()
   }
 
+  override func pickerDidFocus(picker: WKInterfacePicker) {
+    if picker == minutePicker {
+      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
+      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
+      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerMinutes)
+
+      minutePicker.setSelectedItemIndex(pickerMinutes)
+    } else {
+      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
+      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
+      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerHours)
+
+      minutePicker.setSelectedItemIndex(pickerHours)
+    }
+  }
+
   // MARK: - Actions
+
+  @IBAction func hourPickerChanged(value: Int) {
+    pickerHours = value
+    inactiveGroup.startAnimatingWithImagesInRange(
+      NSRange(location: value, length: 1),
+      duration: 0, repeatCount: 1)
+  }
+
+  @IBAction func minutePickerChanged(value: Int) {
+    pickerMinutes = value
+    inactiveGroup.startAnimatingWithImagesInRange(
+      NSRange(location: value, length: 1),
+      duration: 0, repeatCount: 1)
+  }
 
   @IBAction func buttonDidTap() {
     if state == .Active {
@@ -99,10 +145,6 @@ class TimerInterfaceController: WKInterfaceController {
   
   @IBAction func menu5MinutesButtonDidTap() {
     sendMessage(Message(.UpdateAlarmMinutes, ["amount": 5]))
-  }
-  
-  @IBAction func menuCancelButtonDidTap() {
-    sendMessage(Message(.CancelAlarm))
   }
 
   // MARK: - Communication
@@ -121,19 +163,10 @@ class TimerInterfaceController: WKInterfaceController {
     })
   }
 
-  // MARK: - UI
+  // MARK: - Pickers
 
   func setupPickers() {
-    let minutePickerItems: [WKPickerItem] = [0...58].map {
-      let pickerItem = WKPickerItem()
-      pickerItem.title = "\($0)"
-
-      return pickerItem
-    }
-
-    minutePicker.setItems(minutePickerItems)
-
-    let hourPickerItems: [WKPickerItem] = [0...12].map {
+    let hourPickerItems: [WKPickerItem] = Array(0...12).map {
       let pickerItem = WKPickerItem()
       pickerItem.title = "\($0)"
 
@@ -141,7 +174,18 @@ class TimerInterfaceController: WKInterfaceController {
     }
 
     hourPicker.setItems(hourPickerItems)
+
+    let minutePickerItems: [WKPickerItem] = Array(0...58).map {
+      let pickerItem = WKPickerItem()
+      pickerItem.title = "\($0)"
+
+      return pickerItem
+    }
+
+    minutePicker.setItems(minutePickerItems)
   }
+
+  // MARK: - Plate
 
   func updatePlate(alarm: Alarm) {
     var hoursText = ""
@@ -177,6 +221,8 @@ class TimerInterfaceController: WKInterfaceController {
       numberOfSeconds: alarmInfo["numberOfSeconds"] as? NSNumber)
 
     updatePlate(alarm)
+
+    state = alarm.active ? .Active : .Inactive
 
     if alarm.active {
       alarmTimer = AlarmTimer(alarms: [alarm], delegate: self)

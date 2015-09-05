@@ -10,6 +10,10 @@ public struct ImageList {
   struct Timer {
     static let minuteSequence = "timerMinute"
     static let secondSequence = "timerSecond"
+    static let pickerOutline = "pickerOutline"
+    static let pickerOutlineFocused = "pickerOutlineFocused"
+    static let pickerHours = "pickerHours"
+    static let pickerMinutes = "pickerMinutes"
   }
 
   struct Glance {

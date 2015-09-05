@@ -201,14 +201,44 @@
                                         </group>
                                     </items>
                                 </group>
-                                <group width="113" height="113" alignment="center" id="Jyb-f5-edO" userLabel="InactiveGroup">
+                                <group width="113" height="113" alignment="center" layout="vertical" spacing="1" id="Jyb-f5-edO" userLabel="InactiveGroup">
                                     <items>
-                                        <picker width="36" height="36" alignment="center" verticalAlignment="center" focusStyle="sequence" id="Ipl-GO-x2u"/>
-                                        <label alignment="center" verticalAlignment="center" text=":" id="Qdx-4B-Uhk">
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" type="system" weight="medium" pointSize="27"/>
-                                        </label>
-                                        <picker width="36" height="36" alignment="center" verticalAlignment="center" focusStyle="sequence" id="9LU-XD-lhN"/>
+                                        <group width="1" alignment="left" verticalAlignment="center" id="O2m-OP-Kkb">
+                                            <items>
+                                                <group width="40" height="40" alignment="center" verticalAlignment="center" backgroundImage="timerPicker" id="ryI-qK-MhV">
+                                                    <items>
+                                                        <picker width="34" height="34" alignment="center" verticalAlignment="center" id="Ipl-GO-x2u">
+                                                            <connections>
+                                                                <action selector="hourPickerChanged:" destination="53Q-sK-jl1" id="4VJ-xa-16B"/>
+                                                            </connections>
+                                                        </picker>
+                                                    </items>
+                                                </group>
+                                                <label height="36" alignment="center" text=":" textAlignment="center" baselineAdjustment="alignCenters" id="Qdx-4B-Uhk">
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="27"/>
+                                                </label>
+                                                <group width="40" height="40" alignment="center" verticalAlignment="center" backgroundImage="timerPicker" id="NtL-mK-Ri1">
+                                                    <items>
+                                                        <picker width="34" height="34" alignment="center" verticalAlignment="center" id="9LU-XD-lhN">
+                                                            <connections>
+                                                                <action selector="minutePickerChanged:" destination="53Q-sK-jl1" id="xZb-cg-2aT"/>
+                                                            </connections>
+                                                        </picker>
+                                                    </items>
+                                                </group>
+                                            </items>
+                                        </group>
+                                        <group width="90" alignment="center" verticalAlignment="center" id="E5Y-p8-1Vc">
+                                            <items>
+                                                <label width="40" alignment="left" text="HR" textAlignment="center" id="q0C-HD-AUf">
+                                                    <fontDescription key="font" type="system" weight="semibold" pointSize="10"/>
+                                                </label>
+                                                <label width="40" alignment="right" text="MIN" textAlignment="center" id="k8l-u2-IVv">
+                                                    <fontDescription key="font" type="boldSystem" pointSize="10"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
                                 </group>
                                 <button width="1" height="31" alignment="left" id="Dp3-5L-RAg">
@@ -239,9 +269,13 @@
                     <connections>
                         <outlet property="activeGroup" destination="lC6-fL-vpY" id="dKN-5d-OqJ"/>
                         <outlet property="button" destination="Dp3-5L-RAg" id="gta-4E-KOj"/>
+                        <outlet property="hourLabel" destination="q0C-HD-AUf" id="UWn-dq-PcN"/>
+                        <outlet property="hourOutlineGroup" destination="ryI-qK-MhV" id="aD5-zQ-ONI"/>
                         <outlet property="hourPicker" destination="Ipl-GO-x2u" id="3w2-YN-tv3"/>
                         <outlet property="hoursTextLabel" destination="t4s-q4-Jm5" id="dNU-Er-tng"/>
                         <outlet property="inactiveGroup" destination="Jyb-f5-edO" id="QeY-vT-rsk"/>
+                        <outlet property="minuteLabel" destination="k8l-u2-IVv" id="1gs-3n-3jW"/>
+                        <outlet property="minuteOutlineGroup" destination="NtL-mK-Ri1" id="x6O-Qh-1Ne"/>
                         <outlet property="minutePicker" destination="9LU-XD-lhN" id="Bea-yo-Wb7"/>
                         <outlet property="minutesGroup" destination="DYZ-Sz-4Ba" id="XQY-h1-qPd"/>
                         <outlet property="minutesLabel" destination="yyE-gq-tIP" id="gLx-tT-eWc"/>
