@@ -48,6 +48,8 @@ class HomeInterfaceController: WKInterfaceController {
       session.delegate = self
       session.activateSession()
     }
+
+    sendMessage(Message(.GetAlarms))
   }
 
   override func didDeactivate() {

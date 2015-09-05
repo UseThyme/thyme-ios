@@ -67,7 +67,11 @@ class TimerInterfaceController: WKInterfaceController {
         button.setHidden(false)
         button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
 
+        minutePicker.setSelectedItemIndex(pickerMinutes)
+        hourPicker.setSelectedItemIndex(pickerHours)
+
         hourPicker.resignFocus()
+        minutePicker.resignFocus()
         minutePicker.focus()
       default:
         activeGroup.setHidden(true)
@@ -118,14 +122,12 @@ class TimerInterfaceController: WKInterfaceController {
       minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
       inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerMinutes)
 
-      minutePicker.setSelectedItemIndex(pickerMinutes)
       location = pickerMinutes
     } else {
       minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
       hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
       inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerHours)
 
-      hourPicker.setSelectedItemIndex(pickerHours)
       location = pickerHours
     }
 
@@ -161,10 +163,10 @@ class TimerInterfaceController: WKInterfaceController {
       sendMessage(Message(.CancelAlarm))
     } else {
       WKInterfaceDevice.currentDevice().playHaptic(.Start)
+      let amount = pickerHours * 60 * 60 + pickerMinutes * 60
       button.setEnabled(false)
       pickerHours = 0
       pickerMinutes = 0
-      let amount = pickerHours * 60 * 60 + pickerMinutes * 60
       sendMessage(Message(.UpdateAlarm, ["amount": amount]))
     }
   }
