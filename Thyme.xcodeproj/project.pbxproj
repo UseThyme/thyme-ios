@@ -81,15 +81,14 @@
 		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
 		BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */; };
 		D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D538B8F11B8E42CD00069C38 /* ImageList.swift */; };
-		D54D08E61B8E82AA0012DBF6 /* TimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */; };
 		D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E71B8E89E30012DBF6 /* TimerContext.swift */; };
+		D563F95D1B9B33E700FF60AC /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F9591B9B33E700FF60AC /* GlanceController.swift */; settings = {ASSET_TAGS = (); }; };
+		D563F95E1B9B33E700FF60AC /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F95A1B9B33E700FF60AC /* HomeInterfaceController.swift */; settings = {ASSET_TAGS = (); }; };
+		D563F95F1B9B33E700FF60AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F95B1B9B33E700FF60AC /* NotificationController.swift */; settings = {ASSET_TAGS = (); }; };
+		D563F9601B9B33E700FF60AC /* TimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F95C1B9B33E700FF60AC /* TimerInterfaceController.swift */; settings = {ASSET_TAGS = (); }; };
+		D563F9621B9B3CCB00FF60AC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F9611B9B3CCB00FF60AC /* Message.swift */; settings = {ASSET_TAGS = (); }; };
 		D5A2383A1B8BD75F00863023 /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchCommunicator.swift */; };
-		D5BF44871B96521400674ADD /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BF44861B96521400674ADD /* Communicator.swift */; settings = {ASSET_TAGS = (); }; };
-		D5BF44891B96522700674ADD /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BF44881B96522700674ADD /* Message.swift */; settings = {ASSET_TAGS = (); }; };
 		D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */; };
-		D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588201B8E54FD0050DD5C /* GlanceController.swift */; };
-		D5E588271B8E54FD0050DD5C /* HomeInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */; };
-		D5E588281B8E54FD0050DD5C /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588251B8E54FD0050DD5C /* NotificationController.swift */; };
 		D5E5882A1B8E55320050DD5C /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588291B8E55320050DD5C /* Alarm.swift */; };
 /* End PBXBuildFile section */
 
@@ -226,15 +225,14 @@
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
 		D538B8F11B8E42CD00069C38 /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
-		D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerInterfaceController.swift; sourceTree = "<group>"; };
 		D54D08E71B8E89E30012DBF6 /* TimerContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerContext.swift; sourceTree = "<group>"; };
+		D563F9591B9B33E700FF60AC /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
+		D563F95A1B9B33E700FF60AC /* HomeInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
+		D563F95B1B9B33E700FF60AC /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		D563F95C1B9B33E700FF60AC /* TimerInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerInterfaceController.swift; sourceTree = "<group>"; };
+		D563F9611B9B3CCB00FF60AC /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		D5A238391B8BD75F00863023 /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
-		D5BF44861B96521400674ADD /* Communicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
-		D5BF44881B96522700674ADD /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTimer.swift; sourceTree = "<group>"; };
-		D5E588201B8E54FD0050DD5C /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
-		D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeInterfaceController.swift; sourceTree = "<group>"; };
-		D5E588251B8E54FD0050DD5C /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		D5E588291B8E55320050DD5C /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -561,10 +559,7 @@
 		BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
-				D54D08E41B8E829C0012DBF6 /* Timer */,
-				D5E5881F1B8E54FD0050DD5C /* Glance */,
-				D5E588211B8E54FD0050DD5C /* Home */,
-				D5E588241B8E54FD0050DD5C /* Notification */,
+				D563F9581B9B33E700FF60AC /* Controllers */,
 				D5E588231B8E54FD0050DD5C /* Models */,
 				D538B8F01B8E42C300069C38 /* Library */,
 				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
@@ -633,61 +628,31 @@
 		D538B8F01B8E42C300069C38 /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				D5BF44851B9651FD00674ADD /* Connectivity */,
 				D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */,
 				D538B8F11B8E42CD00069C38 /* ImageList.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
 		};
-		D54D08E41B8E829C0012DBF6 /* Timer */ = {
+		D563F9581B9B33E700FF60AC /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D54D08E51B8E82AA0012DBF6 /* TimerInterfaceController.swift */,
+				D563F9591B9B33E700FF60AC /* GlanceController.swift */,
+				D563F95A1B9B33E700FF60AC /* HomeInterfaceController.swift */,
+				D563F95C1B9B33E700FF60AC /* TimerInterfaceController.swift */,
+				D563F95B1B9B33E700FF60AC /* NotificationController.swift */,
 			);
-			path = Timer;
-			sourceTree = "<group>";
-		};
-		D5BF44851B9651FD00674ADD /* Connectivity */ = {
-			isa = PBXGroup;
-			children = (
-				D5BF44861B96521400674ADD /* Communicator.swift */,
-				D5BF44881B96522700674ADD /* Message.swift */,
-			);
-			path = Connectivity;
-			sourceTree = "<group>";
-		};
-		D5E5881F1B8E54FD0050DD5C /* Glance */ = {
-			isa = PBXGroup;
-			children = (
-				D5E588201B8E54FD0050DD5C /* GlanceController.swift */,
-			);
-			path = Glance;
-			sourceTree = "<group>";
-		};
-		D5E588211B8E54FD0050DD5C /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				D5E588221B8E54FD0050DD5C /* HomeInterfaceController.swift */,
-			);
-			path = Home;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		D5E588231B8E54FD0050DD5C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D563F9611B9B3CCB00FF60AC /* Message.swift */,
 				D5E588291B8E55320050DD5C /* Alarm.swift */,
 				D54D08E71B8E89E30012DBF6 /* TimerContext.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		D5E588241B8E54FD0050DD5C /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-				D5E588251B8E54FD0050DD5C /* NotificationController.swift */,
-			);
-			path = Notification;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -973,16 +938,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5BF44871B96521400674ADD /* Communicator.swift in Sources */,
-				D5E588281B8E54FD0050DD5C /* NotificationController.swift in Sources */,
 				D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */,
 				D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */,
+				D563F9601B9B33E700FF60AC /* TimerInterfaceController.swift in Sources */,
+				D563F9621B9B3CCB00FF60AC /* Message.swift in Sources */,
 				D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */,
-				D5BF44891B96522700674ADD /* Message.swift in Sources */,
-				D54D08E61B8E82AA0012DBF6 /* TimerInterfaceController.swift in Sources */,
-				D5E588271B8E54FD0050DD5C /* HomeInterfaceController.swift in Sources */,
+				D563F95D1B9B33E700FF60AC /* GlanceController.swift in Sources */,
+				D563F95F1B9B33E700FF60AC /* NotificationController.swift in Sources */,
+				D563F95E1B9B33E700FF60AC /* HomeInterfaceController.swift in Sources */,
 				D5E5882A1B8E55320050DD5C /* Alarm.swift in Sources */,
-				D5E588261B8E54FD0050DD5C /* GlanceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
