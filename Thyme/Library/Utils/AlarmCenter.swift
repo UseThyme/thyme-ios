@@ -92,9 +92,6 @@ public struct AlarmCenter {
         updatedNotification = AlarmCenter.scheduleNotification(alarmID,
           seconds: secondsAmount,
           message: notification.alertBody)
-
-        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.AlarmsDidUpdate,
-          object: updatedNotification)
     }
 
     return updatedNotification

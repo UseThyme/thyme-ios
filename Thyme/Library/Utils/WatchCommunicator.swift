@@ -16,6 +16,7 @@ struct WatchCommunicator {
 
   static func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
     var data = [String : AnyObject]()
+    var updateAlarms = false
 
     switch request {
     case "getAlarms":
@@ -26,11 +27,13 @@ struct WatchCommunicator {
       }
     case "cancelAlarms":
       AlarmCenter.cancelAllNotifications()
+      updateAlarms = true
       data = ["alarms": getAlarmsData()]
     case "cancelAlarm":
       if let index = message["index"] as? Int {
         let alarm = Alarm.create(index)
         AlarmCenter.cleanUpNotification(alarm.alarmID!)
+        updateAlarms = true
 
         data["alarm"] = getAlarmData(index)
       }
@@ -49,9 +52,7 @@ struct WatchCommunicator {
             message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
         }
 
-        NSNotificationCenter.defaultCenter().postNotificationName(
-          AlarmCenter.Notifications.AlarmsDidUpdate,
-          object: notification)
+        updateAlarms = true
 
         if let notification = notification {
           var alarmData = extractAlarmData(notification)
@@ -61,6 +62,12 @@ struct WatchCommunicator {
       }
     default:
       break
+    }
+
+    if updateAlarms {
+      NSNotificationCenter.defaultCenter().postNotificationName(
+        AlarmCenter.Notifications.AlarmsDidUpdate,
+        object: nil)
     }
 
     return data

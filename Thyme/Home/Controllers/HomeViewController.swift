@@ -435,9 +435,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   func alarmsDidUpdate(notification: NSNotification) {
     if notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
-      maxMinutesLeft = nil
-      plateCollectionView.reloadData()
-      ovenCollectionView.reloadData()
+      dispatch_async(dispatch_get_main_queue()) {
+        self.maxMinutesLeft = nil
+        self.plateCollectionView.reloadData()
+        self.ovenCollectionView.reloadData()
+      }
     }
   }
 
@@ -543,7 +545,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
       }
 
       if minutesLeft < 0 {
-        UIApplication.sharedApplication().cancelLocalNotification(existingNotification)
+        AlarmCenter.cleanUpNotification(alarm.alarmID!)
       }
 
       alarm.active = true
