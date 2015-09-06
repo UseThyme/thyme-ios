@@ -11,7 +11,15 @@ extension TimerControl {
     CGContextSaveGState(context)
     color.set()
     CGContextSetLineWidth(context, lineWidth)
-    CGContextStrokeEllipseInRect(context, rect)
+
+    var frame = rect
+    let offset: CGFloat = 5
+    frame.origin.x = rect.origin.x - offset / 2
+    frame.origin.y = rect.origin.x - offset / 2
+    frame.size.width = rect.width + offset
+    frame.size.height = rect.height + offset
+
+    CGContextStrokeEllipseInRect(context, frame)
     CGContextRestoreGState(context)
   }
 
