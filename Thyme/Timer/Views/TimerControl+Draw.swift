@@ -13,7 +13,7 @@ extension TimerControl {
     CGContextSetLineWidth(context, lineWidth)
 
     var frame = rect
-    let offset: CGFloat = 5
+    let offset: CGFloat = completedMode ? 5 : 3
     frame.origin.x = rect.origin.x - offset / 2
     frame.origin.y = rect.origin.x - offset / 2
     frame.size.width = rect.width + offset
