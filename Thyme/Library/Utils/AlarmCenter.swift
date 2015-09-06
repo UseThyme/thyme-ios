@@ -107,7 +107,7 @@ public struct AlarmCenter {
     return nil
   }
 
-  static func cleanUpNotification(alarmID: String) {
+  static func cancelNotification(alarmID: String) {
     for badgeCount in [1, 0] { UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount }
 
     if let notification = getNotification(alarmID) {
@@ -129,7 +129,7 @@ public struct AlarmCenter {
 
   static func handleNotification(notification: UILocalNotification, actionID: String?) {
     if let alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String {
-      cleanUpNotification(alarmID)
+      cancelNotification(alarmID)
 
       if let actionID = actionID, action = Action(rawValue: actionID) {
         switch action {

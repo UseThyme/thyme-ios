@@ -32,7 +32,7 @@ struct WatchCommunicator {
     case "cancelAlarm":
       if let index = message["index"] as? Int {
         let alarm = Alarm.create(index)
-        AlarmCenter.cleanUpNotification(alarm.alarmID!)
+        AlarmCenter.cancelNotification(alarm.alarmID!)
         updateAlarms = true
 
         data["alarm"] = getAlarmData(index)

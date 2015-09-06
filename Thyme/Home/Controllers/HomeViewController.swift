@@ -545,7 +545,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
       }
 
       if minutesLeft < 0 {
-        AlarmCenter.cleanUpNotification(alarm.alarmID!)
+        AlarmCenter.cancelNotification(alarm.alarmID!)
       }
 
       alarm.active = true
