@@ -45,6 +45,7 @@ extension TimerControl {
 
     color.set()
     CGContextFillEllipseInRect(context, circleRect)
+
     CGContextRestoreGState(context)
   }
 
