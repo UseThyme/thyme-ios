@@ -86,12 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
       handleLocalNotification(notification, playingSound: false)
     }
 
-    if WCSession.isSupported() {
-      session = WCSession.defaultSession()
-      session.delegate = self
-      session.activateSession()
-      WatchCommunicator.updateApplicationContext()
-    }
+    setupSession()
 
     window!.rootViewController = navigationController
     window!.makeKeyAndVisible()
@@ -100,6 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   }
 
   func applicationDidBecomeActive(application: UIApplication) {
+    setupSession()
+
     var theme: Themable = Theme.Main()
 
     if UIAccessibilityDarkerSystemColorsEnabled() {
@@ -132,6 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
   func applicationDidEnterBackground(application: UIApplication) {
     application.beginBackgroundTaskWithExpirationHandler {}
     application.beginReceivingRemoteControlEvents()
+    setupSession()
   }
 
   override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
@@ -210,5 +208,14 @@ extension AppDelegate: WCSessionDelegate {
       if let request = message["request"] as? String {
         replyHandler(WatchCommunicator.response(request, message))
       }
+  }
+
+  func setupSession() {
+    if WCSession.isSupported() {
+      session = WCSession.defaultSession()
+      session.delegate = self
+      session.activateSession()
+      WatchCommunicator.updateApplicationContext()
+    }
   }
 }

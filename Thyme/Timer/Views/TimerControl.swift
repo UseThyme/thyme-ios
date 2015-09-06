@@ -473,9 +473,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
   }
 
   func cancelCurrentLocalNotification() {
-    if let notification = AlarmCenter.getNotification(alarmID!) {
-      UIApplication.sharedApplication().cancelLocalNotification(notification)
-    }
+    AlarmCenter.cancelNotification(alarmID!)
   }
 
   func handleNotificationWithNumberOfSeconds(numberOfSeconds: NSTimeInterval) {

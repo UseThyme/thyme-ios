@@ -252,6 +252,10 @@ class TimerViewController: ViewController {
   func refreshTimerForCurrentAlarm() {
     if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
       refreshTimerForNotification(existingNotification)
+    } else {
+      timerControl.seconds = 0
+      timerControl.minutes = 0
+      timerControl.hours = 0
     }
   }
 
@@ -286,10 +290,11 @@ class TimerViewController: ViewController {
   }
 
   func alarmsDidUpdate(notification: NSNotification) {
-    if let localNotification = notification.object as? UILocalNotification
-      where notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
-        timerControl.stopTimer()
-        refreshTimerForNotification(localNotification)
+    if notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
+      dispatch_async(dispatch_get_main_queue()) {
+        self.refreshTimerForCurrentAlarm()
+        self.timerControl.stopTimer()
+      }
     }
   }
 }
