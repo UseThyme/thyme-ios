@@ -33,6 +33,8 @@ class GlanceController: WKInterfaceController {
       session.delegate = self
       session.activateSession()
     }
+
+    sendMessage(Message(.GetAlarms))
   }
 
   override func didDeactivate() {
@@ -83,6 +85,19 @@ class GlanceController: WKInterfaceController {
     } else {
       herbieImage.startAnimating()
     }
+  }
+
+  // MARK: - Communication
+
+  func sendMessage(message: Message) {
+    session.sendMessage(message.data,
+      replyHandler: { [weak self] response in
+        if let weakSelf = self, alarmData = response["alarms"] as? [AnyObject] {
+          weakSelf.setupInterface(alarmData)
+        }
+      }, errorHandler: { error in
+        print(error)
+    })
   }
 }
 

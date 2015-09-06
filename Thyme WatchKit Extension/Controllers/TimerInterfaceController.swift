@@ -42,15 +42,11 @@ class TimerInterfaceController: WKInterfaceController {
   var pickerMinutes = 0
 
   var state: State = .Unknown {
-    didSet(value) {
-      switch value {
+    didSet {
+      switch state {
       case .Active:
         inactiveGroup.setHidden(true)
         activeGroup.setHidden(false)
-        activeGroup.setAlpha(0)
-        animateWithDuration(1) {
-          self.activeGroup.setAlpha(1)
-        }
 
         button.setTitle(NSLocalizedString("End timer", comment: ""))
         button.setHidden(false)
@@ -58,10 +54,6 @@ class TimerInterfaceController: WKInterfaceController {
       case .Inactive:
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(false)
-        inactiveGroup.setAlpha(0)
-        animateWithDuration(1) {
-          self.inactiveGroup.setAlpha(1)
-        }
 
         button.setTitle(NSLocalizedString("Start timer", comment: ""))
         button.setHidden(false)
@@ -188,9 +180,13 @@ class TimerInterfaceController: WKInterfaceController {
 
     session.sendMessage(message.data,
       replyHandler: { [weak self] response in
-        if let weakSelf = self, alarmData = response["alarm"] as? [String: AnyObject] {
-          weakSelf.alarmTimer?.stop()
-          weakSelf.setupAlarm(alarmData)
+        if let weakSelf = self {
+          if let alarmData = response["alarm"] as? [String: AnyObject] {
+            weakSelf.alarmTimer?.stop()
+            weakSelf.setupAlarm(alarmData)
+          } else {
+            weakSelf.state = .Inactive
+          }
         }
       }, errorHandler: { error in
         print(error)
@@ -254,9 +250,8 @@ class TimerInterfaceController: WKInterfaceController {
       firedDate: alarmInfo["firedDate"] as? NSDate,
       numberOfSeconds: alarmInfo["numberOfSeconds"] as? NSNumber)
 
-    updatePlate(alarm)
-
     state = alarm.active ? .Active : .Inactive
+    updatePlate(alarm)
 
     if alarm.active {
       alarmTimer = AlarmTimer(alarms: [alarm], delegate: self)
