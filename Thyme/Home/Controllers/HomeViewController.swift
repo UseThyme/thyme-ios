@@ -319,20 +319,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return imageView
     }()
 
-  lazy var settingsButton: UIButton = {
-    let button = UIButton(type: .InfoLight)
-    button.addTarget(self, action: "settingsButtonAction", forControlEvents: .TouchUpInside)
-
-    let y: CGFloat = Screen.height - 44 - 15
-    let x: CGFloat = 5
-
-    button.frame = CGRect(x: x, y: y,
-      width: 44, height: 44)
-    button.tintColor = UIColor.whiteColor()
-
-    return button
-  }()
-
   lazy var tapRecognizer: UITapGestureRecognizer = { [unowned self] in
     return UITapGestureRecognizer(target: self,
       action: "backgroundTapped:")
@@ -342,11 +328,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
     let controller = HerbieController()
     return controller
   }()
-
-  lazy var settingsController: SettingsViewController = {
-    let settingsController = SettingsViewController(style: .Grouped)
-    return settingsController
-    }()
 
   deinit {
     NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -441,41 +422,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
         self.ovenCollectionView.reloadData()
       }
     }
-  }
-
-  func backgroundTapped(gesture :UIGestureRecognizer) {
-    var frame = UIScreen.mainScreen().bounds
-    frame.size.width = 230
-    frame.origin.x = -230
-    UIView.animateWithDuration(0.3, animations: {
-      self.settingsController.view.frame = frame
-    }) { _ in
-      self.removeViewController(self.settingsController)
-
-      let applicationDelegate = UIApplication.sharedApplication().delegate
-      if let _ = applicationDelegate?.window {
-        self.settingsController.view.removeFromSuperview()
-        self.view.removeGestureRecognizer(self.tapRecognizer)
-      }
-    }
-  }
-
-  func settingsButtonAction() {
-    var frame = UIScreen.mainScreen().bounds
-    frame.size.width = 230
-    frame.origin.x = -230
-
-    let applicationDelegate = UIApplication.sharedApplication().delegate
-    addViewController(settingsController, inFrame: frame)
-    if let window = applicationDelegate?.window {
-      window?.addSubview(settingsController.view)
-    }
-
-    frame.origin.x = 0
-    UIView.animateWithDuration(0.3, animations: {
-      self.settingsController.view.frame = frame
-      self.view.addGestureRecognizer(self.tapRecognizer)
-    })
   }
 
   func presentHerbie() {
