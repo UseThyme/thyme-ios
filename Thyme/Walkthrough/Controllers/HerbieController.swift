@@ -57,7 +57,7 @@ struct Reason {
       backgroundColor: UIColor(hex: "FFDBDB"),
       title: "That lobster looks\nfrickin’ expensive",
       titleColor: UIColor(hex: "FF5858"),
-      text: "Without notifications and sounds, we\nsimply can’t tell you when your lobster\nis ready! It might get rubbery :(",
+      text: "Without notifications and sounds, we\nsimply can’t tell you when your lobster is ready! It might get rubbery :(",
       textColor: UIColor(hex: "FF5858"),
       imageName: "Lobster",
       imageType: .Background,
@@ -71,7 +71,7 @@ struct Reason {
       backgroundColor: UIColor(hex: "FFF3D2"),
       title: "That Thanksgiving\n turkey will be ruined",
       titleColor: UIColor(hex: "FF5858"),
-      text: "Without notifications and sounds, we\nsimply can’t tell you when your turkey is\nready! It might get burned :(",
+      text: "Without notifications and sounds, we\nsimply can’t tell you when your turkey is ready! It might get burned :(",
       textColor: UIColor(hex: "FF5858"),
       imageName: "Turkey",
       imageType: .Background,
@@ -85,7 +85,7 @@ struct Reason {
       backgroundColor: UIColor(hex: "FFF3D2"),
       title: "Because bacon tastes\nbetter than charcoal",
       titleColor: UIColor(hex: "FF5858"),
-      text: "Without notifications and sounds, we\nsimply can’t tell you when your bacon is\nready! It might get burned :(",
+      text: "Without notifications and sounds, we\nsimply can’t tell you when your bacon is ready! It might get burned :(",
       textColor: UIColor(hex: "FF5858"),
       imageName: "Bacon",
       imageType: .Background,
@@ -99,7 +99,7 @@ struct Reason {
       backgroundColor: UIColor(hex: "FFE8FC"),
       title: "That octopus is\ngonna get SO rubbery",
       titleColor: UIColor(hex: "FF5858"),
-      text: "Without notifications and sounds, we\nsimply can’t tell you when your octopus\nis ready! Nobody likes rubbery octopus.",
+      text: "Without notifications and sounds, we\nsimply can’t tell you when your octopus is ready! Nobody likes rubbery octopus.",
       textColor: UIColor(hex: "FF5858"),
       imageName: "Octopus",
       imageType: .Background,
@@ -127,7 +127,7 @@ struct Reason {
       backgroundColor: UIColor(hex: "D7F8AC"),
       title: "Because your plate\nneeds a friend",
       titleColor: UIColor(hex: "FF5858"),
-      text: "Without notifications and sounds, we\nsimply can’t tell you when you can hang\nout with the plates again :(",
+      text: "Without notifications and sounds, we\nsimply can’t tell you when you can hang out with the plates again :(",
       textColor: UIColor(hex: "FF5858"),
       imageName: "Dinner",
       imageType: .Background,
@@ -147,7 +147,7 @@ class HerbieController: ViewController {
     didSet {
       let height: CGFloat = 55
       let width: CGFloat = 295
-      let bottomMargin: CGFloat = 42
+      let bottomMargin: CGFloat = 18
 
       if reason?.imageName != nil {
         self.reasonImage.image = UIImage(named: reason!.imageName!)
@@ -249,11 +249,13 @@ class HerbieController: ViewController {
     }()
 
   lazy var reasonImage: UIImageView = {
-    let width: CGFloat = 375
-    let height: CGFloat = 300
+    let width: CGFloat = Screen.width
+    let height: CGFloat = Screen.height - 300
+
     let imageView = UIImageView(frame: CGRect(x: Screen.width / 2 - width / 2,
       y: 0,
       width: width, height: height))
+    imageView.contentMode = .ScaleAspectFill
 
     return imageView
     }()
@@ -271,9 +273,10 @@ class HerbieController: ViewController {
 
   lazy var textLabel: UILabel = { [unowned self] in
     let topOffset: CGFloat = 16
-    let label = UILabel(frame: CGRect(x: 0, y: self.titleLabel.frame.origin.y + topOffset,
-      width: Screen.width, height: 138 + self.titleLabel.frame.height))
-    label.numberOfLines = 6
+    let xOffset: CGFloat = 10
+    let label = UILabel(frame: CGRect(x: xOffset, y: self.titleLabel.frame.origin.y + topOffset,
+      width: Screen.width - xOffset * 2, height: 138 + self.titleLabel.frame.height))
+    label.numberOfLines = 9
     label.textAlignment = .Center
     return label
     }()
@@ -299,7 +302,7 @@ class HerbieController: ViewController {
     for subview in [herbie, titleLabel, textLabel, tryButton, reasonImage, reasonButton] { view.addSubview(subview) }
 
     reason = Reason(backgroundColor: UIColor(hex: "E3FFFF"), title: "Hello, I'm Herbie!",
-      text: "In order for me to help you keep track of\nall that delicious food, yum, I need you to\nlet me notify you and make a sound when\nI'm finished counting.\n\nNever otherwise, I promise!",
+      text: "In order for me to help you keep track of all that delicious food, yum, I need you to let me notify you and make a sound when I'm finished counting.\n\nNever otherwise, I promise!",
       textColor: UIColor(hex: "0896A2"),
       imageType: .Animated,
       tryText: "Ok, got it!",
