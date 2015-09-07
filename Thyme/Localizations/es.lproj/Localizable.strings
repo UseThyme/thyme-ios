@@ -5,6 +5,7 @@
 "------------------RELEASE TO SET TIMER------------------" = "------------------SUELTA PARA EMPEZAR------------------";
 "------------------SWIPE CLOCKWISE TO SET TIMER------------------" = "------------------DESLIZA EN SENTIDO HORARIO------------------";
 "MINUTES LEFT" = "MINUTOS RESTANTES";
+"SECONDS LEFT" = "SEGUNDOS RESTANTES";
 "IN %ld MINUTES" = "EN %ld MINUTOS";
 "IN ABOUT %ld HOURS" = "EN ALREDEDOR %ld HORAS";
 "IN ABOUT %ld HOURS %ld MINUTES" = "EN ALREDEDOR %1$ld HORAS %2$ld MINUTOS";
