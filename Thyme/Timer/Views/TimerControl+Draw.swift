@@ -11,7 +11,15 @@ extension TimerControl {
     CGContextSaveGState(context)
     color.set()
     CGContextSetLineWidth(context, lineWidth)
-    CGContextStrokeEllipseInRect(context, rect)
+
+    var frame = rect
+    let offset: CGFloat = completedMode ? 5 : 3
+    frame.origin.x = rect.origin.x - offset / 2
+    frame.origin.y = rect.origin.x - offset / 2
+    frame.size.width = rect.width + offset
+    frame.size.height = rect.height + offset
+
+    CGContextStrokeEllipseInRect(context, frame)
     CGContextRestoreGState(context)
   }
 
@@ -33,13 +41,19 @@ extension TimerControl {
     CGContextRestoreGState(context)
   }
 
-  func drawSecondsIndicator(context: CGContextRef, color: UIColor, radius: CGFloat, containerRect: CGRect) {
+  func drawSecondsIndicator(context: CGContextRef, color: UIColor, radius: CGFloat, containerRect: CGRect, outlineWidth: CGFloat, outlineColor: UIColor = UIColor.whiteColor()) {
     let value = CGFloat(seconds) * 6.0
     let circleCenter = pointFromAngle(value, radius: radius, containerRect: containerRect)
-    let circleRect = CGRectMake(circleCenter.x, circleCenter.y, radius * 2, radius * 2)
+    let circleRect = CGRectMake(circleCenter.x - radius / 4, circleCenter.y - radius / 4, radius * 2, radius * 2)
     CGContextSaveGState(context)
+    
+    outlineColor.set()
+    CGContextSetLineWidth(context, outlineWidth)
+    CGContextStrokeEllipseInRect(context, circleRect)
+
     color.set()
     CGContextFillEllipseInRect(context, circleRect)
+
     CGContextRestoreGState(context)
   }
 
