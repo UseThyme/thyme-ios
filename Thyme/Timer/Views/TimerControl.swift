@@ -10,7 +10,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
   var circleRect: CGRect = CGRectZero
   var completedMode: Bool
   var lastPoint: CGPoint = CGPointZero
-  var seconds: Int = 0
   var timer: NSTimer?
   var title: String = Alarm.messageForSetAlarm()
   var touchesAreActive: Bool = false
@@ -18,8 +17,8 @@ public class TimerControl: UIControl, ContentSizeChangable {
     didSet {
       if let theme = theme {
         hoursLabel.textColor = theme.textColor
-        minutesValueLabel.textColor = theme.textColor
-        minutesTitleLabel.textColor = theme.textColor
+        timerTitleValueLabel.textColor = theme.textColor
+        timerSubtitleLabel.textColor = theme.textColor
       }
     }
   }
@@ -39,12 +38,15 @@ public class TimerControl: UIControl, ContentSizeChangable {
       let minute = value/6
       if completedMode == false && hours > 0 {
         if minute < 10 {
-          minutesValueLabel.text = "\(hours):0\(minute)"
+          timerTitleValueLabel.text = "\(hours):0\(minute)"
         } else {
-          minutesValueLabel.text = "\(hours):\(minute)"
+          timerTitleValueLabel.text = "\(hours):\(minute)"
         }
       } else {
-        minutesValueLabel.text = "\(minute)"
+        timerTitleValueLabel.text = "\(minute)"
+        if minutes > 0 {
+          timerSubtitleLabel.text = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
+        }
       }
     }
   }
@@ -73,9 +75,18 @@ public class TimerControl: UIControl, ContentSizeChangable {
     }
   }
 
+  var seconds: Int = 0 {
+    willSet(value) {
+      if minutes < 1 && hours < 1 && seconds > 0 {
+        timerTitleValueLabel.text = "\(seconds)"
+        timerSubtitleLabel.text = NSLocalizedString("SECONDS LEFT", comment: "SECONDS LEFT")
+      }
+    }
+  }
+
   var active: Bool = false {
     willSet(value) {
-      minutesValueLabel.hidden = !value
+      timerTitleValueLabel.hidden = !value
       angle = 0
       setNeedsDisplay()
     }
@@ -100,7 +111,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let sampleString = "2 HOURS"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
-    let yOffset: CGFloat = self.minutesValueLabel.frame.origin.y - 8
+    let yOffset: CGFloat = self.timerTitleValueLabel.frame.origin.y - 8
     let x: CGFloat = 0
     let y: CGFloat = self.frame.size.height - textSize.height / 2 - yOffset
     let rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height)
@@ -115,7 +126,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     return label
     }()
 
-  lazy var minutesValueLabel: UILabel = { [unowned self] in
+  lazy var timerTitleValueLabel: UILabel = { [unowned self] in
     let bounds = UIScreen.mainScreen().bounds
     let defaultSize = self.completedMode == true
       ? self.minuteValueSize
@@ -144,7 +155,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     return label
     }()
 
-  lazy var minutesTitleLabel: UILabel = { [unowned self] in
+  lazy var timerSubtitleLabel: UILabel = { [unowned self] in
     let bounds = UIScreen.mainScreen().bounds
     let defaultSize = self.completedMode == true
       ? self.minuteTitleSize
@@ -161,7 +172,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     if Screen.isPad { yOffset -= 10 }
 
     let x: CGFloat = 0
-    let y: CGFloat = CGRectGetMaxY(self.minutesValueLabel.frame) - yOffset
+    let y: CGFloat = CGRectGetMaxY(self.timerTitleValueLabel.frame) - yOffset
     let rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height)
     let label = UILabel(frame: rect)
 
@@ -196,13 +207,13 @@ public class TimerControl: UIControl, ContentSizeChangable {
     super.init(frame: frame)
 
     backgroundColor = UIColor.clearColor()
-    addSubview(minutesValueLabel)
+    addSubview(timerTitleValueLabel)
 
     if completedMode {
-      for subview in [minutesTitleLabel, hoursLabel] { addSubview(subview) }
+      for subview in [timerSubtitleLabel, hoursLabel] { addSubview(subview) }
     }
 
-    minutesValueLabel.addObserver(self,
+    timerTitleValueLabel.addObserver(self,
       forKeyPath: "text",
       options: .New,
       context: nil)
@@ -218,17 +229,17 @@ public class TimerControl: UIControl, ContentSizeChangable {
   }
 
   deinit {
-    minutesValueLabel.removeObserver(self, forKeyPath: "text")
+    timerTitleValueLabel.removeObserver(self, forKeyPath: "text")
     NSNotificationCenter.defaultCenter().removeObserver(self)
     stopTimer()
   }
 
   public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-    if (object as! NSObject).isEqual(minutesValueLabel) {
+    if (object as! NSObject).isEqual(timerTitleValueLabel) {
       var baseSize: CGFloat
-      if minutesValueLabel.text!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 5 {
+      if timerTitleValueLabel.text!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 5 {
         baseSize = Screen.isPad ? 200 : minuteValueSize
-      } else if minutesValueLabel.text!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 4 {
+      } else if timerTitleValueLabel.text!.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 4 {
         baseSize = Screen.isPad ? 220 : 100
       } else {
         baseSize = Screen.isPad ? 280 : 120
@@ -240,7 +251,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
       let bounds = UIScreen.mainScreen().bounds
       let fontSize = floor(baseSize * CGRectGetWidth(frame) / CGRectGetWidth(bounds))
-      minutesValueLabel.font = Font.TimerControl.minutesValueLabel(fontSize)
+      timerTitleValueLabel.font = Font.TimerControl.minutesValueLabel(fontSize)
     }
   }
 
@@ -428,6 +439,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     hours = 0
     minutes = 0
     seconds = 0
+    timerSubtitleLabel.text = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
     sendActionsForControlEvents(.ValueChanged)
   }
 
@@ -509,6 +521,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
       if hours < 1 && shouldBlockTouchesForPoint(currentPoint) == true {
         touchesAreActive = false
         angle = 0
+        seconds = 0
         setNeedsDisplay()
         return true
       } else {
@@ -556,8 +569,8 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let fontValueSize = floor(defaultValueSize * CGRectGetWidth(frame)) / CGRectGetWidth(bounds)
 
     hoursLabel.font = Font.TimerControl.hoursLabel(fontSize)
-    minutesTitleLabel.font = Font.TimerControl.minutesTitleLabel(fontSize)
-    minutesValueLabel.font = Font.TimerControl.minutesValueLabel(fontValueSize)
+    timerSubtitleLabel.font = Font.TimerControl.minutesTitleLabel(fontSize)
+    timerTitleValueLabel.font = Font.TimerControl.minutesValueLabel(fontValueSize)
     setNeedsDisplay()
   }
 }
