@@ -253,7 +253,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let sideMargin = floor(CGRectGetWidth(rect) * (1 - transform) / 2)
     let length = CGRectGetWidth(rect) * transform
     let circleRect = CGRectMake(sideMargin, sideMargin, length, length)
-    let lineWidth: CGFloat = completedMode ? 5 : 3.5
+    let lineWidth: CGFloat = completedMode ? 5 : 3.0
     let circleOutlineRect = CGRect(
       x: sideMargin + lineWidth / 2,
       y: sideMargin + lineWidth / 2,
@@ -279,19 +279,20 @@ public class TimerControl: UIControl, ContentSizeChangable {
         color: active ? theme.circleOutlineActive : theme.circleOutlineInactive,
         rect: circleOutlineRect,
         lineWidth: lineWidth)
-    }
 
-    if active {
-      let secondsColor = UIColor.redColor()
-      if let timer = timer where timer.valid {
-        let factor: CGFloat = completedMode ? 0.1 : 0.2
-        drawSecondsIndicator(context!, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect)
+
+      if active {
+        let secondsColor = UIColor.redColor()
+        if let timer = timer where timer.valid {
+          let factor: CGFloat = completedMode ? 0.15 : 0.2
+          drawSecondsIndicator(context!, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect, outlineWidth: lineWidth, outlineColor: theme.circleOutlineActive)
+        }
+
+        if completedMode { drawText(context!, rect: rect) }
+      } else {
+        let secondsColor = UIColor.whiteColor()
+        drawSecondsIndicator(context!, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect, outlineWidth: 0, outlineColor: theme.circleOutlineActive)
       }
-
-      if completedMode { drawText(context!, rect: rect) }
-    } else {
-      let secondsColor = UIColor.whiteColor()
-      drawSecondsIndicator(context!, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect)
     }
   }
 

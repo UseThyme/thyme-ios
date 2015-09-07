@@ -207,7 +207,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
       }
     }
 
-    layout.itemSize = CGSize(width: cellWidth + 10, height: cellWidth)
+    layout.itemSize = CGSize(width: cellWidth + 10, height: cellWidth + 2)
     layout.scrollDirection = .Horizontal
 
     let width: CGFloat = Screen.width - 2 * sideMargin
@@ -285,7 +285,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
       if Screen.height == 480 {
         topMargin += 40
       }  else if Screen.height == 568 {
-        topMargin += 90
+        topMargin += 96
       } else if Screen.height == 667 {
         topMargin += 118
       } else if Screen.height == 763 {
