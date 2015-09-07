@@ -9,7 +9,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
   var cellRect: CGRect?
 
   override var theme: Themable? {
-    didSet(newTheme) {
+    willSet(newTheme) {
       gradientLayer.colors = newTheme?.colors
       gradientLayer.locations = newTheme?.locations
       titleLabel.textColor = newTheme?.labelColor
