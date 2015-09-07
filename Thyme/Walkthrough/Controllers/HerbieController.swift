@@ -250,7 +250,8 @@ class HerbieController: ViewController {
 
   lazy var reasonImage: UIImageView = {
     let width: CGFloat = Screen.width
-    let height: CGFloat = Screen.height - 300
+    var height: CGFloat = Screen.height - 300
+    if height > 300 { height = 300 }
 
     let imageView = UIImageView(frame: CGRect(x: Screen.width / 2 - width / 2,
       y: 0,
