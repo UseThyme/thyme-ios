@@ -1,6 +1,9 @@
 import UIKit
 import AVFoundation
 import WatchConnectivity
+import Sugar
+import Fabric
+import Crashlytics
 
 let ThymeAlarmIDKey = "HYPAlarmID"
 let ThymeAlarmFireDataKey = "HYPAlarmFireDate"
@@ -45,24 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     return controller
     }()
 
-  lazy var isUnitTesting: Bool = {
-    let enviorment = NSProcessInfo.processInfo().environment
-
-    if let injectBundlePath = enviorment["XCInjectBundle"]
-      where injectBundlePath.hasSuffix("xctest") {
-        return true
-    }
-
-    return false
-    }()
-
   var session: WCSession!
 
   // MARK: - UIApplicationDelegate
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-    if isUnitTesting { return true }
+    if !Simulator.isRunning && !UnitTesting.isRunning  {
+      Fabric.with([Crashlytics()])
+    }
+
+    if UnitTesting.isRunning  { return true }
 
     let audioSession = AVAudioSession.sharedInstance()
     do { try audioSession.setCategory(AVAudioSessionCategoryPlayback) } catch {}

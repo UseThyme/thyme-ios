@@ -1,20 +1,36 @@
 PODS:
+  - Crashlytics (3.2.0)
+  - Fabric (1.4.1):
+    - Fabric/Base (= 1.4.1)
+  - Fabric/Base (1.4.1)
+  - Sugar (0.1.0)
   - Transition (0.1.0)
 
 DEPENDENCIES:
+  - Crashlytics
+  - Fabric
+  - Sugar (from `https://github.com/hyperoslo/Sugar`)
   - Transition (from `https://github.com/hyperoslo/Transition.git`, branch `swift2`)
 
 EXTERNAL SOURCES:
+  Sugar:
+    :git: https://github.com/hyperoslo/Sugar
   Transition:
     :branch: swift2
     :git: https://github.com/hyperoslo/Transition.git
 
 CHECKOUT OPTIONS:
+  Sugar:
+    :commit: 816604cb30ea33d79d7ce2b7effca3f627ccba3f
+    :git: https://github.com/hyperoslo/Sugar
   Transition:
     :commit: 6158305dc45c80ea52bd40ca81aa5981150aa63c
     :git: https://github.com/hyperoslo/Transition.git
 
 SPEC CHECKSUMS:
+  Crashlytics: a29e4f820aa401482b26043dc5d78adf08ac7573
+  Fabric: 4f718eeca4c02c7d6f6f4e5f0e5f87c63aa38458
+  Sugar: d33f2a3ae10e40c14eb49a2e859f12e82e614817
   Transition: 66d86e3ae1b8f0b3d9ba2000c7a45fbc17b066f2
 
 COCOAPODS: 0.39.0.beta.4
