@@ -5,6 +5,7 @@
 "------------------RELEASE TO SET TIMER------------------" = "------------------RELEASE TO SET TIMER------------------";
 "------------------SWIPE CLOCKWISE TO SET TIMER------------------" = "------------------SWIPE CLOCKWISE TO SET TIMER------------------";
 "MINUTES LEFT" = "MINUTES LEFT";
+"SECONDS LEFT" = "SECONDS LEFT";
 "IN %ld MINUTES" = "IN %ld MINUTES";
 "IN ABOUT %ld HOURS" = "IN ABOUT %ld HOURS";
 "IN ABOUT %ld HOURS %ld MINUTES" = "IN ABOUT %1$ld HOURS %2$ld MINUTES";
