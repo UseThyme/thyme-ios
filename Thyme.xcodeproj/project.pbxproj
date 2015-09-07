@@ -427,16 +427,16 @@
 		44AAE4171844C0690096BF52 /* Thyme */ = {
 			isa = PBXGroup;
 			children = (
-				44A691AE1844E0BB005D4C5A /* Library */,
 				446C9E221844C4E2005FD797 /* AppDelegate */,
-				146997331A2E7FB100171115 /* Walkthrough */,
 				446C9E261844C551005FD797 /* Home */,
-				446C9E271844C551005FD797 /* Timer */,
-				442B13F9184614FC00D52AE1 /* Models */,
 				44A691AB1844E02D005D4C5A /* Images */,
-				4465EE91184772F9006C145F /* Sounds */,
 				1461778319CDBF1F00E46B1D /* Images.xcassets */,
+				44A691AE1844E0BB005D4C5A /* Library */,
+				442B13F9184614FC00D52AE1 /* Models */,
+				4465EE91184772F9006C145F /* Sounds */,
 				44AAE4181844C0690096BF52 /* Supporting Files */,
+				446C9E271844C551005FD797 /* Timer */,
+				146997331A2E7FB100171115 /* Walkthrough */,
 			);
 			path = Thyme;
 			sourceTree = "<group>";
