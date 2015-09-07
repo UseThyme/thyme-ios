@@ -1,11 +1,7 @@
 PODS:
-  - HockeySDK (3.7.3):
-    - HockeySDK/AllFeaturesLib (= 3.7.3)
-  - HockeySDK/AllFeaturesLib (3.7.3)
   - Transition (0.1.0)
 
 DEPENDENCIES:
-  - HockeySDK
   - Transition (from `https://github.com/hyperoslo/Transition.git`, branch `swift2`)
 
 EXTERNAL SOURCES:
@@ -19,7 +15,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/hyperoslo/Transition.git
 
 SPEC CHECKSUMS:
-  HockeySDK: a0b915dc081f1ba67782a347220a8623dbe93b8a
   Transition: 66d86e3ae1b8f0b3d9ba2000c7a45fbc17b066f2
 
 COCOAPODS: 0.39.0.beta.4

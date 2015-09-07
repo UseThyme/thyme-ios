@@ -1,7 +1,6 @@
 import UIKit
 import AVFoundation
 import WatchConnectivity
-import HockeySDK
 
 let ThymeAlarmIDKey = "HYPAlarmID"
 let ThymeAlarmFireDataKey = "HYPAlarmFireDate"
@@ -9,7 +8,7 @@ let ThymeAlarmFireInterval = "HYPAlarmFireInterval"
 
 @available(iOS 9.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate, UIAlertViewDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
   lazy var window: UIWindow? = {
     return UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -63,14 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BITHockeyManagerDelegate,
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-    #if DEBUG
-      if isUnitTesting() { return true }
-    #endif
-
-    #if IS_PRE_RELEASE_VERSION
-      BITHockeyManager.sharedHockeyManager().configureWithIdentifier("2cf664c4f20eed78d8ef3fe53f27fe3b", delegate: self)
-      BITHockeyManager.sharedHockeyManager().startManager()
-    #endif
+    if isUnitTesting { return true }
 
     let audioSession = AVAudioSession.sharedInstance()
     do { try audioSession.setCategory(AVAudioSessionCategoryPlayback) } catch {}
