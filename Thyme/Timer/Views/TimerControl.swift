@@ -100,9 +100,10 @@ public class TimerControl: UIControl, ContentSizeChangable {
     let sampleString = "2 HOURS"
     let attributes = [NSFontAttributeName : font]
     let textSize = (sampleString as NSString).sizeWithAttributes(attributes)
-    let yOffset: CGFloat = self.minutesValueLabel.frame.origin.y - 8
+    let yOffset: CGFloat = textSize.height / 2
+
     let x: CGFloat = 0
-    let y: CGFloat = self.frame.size.height - textSize.height / 2 - yOffset
+    let y: CGFloat = self.minutesValueLabel.frame.origin.y - yOffset
     let rect = CGRectMake(x, y, CGRectGetWidth(self.frame), textSize.height)
     let label = UILabel(frame: rect)
 
