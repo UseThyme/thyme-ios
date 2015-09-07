@@ -205,7 +205,7 @@ class TimerInterfaceController: WKInterfaceController {
 
     hourPicker.setItems(hourPickerItems)
 
-    let minutePickerItems: [WKPickerItem] = Array(0...58).map {
+    let minutePickerItems: [WKPickerItem] = Array(0...59).map {
       let pickerItem = WKPickerItem()
       pickerItem.title = "\($0)"
 
