@@ -240,6 +240,7 @@
                                             </items>
                                         </group>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="12" bottom="0.0"/>
                                 </group>
                                 <button width="1" height="31" alignment="left" id="Dp3-5L-RAg">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
