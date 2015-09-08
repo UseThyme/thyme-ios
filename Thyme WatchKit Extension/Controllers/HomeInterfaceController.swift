@@ -134,19 +134,17 @@ class HomeInterfaceController: WKInterfaceController {
     if alarm.active {
       text = alarm.shortText
 
-      minutesGroups[index].setBackgroundImageNamed(ImageList.Timer.minuteSequence)
+      minutesGroups[index].setBackgroundImageNamed(ImageList.Home.minuteSequence)
       minutesGroups[index].startAnimatingWithImagesInRange(
         NSRange(location: alarm.minutes, length: 1),
         duration: 0, repeatCount: 1)
 
-      secondsGroups[index].setBackgroundImageNamed(ImageList.Timer.secondSequence)
+      secondsGroups[index].setBackgroundImageNamed(ImageList.Home.secondSequence)
       secondsGroups[index].startAnimatingWithImagesInRange(
         NSRange(location: 59 - alarm.seconds, length: 1),
         duration: 0, repeatCount: 1)
     } else {
-      minutesGroups[index].setBackgroundImageNamed(index == 4
-        ? nil
-        : ImageList.Main.plateBackground)
+      minutesGroups[index].setBackgroundImageNamed(nil)
       secondsGroups[index].setBackgroundImageNamed(nil)
     }
 

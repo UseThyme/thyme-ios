@@ -10,11 +10,11 @@
             <objects>
                 <controller identifier="HomeController" title="Thyme" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
-                        <group width="1" alignment="left" layout="vertical" id="eAh-Dn-oy7">
+                        <group width="1" height="222" alignment="left" backgroundImage="homeBackground" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="eAh-Dn-oy7">
                             <items>
-                                <group width="134" height="62" alignment="center" spacing="5" id="Ig1-RQ-5zJ" userLabel="UpperRow">
+                                <group width="134" height="65" alignment="center" spacing="0.0" id="Ig1-RQ-5zJ" userLabel="UpperRow">
                                     <items>
-                                        <group width="60" height="60" alignment="left" backgroundImage="mainPlateBackground" id="ZHh-fz-8ix" userLabel="Plate1Minutes">
+                                        <group width="65" height="65" alignment="left" id="ZHh-fz-8ix" userLabel="Plate1Minutes">
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="OCB-gc-2ju" userLabel="Plate1Seconds">
                                                     <items>
@@ -36,7 +36,7 @@
                                                 </group>
                                             </items>
                                         </group>
-                                        <group width="60" height="60" alignment="left" backgroundImage="mainPlateBackground" id="eQu-bp-ges" userLabel="Plate2Minutes">
+                                        <group width="65" height="65" alignment="right" id="eQu-bp-ges" userLabel="Plate2Minutes">
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="YvT-fo-P3F" userLabel="Plate2Seconds">
                                                     <items>
@@ -59,11 +59,11 @@
                                             </items>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="5" right="0.0" top="0.0" bottom="0.0"/>
+                                    <edgeInsets key="margins" left="2" right="2" top="0.0" bottom="0.0"/>
                                 </group>
-                                <group width="134" height="64" alignment="center" spacing="5" id="XKW-ZG-be5" userLabel="LowerRow">
+                                <group width="134" height="64" alignment="center" spacing="0.0" id="XKW-ZG-be5" userLabel="LowerRow">
                                     <items>
-                                        <group width="60" height="60" alignment="left" backgroundImage="mainPlateBackground" id="VPm-2m-QFF" userLabel="Plate3Minutes">
+                                        <group width="65" height="65" alignment="left" id="VPm-2m-QFF" userLabel="Plate3Minutes">
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="FSB-D2-dot" userLabel="Plate3Seconds">
                                                     <items>
@@ -85,7 +85,7 @@
                                                 </group>
                                             </items>
                                         </group>
-                                        <group width="60" height="60" alignment="left" backgroundImage="mainPlateBackground" id="bwr-Da-ckz" userLabel="Plate4Minutes">
+                                        <group width="65" height="65" alignment="left" id="bwr-Da-ckz" userLabel="Plate4Minutes">
                                             <items>
                                                 <group width="1" height="1" alignment="left" id="c8n-o3-u61" userLabel="Plate4Seconds">
                                                     <items>
@@ -108,9 +108,9 @@
                                             </items>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="5" right="0.0" top="0.0" bottom="0.0"/>
+                                    <edgeInsets key="margins" left="2" right="2" top="0.0" bottom="0.0"/>
                                 </group>
-                                <group width="125" height="81" alignment="center" backgroundImage="mainOvenBackground" id="GJ4-7n-83F" userLabel="Oven">
+                                <group width="125" height="81" alignment="center" id="GJ4-7n-83F" userLabel="Oven">
                                     <items>
                                         <group width="65" height="65" alignment="center" verticalAlignment="center" id="5rp-hX-mb1" userLabel="OvenMinutes">
                                             <items>
@@ -135,8 +135,10 @@
                                             </items>
                                         </group>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="10" bottom="0.0"/>
                                 </group>
                             </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="3" bottom="0.0"/>
                         </group>
                     </items>
                     <menu key="menu" id="Hqe-xL-t4v">
