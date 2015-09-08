@@ -14,6 +14,7 @@ class GlanceController: WKInterfaceController {
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
   var session : WCSession!
+  var interfaceIsSet = false
 
   // MARK: - Lifecycle
 
@@ -23,11 +24,12 @@ class GlanceController: WKInterfaceController {
     infoLabel.setText(NSLocalizedString("Yum! That smells amazing!", comment: ""))
     startLabel.setText(NSLocalizedString("Start cooking", comment: ""))
     herbieImage.stopAnimating()
-    setupInterface()
   }
 
   override func willActivate() {
     super.willActivate()
+
+    showLostConnection(false)
 
     if WCSession.isSupported() {
       session = WCSession.defaultSession()
@@ -63,6 +65,7 @@ class GlanceController: WKInterfaceController {
       }
     }
 
+    showLostConnection(false)
     activeGroup.setHidden(closestAlarm == nil)
     inactiveGroup.setHidden(closestAlarm != nil)
 
@@ -86,6 +89,17 @@ class GlanceController: WKInterfaceController {
     } else {
       herbieImage.startAnimating()
     }
+
+    interfaceIsSet = true
+  }
+
+  func showLostConnection(show: Bool) {
+    lostConnectionImage.setHidden(!show)
+    if show {
+      lostConnectionImage.startAnimating()
+    } else {
+      lostConnectionImage.stopAnimating()
+    }
   }
 
   // MARK: - Communication
@@ -96,7 +110,12 @@ class GlanceController: WKInterfaceController {
         if let weakSelf = self, alarmData = response["alarms"] as? [AnyObject] {
           weakSelf.setupInterface(alarmData)
         }
-      }, errorHandler: { error in
+      }, errorHandler: { [weak self] error in
+        if let weakSelf = self {
+          if !weakSelf.interfaceIsSet {
+            weakSelf.showLostConnection(true)
+          }
+        }
         print(error)
     })
   }
@@ -107,14 +126,13 @@ class GlanceController: WKInterfaceController {
 extension GlanceController: WCSessionDelegate {
 
   func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-    var data = [AnyObject]()
-
     if let alarmData = applicationContext["alarms"] as? [AnyObject] {
-      data = alarmData
+      setupInterface(alarmData)
     } else {
       print("Error with fetching of application context from the parent app")
+      if !interfaceIsSet {
+        showLostConnection(true)
+      }
     }
-
-    setupInterface(data)
   }
 }
