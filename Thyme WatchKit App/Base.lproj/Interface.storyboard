@@ -174,13 +174,13 @@
             <objects>
                 <controller identifier="TimerController" id="53Q-sK-jl1" customClass="TimerInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
-                        <group width="1" height="1" alignment="left" layout="vertical" id="1ke-Zx-eXt">
+                        <group width="1" height="1" alignment="left" layout="vertical" spacing="2" id="1ke-Zx-eXt">
                             <items>
-                                <group width="112" height="112" alignment="center" hidden="YES" layout="vertical" spacing="0.0" id="lC6-fL-vpY" userLabel="ActiveGroup">
+                                <group width="121" height="121" alignment="center" hidden="YES" layout="vertical" spacing="0.0" id="lC6-fL-vpY" userLabel="ActiveGroup">
                                     <items>
-                                        <group width="112" height="112" alignment="center" verticalAlignment="center" backgroundImage="mainPlateBackground" id="DYZ-Sz-4Ba" userLabel="Minutes">
+                                        <group width="121" height="121" alignment="center" verticalAlignment="center" backgroundImage="mainPlateBackground" id="DYZ-Sz-4Ba" userLabel="Minutes">
                                             <items>
-                                                <group width="112" height="112" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="EOe-jn-aLf" userLabel="Seconds">
+                                                <group width="121" height="121" alignment="center" verticalAlignment="center" layout="vertical" spacing="0.0" id="EOe-jn-aLf" userLabel="Seconds">
                                                     <items>
                                                         <label width="1" alignment="left" verticalAlignment="center" textAlignment="center" minimumScaleFactor="0.5" id="t4s-q4-Jm5" userLabel="HoursText">
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -201,7 +201,7 @@
                                         </group>
                                     </items>
                                 </group>
-                                <group width="112" height="112" alignment="center" layout="vertical" spacing="1" id="Jyb-f5-edO" userLabel="InactiveGroup">
+                                <group width="121" height="121" alignment="center" layout="vertical" spacing="1" id="Jyb-f5-edO" userLabel="InactiveGroup">
                                     <items>
                                         <group width="1" alignment="left" verticalAlignment="center" id="O2m-OP-Kkb">
                                             <items>
@@ -240,9 +240,9 @@
                                             </items>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="12" bottom="0.0"/>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="14" bottom="0.0"/>
                                 </group>
-                                <button width="1" height="31" alignment="left" verticalAlignment="bottom" id="Dp3-5L-RAg">
+                                <button width="1" height="24" alignment="left" verticalAlignment="bottom" id="Dp3-5L-RAg">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" type="system" pointSize="15"/>
@@ -251,7 +251,7 @@
                                     </connections>
                                 </button>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="2"/>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="3"/>
                         </group>
                     </items>
                     <menu key="menu" id="96a-6T-sJU">
