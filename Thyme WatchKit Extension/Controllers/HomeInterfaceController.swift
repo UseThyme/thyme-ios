@@ -2,10 +2,13 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-class HomeInterfaceController: WKInterfaceController {
+class HomeInterfaceController: WKInterfaceController, Sessionable {
+
+  @IBOutlet var mainGroup: WKInterfaceGroup!
 
   @IBOutlet var lostConnectionGroup: WKInterfaceGroup!
   @IBOutlet var lostConnectionImage: WKInterfaceImage!
+  @IBOutlet var retryButton: WKInterfaceButton!
 
   @IBOutlet weak var topLeftMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var topRightMinutesGroup: WKInterfaceGroup!
@@ -35,6 +38,8 @@ class HomeInterfaceController: WKInterfaceController {
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
 
+    retryButton.setTitle(NSLocalizedString("Try again", comment: ""))
+
     minutesGroups = [topLeftMinutesGroup, topRightMinutesGroup,
       bottomLeftMinutesGroup, bottomRightMinutesGroup, ovenMinutesGroup]
     secondsGroups = [topLeftSecondsGroup, topRightSecondsGroup,
@@ -46,12 +51,8 @@ class HomeInterfaceController: WKInterfaceController {
   override func willActivate() {
     super.willActivate()
 
-    if WCSession.isSupported() {
-      session = WCSession.defaultSession()
-      session.delegate = self
-      session.activateSession()
-    }
-
+    showLostConnection(false)
+    activateSession()
     sendMessage(Message(.GetAlarms))
   }
 
@@ -110,6 +111,11 @@ class HomeInterfaceController: WKInterfaceController {
     sendMessage(Message(.CancelAlarms))
   }
 
+  @IBAction func retryButtonTapped() {
+    activateSession()
+    sendMessage(Message(.GetAlarms))
+  }
+
   // MARK: - Communication
 
   func sendMessage(message: Message) {
@@ -117,10 +123,14 @@ class HomeInterfaceController: WKInterfaceController {
       replyHandler: { [weak self] response in
         if let weakSelf = self, alarmData = response["alarms"] as? [AnyObject] {
           weakSelf.alarmTimer?.stop()
+          weakSelf.showLostConnection(false)
           weakSelf.setupAlarms(alarmData)
         }
-      }, errorHandler: { error in
-       print(error)
+      }, errorHandler: { [weak self] error in
+        if let weakSelf = self {
+          weakSelf.showLostConnection(true)
+        }
+        print(error)
     })
   }
 
@@ -152,6 +162,24 @@ class HomeInterfaceController: WKInterfaceController {
     }
 
     labels[index].setText(text)
+  }
+
+  func showLostConnection(show: Bool) {
+    mainGroup.setHidden(show)
+    lostConnectionGroup.setHidden(!show)
+
+    if show {
+      alarmTimer?.stop()
+
+      for index in 0..<minutesGroups.count {
+        minutesGroups[index].setBackgroundImageNamed(nil)
+        secondsGroups[index].setBackgroundImageNamed(nil)
+      }
+
+      lostConnectionImage.startAnimating()
+    } else {
+      lostConnectionImage.stopAnimating()
+    }
   }
 
   // MARK: - Alarms
@@ -192,6 +220,7 @@ extension HomeInterfaceController: WCSessionDelegate {
   func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
     if let alarmData = applicationContext["alarms"] as? [AnyObject] {
       alarmTimer?.stop()
+      showLostConnection(false)
       setupAlarms(alarmData)
     }
   }
