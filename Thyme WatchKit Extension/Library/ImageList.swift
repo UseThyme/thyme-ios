@@ -3,6 +3,7 @@ import UIKit
 public struct ImageList {
 
   struct Home {
+    static let background = "homeBackground"
     static let minuteSequence = "homeMinute"
     static let secondSequence = "homeSecond"
   }
