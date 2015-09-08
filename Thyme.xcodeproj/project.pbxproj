@@ -71,6 +71,7 @@
 		D563F9601B9B33E700FF60AC /* TimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F95C1B9B33E700FF60AC /* TimerInterfaceController.swift */; settings = {ASSET_TAGS = (); }; };
 		D563F9621B9B3CCB00FF60AC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F9611B9B3CCB00FF60AC /* Message.swift */; settings = {ASSET_TAGS = (); }; };
 		D5A2383A1B8BD75F00863023 /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchCommunicator.swift */; };
+		D5CF4E011B9FA3F70005D70F /* Sessionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CF4E001B9FA3F70005D70F /* Sessionable.swift */; settings = {ASSET_TAGS = (); }; };
 		D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */; };
 		D5E5882A1B8E55320050DD5C /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588291B8E55320050DD5C /* Alarm.swift */; };
 /* End PBXBuildFile section */
@@ -198,6 +199,7 @@
 		D563F95C1B9B33E700FF60AC /* TimerInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerInterfaceController.swift; sourceTree = "<group>"; };
 		D563F9611B9B3CCB00FF60AC /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		D5A238391B8BD75F00863023 /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
+		D5CF4E001B9FA3F70005D70F /* Sessionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sessionable.swift; sourceTree = "<group>"; };
 		D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTimer.swift; sourceTree = "<group>"; };
 		D5E588291B8E55320050DD5C /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
 		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 			children = (
 				D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */,
 				D538B8F11B8E42CD00069C38 /* ImageList.swift */,
+				D5CF4E001B9FA3F70005D70F /* Sessionable.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -860,6 +863,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5CF4E011B9FA3F70005D70F /* Sessionable.swift in Sources */,
 				D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */,
 				D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */,
 				D563F9601B9B33E700FF60AC /* TimerInterfaceController.swift in Sources */,
