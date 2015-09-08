@@ -7,6 +7,11 @@ public struct ImageList {
     static let ovenBackground = "mainOvenBackground"
   }
 
+  struct Home {
+    static let minuteSequence = "homeMinute"
+    static let secondSequence = "homeSecond"
+  }
+
   struct Timer {
     static let minuteSequence = "timerMinute"
     static let secondSequence = "timerSecond"
