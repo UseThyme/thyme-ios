@@ -2,7 +2,7 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-class GlanceController: WKInterfaceController {
+class GlanceController: WKInterfaceController, Sessionable {
 
   @IBOutlet weak var activeGroup: WKInterfaceGroup!
   @IBOutlet weak var inactiveGroup: WKInterfaceGroup!
@@ -30,14 +30,18 @@ class GlanceController: WKInterfaceController {
     super.willActivate()
 
     showLostConnection(false)
-
-    if WCSession.isSupported() {
-      session = WCSession.defaultSession()
-      session.delegate = self
-      session.activateSession()
-    }
-
+    activateSession()
     sendMessage(Message(.GetAlarms))
+  }
+
+  override func didAppear() {
+    super.didAppear()
+
+    if !interfaceIsSet {
+      showLostConnection(false)
+      activateSession()
+      sendMessage(Message(.GetAlarms))
+    }
   }
 
   override func didDeactivate() {
