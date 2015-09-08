@@ -2,10 +2,10 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-class TimerInterfaceController: WKInterfaceController {
+class TimerInterfaceController: WKInterfaceController, Sessionable {
 
   enum State {
-    case Unknown, Active, Inactive
+    case Active, Inactive, Error, Unknown
   }
 
   // MARK: - Root interface views
@@ -43,20 +43,23 @@ class TimerInterfaceController: WKInterfaceController {
 
   var state: State = .Unknown {
     didSet {
+      button.setHidden(state == .Unknown)
+      lostConnectionImage.stopAnimating()
+
       switch state {
       case .Active:
+        lostConnectionImage.setHidden(true)
         inactiveGroup.setHidden(true)
         activeGroup.setHidden(false)
 
         button.setTitle(NSLocalizedString("End timer", comment: ""))
-        button.setHidden(false)
         button.setEnabled(true)
       case .Inactive:
+        lostConnectionImage.setHidden(true)
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(false)
 
         button.setTitle(NSLocalizedString("Start timer", comment: ""))
-        button.setHidden(false)
         button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
 
         minutePicker.setSelectedItemIndex(pickerMinutes)
@@ -65,10 +68,18 @@ class TimerInterfaceController: WKInterfaceController {
         hourPicker.resignFocus()
         minutePicker.resignFocus()
         minutePicker.focus()
-      default:
+      case .Error:
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(true)
-        button.setHidden(true)
+        lostConnectionImage.setHidden(false)
+        lostConnectionImage.startAnimating()
+
+        button.setTitle(NSLocalizedString("Try again", comment: ""))
+        button.setEnabled(true)
+      case .Unknown:
+        activeGroup.setHidden(true)
+        inactiveGroup.setHidden(true)
+        lostConnectionImage.setHidden(true)
       }
     }
   }
@@ -82,8 +93,6 @@ class TimerInterfaceController: WKInterfaceController {
       setTitle(context.title)
       hourLabel.setText(NSLocalizedString("hr", comment: "").uppercaseString)
       minuteLabel.setText(NSLocalizedString("min", comment: "").uppercaseString)
-
-      state = .Unknown
     }
   }
 
@@ -92,13 +101,7 @@ class TimerInterfaceController: WKInterfaceController {
 
     alarmTimer?.stop()
     setupPickers()
-
-    if WCSession.isSupported() {
-      session = WCSession.defaultSession()
-      session.delegate = self
-      session.activateSession()
-    }
-
+    activateSession()
     sendMessage(Message(.GetAlarm))
   }
 
@@ -153,13 +156,16 @@ class TimerInterfaceController: WKInterfaceController {
       WKInterfaceDevice.currentDevice().playHaptic(.Stop)
       button.setEnabled(false)
       sendMessage(Message(.CancelAlarm))
-    } else {
+    } else if state == .Inactive {
       WKInterfaceDevice.currentDevice().playHaptic(.Start)
       let amount = pickerHours * 60 * 60 + pickerMinutes * 60
       button.setEnabled(false)
       pickerHours = 0
       pickerMinutes = 0
       sendMessage(Message(.UpdateAlarm, ["amount": amount]))
+    } else {
+      button.setEnabled(false)
+      sendMessage(Message(.GetAlarm))
     }
   }
 
@@ -188,7 +194,8 @@ class TimerInterfaceController: WKInterfaceController {
             weakSelf.state = .Inactive
           }
         }
-      }, errorHandler: { error in
+      }, errorHandler: { [weak self] error in
+        self?.state = .Error
         print(error)
     })
   }
