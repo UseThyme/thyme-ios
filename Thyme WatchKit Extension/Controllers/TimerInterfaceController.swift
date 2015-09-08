@@ -109,28 +109,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
     super.didDeactivate()
   }
 
-  override func pickerDidFocus(picker: WKInterfacePicker) {
-    var location: Int
-
-    if picker == minutePicker {
-      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
-      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
-      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerMinutes)
-
-      location = pickerMinutes
-    } else {
-      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
-      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
-      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerHours)
-
-      location = pickerHours
-    }
-
-    inactiveGroup.startAnimatingWithImagesInRange(
-      NSRange(location: location, length: 1),
-      duration: 0, repeatCount: 1)
-  }
-
   // MARK: - Actions
 
   @IBAction func hourPickerChanged(value: Int) {
@@ -139,7 +117,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
       NSRange(location: value, length: 1),
       duration: 0, repeatCount: 1)
     button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
-    WKInterfaceDevice.currentDevice().playHaptic(.Click)
   }
 
   @IBAction func minutePickerChanged(value: Int) {
@@ -148,7 +125,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
       NSRange(location: value, length: 1),
       duration: 0, repeatCount: 1)
     button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
-    WKInterfaceDevice.currentDevice().playHaptic(.Click)
   }
 
   @IBAction func buttonDidTap() {
@@ -201,6 +177,32 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
   }
 
   // MARK: - Pickers
+
+  override func pickerDidFocus(picker: WKInterfacePicker) {
+    var location: Int
+
+    if picker == minutePicker {
+      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
+      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
+      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerMinutes)
+
+      location = pickerMinutes
+    } else {
+      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
+      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
+      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerHours)
+
+      location = pickerHours
+    }
+
+    inactiveGroup.startAnimatingWithImagesInRange(
+      NSRange(location: location, length: 1),
+      duration: 0, repeatCount: 1)
+  }
+
+  override func pickerDidSettle(picker: WKInterfacePicker) {
+    WKInterfaceDevice.currentDevice().playHaptic(.Click)
+  }
 
   func setupPickers() {
     let hourPickerItems: [WKPickerItem] = Array(0...12).map {
