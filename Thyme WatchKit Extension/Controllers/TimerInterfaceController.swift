@@ -12,7 +12,7 @@ class TimerInterfaceController: WKInterfaceController {
 
   @IBOutlet var activeGroup: WKInterfaceGroup!
   @IBOutlet var inactiveGroup: WKInterfaceGroup!
-  
+  @IBOutlet var lostConnectionImage: WKInterfaceImage!
   @IBOutlet var button: WKInterfaceButton!
 
   // MARK: - Active group views

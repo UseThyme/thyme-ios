@@ -6,6 +6,7 @@ class GlanceController: WKInterfaceController {
 
   @IBOutlet weak var activeGroup: WKInterfaceGroup!
   @IBOutlet weak var inactiveGroup: WKInterfaceGroup!
+  @IBOutlet var lostConnectionImage: WKInterfaceImage!
   @IBOutlet var herbieImage: WKInterfaceImage!
   @IBOutlet weak var titleLabel: WKInterfaceLabel!
   @IBOutlet weak var timeLabel: WKInterfaceLabel!

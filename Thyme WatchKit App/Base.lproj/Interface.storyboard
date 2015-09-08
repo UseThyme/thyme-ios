@@ -12,6 +12,17 @@
                     <items>
                         <group width="1" height="222" alignment="left" backgroundImage="homeBackground" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="eAh-Dn-oy7">
                             <items>
+                                <group width="1" height="1" alignment="left" hidden="YES" layout="vertical" spacing="2" id="XWb-Xn-Kbr">
+                                    <items>
+                                        <imageView width="121" height="121" alignment="center" image="HerbieLostConnection" initiallyAnimated="NO" id="2Fk-zN-Db2"/>
+                                        <button width="1" height="24" alignment="left" verticalAlignment="bottom" id="UWP-HI-gVg">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="font" type="system" pointSize="15"/>
+                                        </button>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="3"/>
+                                </group>
                                 <group width="134" height="65" alignment="center" spacing="0.0" id="Ig1-RQ-5zJ" userLabel="UpperRow">
                                     <items>
                                         <group width="65" height="65" alignment="left" id="ZHh-fz-8ix" userLabel="Plate1Minutes">
@@ -157,6 +168,8 @@
                         <outlet property="bottomRightLabel" destination="PdM-yI-7iM" id="seu-Uw-lpF"/>
                         <outlet property="bottomRightMinutesGroup" destination="bwr-Da-ckz" id="RbV-X2-zor"/>
                         <outlet property="bottomRightSecondsGroup" destination="c8n-o3-u61" id="Efp-vf-7Ce"/>
+                        <outlet property="lostConnectionGroup" destination="XWb-Xn-Kbr" id="mg6-Ih-8Z0"/>
+                        <outlet property="lostConnectionImage" destination="2Fk-zN-Db2" id="gmC-fJ-nYg"/>
                         <outlet property="ovenLabel" destination="1Jo-WW-6iT" id="JIP-mA-kKm"/>
                         <outlet property="ovenMinutesGroup" destination="5rp-hX-mb1" id="6Ig-DR-9Nb"/>
                         <outlet property="ovenSecondsGroup" destination="DDL-t2-Df7" id="GUY-Re-8aQ"/>
@@ -178,6 +191,7 @@
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" spacing="2" id="1ke-Zx-eXt">
                             <items>
+                                <imageView width="121" height="121" alignment="center" image="HerbieLostConnection" initiallyAnimated="NO" id="GgX-AH-Odr"/>
                                 <group width="121" height="121" alignment="center" hidden="YES" layout="vertical" spacing="0.0" id="lC6-fL-vpY" userLabel="ActiveGroup">
                                     <items>
                                         <group width="121" height="121" alignment="center" verticalAlignment="center" backgroundImage="mainPlateBackground" id="DYZ-Sz-4Ba" userLabel="Minutes">
@@ -278,6 +292,7 @@
                         <outlet property="hourPicker" destination="Ipl-GO-x2u" id="3w2-YN-tv3"/>
                         <outlet property="hoursTextLabel" destination="t4s-q4-Jm5" id="dNU-Er-tng"/>
                         <outlet property="inactiveGroup" destination="Jyb-f5-edO" id="QeY-vT-rsk"/>
+                        <outlet property="lostConnectionImage" destination="GgX-AH-Odr" id="UAK-xT-eYj"/>
                         <outlet property="minuteLabel" destination="k8l-u2-IVv" id="1gs-3n-3jW"/>
                         <outlet property="minuteOutlineGroup" destination="NtL-mK-Ri1" id="x6O-Qh-1Ne"/>
                         <outlet property="minutePicker" destination="9LU-XD-lhN" id="Bea-yo-Wb7"/>
@@ -303,6 +318,7 @@
                         </group>
                         <group alignment="left" layout="vertical" spacing="0.0" id="uCw-4Q-Ouw">
                             <items>
+                                <imageView width="100" height="100" alignment="center" hidden="YES" image="HerbieLostConnection" initiallyAnimated="NO" id="2o3-vc-FV9"/>
                                 <group width="1" height="1" alignment="left" hidden="YES" layout="vertical" spacing="1" id="rXR-HK-PDc" userLabel="ActiveGroup">
                                     <items>
                                         <label alignment="left" id="WHt-a5-km0" userLabel="titleLabel">
@@ -319,7 +335,7 @@
                                     </items>
                                     <edgeInsets key="margins" left="3" right="0.0" top="0.0" bottom="0.0"/>
                                 </group>
-                                <group width="1" height="1" alignment="left" layout="vertical" spacing="0.0" id="x4z-Zx-obq" userLabel="InactiveGroup">
+                                <group width="1" height="1" alignment="left" hidden="YES" layout="vertical" spacing="0.0" id="x4z-Zx-obq" userLabel="InactiveGroup">
                                     <items>
                                         <imageView width="84" height="84" alignment="center" image="HappyHerbie" initiallyAnimated="NO" id="1g8-Ft-k7V"/>
                                         <group width="1" height="28" alignment="left" radius="7" id="fcR-CC-Qk7" userLabel="StartCooking">
@@ -340,6 +356,7 @@
                         <outlet property="herbieImage" destination="1g8-Ft-k7V" id="n13-Gr-Cpf"/>
                         <outlet property="inactiveGroup" destination="x4z-Zx-obq" id="Ppt-UT-bNv"/>
                         <outlet property="infoLabel" destination="xba-B4-3Ct" id="JVJ-TO-UDG"/>
+                        <outlet property="lostConnectionImage" destination="2o3-vc-FV9" id="8xC-S6-Q0Z"/>
                         <outlet property="startLabel" destination="5nm-g6-tDd" id="pxG-zV-9UM"/>
                         <outlet property="timeLabel" destination="bwE-Pf-LAF" id="eal-Nm-GA1"/>
                         <outlet property="titleLabel" destination="WHt-a5-km0" id="cRP-PJ-0KM"/>

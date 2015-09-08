@@ -4,6 +4,9 @@ import WatchConnectivity
 
 class HomeInterfaceController: WKInterfaceController {
 
+  @IBOutlet var lostConnectionGroup: WKInterfaceGroup!
+  @IBOutlet var lostConnectionImage: WKInterfaceImage!
+
   @IBOutlet weak var topLeftMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var topRightMinutesGroup: WKInterfaceGroup!
   @IBOutlet weak var bottomLeftMinutesGroup: WKInterfaceGroup!
