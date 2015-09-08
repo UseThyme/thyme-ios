@@ -10,19 +10,22 @@
             <objects>
                 <controller identifier="HomeController" title="Thyme" id="AgC-eL-Hgc" customClass="HomeInterfaceController" customModule="Thyme_WatchKit_Extension">
                     <items>
+                        <group width="1" height="1" alignment="left" hidden="YES" layout="vertical" spacing="2" id="XWb-Xn-Kbr">
+                            <items>
+                                <imageView width="121" height="121" alignment="center" image="HerbieLostConnection" initiallyAnimated="NO" id="2Fk-zN-Db2"/>
+                                <button width="1" height="26" alignment="left" verticalAlignment="bottom" id="UWP-HI-gVg">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                    <connections>
+                                        <action selector="retryButtonTapped" destination="AgC-eL-Hgc" id="Vro-CP-tb0"/>
+                                    </connections>
+                                </button>
+                            </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="3"/>
+                        </group>
                         <group width="1" height="222" alignment="left" backgroundImage="homeBackground" contentMode="scaleAspectFit" layout="vertical" spacing="0.0" id="eAh-Dn-oy7">
                             <items>
-                                <group width="1" height="1" alignment="left" hidden="YES" layout="vertical" spacing="2" id="XWb-Xn-Kbr">
-                                    <items>
-                                        <imageView width="121" height="121" alignment="center" image="HerbieLostConnection" initiallyAnimated="NO" id="2Fk-zN-Db2"/>
-                                        <button width="1" height="24" alignment="left" verticalAlignment="bottom" id="UWP-HI-gVg">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="calibratedRGB"/>
-                                            <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="font" type="system" pointSize="15"/>
-                                        </button>
-                                    </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="3"/>
-                                </group>
                                 <group width="134" height="65" alignment="center" spacing="0.0" id="Ig1-RQ-5zJ" userLabel="UpperRow">
                                     <items>
                                         <group width="65" height="65" alignment="left" id="ZHh-fz-8ix" userLabel="Plate1Minutes">
@@ -170,9 +173,11 @@
                         <outlet property="bottomRightSecondsGroup" destination="c8n-o3-u61" id="Efp-vf-7Ce"/>
                         <outlet property="lostConnectionGroup" destination="XWb-Xn-Kbr" id="mg6-Ih-8Z0"/>
                         <outlet property="lostConnectionImage" destination="2Fk-zN-Db2" id="gmC-fJ-nYg"/>
+                        <outlet property="mainGroup" destination="eAh-Dn-oy7" id="7Aw-p5-D3c"/>
                         <outlet property="ovenLabel" destination="1Jo-WW-6iT" id="JIP-mA-kKm"/>
                         <outlet property="ovenMinutesGroup" destination="5rp-hX-mb1" id="6Ig-DR-9Nb"/>
                         <outlet property="ovenSecondsGroup" destination="DDL-t2-Df7" id="GUY-Re-8aQ"/>
+                        <outlet property="retryButton" destination="UWP-HI-gVg" id="NH0-pm-WcM"/>
                         <outlet property="topLeftLabel" destination="LqV-cZ-hdN" id="2i0-kt-sMA"/>
                         <outlet property="topLeftMinutesGroup" destination="ZHh-fz-8ix" id="peU-Bn-C8T"/>
                         <outlet property="topLeftSecondsGroup" destination="OCB-gc-2ju" id="AR2-6t-7wZ"/>
@@ -191,7 +196,7 @@
                     <items>
                         <group width="1" height="1" alignment="left" layout="vertical" spacing="2" id="1ke-Zx-eXt">
                             <items>
-                                <imageView width="121" height="121" alignment="center" image="HerbieLostConnection" initiallyAnimated="NO" id="GgX-AH-Odr"/>
+                                <imageView width="121" height="121" alignment="center" hidden="YES" image="HerbieLostConnection" initiallyAnimated="NO" id="GgX-AH-Odr"/>
                                 <group width="121" height="121" alignment="center" hidden="YES" layout="vertical" spacing="0.0" id="lC6-fL-vpY" userLabel="ActiveGroup">
                                     <items>
                                         <group width="121" height="121" alignment="center" verticalAlignment="center" backgroundImage="mainPlateBackground" id="DYZ-Sz-4Ba" userLabel="Minutes">
@@ -217,7 +222,7 @@
                                         </group>
                                     </items>
                                 </group>
-                                <group width="121" height="121" alignment="center" layout="vertical" spacing="1" id="Jyb-f5-edO" userLabel="InactiveGroup">
+                                <group width="121" height="121" alignment="center" hidden="YES" layout="vertical" spacing="1" id="Jyb-f5-edO" userLabel="InactiveGroup">
                                     <items>
                                         <group width="1" alignment="left" verticalAlignment="center" id="O2m-OP-Kkb">
                                             <items>
@@ -258,7 +263,7 @@
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="14" bottom="0.0"/>
                                 </group>
-                                <button width="1" height="24" alignment="left" verticalAlignment="bottom" id="Dp3-5L-RAg">
+                                <button width="1" height="24" alignment="left" verticalAlignment="bottom" hidden="YES" id="Dp3-5L-RAg">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
                                     <color key="backgroundColor" red="0.20784313730000001" green="0.20784313730000001" blue="0.20784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" type="system" pointSize="15"/>
