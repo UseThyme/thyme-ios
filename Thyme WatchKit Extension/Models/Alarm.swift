@@ -43,8 +43,10 @@ class Alarm {
       } else {
         text = "\(hours):\(minutes)"
       }
-    } else {
+    } else if minutes > 0 {
       text = "\(minutes)"
+    } else {
+      text = "\(seconds)"
     }
 
     return text

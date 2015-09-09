@@ -2,10 +2,11 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-class GlanceController: WKInterfaceController {
+class GlanceController: WKInterfaceController, Sessionable {
 
   @IBOutlet weak var activeGroup: WKInterfaceGroup!
   @IBOutlet weak var inactiveGroup: WKInterfaceGroup!
+  @IBOutlet var lostConnectionImage: WKInterfaceImage!
   @IBOutlet var herbieImage: WKInterfaceImage!
   @IBOutlet weak var titleLabel: WKInterfaceLabel!
   @IBOutlet weak var timeLabel: WKInterfaceLabel!
@@ -13,6 +14,7 @@ class GlanceController: WKInterfaceController {
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
   var session : WCSession!
+  var interfaceIsSet = false
 
   // MARK: - Lifecycle
 
@@ -22,19 +24,24 @@ class GlanceController: WKInterfaceController {
     infoLabel.setText(NSLocalizedString("Yum! That smells amazing!", comment: ""))
     startLabel.setText(NSLocalizedString("Start cooking", comment: ""))
     herbieImage.stopAnimating()
-    setupInterface()
   }
 
   override func willActivate() {
     super.willActivate()
 
-    if WCSession.isSupported() {
-      session = WCSession.defaultSession()
-      session.delegate = self
-      session.activateSession()
-    }
-
+    showLostConnection(false)
+    activateSession()
     sendMessage(Message(.GetAlarms))
+  }
+
+  override func didAppear() {
+    super.didAppear()
+
+    if !interfaceIsSet {
+      showLostConnection(false)
+      activateSession()
+      sendMessage(Message(.GetAlarms))
+    }
   }
 
   override func didDeactivate() {
@@ -62,6 +69,7 @@ class GlanceController: WKInterfaceController {
       }
     }
 
+    showLostConnection(false)
     activeGroup.setHidden(closestAlarm == nil)
     inactiveGroup.setHidden(closestAlarm != nil)
 
@@ -85,6 +93,17 @@ class GlanceController: WKInterfaceController {
     } else {
       herbieImage.startAnimating()
     }
+
+    interfaceIsSet = true
+  }
+
+  func showLostConnection(show: Bool) {
+    lostConnectionImage.setHidden(!show)
+    if show {
+      lostConnectionImage.startAnimating()
+    } else {
+      lostConnectionImage.stopAnimating()
+    }
   }
 
   // MARK: - Communication
@@ -95,7 +114,12 @@ class GlanceController: WKInterfaceController {
         if let weakSelf = self, alarmData = response["alarms"] as? [AnyObject] {
           weakSelf.setupInterface(alarmData)
         }
-      }, errorHandler: { error in
+      }, errorHandler: { [weak self] error in
+        if let weakSelf = self {
+          if !weakSelf.interfaceIsSet {
+            weakSelf.showLostConnection(true)
+          }
+        }
         print(error)
     })
   }
@@ -106,14 +130,13 @@ class GlanceController: WKInterfaceController {
 extension GlanceController: WCSessionDelegate {
 
   func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-    var data = [AnyObject]()
-
     if let alarmData = applicationContext["alarms"] as? [AnyObject] {
-      data = alarmData
+      setupInterface(alarmData)
     } else {
       print("Error with fetching of application context from the parent app")
+      if !interfaceIsSet {
+        showLostConnection(true)
+      }
     }
-
-    setupInterface(data)
   }
 }

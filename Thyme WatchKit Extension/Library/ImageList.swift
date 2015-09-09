@@ -2,9 +2,10 @@ import UIKit
 
 public struct ImageList {
 
-  struct Main {
-    static let plateBackground = "mainPlateBackground"
-    static let ovenBackground = "mainOvenBackground"
+  struct Home {
+    static let background = "homeBackground"
+    static let minuteSequence = "homeMinute"
+    static let secondSequence = "homeSecond"
   }
 
   struct Timer {
