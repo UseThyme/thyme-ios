@@ -107,6 +107,9 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
 
   override func didDeactivate() {
     super.didDeactivate()
+
+    alarmTimer?.stop()
+    state = .Unknown
   }
 
   // MARK: - Actions
@@ -247,9 +250,14 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
       NSRange(location: alarm.minutes, length: 1),
       duration: 0, repeatCount: 1)
 
-    minutesLabel.setText("\(alarm.minutes)")
-    minutesTextLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
     hoursTextLabel.setText(hoursText.uppercaseString)
+
+    minutesLabel.setText(alarm.minutes > 0
+      ? "\(alarm.minutes)"
+      : "\(alarm.seconds)")
+    minutesTextLabel.setText(alarm.minutes > 0
+      ? NSLocalizedString("minutes", comment: "").uppercaseString
+      : NSLocalizedString("seconds", comment: "").uppercaseString)
   }
 
   // MARK: - Alarms

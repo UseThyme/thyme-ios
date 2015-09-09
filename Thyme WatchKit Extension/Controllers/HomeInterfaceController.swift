@@ -51,6 +51,7 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
   override func willActivate() {
     super.willActivate()
 
+    clearAllPlates()
     showLostConnection(false)
     activateSession()
     sendMessage(Message(.GetAlarms))
@@ -58,6 +59,9 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
 
   override func didDeactivate() {
     super.didDeactivate()
+
+    alarmTimer?.stop()
+    clearAllPlates()
   }
 
   // MARK: - Local notifications
@@ -164,18 +168,21 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
     labels[index].setText(text)
   }
 
+  func clearAllPlates() {
+    for index in 0..<minutesGroups.count {
+      minutesGroups[index].setBackgroundImageNamed(nil)
+      secondsGroups[index].setBackgroundImageNamed(nil)
+      labels[index].setText("")
+    }
+  }
+
   func showLostConnection(show: Bool) {
     mainGroup.setHidden(show)
     lostConnectionGroup.setHidden(!show)
 
     if show {
       alarmTimer?.stop()
-
-      for index in 0..<minutesGroups.count {
-        minutesGroups[index].setBackgroundImageNamed(nil)
-        secondsGroups[index].setBackgroundImageNamed(nil)
-      }
-
+      clearAllPlates()
       lostConnectionImage.startAnimating()
     } else {
       lostConnectionImage.stopAnimating()
