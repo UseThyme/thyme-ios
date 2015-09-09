@@ -2,17 +2,17 @@ import WatchKit
 import Foundation
 import WatchConnectivity
 
-class TimerInterfaceController: WKInterfaceController {
+class TimerInterfaceController: WKInterfaceController, Sessionable {
 
   enum State {
-    case Unknown, Active, Inactive
+    case Active, Inactive, Error, Unknown
   }
 
   // MARK: - Root interface views
 
   @IBOutlet var activeGroup: WKInterfaceGroup!
   @IBOutlet var inactiveGroup: WKInterfaceGroup!
-  
+  @IBOutlet var lostConnectionImage: WKInterfaceImage!
   @IBOutlet var button: WKInterfaceButton!
 
   // MARK: - Active group views
@@ -43,32 +43,38 @@ class TimerInterfaceController: WKInterfaceController {
 
   var state: State = .Unknown {
     didSet {
+      button.setHidden(state == .Unknown)
+      lostConnectionImage.stopAnimating()
+
       switch state {
       case .Active:
+        lostConnectionImage.setHidden(true)
         inactiveGroup.setHidden(true)
         activeGroup.setHidden(false)
 
         button.setTitle(NSLocalizedString("End timer", comment: ""))
-        button.setHidden(false)
         button.setEnabled(true)
       case .Inactive:
+        lostConnectionImage.setHidden(true)
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(false)
 
         button.setTitle(NSLocalizedString("Start timer", comment: ""))
-        button.setHidden(false)
         button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
 
-        minutePicker.setSelectedItemIndex(pickerMinutes)
-        hourPicker.setSelectedItemIndex(pickerHours)
-
-        hourPicker.resignFocus()
-        minutePicker.resignFocus()
         minutePicker.focus()
-      default:
+      case .Error:
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(true)
-        button.setHidden(true)
+        lostConnectionImage.setHidden(false)
+        lostConnectionImage.startAnimating()
+
+        button.setTitle(NSLocalizedString("Try again", comment: ""))
+        button.setEnabled(true)
+      case .Unknown:
+        activeGroup.setHidden(true)
+        inactiveGroup.setHidden(true)
+        lostConnectionImage.setHidden(true)
       }
     }
   }
@@ -82,9 +88,8 @@ class TimerInterfaceController: WKInterfaceController {
       setTitle(context.title)
       hourLabel.setText(NSLocalizedString("hr", comment: "").uppercaseString)
       minuteLabel.setText(NSLocalizedString("min", comment: "").uppercaseString)
-
-      state = .Unknown
     }
+    state = .Unknown
   }
 
   override func willActivate() {
@@ -92,40 +97,16 @@ class TimerInterfaceController: WKInterfaceController {
 
     alarmTimer?.stop()
     setupPickers()
-
-    if WCSession.isSupported() {
-      session = WCSession.defaultSession()
-      session.delegate = self
-      session.activateSession()
-    }
-
+    activateSession()
     sendMessage(Message(.GetAlarm))
   }
 
   override func didDeactivate() {
     super.didDeactivate()
-  }
-
-  override func pickerDidFocus(picker: WKInterfacePicker) {
-    var location: Int
-
-    if picker == minutePicker {
-      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
-      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
-      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerMinutes)
-
-      location = pickerMinutes
-    } else {
-      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
-      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
-      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerHours)
-
-      location = pickerHours
-    }
-
-    inactiveGroup.startAnimatingWithImagesInRange(
-      NSRange(location: location, length: 1),
-      duration: 0, repeatCount: 1)
+    alarmTimer?.stop()
+    alarmTimer = nil
+    session.delegate = nil
+    state = .Unknown
   }
 
   // MARK: - Actions
@@ -136,7 +117,6 @@ class TimerInterfaceController: WKInterfaceController {
       NSRange(location: value, length: 1),
       duration: 0, repeatCount: 1)
     button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
-    WKInterfaceDevice.currentDevice().playHaptic(.Click)
   }
 
   @IBAction func minutePickerChanged(value: Int) {
@@ -145,7 +125,6 @@ class TimerInterfaceController: WKInterfaceController {
       NSRange(location: value, length: 1),
       duration: 0, repeatCount: 1)
     button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
-    WKInterfaceDevice.currentDevice().playHaptic(.Click)
   }
 
   @IBAction func buttonDidTap() {
@@ -153,13 +132,16 @@ class TimerInterfaceController: WKInterfaceController {
       WKInterfaceDevice.currentDevice().playHaptic(.Stop)
       button.setEnabled(false)
       sendMessage(Message(.CancelAlarm))
-    } else {
+    } else if state == .Inactive {
       WKInterfaceDevice.currentDevice().playHaptic(.Start)
       let amount = pickerHours * 60 * 60 + pickerMinutes * 60
       button.setEnabled(false)
       pickerHours = 0
       pickerMinutes = 0
       sendMessage(Message(.UpdateAlarm, ["amount": amount]))
+    } else {
+      button.setEnabled(false)
+      sendMessage(Message(.GetAlarm))
     }
   }
 
@@ -188,12 +170,39 @@ class TimerInterfaceController: WKInterfaceController {
             weakSelf.state = .Inactive
           }
         }
-      }, errorHandler: { error in
+      }, errorHandler: { [weak self] error in
+        self?.state = .Error
         print(error)
     })
   }
 
   // MARK: - Pickers
+
+  override func pickerDidFocus(picker: WKInterfacePicker) {
+    var location: Int
+
+    if picker == minutePicker {
+      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
+      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
+      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerMinutes)
+
+      location = pickerMinutes
+    } else {
+      minuteOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutline)
+      hourOutlineGroup.setBackgroundImageNamed(ImageList.Timer.pickerOutlineFocused)
+      inactiveGroup.setBackgroundImageNamed(ImageList.Timer.pickerHours)
+
+      location = pickerHours
+    }
+
+    inactiveGroup.startAnimatingWithImagesInRange(
+      NSRange(location: location, length: 1),
+      duration: 0, repeatCount: 1)
+  }
+
+  override func pickerDidSettle(picker: WKInterfacePicker) {
+    WKInterfaceDevice.currentDevice().playHaptic(.Click)
+  }
 
   func setupPickers() {
     let hourPickerItems: [WKPickerItem] = Array(0...12).map {
@@ -204,6 +213,7 @@ class TimerInterfaceController: WKInterfaceController {
     }
 
     hourPicker.setItems(hourPickerItems)
+    hourPicker.setSelectedItemIndex(pickerHours)
 
     let minutePickerItems: [WKPickerItem] = Array(0...59).map {
       let pickerItem = WKPickerItem()
@@ -213,6 +223,7 @@ class TimerInterfaceController: WKInterfaceController {
     }
 
     minutePicker.setItems(minutePickerItems)
+    minutePicker.setSelectedItemIndex(pickerMinutes)
   }
 
   // MARK: - Plate
@@ -238,9 +249,14 @@ class TimerInterfaceController: WKInterfaceController {
       NSRange(location: alarm.minutes, length: 1),
       duration: 0, repeatCount: 1)
 
-    minutesLabel.setText("\(alarm.minutes)")
-    minutesTextLabel.setText(NSLocalizedString("minutes", comment: "").uppercaseString)
     hoursTextLabel.setText(hoursText.uppercaseString)
+
+    minutesLabel.setText(alarm.minutes > 0
+      ? "\(alarm.minutes)"
+      : "\(alarm.seconds)")
+    minutesTextLabel.setText(alarm.minutes > 0
+      ? NSLocalizedString("minutes", comment: "").uppercaseString
+      : NSLocalizedString("seconds", comment: "").uppercaseString)
   }
 
   // MARK: - Alarms
@@ -282,6 +298,7 @@ extension TimerInterfaceController: AlarmTimerDelegate {
       updatePlate(alarm)
       if !alarm.active {
         alarmTimer.stop()
+        sendMessage(Message(.GetAlarm))
       }
     }
   }
