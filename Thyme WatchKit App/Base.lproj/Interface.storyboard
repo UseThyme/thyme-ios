@@ -313,7 +313,7 @@
         <!--GlanceController-->
         <scene sceneID="BOz-TT-tkC">
             <objects>
-                <glanceController identifier="GlanceController" spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
+                <glanceController identifier="GlanceController" spacing="0.0" id="0uZ-2p-rRc" customClass="GlanceController" customModule="Thyme_WatchKit_Extension">
                     <items>
                         <group alignment="left" spacing="0.0" id="t8f-Gd-c4y">
                             <items>
@@ -402,7 +402,7 @@
         <!--Notification Controller-->
         <scene sceneID="KIl-fV-djm">
             <objects>
-                <controller id="gdX-wl-uQE" customClass="NotificationController" customModule="Thyme_WatchKit_App" customModuleProvider="target">
+                <controller id="gdX-wl-uQE" customClass="NotificationController" customModule="Thyme_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="lZQ-Bu-dnk">
                             <items>

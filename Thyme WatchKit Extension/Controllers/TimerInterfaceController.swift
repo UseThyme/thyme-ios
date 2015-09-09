@@ -62,11 +62,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
         button.setTitle(NSLocalizedString("Start timer", comment: ""))
         button.setEnabled(pickerHours > 0 || pickerMinutes > 0)
 
-        minutePicker.setSelectedItemIndex(pickerMinutes)
-        hourPicker.setSelectedItemIndex(pickerHours)
-
-        hourPicker.resignFocus()
-        minutePicker.resignFocus()
         minutePicker.focus()
       case .Error:
         activeGroup.setHidden(true)
@@ -94,6 +89,7 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
       hourLabel.setText(NSLocalizedString("hr", comment: "").uppercaseString)
       minuteLabel.setText(NSLocalizedString("min", comment: "").uppercaseString)
     }
+    state = .Unknown
   }
 
   override func willActivate() {
@@ -107,8 +103,9 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
 
   override func didDeactivate() {
     super.didDeactivate()
-
     alarmTimer?.stop()
+    alarmTimer = nil
+    session.delegate = nil
     state = .Unknown
   }
 
@@ -216,6 +213,7 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
     }
 
     hourPicker.setItems(hourPickerItems)
+    hourPicker.setSelectedItemIndex(pickerHours)
 
     let minutePickerItems: [WKPickerItem] = Array(0...59).map {
       let pickerItem = WKPickerItem()
@@ -225,6 +223,7 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
     }
 
     minutePicker.setItems(minutePickerItems)
+    minutePicker.setSelectedItemIndex(pickerMinutes)
   }
 
   // MARK: - Plate
@@ -299,6 +298,7 @@ extension TimerInterfaceController: AlarmTimerDelegate {
       updatePlate(alarm)
       if !alarm.active {
         alarmTimer.stop()
+        sendMessage(Message(.GetAlarm))
       }
     }
   }
