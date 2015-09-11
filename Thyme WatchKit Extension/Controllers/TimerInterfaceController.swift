@@ -35,7 +35,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
 
   // MARK: - Class variables
 
-  var session : WCSession!
   var alarmTimer: AlarmTimer?
   var index = 0
   var pickerHours = 0
@@ -44,7 +43,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
   var state: State = .Unknown {
     didSet {
       button.setHidden(state == .Unknown)
-      lostConnectionImage.stopAnimating()
 
       switch state {
       case .Active:
@@ -67,7 +65,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
         activeGroup.setHidden(true)
         inactiveGroup.setHidden(true)
         lostConnectionImage.setHidden(false)
-        lostConnectionImage.startAnimating()
 
         button.setTitle(NSLocalizedString("Try again", comment: ""))
         button.setEnabled(true)
@@ -105,7 +102,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
     super.didDeactivate()
     alarmTimer?.stop()
     alarmTimer = nil
-    session.delegate = nil
     state = .Unknown
   }
 
@@ -160,6 +156,7 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
   func sendMessage(var message: Message) {
     message.parameters["index"] = index
 
+    let session = WCSession.defaultSession()
     session.sendMessage(message.data,
       replyHandler: { [weak self] response in
         if let weakSelf = self {
@@ -170,8 +167,7 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
             weakSelf.state = .Inactive
           }
         }
-      }, errorHandler: { [weak self] error in
-        self?.state = .Error
+      }, errorHandler: { error in
         print(error)
     })
   }

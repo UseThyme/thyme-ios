@@ -13,9 +13,6 @@ class GlanceController: WKInterfaceController, Sessionable {
   @IBOutlet weak var infoLabel: WKInterfaceLabel!
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
-  var session : WCSession!
-  var interfaceIsSet = false
-
   // MARK: - Lifecycle
 
   override func awakeWithContext(context: AnyObject?) {
@@ -29,19 +26,9 @@ class GlanceController: WKInterfaceController, Sessionable {
   override func willActivate() {
     super.willActivate()
 
-    showLostConnection(false)
     activateSession()
+    lostConnectionImage.setHidden(true)
     sendMessage(Message(.GetAlarms))
-  }
-
-  override func didAppear() {
-    super.didAppear()
-
-    if !interfaceIsSet {
-      showLostConnection(false)
-      activateSession()
-      sendMessage(Message(.GetAlarms))
-    }
   }
 
   override func didDeactivate() {
@@ -69,7 +56,7 @@ class GlanceController: WKInterfaceController, Sessionable {
       }
     }
 
-    showLostConnection(false)
+    lostConnectionImage.setHidden(true)
     activeGroup.setHidden(closestAlarm == nil)
     inactiveGroup.setHidden(closestAlarm != nil)
 
@@ -93,33 +80,19 @@ class GlanceController: WKInterfaceController, Sessionable {
     } else {
       herbieImage.startAnimating()
     }
-
-    interfaceIsSet = true
-  }
-
-  func showLostConnection(show: Bool) {
-    lostConnectionImage.setHidden(!show)
-    if show {
-      lostConnectionImage.startAnimating()
-    } else {
-      lostConnectionImage.stopAnimating()
-    }
   }
 
   // MARK: - Communication
 
   func sendMessage(message: Message) {
+    let session = WCSession.defaultSession()
     session.sendMessage(message.data,
       replyHandler: { [weak self] response in
         if let weakSelf = self, alarmData = response["alarms"] as? [AnyObject] {
           weakSelf.setupInterface(alarmData)
         }
       }, errorHandler: { [weak self] error in
-        if let weakSelf = self {
-          if !weakSelf.interfaceIsSet {
-            weakSelf.showLostConnection(true)
-          }
-        }
+        self?.setupInterface()
         print(error)
     })
   }
@@ -134,9 +107,6 @@ extension GlanceController: WCSessionDelegate {
       setupInterface(alarmData)
     } else {
       print("Error with fetching of application context from the parent app")
-      if !interfaceIsSet {
-        showLostConnection(true)
-      }
     }
   }
 }
