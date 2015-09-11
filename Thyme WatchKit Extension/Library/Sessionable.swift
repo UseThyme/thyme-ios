@@ -1,16 +1,22 @@
 import WatchConnectivity
 
-protocol Sessionable: WCSessionDelegate {
-  var session : WCSession! { get set }
-}
+protocol Sessionable: WCSessionDelegate { }
 
 extension Sessionable {
 
   func activateSession() {
     if WCSession.isSupported() {
-      session = WCSession.defaultSession()
+      let session = WCSession.defaultSession()
       session.delegate = self
       session.activateSession()
     }
+  }
+
+  func sessionWatchStateDidChange(session: WCSession) {
+    activateSession()
+  }
+
+  func sessionReachabilityDidChange(session: WCSession) {
+    activateSession()
   }
 }

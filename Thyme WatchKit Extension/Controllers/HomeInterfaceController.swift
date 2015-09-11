@@ -32,7 +32,6 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
   var secondsGroups = [WKInterfaceGroup]()
   var labels = [WKInterfaceLabel]()
 
-  var session : WCSession!
   var alarmTimer: AlarmTimer?
 
   override func awakeWithContext(context: AnyObject?) {
@@ -46,14 +45,15 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
       bottomLeftSecondsGroup, bottomRightSecondsGroup, ovenSecondsGroup]
     labels = [topLeftLabel, topRightLabel,
       bottomLeftLabel, bottomRightLabel, ovenLabel]
+
+    clearAllPlates()
   }
 
   override func willActivate() {
     super.willActivate()
 
-    clearAllPlates()
-    showLostConnection(false)
     activateSession()
+    showLostConnection(false)
     sendMessage(Message(.GetAlarms))
   }
 
@@ -61,7 +61,6 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
     super.didDeactivate()
 
     alarmTimer?.stop()
-    clearAllPlates()
   }
 
   // MARK: - Local notifications
@@ -123,6 +122,7 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
   // MARK: - Communication
 
   func sendMessage(message: Message) {
+    let session = WCSession.defaultSession()
     session.sendMessage(message.data,
       replyHandler: { [weak self] response in
         if let weakSelf = self, alarmData = response["alarms"] as? [AnyObject] {
@@ -130,10 +130,7 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
           weakSelf.showLostConnection(false)
           weakSelf.setupAlarms(alarmData)
         }
-      }, errorHandler: { [weak self] error in
-        if let weakSelf = self {
-          weakSelf.showLostConnection(true)
-        }
+      }, errorHandler: { error in
         print(error)
     })
   }
@@ -183,9 +180,6 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
     if show {
       alarmTimer?.stop()
       clearAllPlates()
-      lostConnectionImage.startAnimating()
-    } else {
-      lostConnectionImage.stopAnimating()
     }
   }
 
