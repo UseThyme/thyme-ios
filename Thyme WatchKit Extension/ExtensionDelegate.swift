@@ -1,13 +1,9 @@
-//
-//  ExtensionDelegate.swift
-//  Thyme
-//
-//  Created by Vadym Markov on 11/09/15.
-//  Copyright © 2015 Hyper. All rights reserved.
-//
-
 import WatchKit
+import WatchConnectivity
 
-class ExtensionDelegate: NSObject {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, Sessionable {
 
+  func applicationDidFinishLaunching() {
+    activateSession()
+  }
 }
