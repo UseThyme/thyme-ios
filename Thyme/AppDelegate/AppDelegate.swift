@@ -48,8 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     return controller
     }()
 
-  var session: WCSession!
-
   // MARK: - UIApplicationDelegate
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -59,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     }
 
     if UnitTesting.isRunning  { return true }
+
+    setupSession()
 
     let audioSession = AVAudioSession.sharedInstance()
     do { try audioSession.setCategory(AVAudioSessionCategoryPlayback) } catch {}
@@ -74,8 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
       handleLocalNotification(notification, playingSound: false)
     }
 
-    setupSession()
-
     window!.rootViewController = navigationController
     window!.makeKeyAndVisible()
 
@@ -83,8 +81,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
   }
 
   func applicationDidBecomeActive(application: UIApplication) {
-    setupSession()
-
     var theme: Themable = Theme.Main()
 
     if UIAccessibilityDarkerSystemColorsEnabled() {
@@ -117,7 +113,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
   func applicationDidEnterBackground(application: UIApplication) {
     application.beginBackgroundTaskWithExpirationHandler {}
     application.beginReceivingRemoteControlEvents()
-    setupSession()
   }
 
   override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
@@ -198,9 +193,17 @@ extension AppDelegate: WCSessionDelegate {
       }
   }
 
+  func sessionWatchStateDidChange(session: WCSession) {
+    setupSession()
+  }
+
+  func sessionReachabilityDidChange(session: WCSession) {
+    setupSession()
+  }
+
   func setupSession() {
     if WCSession.isSupported() {
-      session = WCSession.defaultSession()
+      let session = WCSession.defaultSession()
       session.delegate = self
       session.activateSession()
       WatchCommunicator.updateApplicationContext()

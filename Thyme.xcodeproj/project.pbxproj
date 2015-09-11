@@ -63,6 +63,9 @@
 		BDFD4B4F1B342E7B008AEAEF /* AlarmCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD4B4E1B342E7B008AEAEF /* AlarmCenter.swift */; };
 		BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD87F01B34827F00F0DCE6 /* Alarm.swift */; };
 		BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */; };
+		D503E6911BA2469F00E7214D /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503E6901BA2469F00E7214D /* ExtensionDelegate.swift */; settings = {ASSET_TAGS = (); }; };
+		D503E6F81BA2548F00E7214D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D503E6F71BA2548F00E7214D /* WatchConnectivity.framework */; };
+		D503E6FA1BA2549D00E7214D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D503E6F91BA2549D00E7214D /* WatchConnectivity.framework */; };
 		D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D538B8F11B8E42CD00069C38 /* ImageList.swift */; };
 		D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E71B8E89E30012DBF6 /* TimerContext.swift */; };
 		D563F95D1B9B33E700FF60AC /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F9591B9B33E700FF60AC /* GlanceController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -191,6 +194,9 @@
 		BDFD4B4E1B342E7B008AEAEF /* AlarmCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AlarmCenter.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFD87F01B34827F00F0DCE6 /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; tabWidth = 2; };
 		BDFEB6641B3706E9004DFFD0 /* TimerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = TimerControl.swift; sourceTree = "<group>"; tabWidth = 2; };
+		D503E6901BA2469F00E7214D /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		D503E6F71BA2548F00E7214D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
+		D503E6F91BA2549D00E7214D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		D538B8F11B8E42CD00069C38 /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 		D54D08E71B8E89E30012DBF6 /* TimerContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerContext.swift; sourceTree = "<group>"; };
 		D563F9591B9B33E700FF60AC /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
@@ -210,6 +216,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D503E6F81BA2548F00E7214D /* WatchConnectivity.framework in Frameworks */,
 				14F3768218FFF7EA00359D38 /* AudioToolbox.framework in Frameworks */,
 				4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */,
 				449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */,
@@ -237,6 +244,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D503E6FA1BA2549D00E7214D /* WatchConnectivity.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +419,8 @@
 		44AAE4101844C0690096BF52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D503E6F91BA2549D00E7214D /* WatchConnectivity.framework */,
+				D503E6F71BA2548F00E7214D /* WatchConnectivity.framework */,
 				14F3768118FFF7EA00359D38 /* AudioToolbox.framework */,
 				4409ADB818479AB300E349FF /* AVFoundation.framework */,
 				449143D6184767A7008A80F0 /* SystemConfiguration.framework */,
@@ -491,6 +501,7 @@
 				D538B8F01B8E42C300069C38 /* Library */,
 				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
 				BD2C3B201B3B44F900ACCFAA /* Supporting Files */,
+				D503E6901BA2469F00E7214D /* ExtensionDelegate.swift */,
 			);
 			path = "Thyme WatchKit Extension";
 			sourceTree = "<group>";
@@ -868,6 +879,7 @@
 				D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */,
 				D563F9601B9B33E700FF60AC /* TimerInterfaceController.swift in Sources */,
 				D563F9621B9B3CCB00FF60AC /* Message.swift in Sources */,
+				D503E6911BA2469F00E7214D /* ExtensionDelegate.swift in Sources */,
 				D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */,
 				D563F95D1B9B33E700FF60AC /* GlanceController.swift in Sources */,
 				D563F95F1B9B33E700FF60AC /* NotificationController.swift in Sources */,
