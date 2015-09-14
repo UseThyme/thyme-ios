@@ -58,8 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
     if UnitTesting.isRunning  { return true }
 
-    setupSession()
-
     let audioSession = AVAudioSession.sharedInstance()
     do { try audioSession.setCategory(AVAudioSessionCategoryPlayback) } catch {}
     do { try audioSession.setActive(true) } catch {}
@@ -76,6 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
     window!.rootViewController = navigationController
     window!.makeKeyAndVisible()
+
+    setupSession()
 
     return true
   }
@@ -108,11 +108,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     } else {
       homeController.registeredForNotifications()
     }
+
+    setupSession()
   }
 
   func applicationDidEnterBackground(application: UIApplication) {
     application.beginBackgroundTaskWithExpirationHandler {}
     application.beginReceivingRemoteControlEvents()
+    setupSession()
   }
 
   override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
@@ -139,6 +142,7 @@ extension AppDelegate {
     if UIApplication.sharedApplication().applicationState == .Active {
       handleLocalNotification(notification, playingSound: true)
     }
+    setupSession()
   }
 
   func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
@@ -150,7 +154,7 @@ extension AppDelegate {
     completionHandler()
   }
 
-  // MARK: Private methods
+  // MARK: - Private methods
 
   func handleLocalNotification(notification: UILocalNotification, playingSound: Bool) {
     if let userInfo = notification.userInfo, _ = userInfo[ThymeAlarmIDKey] as? String {
