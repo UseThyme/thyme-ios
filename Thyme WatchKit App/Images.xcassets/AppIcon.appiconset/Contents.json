@@ -3,62 +3,62 @@
     {
       "size" : "24x24",
       "idiom" : "watch",
+      "filename" : "App Icon Copy_48.png",
       "scale" : "2x",
-      "filename" : "48.png",
       "role" : "notificationCenter",
       "subtype" : "38mm"
     },
     {
       "size" : "27.5x27.5",
       "idiom" : "watch",
+      "filename" : "App Icon Copy_55.png",
       "scale" : "2x",
-      "filename" : "55.png",
       "role" : "notificationCenter",
       "subtype" : "42mm"
     },
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "58.png",
+      "filename" : "App Icon Copy_58.png",
       "role" : "companionSettings",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "87.png",
+      "filename" : "App Icon Copy_87.png",
       "role" : "companionSettings",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "watch",
+      "filename" : "App Icon Copy_80.png",
       "scale" : "2x",
-      "filename" : "40.png",
       "role" : "appLauncher",
       "subtype" : "38mm"
     },
     {
       "size" : "44x44",
       "idiom" : "watch",
+      "filename" : "App Icon Copy_88.png",
       "scale" : "2x",
-      "filename" : "88.png",
       "role" : "longLook",
       "subtype" : "42mm"
     },
     {
       "size" : "86x86",
       "idiom" : "watch",
+      "filename" : "App Icon Copy_172.png",
       "scale" : "2x",
-      "filename" : "172.png",
       "role" : "quickLook",
       "subtype" : "38mm"
     },
     {
       "size" : "98x98",
       "idiom" : "watch",
+      "filename" : "App Icon Copy_196.png",
       "scale" : "2x",
-      "filename" : "196.png",
       "role" : "quickLook",
       "subtype" : "42mm"
     }
