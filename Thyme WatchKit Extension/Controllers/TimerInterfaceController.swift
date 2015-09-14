@@ -98,6 +98,11 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
     sendMessage(Message(.GetAlarm))
   }
 
+  override func didAppear() {
+    activateSession()
+    sendMessage(Message(.GetAlarm))
+  }
+
   override func didDeactivate() {
     super.didDeactivate()
     alarmTimer?.stop()

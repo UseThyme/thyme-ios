@@ -46,14 +46,21 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
     labels = [topLeftLabel, topRightLabel,
       bottomLeftLabel, bottomRightLabel, ovenLabel]
 
+    activateSession()
     clearAllPlates()
   }
 
   override func willActivate() {
     super.willActivate()
 
+    clearAllPlates()
     activateSession()
     showLostConnection(false)
+    sendMessage(Message(.GetAlarms))
+  }
+
+  override func didAppear() {
+    activateSession()
     sendMessage(Message(.GetAlarms))
   }
 
@@ -61,6 +68,7 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
     super.didDeactivate()
 
     alarmTimer?.stop()
+    clearAllPlates()
   }
 
   // MARK: - Local notifications
@@ -210,6 +218,8 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
     if alarms.filter({ $0.active }).count > 0 {
       alarmTimer = AlarmTimer(alarms: alarms, delegate: self)
       alarmTimer?.start()
+    } else {
+      clearAllPlates()
     }
   }
 }
