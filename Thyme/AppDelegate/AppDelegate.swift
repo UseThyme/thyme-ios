@@ -24,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     return navigationController
     }()
 
+  lazy var audioSession: AVAudioSession? = {
+    let audioSession = AVAudioSession.sharedInstance()
+    return audioSession
+  }()
+
   lazy var audioPlayer: AVAudioPlayer? = {
     var error: NSError?
 
@@ -58,9 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
     if UnitTesting.isRunning  { return true }
 
-    let audioSession = AVAudioSession.sharedInstance()
-    do { try audioSession.setCategory(AVAudioSessionCategoryPlayback) } catch {}
-    do { try audioSession.setActive(true) } catch {}
     application.beginReceivingRemoteControlEvents()
 
     let pageControl = UIPageControl.appearance()
@@ -96,8 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
     if !AlarmCenter.hasCorrectNotificationTypes() {
       if !homeController.herbieController.isBeingPresented() {
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
+        delay(1) {
           if !AlarmCenter.hasCorrectNotificationTypes() {
             self.homeController.presentHerbie()
           }
@@ -149,6 +150,7 @@ extension AppDelegate {
     AlarmCenter.handleNotification(notification, actionID: identifier)
     if let audioPlayer = self.audioPlayer where audioPlayer.playing {
       self.audioPlayer!.stop()
+      do { try audioSession?.setActive(false) } catch {}
     }
 
     completionHandler()
@@ -159,6 +161,8 @@ extension AppDelegate {
   func handleLocalNotification(notification: UILocalNotification, playingSound: Bool) {
     if let userInfo = notification.userInfo, _ = userInfo[ThymeAlarmIDKey] as? String {
       if playingSound {
+        do { try audioSession?.setCategory(AVAudioSessionCategoryPlayback) } catch {}
+        do { try audioSession?.setActive(true) } catch {}
         audioPlayer!.prepareToPlay()
         audioPlayer!.play()
       }

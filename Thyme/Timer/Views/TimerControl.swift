@@ -23,16 +23,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
     }
   }
 
-  lazy var player: AVAudioPlayer? = {
-    let soundFilePath = NSBundle.mainBundle().pathForResource("tick", ofType: "wav")!
-    let url = NSURL(fileURLWithPath: soundFilePath)
-    
-    var player: AVAudioPlayer?
-    do { try player = AVAudioPlayer(contentsOfURL: url) } catch {}
-
-    return player
-    }()
-
   var angle: Int = 0 {
     willSet(value) {
       let minute = value/6
@@ -66,10 +56,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
   var minutes: Int = 0 {
     willSet(value) {
-      if minutes != value && touchesAreActive == true {
-        if value % 5 == 0 { playInputClick() }
-      }
-
       angle = value * 6
       setNeedsDisplay()
     }
@@ -404,11 +390,6 @@ public class TimerControl: UIControl, ContentSizeChangable {
     }
 
     return false
-  }
-
-  func playInputClick() {
-    player!.prepareToPlay()
-    player!.play()
   }
 
   func startAlarm() {
