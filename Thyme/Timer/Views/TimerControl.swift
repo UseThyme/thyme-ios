@@ -34,8 +34,11 @@ public class TimerControl: UIControl, ContentSizeChangable {
         }
       } else {
         timerTitleValueLabel.text = "\(minute)"
-        if minutes > 0 {
+        if minute > 0 {
           timerSubtitleLabel.text = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
+        } else {
+          timerTitleValueLabel.text = "\(seconds)"
+          timerSubtitleLabel.text = NSLocalizedString("SECONDS LEFT", comment: "SECONDS LEFT")
         }
       }
     }
@@ -64,7 +67,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
   var seconds: Int = 0 {
     willSet(value) {
       if minutes < 1 && hours < 1 && seconds > 0 {
-        timerTitleValueLabel.text = "\(seconds)"
+        timerTitleValueLabel.text = "\(seconds - 1)"
         timerSubtitleLabel.text = NSLocalizedString("SECONDS LEFT", comment: "SECONDS LEFT")
       }
     }
@@ -149,7 +152,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
 
     let fontSize = floor(defaultSize * CGRectGetWidth(self.frame)) / CGRectGetWidth(bounds)
     let font = Font.TimerControl.minutesTitleLabel(fontSize)
-    let minutesLeftText = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
+    let minutesLeftText = NSLocalizedString("SECONDS LEFT", comment: "SECONDS LEFT")
     let attributes = [NSFontAttributeName : font]
     let textSize = (minutesLeftText as NSString).sizeWithAttributes(attributes)
     let factor: CGFloat = 5
@@ -420,7 +423,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
     hours = 0
     minutes = 0
     seconds = 0
-    timerSubtitleLabel.text = NSLocalizedString("MINUTES LEFT", comment: "MINUTES LEFT")
+    timerSubtitleLabel.text = NSLocalizedString("SECONDS LEFT", comment: "SECONDS LEFT")
     sendActionsForControlEvents(.ValueChanged)
   }
 
