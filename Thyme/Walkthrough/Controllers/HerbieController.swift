@@ -143,6 +143,14 @@ struct Reason {
 
 class HerbieController: ViewController {
 
+  override var theme: Themable? {
+    willSet(newTheme) {
+      gradientLayer.colors = [UIColor(hex: "E3FFFF").CGColor,
+        UIColor(hex: "E3FFFF").CGColor]
+      gradientLayer.locations = newTheme?.locations
+    }
+  }
+
   var reason: Reason? {
     didSet {
       let height: CGFloat = 55
@@ -157,7 +165,14 @@ class HerbieController: ViewController {
       self.textLabel.transform = CGAffineTransformMakeTranslation(1000,0)
 
       UIView.animateWithDuration(0.3, animations: {
-        self.view.backgroundColor = self.reason?.backgroundColor
+
+        if let reason = self.reason {
+          self.gradientLayer.colors = [
+            reason.backgroundColor.CGColor,
+            reason.backgroundColor.CGColor]
+          self.gradientLayer.locations = [0,1]
+        }
+
         if self.reason?.herbieMood == .Neutral {
           self.herbie.alpha = 0.0
         }
@@ -298,8 +313,6 @@ class HerbieController: ViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    view.backgroundColor = UIColor(hex: "E3FFFF")
-
     for subview in [herbie, titleLabel, textLabel, tryButton, reasonImage, reasonButton] { view.addSubview(subview) }
 
     reason = Reason(backgroundColor: UIColor(hex: "E3FFFF"), title: "Hello, I'm Herbie!",
@@ -308,6 +321,16 @@ class HerbieController: ViewController {
       imageType: .Animated,
       tryText: "Ok, got it!",
       tryBackground: UIColor(hex: "04BAC0"), herbieMood: .Happy)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    gradientLayer.colors = [
+      reason!.backgroundColor.CGColor,
+      reason!.backgroundColor.CGColor]
+    gradientLayer.locations = [0,1]
+
+    view.layer.insertSublayer(gradientLayer, atIndex: 0)
   }
 
   override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -334,6 +357,12 @@ class HerbieController: ViewController {
       tryText: "Let’s give it another try!",
       tryTextColor: UIColor(hex: "FF5858"),
       tryBackground: UIColor.whiteColor(), herbieMood: .Sad)
+
+    gradientLayer.colors = [
+      reason!.backgroundColor.CGColor,
+      reason!.backgroundColor.CGColor]
+
+    gradientLayer.locations = [0,1]
   }
 
   func anotherReason() {
