@@ -383,17 +383,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
     self.setNeedsStatusBarAppearanceUpdate()
   }
 
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-
-    let registredSettings = UIApplication.sharedApplication().currentUserNotificationSettings()
-    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-
-    if registredSettings!.types != types {
-      presentHerbie()
-    }
-  }
-
   override func prefersStatusBarHidden() -> Bool {
     return false
   }
