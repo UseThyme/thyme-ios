@@ -414,12 +414,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func presentHerbie() {
-    let navigationController = UINavigationController(rootViewController: herbieController)
-    herbieController.theme = theme
-    navigationController.navigationBarHidden = true
-    presentViewController(navigationController,
-      animated: true,
-      completion: nil)
+    if let visibleViewController = navigationController?.visibleViewController where !visibleViewController.isKindOfClass(HerbieController.self) {
+      herbieController.theme = theme
+      herbieController.transitioningDelegate = transition
+      presentViewController(herbieController, animated: true, completion: nil)
+    }
   }
 
   func registeredForNotifications() {
