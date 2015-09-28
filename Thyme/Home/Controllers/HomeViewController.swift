@@ -383,17 +383,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
     self.setNeedsStatusBarAppearanceUpdate()
   }
 
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-
-    let registredSettings = UIApplication.sharedApplication().currentUserNotificationSettings()
-    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-
-    if registredSettings!.types != types {
-      presentHerbie()
-    }
-  }
-
   override func prefersStatusBarHidden() -> Bool {
     return false
   }
@@ -425,12 +414,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
   }
 
   func presentHerbie() {
-    let navigationController = UINavigationController(rootViewController: herbieController)
-    herbieController.theme = theme
-    navigationController.navigationBarHidden = true
-    presentViewController(navigationController,
-      animated: true,
-      completion: nil)
+    if let visibleViewController = navigationController?.visibleViewController where !visibleViewController.isKindOfClass(HerbieController.self) {
+      herbieController.theme = theme
+      herbieController.transitioningDelegate = transition
+      presentViewController(herbieController, animated: true, completion: nil)
+    }
   }
 
   func registeredForNotifications() {
