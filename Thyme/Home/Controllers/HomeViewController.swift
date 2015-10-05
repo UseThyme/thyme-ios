@@ -52,11 +52,11 @@ class HomeViewController: ViewController, ContentSizeChangable {
       margin  = 70
     } else {
       if Screen.height == 480 {
-        margin = 10
+        margin = 42
       } else if Screen.height == 568 {
         margin = 50
       } else if Screen.height == 667 {
-        margin = 68
+        margin = 64
       } else {
         margin = 75
       }
@@ -236,11 +236,14 @@ class HomeViewController: ViewController, ContentSizeChangable {
       cellWidth = 175
       sideMargin = 200
     } else {
-      if Screen.height == 480 || Screen.height == 568 {
+      if Screen.height == 480 {
+        cellWidth = 120
+        sideMargin = 100
+      } else if Screen.height == 568 {
         cellWidth = 120
         sideMargin = 100
       } else if Screen.height == 667 {
-        cellWidth = 133
+        cellWidth = 140
         sideMargin = 120
       } else {
         cellWidth = 152
@@ -269,32 +272,31 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   lazy var ovenBackgroundImageView: UIImageView = {
     let imageView: UIImageView
-    let imageName = Screen.isPad
-      ? "ovenBackground~iPad"
-      : "ovenBackground"
-    let image = UIImage(named: imageName)
+    let image = UIImage(named: "Oven")
 
-    var topMargin: CGFloat = image!.size.height
-    var x: CGFloat = Screen.width / 2 - image!.size.width / 2
     var width: CGFloat = image!.size.width
     var height: CGFloat = image!.size.height
+    var topMargin: CGFloat = image!.size.height
 
     if Screen.isPad {
       topMargin += 175
     } else {
       if Screen.height == 480 {
-        topMargin += 40
+        topMargin += 10
+        width -= 42
+        height -= 42
       }  else if Screen.height == 568 {
-        topMargin += 96
+        width -= 42
+        height -= 42
+        topMargin += 70
       } else if Screen.height == 667 {
         topMargin += 118
-      } else if Screen.height == 763 {
-        height = 173
+      } else if Screen.height == 736 {
         topMargin += 128
-        width = 304
-        x = 54
       }
     }
+    
+    var x: CGFloat = Screen.width / 2 - width / 2
 
     let y = Screen.height - topMargin * 1.2
     imageView = UIImageView(frame: CGRect(x: x, y: y,
@@ -307,10 +309,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
   lazy var ovenShineImageView: UIImageView = { [unowned self] in
     let imageView: UIImageView
-    let imageName = Screen.isPad
-      ? "ovenShine~iPad"
-      : "ovenShine"
-    let image = UIImage(named: imageName)
+    let image = UIImage(named: "OvenGloss")
 
     imageView = UIImageView(frame: self.ovenBackgroundImageView.frame)
     imageView.image = image
