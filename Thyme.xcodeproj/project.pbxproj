@@ -8,21 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1461778319CDBF1F00E46B1D /* Images.xcassets */; };
-		146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 146489DC19CF276300C5A85C /* ovenBackground@3x.png */; };
 		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
 		14F3768218FFF7EA00359D38 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F3768118FFF7EA00359D38 /* AudioToolbox.framework */; };
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
 		441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 441B5819184E14F600839331 /* kitchenImage@2x.png */; };
-		442CD149184F7A0900CE9031 /* ovenShine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 442CD148184F7A0900CE9031 /* ovenShine@2x.png */; };
-		4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */; };
-		4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
 		4473616C1856008B004274DF /* fingerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4473616B1856008B004274DF /* fingerImage@2x.png */; };
 		449143D118476786008A80F0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D018476786008A80F0 /* CoreText.framework */; };
 		449143D318476798008A80F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D218476798008A80F0 /* QuartzCore.framework */; };
 		449143D5184767A1008A80F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D4184767A1008A80F0 /* Security.framework */; };
 		449143D7184767A7008A80F0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D6184767A7008A80F0 /* SystemConfiguration.framework */; };
-		44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44A54150184E1FCC00964F58 /* ovenBackground@2x.png */; };
 		44AAE4121844C0690096BF52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4111844C0690096BF52 /* Foundation.framework */; };
 		44AAE4141844C0690096BF52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4131844C0690096BF52 /* CoreGraphics.framework */; };
 		44AAE4161844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
@@ -130,22 +125,17 @@
 
 /* Begin PBXFileReference section */
 		1461778319CDBF1F00E46B1D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		146489DC19CF276300C5A85C /* ovenBackground@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@3x.png"; sourceTree = "<group>"; };
 		14CEFBAF18FFD6FB000952EC /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14F3768118FFF7EA00359D38 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		441B5819184E14F600839331 /* kitchenImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kitchenImage@2x.png"; sourceTree = "<group>"; };
-		442CD148184F7A0900CE9031 /* ovenShine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenShine@2x.png"; sourceTree = "<group>"; };
-		4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground~iPad@2x.png"; sourceTree = "<group>"; };
-		4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenShine~iPad@2x.png"; sourceTree = "<group>"; };
 		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
 		4473616B1856008B004274DF /* fingerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingerImage@2x.png"; sourceTree = "<group>"; };
 		449143D018476786008A80F0 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		449143D218476798008A80F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		449143D4184767A1008A80F0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		449143D6184767A7008A80F0 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		44A54150184E1FCC00964F58 /* ovenBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ovenBackground@2x.png"; sourceTree = "<group>"; };
 		44AAE40E1844C0690096BF52 /* Thyme.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Thyme.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44AAE4111844C0690096BF52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		44AAE4131844C0690096BF52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -353,11 +343,6 @@
 				4473616B1856008B004274DF /* fingerImage@2x.png */,
 				441B5819184E14F600839331 /* kitchenImage@2x.png */,
 				44AE6684184F4E1C00148398 /* oven@2x.png */,
-				44A54150184E1FCC00964F58 /* ovenBackground@2x.png */,
-				146489DC19CF276300C5A85C /* ovenBackground@3x.png */,
-				4454E98518EB3A7200CB1C87 /* ovenBackground~iPad@2x.png */,
-				442CD148184F7A0900CE9031 /* ovenShine@2x.png */,
-				4454E98718EB3B2600CB1C87 /* ovenShine~iPad@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -727,10 +712,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDFA94B61B89AB9300D4408F /* tick.wav in Resources */,
-				44A54151184E1FCC00964F58 /* ovenBackground@2x.png in Resources */,
 				1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */,
-				4454E98818EB3B2600CB1C87 /* ovenShine~iPad@2x.png in Resources */,
-				442CD149184F7A0900CE9031 /* ovenShine@2x.png in Resources */,
 				44AE6687184F4E1C00148398 /* 0-1@2x.png in Resources */,
 				44AE6685184F4E1C00148398 /* 1-1@2x.png in Resources */,
 				44AE6688184F4E1C00148398 /* 0-0@2x.png in Resources */,
@@ -738,9 +720,7 @@
 				4473616C1856008B004274DF /* fingerImage@2x.png in Resources */,
 				44AE6689184F4E1C00148398 /* oven@2x.png in Resources */,
 				14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */,
-				4454E98618EB3A7200CB1C87 /* ovenBackground~iPad@2x.png in Resources */,
 				441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */,
-				146489DD19CF276300C5A85C /* ovenBackground@3x.png in Resources */,
 				44AE6686184F4E1C00148398 /* 1-0@2x.png in Resources */,
 				4465EE93184772F9006C145F /* alarm.caf in Resources */,
 			);

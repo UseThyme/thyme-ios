@@ -38,7 +38,7 @@ class TimerViewController: ViewController {
         topMargin = 60
       } else if Screen.height == 667 {
         topMargin = 70
-      } else if Screen.height == 763 {
+      } else if Screen.height == 736 {
         topMargin = 78
       }
     }
@@ -66,7 +66,7 @@ class TimerViewController: ViewController {
     if Screen.height == 667 {
       xOffset = 70
       yOffset = 35
-    } else if Screen.height == 763 {
+    } else if Screen.height == 736 {
       xOffset = 80
       yOffset = 45
     }
@@ -110,7 +110,7 @@ class TimerViewController: ViewController {
         y = Screen.height - topMargin
         width = 75
         height = 75
-      } else if Screen.height == 763 {
+      } else if Screen.height == 736 {
         topMargin = 181
         x = 166
         y = Screen.height - topMargin
