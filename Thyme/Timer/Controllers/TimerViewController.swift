@@ -90,32 +90,21 @@ class TimerViewController: ViewController {
 
     var topMargin: CGFloat = image.size.height
     var x: CGFloat = Screen.width / 2 - image.size.width / 2
-    var y: CGFloat = Screen.width / 2 - image.size.width / 2
+    var y: CGFloat = Screen.height / 2 - image.size.height / 2
     var width: CGFloat = image.size.width
     var height: CGFloat = image.size.height
 
     if Screen.isPad {
-      topMargin = 330
-      y = Screen.height - topMargin
+      y = Screen.height - 330
     } else {
       if Screen.height == 480 {
-        topMargin = 110
-        y = Screen.height - topMargin
+        y = Screen.height - 110
       }  else if Screen.height == 568 {
-        topMargin = 140
-        y = Screen.height - topMargin
+        y = Screen.height - 140
       } else if Screen.height == 667 {
-        topMargin = 164
-        x = 150
-        y = Screen.height - topMargin
-        width = 75
-        height = 75
+        y = Screen.height - 164
       } else if Screen.height == 736 {
-        topMargin = 181
-        x = 166
-        y = Screen.height - topMargin
-        width = 83
-        height = 83
+        y = Screen.height - 181
       }
     }
 

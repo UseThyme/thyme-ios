@@ -104,8 +104,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
             UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
               self.titleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
               self.subtitleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
-              self.stoveView.transform = CGAffineTransformMakeScale(0.20, 0.20)
-              self.stoveView.frame.origin.x = timerController.kitchenButton.frame.origin.x
+              self.stoveView.transform = CGAffineTransformMakeScale(0.21, 0.21)
+              self.stoveView.frame.origin.x = timerController.kitchenButton.frame.origin.x - 11
               self.stoveView.frame.origin.y = timerController.kitchenButton.frame.origin.y - 25
               }, completion: { _ in
                 timerController.kitchenButton.alpha = controller.isBeingDismissed() ? 0 : 1
