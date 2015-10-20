@@ -84,7 +84,7 @@ class TimerViewController: ViewController {
   lazy var kitchenButton: UIButton = {
     let button = UIButton(type: .Custom)
     let imageName = self.alarm.type == .Oven
-      ? "oven"
+      ? "mini-oven"
       : "\(self.alarm.indexPath!.row)-\(self.alarm.indexPath!.section)"
     let image = UIImage(named: imageName)!
 
