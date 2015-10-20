@@ -101,13 +101,13 @@ class HomeViewController: ViewController, ContentSizeChangable {
         if let timerController = controller as? TimerViewController {
           if show {
             timerController.kitchenButton.alpha = 0
+            self.ovenShineImageView.alpha = 0
             UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
               self.titleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
               self.subtitleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
               self.stoveView.transform = CGAffineTransformMakeScale(0.21, 0.21)
               self.stoveView.frame.origin.x = timerController.kitchenButton.frame.origin.x - 10
               self.stoveView.frame.origin.y = timerController.kitchenButton.frame.origin.y - 25
-              self.ovenShineImageView.alpha = 0
               }, completion: { _ in
                 timerController.kitchenButton.alpha = controller.isBeingDismissed() ? 0 : 1
               })
@@ -133,7 +133,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
             self.stoveView.transform = CGAffineTransformIdentity
             self.stoveView.frame.origin.x = 0
             self.stoveView.frame.origin.y = self.topMargin
-            self.ovenShineImageView.alpha = 0
+            self.ovenShineImageView.alpha = 1
           }
         }
       }
