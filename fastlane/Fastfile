@@ -43,7 +43,8 @@ gym(scheme: "Thyme", verbose: true, clean: true, use_legacy_build_api: true)
 crashlytics(
 crashlytics_path: './Pods/Crashlytics/Crashlytics.framework',
 api_token: '67ffdb78ce9cd50af8404c244fa25df01ea2b5bc',
-build_secret: '20cddd5b881ce36bfe855addd58d8d01aa2755c9bfa2c91515de7457a65d8d82'
+build_secret: '20cddd5b881ce36bfe855addd58d8d01aa2755c9bfa2c91515de7457a65d8d82',
+groups: 'hyper-ios'
 )
 end
 
