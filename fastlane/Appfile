@@ -1,0 +1,6 @@
+for_lane :fabric do
+  app_identifier "no.hyper.thyme" # The bundle identifier of your app
+  apple_id "christoffer+fastlane@hyper.no" # Your Apple email address
+  team_name "Hyper Interaktiv"
+  team_id "XVAH95CHDC"
+end
