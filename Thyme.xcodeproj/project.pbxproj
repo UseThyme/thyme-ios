@@ -61,6 +61,20 @@
 		D503E6911BA2469F00E7214D /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D503E6901BA2469F00E7214D /* ExtensionDelegate.swift */; settings = {ASSET_TAGS = (); }; };
 		D503E6F81BA2548F00E7214D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D503E6F71BA2548F00E7214D /* WatchConnectivity.framework */; };
 		D503E6FA1BA2549D00E7214D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D503E6F91BA2549D00E7214D /* WatchConnectivity.framework */; };
+		D510E57B1BD7074300FFD7A5 /* MMWormhole.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E56D1BD7074300FFD7A5 /* MMWormhole.m */; settings = {ASSET_TAGS = (); }; };
+		D510E57C1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E56F1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E57D1BD7074300FFD7A5 /* MMWormholeFileTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5711BD7074300FFD7A5 /* MMWormholeFileTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E57E1BD7074300FFD7A5 /* MMWormholeSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5731BD7074300FFD7A5 /* MMWormholeSession.m */; settings = {ASSET_TAGS = (); }; };
+		D510E57F1BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5751BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5801BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5771BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5811BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5791BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5821BD7074D00FFD7A5 /* MMWormholeCoordinatedFileTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E56F1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5831BD7075200FFD7A5 /* MMWormhole.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E56D1BD7074300FFD7A5 /* MMWormhole.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5841BD7075500FFD7A5 /* MMWormholeFileTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5711BD7074300FFD7A5 /* MMWormholeFileTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5851BD7075800FFD7A5 /* MMWormholeSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5731BD7074300FFD7A5 /* MMWormholeSession.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5861BD7075B00FFD7A5 /* MMWormholeSessionContextTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5751BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5871BD7075E00FFD7A5 /* MMWormholeSessionFileTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5771BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.m */; settings = {ASSET_TAGS = (); }; };
+		D510E5881BD7076100FFD7A5 /* MMWormholeSessionMessageTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5791BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.m */; settings = {ASSET_TAGS = (); }; };
 		D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D538B8F11B8E42CD00069C38 /* ImageList.swift */; };
 		D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D08E71B8E89E30012DBF6 /* TimerContext.swift */; };
 		D563F95D1B9B33E700FF60AC /* GlanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F9591B9B33E700FF60AC /* GlanceController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -187,6 +201,22 @@
 		D503E6901BA2469F00E7214D /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		D503E6F71BA2548F00E7214D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		D503E6F91BA2549D00E7214D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		D510E5691BD706FF00FFD7A5 /* Thyme-Watch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Watch-Bridging-Header.h"; sourceTree = "<group>"; };
+		D510E56C1BD7074300FFD7A5 /* MMWormhole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormhole.h; sourceTree = "<group>"; };
+		D510E56D1BD7074300FFD7A5 /* MMWormhole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormhole.m; sourceTree = "<group>"; };
+		D510E56E1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeCoordinatedFileTransiting.h; sourceTree = "<group>"; };
+		D510E56F1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormholeCoordinatedFileTransiting.m; sourceTree = "<group>"; };
+		D510E5701BD7074300FFD7A5 /* MMWormholeFileTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeFileTransiting.h; sourceTree = "<group>"; };
+		D510E5711BD7074300FFD7A5 /* MMWormholeFileTransiting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormholeFileTransiting.m; sourceTree = "<group>"; };
+		D510E5721BD7074300FFD7A5 /* MMWormholeSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeSession.h; sourceTree = "<group>"; };
+		D510E5731BD7074300FFD7A5 /* MMWormholeSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormholeSession.m; sourceTree = "<group>"; };
+		D510E5741BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeSessionContextTransiting.h; sourceTree = "<group>"; };
+		D510E5751BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormholeSessionContextTransiting.m; sourceTree = "<group>"; };
+		D510E5761BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeSessionFileTransiting.h; sourceTree = "<group>"; };
+		D510E5771BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormholeSessionFileTransiting.m; sourceTree = "<group>"; };
+		D510E5781BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeSessionMessageTransiting.h; sourceTree = "<group>"; };
+		D510E5791BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormholeSessionMessageTransiting.m; sourceTree = "<group>"; };
+		D510E57A1BD7074300FFD7A5 /* MMWormholeTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeTransiting.h; sourceTree = "<group>"; };
 		D538B8F11B8E42CD00069C38 /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 		D54D08E71B8E89E30012DBF6 /* TimerContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerContext.swift; sourceTree = "<group>"; };
 		D563F9591B9B33E700FF60AC /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
@@ -378,6 +408,7 @@
 		44AAE4051844C0690096BF52 = {
 			isa = PBXGroup;
 			children = (
+				D510E56A1BD7074300FFD7A5 /* Vendor */,
 				44AAE4171844C0690096BF52 /* Thyme */,
 				44AAE4301844C0690096BF52 /* ThymeTests */,
 				BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */,
@@ -487,6 +518,7 @@
 				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
 				BD2C3B201B3B44F900ACCFAA /* Supporting Files */,
 				D503E6901BA2469F00E7214D /* ExtensionDelegate.swift */,
+				D510E5691BD706FF00FFD7A5 /* Thyme-Watch-Bridging-Header.h */,
 			);
 			path = "Thyme WatchKit Extension";
 			sourceTree = "<group>";
@@ -546,6 +578,36 @@
 				F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		D510E56A1BD7074300FFD7A5 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				D510E56B1BD7074300FFD7A5 /* MMWormhole */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		D510E56B1BD7074300FFD7A5 /* MMWormhole */ = {
+			isa = PBXGroup;
+			children = (
+				D510E56C1BD7074300FFD7A5 /* MMWormhole.h */,
+				D510E56D1BD7074300FFD7A5 /* MMWormhole.m */,
+				D510E56E1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.h */,
+				D510E56F1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m */,
+				D510E5701BD7074300FFD7A5 /* MMWormholeFileTransiting.h */,
+				D510E5711BD7074300FFD7A5 /* MMWormholeFileTransiting.m */,
+				D510E5721BD7074300FFD7A5 /* MMWormholeSession.h */,
+				D510E5731BD7074300FFD7A5 /* MMWormholeSession.m */,
+				D510E5741BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.h */,
+				D510E5751BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.m */,
+				D510E5761BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.h */,
+				D510E5771BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.m */,
+				D510E5781BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.h */,
+				D510E5791BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.m */,
+				D510E57A1BD7074300FFD7A5 /* MMWormholeTransiting.h */,
+			);
+			path = MMWormhole;
 			sourceTree = "<group>";
 		};
 		D538B8F01B8E42C300069C38 /* Library */ = {
@@ -821,10 +883,14 @@
 			files = (
 				BDFD4B4F1B342E7B008AEAEF /* AlarmCenter.swift in Sources */,
 				BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */,
+				D510E57F1BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.m in Sources */,
 				BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */,
+				D510E57C1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m in Sources */,
 				BD08D1151B8B8FF2009EAD75 /* HYPDrawText.m in Sources */,
 				BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
+				D510E5811BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.m in Sources */,
+				D510E57B1BD7074300FFD7A5 /* MMWormhole.m in Sources */,
 				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
 				BD3B8B8F1B8F755600AAC2A9 /* UIColor+Hex.swift in Sources */,
 				BD6E97431B8BC1D1004C83D4 /* UIView+ToImage.swift in Sources */,
@@ -833,11 +899,14 @@
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
 				BD9705F21B9847560094574C /* HerbieController.swift in Sources */,
 				BDF6EC8A1B8E3685002A051B /* Device.swift in Sources */,
+				D510E57E1BD7074300FFD7A5 /* MMWormholeSession.m in Sources */,
 				BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */,
+				D510E57D1BD7074300FFD7A5 /* MMWormholeFileTransiting.m in Sources */,
 				BD08D10A1B8B82CF009EAD75 /* Screen.swift in Sources */,
 				BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */,
 				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
 				BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */,
+				D510E5801BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -856,11 +925,18 @@
 			files = (
 				D5CF4E011B9FA3F70005D70F /* Sessionable.swift in Sources */,
 				D538B8F21B8E42CD00069C38 /* ImageList.swift in Sources */,
+				D510E5861BD7075B00FFD7A5 /* MMWormholeSessionContextTransiting.m in Sources */,
 				D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */,
 				D563F9601B9B33E700FF60AC /* TimerInterfaceController.swift in Sources */,
+				D510E5831BD7075200FFD7A5 /* MMWormhole.m in Sources */,
+				D510E5851BD7075800FFD7A5 /* MMWormholeSession.m in Sources */,
 				D563F9621B9B3CCB00FF60AC /* Message.swift in Sources */,
 				D503E6911BA2469F00E7214D /* ExtensionDelegate.swift in Sources */,
+				D510E5821BD7074D00FFD7A5 /* MMWormholeCoordinatedFileTransiting.m in Sources */,
+				D510E5871BD7075E00FFD7A5 /* MMWormholeSessionFileTransiting.m in Sources */,
 				D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */,
+				D510E5881BD7076100FFD7A5 /* MMWormholeSessionMessageTransiting.m in Sources */,
+				D510E5841BD7075500FFD7A5 /* MMWormholeFileTransiting.m in Sources */,
 				D563F95D1B9B33E700FF60AC /* GlanceController.swift in Sources */,
 				D563F95F1B9B33E700FF60AC /* NotificationController.swift in Sources */,
 				D563F95E1B9B33E700FF60AC /* HomeInterfaceController.swift in Sources */,
@@ -1134,7 +1210,7 @@
 				PROVISIONING_PROFILE = "9ff4bfe9-06cd-4bb9-a0e0-607bff15864b";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Thyme WatchKit Extension/Thyme-Watch-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1163,7 +1239,7 @@
 				PROVISIONING_PROFILE = "9ff4bfe9-06cd-4bb9-a0e0-607bff15864b";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Thyme WatchKit Extension/Thyme-Watch-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
