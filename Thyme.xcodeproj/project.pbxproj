@@ -217,6 +217,8 @@
 		D510E5781BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeSessionMessageTransiting.h; sourceTree = "<group>"; };
 		D510E5791BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormholeSessionMessageTransiting.m; sourceTree = "<group>"; };
 		D510E57A1BD7074300FFD7A5 /* MMWormholeTransiting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormholeTransiting.h; sourceTree = "<group>"; };
+		D510E5891BD707C200FFD7A5 /* Thyme.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Thyme.entitlements; sourceTree = "<group>"; };
+		D510E58A1BD707D600FFD7A5 /* Thyme WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Thyme WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		D538B8F11B8E42CD00069C38 /* ImageList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 		D54D08E71B8E89E30012DBF6 /* TimerContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerContext.swift; sourceTree = "<group>"; };
 		D563F9591B9B33E700FF60AC /* GlanceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlanceController.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 		44AAE4171844C0690096BF52 /* Thyme */ = {
 			isa = PBXGroup;
 			children = (
+				D510E5891BD707C200FFD7A5 /* Thyme.entitlements */,
 				446C9E221844C4E2005FD797 /* AppDelegate */,
 				446C9E261844C551005FD797 /* Home */,
 				44A691AB1844E02D005D4C5A /* Images */,
@@ -512,6 +515,7 @@
 		BD2C3B1F1B3B44F900ACCFAA /* Thyme WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				D510E58A1BD707D600FFD7A5 /* Thyme WatchKit Extension.entitlements */,
 				D563F9581B9B33E700FF60AC /* Controllers */,
 				D5E588231B8E54FD0050DD5C /* Models */,
 				D538B8F01B8E42C300069C38 /* Library */,
@@ -732,6 +736,11 @@
 				TargetAttributes = {
 					44AAE40D1844C0690096BF52 = {
 						DevelopmentTeam = XVAH95CHDC;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					44AAE4281844C0690096BF52 = {
 						TestTargetID = 44AAE40D1844C0690096BF52;
@@ -739,6 +748,11 @@
 					BD2C3B1D1B3B44F900ACCFAA = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = XVAH95CHDC;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					BD2C3B2C1B3B44F900ACCFAA = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -1079,8 +1093,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = Thyme/Thyme.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1094,7 +1109,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = no.hyper.thyme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "$(PROFILE_UDID)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme/AppDelegate/Thyme-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1111,8 +1126,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = Thyme/Thyme.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1126,7 +1142,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = no.hyper.thyme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "$(PROFILE_UDID)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme/AppDelegate/Thyme-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1190,8 +1206,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hyper Interaktiv (XVAH95CHDC)";
+				CODE_SIGN_ENTITLEMENTS = "Thyme WatchKit Extension/Thyme WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hyper Interaktiv (XVAH95CHDC)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1207,7 +1225,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = no.hyper.thyme.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "9ff4bfe9-06cd-4bb9-a0e0-607bff15864b";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme WatchKit Extension/Thyme-Watch-Bridging-Header.h";
@@ -1222,8 +1240,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hyper Interaktiv (XVAH95CHDC)";
+				CODE_SIGN_ENTITLEMENTS = "Thyme WatchKit Extension/Thyme WatchKit Extension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hyper Interaktiv (XVAH95CHDC)";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1236,7 +1256,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = no.hyper.thyme.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "9ff4bfe9-06cd-4bb9-a0e0-607bff15864b";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme WatchKit Extension/Thyme-Watch-Bridging-Header.h";
