@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites name="fastlane">
   <testsuite name="deploy">
-    <testcase name="0: Verifying required fastlane version" time="0.000418"/>
-    <testcase name="1: default_platform" time="0.000143"/>
-    <testcase name="2: increment_build_number" time="1.307649"/>
-    <testcase name="3: sigh" time="15.319634"/>
-    <testcase name="4: gym" time="60.185069"/>
-    <testcase name="5: crashlytics" time="13.76771"/>
+    <testcase name="0: Verifying required fastlane version" time="0.000399"/>
+    <testcase name="1: default_platform" time="0.000115"/>
+    <testcase name="2: cocoapods" time="9.407817"/>
+    <testcase name="3: increment_build_number" time="1.407547"/>
+    <testcase name="4: sigh" time="14.443105"/>
+    <testcase name="5: gym" time="54.747551"/>
+    <testcase name="6: crashlytics" time="10.029601"/>
   </testsuite>
 </testsuites>
