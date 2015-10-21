@@ -11,9 +11,7 @@
 		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
 		14F3768218FFF7EA00359D38 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F3768118FFF7EA00359D38 /* AudioToolbox.framework */; };
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
-		441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 441B5819184E14F600839331 /* kitchenImage@2x.png */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
-		4473616C1856008B004274DF /* fingerImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4473616B1856008B004274DF /* fingerImage@2x.png */; };
 		449143D118476786008A80F0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D018476786008A80F0 /* CoreText.framework */; };
 		449143D318476798008A80F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D218476798008A80F0 /* QuartzCore.framework */; };
 		449143D5184767A1008A80F0 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D4184767A1008A80F0 /* Security.framework */; };
@@ -27,12 +25,7 @@
 		44AAE42D1844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
 		44AAE4351844C0690096BF52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AAE4331844C0690096BF52 /* InfoPlist.strings */; };
 		44AAE4371844C0690096BF52 /* ThymeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AAE4361844C0690096BF52 /* ThymeTests.m */; };
-		44AE6685184F4E1C00148398 /* 1-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6680184F4E1C00148398 /* 1-1@2x.png */; };
-		44AE6686184F4E1C00148398 /* 1-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6681184F4E1C00148398 /* 1-0@2x.png */; };
-		44AE6687184F4E1C00148398 /* 0-1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6682184F4E1C00148398 /* 0-1@2x.png */; };
-		44AE6688184F4E1C00148398 /* 0-0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6683184F4E1C00148398 /* 0-0@2x.png */; };
-		44AE6689184F4E1C00148398 /* oven@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 44AE6684184F4E1C00148398 /* oven@2x.png */; };
-		629F51B26C66E9A24287C335 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92212D57F2CB0A81DABE31B6 /* Pods.framework */; };
+		629F51B26C66E9A24287C335 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92212D57F2CB0A81DABE31B6 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		BD08D10A1B8B82CF009EAD75 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D1091B8B82CF009EAD75 /* Screen.swift */; };
 		BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D10D1B8B8798009EAD75 /* Theme.swift */; };
 		BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D10F1B8B8B18009EAD75 /* Math.swift */; };
@@ -129,9 +122,7 @@
 		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14F3768118FFF7EA00359D38 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		441B5819184E14F600839331 /* kitchenImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kitchenImage@2x.png"; sourceTree = "<group>"; };
 		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
-		4473616B1856008B004274DF /* fingerImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fingerImage@2x.png"; sourceTree = "<group>"; };
 		449143D018476786008A80F0 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		449143D218476798008A80F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		449143D4184767A1008A80F0 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -148,11 +139,6 @@
 		44AAE4321844C0690096BF52 /* ThymeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ThymeTests-Info.plist"; sourceTree = "<group>"; };
 		44AAE4341844C0690096BF52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44AAE4361844C0690096BF52 /* ThymeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThymeTests.m; sourceTree = "<group>"; };
-		44AE6680184F4E1C00148398 /* 1-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-1@2x.png"; sourceTree = "<group>"; };
-		44AE6681184F4E1C00148398 /* 1-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1-0@2x.png"; sourceTree = "<group>"; };
-		44AE6682184F4E1C00148398 /* 0-1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-1@2x.png"; sourceTree = "<group>"; };
-		44AE6683184F4E1C00148398 /* 0-0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "0-0@2x.png"; sourceTree = "<group>"; };
-		44AE6684184F4E1C00148398 /* oven@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oven@2x.png"; sourceTree = "<group>"; };
 		92212D57F2CB0A81DABE31B6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BD08D1091B8B82CF009EAD75 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -336,13 +322,6 @@
 		44A691AB1844E02D005D4C5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				44AE6683184F4E1C00148398 /* 0-0@2x.png */,
-				44AE6682184F4E1C00148398 /* 0-1@2x.png */,
-				44AE6681184F4E1C00148398 /* 1-0@2x.png */,
-				44AE6680184F4E1C00148398 /* 1-1@2x.png */,
-				4473616B1856008B004274DF /* fingerImage@2x.png */,
-				441B5819184E14F600839331 /* kitchenImage@2x.png */,
-				44AE6684184F4E1C00148398 /* oven@2x.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -713,15 +692,8 @@
 			files = (
 				BDFA94B61B89AB9300D4408F /* tick.wav in Resources */,
 				1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */,
-				44AE6687184F4E1C00148398 /* 0-1@2x.png in Resources */,
-				44AE6685184F4E1C00148398 /* 1-1@2x.png in Resources */,
-				44AE6688184F4E1C00148398 /* 0-0@2x.png in Resources */,
 				44AAE41C1844C0690096BF52 /* InfoPlist.strings in Resources */,
-				4473616C1856008B004274DF /* fingerImage@2x.png in Resources */,
-				44AE6689184F4E1C00148398 /* oven@2x.png in Resources */,
 				14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */,
-				441B581A184E14F600839331 /* kitchenImage@2x.png in Resources */,
-				44AE6686184F4E1C00148398 /* 1-0@2x.png in Resources */,
 				4465EE93184772F9006C145F /* alarm.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
