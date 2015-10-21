@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     window!.rootViewController = navigationController
     window!.makeKeyAndVisible()
 
-    WatchCommunicator.sharedInstance.setupRoutes()
+    WatchCommunicator.sharedInstance.configureRoutes()
 
     return true
   }
