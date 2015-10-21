@@ -1,6 +1,5 @@
 import UIKit
 import AVFoundation
-import WatchConnectivity
 import Sugar
 import Fabric
 import Crashlytics
@@ -77,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     window!.rootViewController = navigationController
     window!.makeKeyAndVisible()
 
-    setupSession()
+    WatchCommunicator.sharedInstance.setupRoutes()
 
     return true
   }
@@ -109,14 +108,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     } else {
       homeController.registeredForNotifications()
     }
-
-    setupSession()
   }
 
   func applicationDidEnterBackground(application: UIApplication) {
     application.beginBackgroundTaskWithExpirationHandler {}
     application.beginReceivingRemoteControlEvents()
-    setupSession()
   }
 
   override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
@@ -143,7 +139,6 @@ extension AppDelegate {
     if UIApplication.sharedApplication().applicationState == .Active {
       handleLocalNotification(notification, playingSound: true)
     }
-    setupSession()
   }
 
   func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
@@ -185,36 +180,6 @@ extension AppDelegate {
         style: .Default, handler: actionAndDismiss(AlarmCenter.Action.AddFiveMinutes.rawValue)))
 
       navigationController.visibleViewController?.presentViewController(alert, animated: true, completion: nil)
-    }
-  }
-}
-
-// MARK: - WatchKit
-
-@available(iOS 9.0, *)
-extension AppDelegate: WCSessionDelegate {
-
-  func session(session: WCSession, didReceiveMessage message: [String : AnyObject],
-    replyHandler: ([String : AnyObject]) -> Void) {
-      if let request = message["request"] as? String {
-        replyHandler(WatchCommunicator.response(request, message))
-      }
-  }
-
-  func sessionWatchStateDidChange(session: WCSession) {
-    setupSession()
-  }
-
-  func sessionReachabilityDidChange(session: WCSession) {
-    setupSession()
-  }
-
-  func setupSession() {
-    if WCSession.isSupported() {
-      let session = WCSession.defaultSession()
-      session.delegate = self
-      session.activateSession()
-      WatchCommunicator.updateApplicationContext()
     }
   }
 }
