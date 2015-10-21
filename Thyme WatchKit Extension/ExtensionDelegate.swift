@@ -1,9 +1,11 @@
 import WatchKit
-import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, Sessionable {
+struct AppGroup {
+  static let identifier = "group.no.hyper.thyme"
+  static let optionalDirectory = "wormhole"
+}
 
-  func applicationDidFinishLaunching() {
-    activateSession()
-  }
+class ExtensionDelegate: NSObject, WKExtensionDelegate {
+
+  func applicationDidFinishLaunching() {}
 }
