@@ -1,9 +1,19 @@
-//
-//  Communicable.swift
-//  Thyme
-//
-//  Created by Vadym Markov on 21/10/15.
-//  Copyright © 2015 Hyper. All rights reserved.
-//
+protocol Communicable: class {
+  var wormhole: MMWormhole! { get set }
+  var listeningWormhole: MMWormholeSession! { get set }
+  var communicationConfigured: Bool { get }
 
-import Foundation
+  func configureCommunication()
+}
+
+extension Communicable {
+
+  func configureSession() {
+    listeningWormhole = MMWormholeSession.sharedListeningSession()
+
+    wormhole = MMWormhole(
+      applicationGroupIdentifier: AppGroup.identifier,
+      optionalDirectory: AppGroup.optionalDirectory,
+      transitingType: .SessionContext)
+  }
+}
