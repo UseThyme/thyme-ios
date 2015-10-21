@@ -1,8 +1,7 @@
 import WatchKit
 import Foundation
-import WatchConnectivity
 
-class TimerInterfaceController: WKInterfaceController, Sessionable {
+class TimerInterfaceController: WKInterfaceController, Communicable {
 
   enum State {
     case Active, Inactive, Error, Unknown
@@ -39,6 +38,10 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
   var index = 0
   var pickerHours = 0
   var pickerMinutes = 0
+  
+  var wormhole: MMWormhole!
+  var listeningWormhole: MMWormholeSession!
+  var communicationConfigured = false
 
   var state: State = .Unknown {
     didSet {
@@ -86,6 +89,8 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
       hourLabel.setText(NSLocalizedString("hr", comment: "").uppercaseString)
       minuteLabel.setText(NSLocalizedString("min", comment: "").uppercaseString)
     }
+
+    configureCommunication()
     state = .Unknown
   }
 
@@ -94,13 +99,7 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
 
     alarmTimer?.stop()
     setupPickers()
-    activateSession()
-    sendMessage(Message(.GetAlarm))
-  }
-
-  override func didAppear() {
-    activateSession()
-    sendMessage(Message(.GetAlarm))
+    sendMessage(Message.Outbox.FetchAlarm)
   }
 
   override func didDeactivate() {
@@ -132,49 +131,38 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
     if state == .Active {
       WKInterfaceDevice.currentDevice().playHaptic(.Stop)
       button.setEnabled(false)
-      sendMessage(Message(.CancelAlarm))
+      sendMessage(Message.Outbox.CancelAlarm)
     } else if state == .Inactive {
       WKInterfaceDevice.currentDevice().playHaptic(.Start)
       let amount = pickerHours * 60 * 60 + pickerMinutes * 60
       button.setEnabled(false)
       pickerHours = 0
       pickerMinutes = 0
-      sendMessage(Message(.UpdateAlarm, ["amount": amount]))
+      sendMessage(Message.Outbox.UpdateAlarm, parameters: ["amount": amount])
     } else {
       button.setEnabled(false)
-      sendMessage(Message(.GetAlarm))
+      sendMessage(Message.Outbox.FetchAlarm)
     }
   }
 
   @IBAction func menu3MinutesButtonDidTap() {
     WKInterfaceDevice.currentDevice().playHaptic(.Start)
-    sendMessage(Message(.UpdateAlarm, ["amount": 3 * 60]))
+    sendMessage(Message.Outbox.UpdateAlarm, parameters: ["amount": 3 * 60])
   }
   
   @IBAction func menu5MinutesButtonDidTap() {
     WKInterfaceDevice.currentDevice().playHaptic(.Start)
-    sendMessage(Message(.UpdateAlarm, ["amount": 5 * 60]))
+    sendMessage(Message.Outbox.UpdateAlarm, parameters: ["amount": 5 * 60])
   }
 
   // MARK: - Communication
 
-  func sendMessage(var message: Message) {
-    message.parameters["index"] = index
+  func sendMessage(identifier: String, parameters: [String: AnyObject]? = nil) {
+    var message = parameters ?? [:]
+    message["index"] = index
 
-    let session = WCSession.defaultSession()
-    session.sendMessage(message.data,
-      replyHandler: { [weak self] response in
-        if let weakSelf = self {
-          if let alarmData = response["alarm"] as? [String: AnyObject] {
-            weakSelf.alarmTimer?.stop()
-            weakSelf.setupAlarm(alarmData)
-          } else {
-            weakSelf.state = .Inactive
-          }
-        }
-      }, errorHandler: { error in
-        print(error)
-    })
+    wormhole.passMessageObject(message,
+      identifier: identifier)
   }
 
   // MARK: - Pickers
@@ -277,19 +265,6 @@ class TimerInterfaceController: WKInterfaceController, Sessionable {
   }
 }
 
-// MARK: - WCSessionDelegate
-
-extension TimerInterfaceController: WCSessionDelegate {
-
-  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-    alarmTimer?.stop()
-    if let alarms = applicationContext["alarms"] as? [AnyObject],
-      alarmData = alarms[index] as? [String: AnyObject] where alarms.count > index {
-        setupAlarm(alarmData)
-    }
-  }
-}
-
 // MARK: - AlarmTimerDelegate
 
 extension TimerInterfaceController: AlarmTimerDelegate {
@@ -299,8 +274,52 @@ extension TimerInterfaceController: AlarmTimerDelegate {
       updatePlate(alarm)
       if !alarm.active {
         alarmTimer.stop()
-        sendMessage(Message(.GetAlarm))
+        sendMessage(Message.Outbox.FetchAlarm)
       }
     }
+  }
+}
+
+// MARK: - Communicable
+
+extension TimerInterfaceController {
+
+  func configureCommunication() {
+    if communicationConfigured { return }
+
+    configureSession()
+
+    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.UpdateAlarms) {
+      [weak self] messageObject in
+
+      guard let weakSelf = self, message = messageObject as? [String: AnyObject],
+        data = message["alarms"] as? [AnyObject],
+        alarmData = data[weakSelf.index] as? [String: AnyObject]
+        where data.count > weakSelf.index
+        else {
+          self?.state = .Inactive
+          return
+      }
+
+      weakSelf.alarmTimer?.stop()
+      weakSelf.setupAlarm(alarmData)
+    }
+
+    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.UpdateAlarm) {
+      [weak self] messageObject in
+
+      guard let weakSelf = self, message = messageObject as? [String: AnyObject],
+        alarmData = message["alarm"] as? [String: AnyObject] else {
+          self?.state = .Inactive
+          return
+      }
+
+      weakSelf.alarmTimer?.stop()
+      weakSelf.setupAlarm(alarmData)
+    }
+
+    listeningWormhole.activateSessionListening()
+
+    communicationConfigured = true
   }
 }
