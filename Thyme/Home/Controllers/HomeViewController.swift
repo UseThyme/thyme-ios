@@ -94,17 +94,22 @@ class HomeViewController: ViewController, ContentSizeChangable {
   lazy var transition: Transition = { [unowned self] in
     let transition = Transition() {  controller, show in
 
+      controller.view.alpha = show ? 1 : 0
+      controller.view.backgroundColor = UIColor.clearColor()
+
       if !UIAccessibilityIsReduceMotionEnabled() {
         if let timerController = controller as? TimerViewController {
           if show {
+            timerController.kitchenButton.alpha = 0
+            self.ovenShineImageView.alpha = 0
             UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
               self.titleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
               self.subtitleLabel.transform = CGAffineTransformMakeTranslation(0,-200)
-              self.stoveView.transform = CGAffineTransformMakeScale(0.2, 0.2)
-              self.stoveView.frame.origin.x = timerController.kitchenButton.frame.origin.x
-              self.stoveView.frame.origin.y = timerController.kitchenButton.frame.origin.y - 24
+              self.stoveView.transform = CGAffineTransformMakeScale(0.21, 0.21)
+              self.stoveView.frame.origin.x = timerController.kitchenButton.frame.origin.x - 10
+              self.stoveView.frame.origin.y = timerController.kitchenButton.frame.origin.y - 25
               }, completion: { _ in
-                timerController.kitchenButton.alpha = 1.0
+                timerController.kitchenButton.alpha = controller.isBeingDismissed() ? 0 : 1
               })
 
             if controller.isBeingPresented() {
@@ -112,7 +117,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
               timerController.timerControl.alpha = 0.0
               UIView.animateWithDuration(0.8, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .BeginFromCurrentState, animations: {
                 timerController.timerControl.transform = CGAffineTransformIdentity
-                timerController.timerControl.alpha = 1.0
+                timerController.timerControl.alpha = 1
                 }, completion: nil)
             }
           } else {
@@ -128,11 +133,10 @@ class HomeViewController: ViewController, ContentSizeChangable {
             self.stoveView.transform = CGAffineTransformIdentity
             self.stoveView.frame.origin.x = 0
             self.stoveView.frame.origin.y = self.topMargin
+            self.ovenShineImageView.alpha = 1
           }
         }
       }
-      controller.view.alpha = show ? 1 : 0
-      controller.view.backgroundColor = UIColor.clearColor()
     }
 
     return transition
@@ -363,6 +367,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     for subview in [ovenBackgroundImageView, ovenShineImageView, plateCollectionView, ovenCollectionView] {
       stoveView.addSubview(subview)
     }
+
     view.addSubview(stoveView)
   }
 

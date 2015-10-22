@@ -52,8 +52,8 @@ desc "Submit a new Beta Build to Apple TestFlight"
 desc "This will also make sure the profile is up to date"
 lane :testflight do
 # snapshot
-sigh
-gym(scheme: "MyCubus Staging") # Build your app - more options available
+ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
+gym(scheme: "Thyme", verbose: true, clean: true, use_legacy_build_api: true)
 pilot
 
 # sh "your_script.sh"
