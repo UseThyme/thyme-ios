@@ -14,6 +14,6 @@ extension Communicable {
     wormhole = MMWormhole(
       applicationGroupIdentifier: AppGroup.identifier,
       optionalDirectory: AppGroup.optionalDirectory,
-      transitingType: .SessionContext)
+      transitingType: .SessionMessage)
   }
 }

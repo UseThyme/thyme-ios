@@ -49,22 +49,13 @@ class HomeInterfaceController: WKInterfaceController, Communicable {
       bottomLeftLabel, bottomRightLabel, ovenLabel]
 
     configureCommunication()
-    clearAllPlates()
   }
 
   override func willActivate() {
     super.willActivate()
 
-    clearAllPlates()
     showLostConnection(false)
-    wormhole.passMessageObject(nil, identifier: Message.Outbox.FetchAlarms)
-  }
-
-  override func didDeactivate() {
-    super.didDeactivate()
-
-    alarmTimer?.stop()
-    clearAllPlates()
+    wormhole.passMessageObject([:], identifier: Routes.App.alarms)
   }
 
   // MARK: - Local notifications
@@ -72,7 +63,7 @@ class HomeInterfaceController: WKInterfaceController, Communicable {
   override func handleActionWithIdentifier(identifier: String?, forLocalNotification localNotification: UILocalNotification) {
     if let alarmID = localNotification.userInfo?["HYPAlarmID"] as? String, actionID = identifier {
       var parameters = [String: AnyObject]()
-      var identifier = Message.Outbox.UpdateAlarm
+      var identifier = Routes.App.updateAlarm
 
       switch actionID {
       case "AddThreeMinutes":
@@ -80,7 +71,7 @@ class HomeInterfaceController: WKInterfaceController, Communicable {
       case "AddFiveMinutes":
         parameters["amount"] = 5 * 60
       default:
-        identifier = Message.Outbox.CancelAlarm
+        identifier = Routes.App.cancelAlarm
         break
       }
 
@@ -113,11 +104,11 @@ class HomeInterfaceController: WKInterfaceController, Communicable {
 
   @IBAction func menuCancelAllButtonDidTap() {
     WKInterfaceDevice.currentDevice().playHaptic(.Stop)
-    wormhole.passMessageObject(nil, identifier: Message.Outbox.CancelAlarms)
+    wormhole.passMessageObject([:], identifier: Routes.App.cancelAlarms)
   }
 
   @IBAction func retryButtonTapped() {
-    wormhole.passMessageObject(nil, identifier: Message.Outbox.FetchAlarms)
+    wormhole.passMessageObject([:], identifier: Routes.App.alarms)
   }
 
   // MARK: - UI
@@ -223,12 +214,17 @@ extension HomeInterfaceController {
   func configureCommunication() {
     if communicationConfigured { return }
 
+    clearAllPlates()
     configureSession()
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.UpdateAlarms) {
+    listeningWormhole.listenForMessageWithIdentifier(Routes.Watch.home) {
       [weak self] (messageObject) -> Void in
+
       guard let weakSelf = self, message = messageObject as? [String: AnyObject],
-        alarmData = message["alarms"] as? [AnyObject] else { return }
+        alarmData = message["alarms"] as? [AnyObject] else {
+          self?.showLostConnection(true)
+          return
+      }
 
       weakSelf.alarmTimer?.stop()
       weakSelf.showLostConnection(false)
@@ -236,7 +232,6 @@ extension HomeInterfaceController {
     }
 
     listeningWormhole.activateSessionListening()
-
     communicationConfigured = true
   }
 }

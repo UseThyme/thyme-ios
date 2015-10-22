@@ -52,6 +52,10 @@ public struct AlarmCenter {
   }
 
   static func scheduleNotification(alarmID: String, seconds: NSTimeInterval, message: String?) -> UILocalNotification {
+    if let notification = getNotification(alarmID) {
+      UIApplication.sharedApplication().cancelLocalNotification(notification)
+    }
+
     let fireDate = NSDate().dateByAddingTimeInterval(seconds)
 
     var userInfo = [NSObject : AnyObject]()
@@ -128,16 +132,12 @@ public struct AlarmCenter {
   // MARK: - Handling
 
   static func handleNotification(notification: UILocalNotification, actionID: String?) {
-    if let alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String {
-      cancelNotification(alarmID)
-
-      if let actionID = actionID, action = Action(rawValue: actionID) {
-        switch action {
-        case .AddThreeMinutes:
-          extendNotification(notification, seconds: NSTimeInterval(60 * 3))
-        case .AddFiveMinutes:
-          extendNotification(notification, seconds: NSTimeInterval(60 * 5))
-        }
+    if let actionID = actionID, action = Action(rawValue: actionID) {
+      switch action {
+      case .AddThreeMinutes:
+        extendNotification(notification, seconds: NSTimeInterval(60 * 3))
+      case .AddFiveMinutes:
+        extendNotification(notification, seconds: NSTimeInterval(60 * 5))
       }
     }
   }

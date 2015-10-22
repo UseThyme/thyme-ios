@@ -469,14 +469,11 @@ public class TimerControl: UIControl, ContentSizeChangable {
     setNeedsDisplay()
   }
 
-  func cancelCurrentLocalNotification() {
-    AlarmCenter.cancelNotification(alarmID!)
-  }
-
   func handleNotificationWithNumberOfSeconds(numberOfSeconds: NSTimeInterval) {
-    cancelCurrentLocalNotification()
     if numberOfSeconds > 0 {
       createNotificationUsingNumberOfSeconds(numberOfSeconds)
+    } else {
+      AlarmCenter.cancelNotification(alarmID!)
     }
   }
 
@@ -532,7 +529,7 @@ public class TimerControl: UIControl, ContentSizeChangable {
         angle = 0
         touchesAreActive = false
         title = Alarm.messageForSetAlarm()
-        cancelCurrentLocalNotification()
+        AlarmCenter.cancelNotification(alarmID!)
         setNeedsDisplay()
     } else {
       // add delay

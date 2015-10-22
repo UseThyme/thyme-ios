@@ -83,6 +83,7 @@ class TimerInterfaceController: WKInterfaceController, Communicable {
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
+
     if let context = context as? TimerContext {
       index = context.index
       setTitle(context.title)
@@ -91,7 +92,6 @@ class TimerInterfaceController: WKInterfaceController, Communicable {
     }
 
     configureCommunication()
-    state = .Unknown
   }
 
   override func willActivate() {
@@ -99,7 +99,7 @@ class TimerInterfaceController: WKInterfaceController, Communicable {
 
     alarmTimer?.stop()
     setupPickers()
-    sendMessage(Message.Outbox.FetchAlarm)
+    sendMessage(Routes.App.alarm)
   }
 
   override func didDeactivate() {
@@ -130,29 +130,29 @@ class TimerInterfaceController: WKInterfaceController, Communicable {
   @IBAction func buttonDidTap() {
     if state == .Active {
       WKInterfaceDevice.currentDevice().playHaptic(.Stop)
-      button.setEnabled(false)
-      sendMessage(Message.Outbox.CancelAlarm)
+      sendMessage(Routes.App.cancelAlarm)
     } else if state == .Inactive {
       WKInterfaceDevice.currentDevice().playHaptic(.Start)
       let amount = pickerHours * 60 * 60 + pickerMinutes * 60
-      button.setEnabled(false)
       pickerHours = 0
       pickerMinutes = 0
-      sendMessage(Message.Outbox.UpdateAlarm, parameters: ["amount": amount])
+      sendMessage(Routes.App.updateAlarm, parameters: ["amount": amount])
     } else {
-      button.setEnabled(false)
-      sendMessage(Message.Outbox.FetchAlarm)
+      sendMessage(Routes.App.alarm)
     }
+
+    button.setEnabled(false)
+    setupPickers()
   }
 
   @IBAction func menu3MinutesButtonDidTap() {
     WKInterfaceDevice.currentDevice().playHaptic(.Start)
-    sendMessage(Message.Outbox.UpdateAlarm, parameters: ["amount": 3 * 60])
+    sendMessage(Routes.App.updateAlarm, parameters: ["amount": 3 * 60])
   }
   
   @IBAction func menu5MinutesButtonDidTap() {
     WKInterfaceDevice.currentDevice().playHaptic(.Start)
-    sendMessage(Message.Outbox.UpdateAlarm, parameters: ["amount": 5 * 60])
+    sendMessage(Routes.App.updateAlarm, parameters: ["amount": 5 * 60])
   }
 
   // MARK: - Communication
@@ -274,7 +274,7 @@ extension TimerInterfaceController: AlarmTimerDelegate {
       updatePlate(alarm)
       if !alarm.active {
         alarmTimer.stop()
-        sendMessage(Message.Outbox.FetchAlarm)
+        sendMessage(Routes.App.alarm)
       }
     }
   }
@@ -287,9 +287,10 @@ extension TimerInterfaceController {
   func configureCommunication() {
     if communicationConfigured { return }
 
+    state = .Unknown
     configureSession()
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.UpdateAlarms) {
+    listeningWormhole.listenForMessageWithIdentifier(Routes.Watch.timer) {
       [weak self] messageObject in
 
       guard let weakSelf = self, message = messageObject as? [String: AnyObject],
@@ -305,21 +306,7 @@ extension TimerInterfaceController {
       weakSelf.setupAlarm(alarmData)
     }
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.UpdateAlarm) {
-      [weak self] messageObject in
-
-      guard let weakSelf = self, message = messageObject as? [String: AnyObject],
-        alarmData = message["alarm"] as? [String: AnyObject] else {
-          self?.state = .Inactive
-          return
-      }
-
-      weakSelf.alarmTimer?.stop()
-      weakSelf.setupAlarm(alarmData)
-    }
-
     listeningWormhole.activateSessionListening()
-
     communicationConfigured = true
   }
 }

@@ -32,7 +32,7 @@ class GlanceController: WKInterfaceController, Communicable {
     super.willActivate()
 
     lostConnectionImage.setHidden(true)
-    wormhole.passMessageObject(nil, identifier: Message.Outbox.FetchAlarms)
+    wormhole.passMessageObject([:], identifier: Routes.App.alarms)
   }
 
   override func didDeactivate() {
@@ -96,7 +96,7 @@ extension GlanceController {
 
     configureSession()
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.UpdateAlarms) {
+    listeningWormhole.listenForMessageWithIdentifier(Routes.Watch.glance) {
       [weak self] (messageObject) -> Void in
 
       guard let weakSelf = self, message = messageObject as? [String: AnyObject],
@@ -106,7 +106,6 @@ extension GlanceController {
     }
 
     listeningWormhole.activateSessionListening()
-    
     communicationConfigured = true
   }
 }

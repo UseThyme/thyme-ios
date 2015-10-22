@@ -62,7 +62,7 @@
 		D503E6F81BA2548F00E7214D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D503E6F71BA2548F00E7214D /* WatchConnectivity.framework */; };
 		D503E6FA1BA2549D00E7214D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D503E6F91BA2549D00E7214D /* WatchConnectivity.framework */; };
 		D50B94DC1BD7147400277CCA /* Communicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50B94DB1BD7147400277CCA /* Communicable.swift */; settings = {ASSET_TAGS = (); }; };
-		D50B94DE1BD716CB00277CCA /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50B94DD1BD716CB00277CCA /* Message.swift */; settings = {ASSET_TAGS = (); }; };
+		D50B94DE1BD716CB00277CCA /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50B94DD1BD716CB00277CCA /* Routes.swift */; settings = {ASSET_TAGS = (); }; };
 		D510E57B1BD7074300FFD7A5 /* MMWormhole.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E56D1BD7074300FFD7A5 /* MMWormhole.m */; settings = {ASSET_TAGS = (); }; };
 		D510E57C1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E56F1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m */; settings = {ASSET_TAGS = (); }; };
 		D510E57D1BD7074300FFD7A5 /* MMWormholeFileTransiting.m in Sources */ = {isa = PBXBuildFile; fileRef = D510E5711BD7074300FFD7A5 /* MMWormholeFileTransiting.m */; settings = {ASSET_TAGS = (); }; };
@@ -84,6 +84,7 @@
 		D563F95F1B9B33E700FF60AC /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F95B1B9B33E700FF60AC /* NotificationController.swift */; settings = {ASSET_TAGS = (); }; };
 		D563F9601B9B33E700FF60AC /* TimerInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D563F95C1B9B33E700FF60AC /* TimerInterfaceController.swift */; settings = {ASSET_TAGS = (); }; };
 		D5A2383A1B8BD75F00863023 /* WatchCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A238391B8BD75F00863023 /* WatchCommunicator.swift */; };
+		D5ACBF761BD84D4C00433F5C /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50B94DD1BD716CB00277CCA /* Routes.swift */; settings = {ASSET_TAGS = (); }; };
 		D5E5881E1B8E539D0050DD5C /* AlarmTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */; };
 		D5E5882A1B8E55320050DD5C /* Alarm.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5E588291B8E55320050DD5C /* Alarm.swift */; };
 /* End PBXBuildFile section */
@@ -202,7 +203,7 @@
 		D503E6F71BA2548F00E7214D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = System/Library/Frameworks/WatchConnectivity.framework; sourceTree = SDKROOT; };
 		D503E6F91BA2549D00E7214D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.0.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		D50B94DB1BD7147400277CCA /* Communicable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Communicable.swift; sourceTree = "<group>"; };
-		D50B94DD1BD716CB00277CCA /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		D50B94DD1BD716CB00277CCA /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		D510E5691BD706FF00FFD7A5 /* Thyme-Watch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Thyme-Watch-Bridging-Header.h"; sourceTree = "<group>"; };
 		D510E56C1BD7074300FFD7A5 /* MMWormhole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMWormhole.h; sourceTree = "<group>"; };
 		D510E56D1BD7074300FFD7A5 /* MMWormhole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMWormhole.m; sourceTree = "<group>"; };
@@ -620,7 +621,7 @@
 				D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */,
 				D538B8F11B8E42CD00069C38 /* ImageList.swift */,
 				D50B94DB1BD7147400277CCA /* Communicable.swift */,
-				D50B94DD1BD716CB00277CCA /* Message.swift */,
+				D50B94DD1BD716CB00277CCA /* Routes.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -899,6 +900,7 @@
 				BD8CF1471B32C6F600D00AC2 /* PlatCell.swift in Sources */,
 				D510E57F1BD7074300FFD7A5 /* MMWormholeSessionContextTransiting.m in Sources */,
 				BDBE46D21B3150D100E2896B /* AppDelegate.swift in Sources */,
+				D5ACBF761BD84D4C00433F5C /* Routes.swift in Sources */,
 				D510E57C1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m in Sources */,
 				BD08D1151B8B8FF2009EAD75 /* HYPDrawText.m in Sources */,
 				BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */,
@@ -948,7 +950,7 @@
 				D510E5871BD7075E00FFD7A5 /* MMWormholeSessionFileTransiting.m in Sources */,
 				D54D08E81B8E89E30012DBF6 /* TimerContext.swift in Sources */,
 				D510E5881BD7076100FFD7A5 /* MMWormholeSessionMessageTransiting.m in Sources */,
-				D50B94DE1BD716CB00277CCA /* Message.swift in Sources */,
+				D50B94DE1BD716CB00277CCA /* Routes.swift in Sources */,
 				D510E5841BD7075500FFD7A5 /* MMWormholeFileTransiting.m in Sources */,
 				D563F95D1B9B33E700FF60AC /* GlanceController.swift in Sources */,
 				D50B94DC1BD7147400277CCA /* Communicable.swift in Sources */,

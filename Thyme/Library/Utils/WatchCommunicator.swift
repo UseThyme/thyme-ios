@@ -3,22 +3,6 @@ import WatchConnectivity
 
 class WatchCommunicator {
 
-  struct Message {
-
-    struct Inbox {
-      static let FetchAlarms = "App:fetchAlarms"
-      static let FetchAlarm = "App:fetchAlarm"
-      static let CancelAlarm = "App:cancelAlarm"
-      static let CancelAlarms = "App:cancelAlarms"
-      static let UpdateAlarm = "App:updateAlarm"
-    }
-
-    struct Outbox {
-      static let UpdateAlarms = "Watch:updateAlarms"
-      static let UpdateAlarm = "Watch:updateAlarm"
-    }
-  }
-
   private var wormhole: MMWormhole!
   private var listeningWormhole: MMWormholeSession!
 
@@ -29,36 +13,34 @@ class WatchCommunicator {
   // MARK: - Routing
 
   func configureRoutes() {
-    if routesConfigured { return }
+    if routesConfigured {
+      listeningWormhole.activateSessionListening()
+      return
+    }
 
     listeningWormhole = MMWormholeSession.sharedListeningSession()
 
     wormhole = MMWormhole(
       applicationGroupIdentifier: "group.no.hyper.thyme",
       optionalDirectory: "wormhole",
-      transitingType: .SessionContext)
+      transitingType: .SessionMessage)
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.FetchAlarms) { messageObject in
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.alarms) { messageObject in
       self.sendAlarms()
     }
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.FetchAlarm) { messageObject in
-      guard let message = messageObject as? [String: AnyObject],
-        index = message["index"] as? Int else { return }
-
-      self.sendAlarm(index)
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.alarm) { messageObject in
+      self.sendAlarms()
     }
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.CancelAlarms) { messageObject in
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.cancelAlarms) { messageObject in
       AlarmCenter.cancelAllNotifications()
       NSNotificationCenter.defaultCenter().postNotificationName(
         AlarmCenter.Notifications.AlarmsDidUpdate,
         object: nil)
-
-      self.sendAlarms()
     }
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.CancelAlarm) { messageObject in
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.cancelAlarm) { messageObject in
       guard let message = messageObject as? [String: AnyObject],
         index = message["index"] as? Int else { return }
 
@@ -67,42 +49,30 @@ class WatchCommunicator {
       NSNotificationCenter.defaultCenter().postNotificationName(
         AlarmCenter.Notifications.AlarmsDidUpdate,
         object: nil)
-
-      self.sendAlarm(index)
     }
 
-    listeningWormhole.listenForMessageWithIdentifier(Message.Inbox.UpdateAlarm) { messageObject in
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.updateAlarm) { messageObject in
       guard let message = messageObject as? [String: AnyObject],
         index = message["index"] as? Int,
         amount = message["amount"] as? Int else { return }
 
       let alarm = Alarm.create(index)
       let seconds = NSTimeInterval(amount)
-      var notification: UILocalNotification?
 
       if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
-        notification = AlarmCenter.extendNotification(existingNotification, seconds: seconds)
+        AlarmCenter.extendNotification(existingNotification, seconds: seconds)
       } else {
-        notification = AlarmCenter.scheduleNotification(alarm.alarmID!,
+        AlarmCenter.scheduleNotification(alarm.alarmID!,
           seconds: seconds,
           message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
-      }
-
-      var alarmData = [String: AnyObject]()
-      if let notification = notification {
-        alarmData = self.extractAlarmData(notification)
-        alarmData["title"] = alarm.title
       }
 
       NSNotificationCenter.defaultCenter().postNotificationName(
         AlarmCenter.Notifications.AlarmsDidUpdate,
         object: nil)
-
-      self.sendAlarm(index, data: alarmData)
     }
 
     listeningWormhole.activateSessionListening()
-
     routesConfigured = true
   }
 
@@ -110,16 +80,10 @@ class WatchCommunicator {
 
   func sendAlarms() {
     let message = ["alarms": self.getAlarmsData()]
-    self.wormhole.passMessageObject(message, identifier: Message.Outbox.UpdateAlarms)
-  }
 
-  func sendAlarm(index: Int, data: [String: AnyObject]? = nil) {
-    let alarmData = data ?? self.getAlarmData(index)
-    let message = [
-      "alarm": alarmData,
-      "index": index
-    ]
-    self.wormhole.passMessageObject(message, identifier: Message.Outbox.UpdateAlarm)
+    [Routes.Watch.glance, Routes.Watch.home, Routes.Watch.timer].forEach {
+      wormhole.passMessageObject(message, identifier: $0)
+    }
   }
 
   // MARK: - Data Helpers

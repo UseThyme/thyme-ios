@@ -140,6 +140,10 @@ class TimerViewController: ViewController {
     super.init(nibName: nil, bundle: nil)
   }
 
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+
   required init(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -148,6 +152,11 @@ class TimerViewController: ViewController {
     super.viewDidLoad()
 
     for subview in [timerControl, kitchenButton, fingerView] { view.addSubview(subview) }
+
+    NSNotificationCenter.defaultCenter().addObserver(self,
+      selector: "alarmsDidUpdate:",
+      name: AlarmCenter.Notifications.AlarmsDidUpdate,
+      object: nil)
   }
 
   override func viewWillAppear(animated: Bool) {
@@ -160,11 +169,6 @@ class TimerViewController: ViewController {
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "kitchenButtonPressed:",
       name: UIApplicationDidBecomeActiveNotification,
-      object: nil)
-
-    NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: "alarmsDidUpdate:",
-      name: AlarmCenter.Notifications.AlarmsDidUpdate,
       object: nil)
 
     if UIAccessibilityIsReduceMotionEnabled() {
@@ -292,8 +296,8 @@ class TimerViewController: ViewController {
   func alarmsDidUpdate(notification: NSNotification) {
     if notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
       dispatch_async(dispatch_get_main_queue()) {
-        self.refreshTimerForCurrentAlarm()
         self.timerControl.stopTimer()
+        self.refreshTimerForCurrentAlarm()
       }
     }
   }
