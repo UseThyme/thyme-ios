@@ -1,8 +1,7 @@
 import WatchKit
 import Foundation
-import WatchConnectivity
 
-class GlanceController: WKInterfaceController, Sessionable {
+class GlanceController: WKInterfaceController, Communicable {
 
   @IBOutlet weak var activeGroup: WKInterfaceGroup!
   @IBOutlet weak var inactiveGroup: WKInterfaceGroup!
@@ -13,6 +12,10 @@ class GlanceController: WKInterfaceController, Sessionable {
   @IBOutlet weak var infoLabel: WKInterfaceLabel!
   @IBOutlet weak var startLabel: WKInterfaceLabel!
 
+  var wormhole: MMWormhole!
+  var listeningWormhole: MMWormholeSession!
+  var communicationConfigured = false
+
   // MARK: - Lifecycle
 
   override func awakeWithContext(context: AnyObject?) {
@@ -21,14 +24,15 @@ class GlanceController: WKInterfaceController, Sessionable {
     infoLabel.setText(NSLocalizedString("Yum! That smells amazing!", comment: ""))
     startLabel.setText(NSLocalizedString("Start cooking", comment: ""))
     herbieImage.stopAnimating()
+
+    configureCommunication()
   }
 
   override func willActivate() {
     super.willActivate()
 
-    activateSession()
     lostConnectionImage.setHidden(true)
-    sendMessage(Message(.GetAlarms))
+    wormhole.passMessageObject([:], identifier: Routes.App.alarms)
   }
 
   override func didDeactivate() {
@@ -81,32 +85,27 @@ class GlanceController: WKInterfaceController, Sessionable {
       herbieImage.startAnimating()
     }
   }
-
-  // MARK: - Communication
-
-  func sendMessage(message: Message) {
-    let session = WCSession.defaultSession()
-    session.sendMessage(message.data,
-      replyHandler: { [weak self] response in
-        if let weakSelf = self, alarmData = response["alarms"] as? [AnyObject] {
-          weakSelf.setupInterface(alarmData)
-        }
-      }, errorHandler: { [weak self] error in
-        self?.setupInterface()
-        print(error)
-    })
-  }
 }
 
-// MARK: - WCSessionDelegate
+// MARK: - Communicable
 
-extension GlanceController: WCSessionDelegate {
+extension GlanceController {
 
-  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-    if let alarmData = applicationContext["alarms"] as? [AnyObject] {
-      setupInterface(alarmData)
-    } else {
-      print("Error with fetching of application context from the parent app")
+  func configureCommunication() {
+    if communicationConfigured { return }
+
+    configureSession()
+
+    listeningWormhole.listenForMessageWithIdentifier(Routes.Watch.glance) {
+      [weak self] (messageObject) -> Void in
+
+      guard let weakSelf = self, message = messageObject as? [String: AnyObject],
+        alarmData = message["alarms"] as? [AnyObject] else { return }
+
+      weakSelf.setupInterface(alarmData)
     }
+
+    listeningWormhole.activateSessionListening()
+    communicationConfigured = true
   }
 }

@@ -332,13 +332,13 @@ class HomeViewController: ViewController, ContentSizeChangable {
     return controller
   }()
 
-  deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
-  }
-
   convenience init(theme: Themable?) {
     self.init()
     self.theme = theme
+  }
+
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
   }
 
   override func viewDidLoad() {

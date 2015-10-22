@@ -1,79 +1,94 @@
 import Foundation
 import WatchConnectivity
 
-struct WatchCommunicator {
+class WatchCommunicator {
 
-  static func updateApplicationContext() {
-    do {
-      let context = ["alarms": getAlarmsData()]
-      if #available(iOS 9.0, *) {
-        try WCSession.defaultSession().updateApplicationContext(context)
-      }
-    } catch {
-      print("Error with saving application context to WCSession")
+  private var wormhole: MMWormhole!
+  private var listeningWormhole: MMWormholeSession!
+
+  private var routesConfigured = false
+
+  static let sharedInstance = WatchCommunicator()
+
+  // MARK: - Routing
+
+  func configureRoutes() {
+    if routesConfigured {
+      listeningWormhole.activateSessionListening()
+      return
     }
-  }
 
-  static func response(request: String, _ message: [String : AnyObject]) -> [String : AnyObject] {
-    var data = [String : AnyObject]()
-    var updateAlarms = false
+    listeningWormhole = MMWormholeSession.sharedListeningSession()
 
-    switch request {
-    case "getAlarms":
-      data = ["alarms": getAlarmsData()]
-    case "getAlarm":
-      if let index = message["index"] as? Int {
-        data["alarm"] = getAlarmData(index)
-      }
-    case "cancelAlarms":
+    wormhole = MMWormhole(
+      applicationGroupIdentifier: "group.no.hyper.thyme",
+      optionalDirectory: "wormhole",
+      transitingType: .SessionMessage)
+
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.alarms) { messageObject in
+      self.sendAlarms()
+    }
+
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.alarm) { messageObject in
+      self.sendAlarms()
+    }
+
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.cancelAlarms) { messageObject in
       AlarmCenter.cancelAllNotifications()
-      updateAlarms = true
-      data = ["alarms": getAlarmsData()]
-    case "cancelAlarm":
-      if let index = message["index"] as? Int {
-        let alarm = Alarm.create(index)
-        AlarmCenter.cancelNotification(alarm.alarmID!)
-        updateAlarms = true
-
-        data["alarm"] = getAlarmData(index)
-      }
-    case "updateAlarm":
-      if let index = message["index"] as? Int, amount = message["amount"] as? Int {
-        let alarm = Alarm.create(index)
-        let seconds = NSTimeInterval(amount)
-
-        var notification: UILocalNotification?
-
-        if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
-          notification = AlarmCenter.extendNotification(existingNotification, seconds: seconds)
-        } else {
-          notification = AlarmCenter.scheduleNotification(alarm.alarmID!,
-            seconds: seconds,
-            message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
-        }
-
-        updateAlarms = true
-
-        if let notification = notification {
-          var alarmData = extractAlarmData(notification)
-          alarmData["title"] = alarm.title
-          data["alarm"] = alarmData
-        }
-      }
-    default:
-      break
-    }
-
-    if updateAlarms {
       NSNotificationCenter.defaultCenter().postNotificationName(
         AlarmCenter.Notifications.AlarmsDidUpdate,
         object: nil)
     }
 
-    return data
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.cancelAlarm) { messageObject in
+      guard let message = messageObject as? [String: AnyObject],
+        index = message["index"] as? Int else { return }
+
+      let alarm = Alarm.create(index)
+      AlarmCenter.cancelNotification(alarm.alarmID!)
+      NSNotificationCenter.defaultCenter().postNotificationName(
+        AlarmCenter.Notifications.AlarmsDidUpdate,
+        object: nil)
+    }
+
+    listeningWormhole.listenForMessageWithIdentifier(Routes.App.updateAlarm) { messageObject in
+      guard let message = messageObject as? [String: AnyObject],
+        index = message["index"] as? Int,
+        amount = message["amount"] as? Int else { return }
+
+      let alarm = Alarm.create(index)
+      let seconds = NSTimeInterval(amount)
+
+      if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
+        AlarmCenter.extendNotification(existingNotification, seconds: seconds)
+      } else {
+        AlarmCenter.scheduleNotification(alarm.alarmID!,
+          seconds: seconds,
+          message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
+      }
+
+      NSNotificationCenter.defaultCenter().postNotificationName(
+        AlarmCenter.Notifications.AlarmsDidUpdate,
+        object: nil)
+    }
+
+    listeningWormhole.activateSessionListening()
+    routesConfigured = true
   }
 
-  static func getAlarmsData() -> [AnyObject] {
+  // MARK: - Send Helpers
+
+  func sendAlarms() {
+    let message = ["alarms": self.getAlarmsData()]
+
+    [Routes.Watch.glance, Routes.Watch.home, Routes.Watch.timer].forEach {
+      wormhole.passMessageObject(message, identifier: $0)
+    }
+  }
+
+  // MARK: - Data Helpers
+
+  private func getAlarmsData() -> [AnyObject] {
     var alarms = [AnyObject]()
 
     for index in 0...4 {
@@ -83,7 +98,7 @@ struct WatchCommunicator {
     return alarms
   }
 
-  static func getAlarmData(index: Int) -> [String: AnyObject] {
+  private func getAlarmData(index: Int) -> [String: AnyObject] {
     let alarm = Alarm.create(index)
     var alarmData = [String: AnyObject]()
 
@@ -95,7 +110,7 @@ struct WatchCommunicator {
     return alarmData
   }
 
-  static func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
+  func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
     var alarmData = [String: AnyObject]()
 
     if let userInfo = notification.userInfo,

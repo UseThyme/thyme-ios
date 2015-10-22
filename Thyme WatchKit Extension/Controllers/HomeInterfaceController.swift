@@ -1,8 +1,7 @@
 import WatchKit
 import Foundation
-import WatchConnectivity
 
-class HomeInterfaceController: WKInterfaceController, Sessionable {
+class HomeInterfaceController: WKInterfaceController, Communicable {
 
   @IBOutlet var mainGroup: WKInterfaceGroup!
 
@@ -31,8 +30,11 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
   var minutesGroups = [WKInterfaceGroup]()
   var secondsGroups = [WKInterfaceGroup]()
   var labels = [WKInterfaceLabel]()
-
   var alarmTimer: AlarmTimer?
+  
+  var wormhole: MMWormhole!
+  var listeningWormhole: MMWormholeSession!
+  var communicationConfigured = false
 
   override func awakeWithContext(context: AnyObject?) {
     super.awakeWithContext(context)
@@ -46,29 +48,14 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
     labels = [topLeftLabel, topRightLabel,
       bottomLeftLabel, bottomRightLabel, ovenLabel]
 
-    activateSession()
-    clearAllPlates()
+    configureCommunication()
   }
 
   override func willActivate() {
     super.willActivate()
 
-    clearAllPlates()
-    activateSession()
     showLostConnection(false)
-    sendMessage(Message(.GetAlarms))
-  }
-
-  override func didAppear() {
-    activateSession()
-    sendMessage(Message(.GetAlarms))
-  }
-
-  override func didDeactivate() {
-    super.didDeactivate()
-
-    alarmTimer?.stop()
-    clearAllPlates()
+    wormhole.passMessageObject([:], identifier: Routes.App.alarms)
   }
 
   // MARK: - Local notifications
@@ -76,22 +63,20 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
   override func handleActionWithIdentifier(identifier: String?, forLocalNotification localNotification: UILocalNotification) {
     if let alarmID = localNotification.userInfo?["HYPAlarmID"] as? String, actionID = identifier {
       var parameters = [String: AnyObject]()
-      var kind: Message.Kind
+      var identifier = Routes.App.updateAlarm
 
       switch actionID {
       case "AddThreeMinutes":
         parameters["amount"] = 3 * 60
-        kind = .UpdateAlarm
       case "AddFiveMinutes":
         parameters["amount"] = 5 * 60
-        kind = .UpdateAlarm
       default:
-        kind = .CancelAlarm
+        identifier = Routes.App.cancelAlarm
         break
       }
 
       parameters["index"] = Alarm.indexFromString(alarmID)
-      sendMessage(Message(kind, parameters))
+      wormhole.passMessageObject(parameters, identifier: identifier)
     }
   }
 
@@ -119,28 +104,11 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
 
   @IBAction func menuCancelAllButtonDidTap() {
     WKInterfaceDevice.currentDevice().playHaptic(.Stop)
-    sendMessage(Message(.CancelAlarms))
+    wormhole.passMessageObject([:], identifier: Routes.App.cancelAlarms)
   }
 
   @IBAction func retryButtonTapped() {
-    activateSession()
-    sendMessage(Message(.GetAlarms))
-  }
-
-  // MARK: - Communication
-
-  func sendMessage(message: Message) {
-    let session = WCSession.defaultSession()
-    session.sendMessage(message.data,
-      replyHandler: { [weak self] response in
-        if let weakSelf = self, alarmData = response["alarms"] as? [AnyObject] {
-          weakSelf.alarmTimer?.stop()
-          weakSelf.showLostConnection(false)
-          weakSelf.setupAlarms(alarmData)
-        }
-      }, errorHandler: { error in
-        print(error)
-    })
+    wormhole.passMessageObject([:], identifier: Routes.App.alarms)
   }
 
   // MARK: - UI
@@ -224,19 +192,6 @@ class HomeInterfaceController: WKInterfaceController, Sessionable {
   }
 }
 
-// MARK: - WCSessionDelegate
-
-extension HomeInterfaceController: WCSessionDelegate {
-
-  func session(session: WCSession, didReceiveApplicationContext applicationContext: [String : AnyObject]) {
-    if let alarmData = applicationContext["alarms"] as? [AnyObject] {
-      alarmTimer?.stop()
-      showLostConnection(false)
-      setupAlarms(alarmData)
-    }
-  }
-}
-
 // MARK: - AlarmTimerDelegate
 
 extension HomeInterfaceController: AlarmTimerDelegate {
@@ -249,5 +204,34 @@ extension HomeInterfaceController: AlarmTimerDelegate {
     if alarms.filter({ $0.active }).count == 0 {
       alarmTimer.stop()
     }
+  }
+}
+
+// MARK: - Communicable
+
+extension HomeInterfaceController {
+
+  func configureCommunication() {
+    if communicationConfigured { return }
+
+    clearAllPlates()
+    configureSession()
+
+    listeningWormhole.listenForMessageWithIdentifier(Routes.Watch.home) {
+      [weak self] (messageObject) -> Void in
+
+      guard let weakSelf = self, message = messageObject as? [String: AnyObject],
+        alarmData = message["alarms"] as? [AnyObject] else {
+          self?.showLostConnection(true)
+          return
+      }
+
+      weakSelf.alarmTimer?.stop()
+      weakSelf.showLostConnection(false)
+      weakSelf.setupAlarms(alarmData)
+    }
+
+    listeningWormhole.activateSessionListening()
+    communicationConfigured = true
   }
 }

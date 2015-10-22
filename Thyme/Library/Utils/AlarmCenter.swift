@@ -52,6 +52,10 @@ public struct AlarmCenter {
   }
 
   static func scheduleNotification(alarmID: String, seconds: NSTimeInterval, message: String?) -> UILocalNotification {
+    if let notification = getNotification(alarmID) {
+      UIApplication.sharedApplication().cancelLocalNotification(notification)
+    }
+
     let fireDate = NSDate().dateByAddingTimeInterval(seconds)
 
     var userInfo = [NSObject : AnyObject]()
@@ -68,7 +72,7 @@ public struct AlarmCenter {
     notification.userInfo = userInfo
     
     UIApplication.sharedApplication().scheduleLocalNotification(notification)
-    WatchCommunicator.updateApplicationContext()
+    WatchCommunicator.sharedInstance.sendAlarms()
 
     return notification
   }
@@ -112,7 +116,7 @@ public struct AlarmCenter {
 
     if let notification = getNotification(alarmID) {
       UIApplication.sharedApplication().cancelLocalNotification(notification)
-      WatchCommunicator.updateApplicationContext()
+      WatchCommunicator.sharedInstance.sendAlarms()
     }
   }
 
@@ -122,22 +126,18 @@ public struct AlarmCenter {
         UIApplication.sharedApplication().cancelLocalNotification(notification)
       }
     }
-    WatchCommunicator.updateApplicationContext()
+    WatchCommunicator.sharedInstance.sendAlarms()
   }
 
   // MARK: - Handling
 
   static func handleNotification(notification: UILocalNotification, actionID: String?) {
-    if let alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String {
-      cancelNotification(alarmID)
-
-      if let actionID = actionID, action = Action(rawValue: actionID) {
-        switch action {
-        case .AddThreeMinutes:
-          extendNotification(notification, seconds: NSTimeInterval(60 * 3))
-        case .AddFiveMinutes:
-          extendNotification(notification, seconds: NSTimeInterval(60 * 5))
-        }
+    if let actionID = actionID, action = Action(rawValue: actionID) {
+      switch action {
+      case .AddThreeMinutes:
+        extendNotification(notification, seconds: NSTimeInterval(60 * 3))
+      case .AddFiveMinutes:
+        extendNotification(notification, seconds: NSTimeInterval(60 * 5))
       }
     }
   }
