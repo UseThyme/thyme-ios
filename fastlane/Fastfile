@@ -23,41 +23,44 @@ default_platform :ios
 
 platform :ios do
 before_all do
-# ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-cocoapods
-increment_build_number
+  # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+  cocoapods
+  increment_build_number
 
-# xctool # run the tests of your app
+  # xctool # run the tests of your app
 end
 
+require 'faraday'
+Faraday::Utils.default_params_encoder = Faraday::FlatParamsEncoder
+
 desc "Runs all the tests"
-lane :test do
-# snapshot
+  lane :test do
+  # snapshot
 end
 
 desc "Submit a new Beta Build to Fabric"
 lane :fabric do
-sigh(adhoc: true)
-ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
-gym(scheme: "Thyme", verbose: true, clean: true, use_legacy_build_api: true)
-crashlytics(
-crashlytics_path: './Pods/Crashlytics/Crashlytics.framework',
-api_token: '67ffdb78ce9cd50af8404c244fa25df01ea2b5bc',
-build_secret: '20cddd5b881ce36bfe855addd58d8d01aa2755c9bfa2c91515de7457a65d8d82',
-groups: 'hyper-ios'
-)
+  sigh(adhoc: true)
+  ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
+  gym(scheme: "Thyme", verbose: true, clean: true, use_legacy_build_api: true)
+  crashlytics(
+  crashlytics_path: './Pods/Crashlytics/Crashlytics.framework',
+  api_token: '67ffdb78ce9cd50af8404c244fa25df01ea2b5bc',
+  build_secret: '20cddd5b881ce36bfe855addd58d8d01aa2755c9bfa2c91515de7457a65d8d82',
+  groups: 'hyper-ios'
+  )
 end
 
 desc "Submit a new Beta Build to Apple TestFlight"
 desc "This will also make sure the profile is up to date"
 lane :testflight do
-# snapshot
-ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
-gym(scheme: "Thyme", verbose: true, clean: true, use_legacy_build_api: true)
-pilot
+  # snapshot
+  ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
+  gym(scheme: "Thyme", verbose: true, clean: true, use_legacy_build_api: true)
+  pilot()
 
-# sh "your_script.sh"
-# You can also use other beta testing services here
+  # sh "your_script.sh"
+  # You can also use other beta testing services here
 end
 
 desc "Deploy a new version to the App Store"
