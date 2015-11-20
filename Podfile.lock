@@ -1,8 +1,7 @@
 PODS:
-  - Crashlytics (3.3.4)
-  - Fabric (1.5.5):
-    - Fabric/Base (= 1.5.5)
-  - Fabric/Base (1.5.5)
+  - Crashlytics (3.4.1):
+    - Fabric (~> 1.6.0)
+  - Fabric (1.6.1)
   - Sugar (0.1.0)
   - Transition (0.1.0)
 
@@ -20,15 +19,15 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Sugar:
-    :commit: 5f076e8f1aa8cba8f9ddc39e98d325c8282855ab
+    :commit: 7c566fa479f18ae5443c30bca870ec5ef543f26a
     :git: https://github.com/hyperoslo/Sugar
   Transition:
     :commit: 9f9ec94c855f1b2fee2b105cedadb8b13ef3bda8
     :git: https://github.com/hyperoslo/Transition.git
 
 SPEC CHECKSUMS:
-  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
-  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
+  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
+  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   Sugar: d33f2a3ae10e40c14eb49a2e859f12e82e614817
   Transition: 66d86e3ae1b8f0b3d9ba2000c7a45fbc17b066f2
 
