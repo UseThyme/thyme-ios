@@ -40,7 +40,7 @@ end
 
 desc "Submit a new Beta Build to Fabric"
 lane :fabric do
-  sigh(adhoc: true)
+  sigh(adhoc: true, force: true)
   ENV["PROFILE_UDID"] = lane_context[SharedValues::SIGH_UDID]
   gym(scheme: "Thyme", verbose: true, clean: true, use_legacy_build_api: true)
   crashlytics(
