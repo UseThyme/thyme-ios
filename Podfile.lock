@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Sugar:
-    :commit: 7c566fa479f18ae5443c30bca870ec5ef543f26a
+    :commit: a0e393888f13948d9178984bb6762ca7afccf122
     :git: https://github.com/hyperoslo/Sugar
   Transition:
     :commit: 9f9ec94c855f1b2fee2b105cedadb8b13ef3bda8
