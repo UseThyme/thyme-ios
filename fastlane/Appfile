@@ -11,3 +11,10 @@ for_lane :testflight do
   team_name "Hyper Interaktiv"
   team_id "XVAH95CHDC"
 end
+
+for_lane :deploy do
+  app_identifier "no.hyper.thyme"
+  apple_id "ios@hyper.no"
+  team_name "Hyper Interaktiv"
+  team_id "XVAH95CHDC"
+end
