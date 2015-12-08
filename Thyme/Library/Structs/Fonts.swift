@@ -22,13 +22,19 @@ struct Font {
   static func dynamicSize(size: CGFloat) -> CGFloat {
     var calculatedSize = size
 
-    switch(Device(rawValue: Float(Screen.height))!) {
-    case .iPhone6:     calculatedSize += 1
-    case .iPhone6Plus: calculatedSize += 2
-    default: break
+    if let device = Device(rawValue: Float(Screen.height)) {
+      switch(device) {
+      case .iPhone6:     calculatedSize += 1
+      case .iPhone6Plus: calculatedSize += 2
+      default: break
+      }
     }
 
-    switch(DynamicSize(rawValue: ContentSize)!) {
+    guard let dynamicSize = DynamicSize(rawValue: ContentSize) else {
+      return calculatedSize
+    }
+
+    switch(dynamicSize) {
     case .XSmall:   calculatedSize -= 3
     case .Small:    calculatedSize -= 2
     case .Medium:   calculatedSize -= 1
