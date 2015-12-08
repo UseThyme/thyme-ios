@@ -8,6 +8,11 @@ enum DynamicSize: String {
   case XLarge = "UICTContentSizeCategoryXL"
   case XXLarge = "UICTContentSizeCategoryXXL"
   case XXXLarge = "UICTContentSizeCategoryXXXL"
+  case AccessibilityM = "UICTContentSizeCategoryAccessibilityM"
+  case AccessibilityL = "UICTContentSizeCategoryAccessibilityL"
+  case AccessibilityXL = "UICTContentSizeCategoryAccessibilityXL"
+  case AccessibilityXXL = "UICTContentSizeCategoryAccessibilityXXL"
+  case AccessibilityXXXL = "UICTContentSizeCategoryAccessibilityXXXL"
 }
 
 struct Font {
@@ -31,6 +36,11 @@ struct Font {
     case .XLarge:   calculatedSize += 2
     case .XXLarge:  calculatedSize += 3
     case .XXXLarge: calculatedSize += 4
+    case .AccessibilityM: calculatedSize += 5
+    case .AccessibilityL: calculatedSize += 6
+    case .AccessibilityXL: calculatedSize += 7
+    case .AccessibilityXXL: calculatedSize += 8
+    case .AccessibilityXXXL: calculatedSize += 9
     }
     
     return calculatedSize
