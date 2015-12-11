@@ -21,7 +21,7 @@ class Alarm {
   var active: Bool = false
 
   lazy var title: String = {
-    if self.type == .Oven { return NSLocalizedString("OVEN", comment: "OVEN") }
+    if self.type == .Oven { return localizedString("OVEN") }
 
     let leading: String = self.indexPath?.item == 0
       ? localizedString("TOP")
@@ -103,12 +103,11 @@ class Alarm {
   }
 
   static func messageForSetAlarm() -> String {
-    return NSLocalizedString("------------------SWIPE CLOCKWISE TO SET TIMER------------------",
-      comment: "------------------SWIPE CLOCKWISE TO SET TIMER------------------")
+    return localizedString("------------------SWIPE CLOCKWISE TO SET TIMER------------------")
   }
 
   static func messageForReleaseToSetAlarm() -> String {
-    return NSLocalizedString("------------------RELEASE TO SET TIMER------------------", comment: "------------------RELEASE TO SET TIMER------------------")
+    return localizedString("------------------RELEASE TO SET TIMER------------------")
   }
 
   static func defaultAlarmID() -> String {
