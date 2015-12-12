@@ -3,47 +3,47 @@
   <testsuite name="run">
     
       
-      <testcase name="0: Verifying required fastlane version" time="0.000364">
+      <testcase name="0: Verifying required fastlane version" time="0.000441">
         
       </testcase>
     
       
-      <testcase name="1: default_platform" time="0.000118">
+      <testcase name="1: default_platform" time="0.000142">
         
       </testcase>
     
       
-      <testcase name="2: cocoapods" time="5.253664">
+      <testcase name="2: cocoapods" time="7.4708">
         
       </testcase>
     
       
-      <testcase name="3: increment_build_number" time="0.71857">
+      <testcase name="3: increment_build_number" time="1.545356">
         
       </testcase>
     
       
-      <testcase name="4: sigh" time="24.433903">
+      <testcase name="4: sigh" time="28.946221">
         
       </testcase>
     
       
-      <testcase name="5: sigh" time="22.047284">
+      <testcase name="5: sigh" time="25.014588">
         
       </testcase>
     
       
-      <testcase name="6: sigh" time="23.842434">
+      <testcase name="6: sigh" time="23.991535">
         
       </testcase>
     
       
-      <testcase name="7: gym" time="49.51795">
+      <testcase name="7: gym" time="53.666955">
         
       </testcase>
     
       
-      <testcase name="8: deliver" time="334.746684">
+      <testcase name="8: deliver" time="189.500091">
         
       </testcase>
     
