@@ -1,5 +1,4 @@
 import Foundation
-import Sugar
 
 enum PlateType {
     case oven, plate

@@ -1,5 +1,4 @@
 import AVFoundation
-import Sugar
 import UIKit
 
 let ThymeAlarmIDKey = "HYPAlarmID"
