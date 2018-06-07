@@ -1,24 +1,23 @@
 import UIKit
 
-public class PlateCell: UICollectionViewCell {
+open class PlateCell: UICollectionViewCell {
+    open lazy var timerControl: TimerControl = { [unowned self] in
+        let frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        let timerControl = TimerControl(frame: frame, completedMode: false)
 
-  public lazy var timerControl: TimerControl = { [unowned self] in
-    let frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))
-    let timerControl = TimerControl(frame: frame, completedMode: false)
+        timerControl.isUserInteractionEnabled = false
+        timerControl.backgroundColor = UIColor.clear
 
-    timerControl.userInteractionEnabled = false
-    timerControl.backgroundColor = UIColor.clearColor()
+        return timerControl
+    }()
 
-    return timerControl
-  }()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
-  override init(frame: CGRect) {
-    super.init(frame: frame)
+        addSubview(timerControl)
+    }
 
-    addSubview(timerControl)
-  }
-
-  public required init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
-  }
+    public required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

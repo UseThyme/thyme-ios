@@ -25,7 +25,6 @@
 		44AAE42D1844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
 		44AAE4351844C0690096BF52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AAE4331844C0690096BF52 /* InfoPlist.strings */; };
 		44AAE4371844C0690096BF52 /* ThymeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AAE4361844C0690096BF52 /* ThymeTests.m */; };
-		629F51B26C66E9A24287C335 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92212D57F2CB0A81DABE31B6 /* Pods.framework */; };
 		BD08D10A1B8B82CF009EAD75 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D1091B8B82CF009EAD75 /* Screen.swift */; };
 		BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D10D1B8B8798009EAD75 /* Theme.swift */; };
 		BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D10F1B8B8B18009EAD75 /* Math.swift */; };
@@ -155,7 +154,6 @@
 		44AAE4341844C0690096BF52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44AAE4361844C0690096BF52 /* ThymeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThymeTests.m; sourceTree = "<group>"; };
 		92212D57F2CB0A81DABE31B6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BD08D1091B8B82CF009EAD75 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		BD08D10D1B8B8798009EAD75 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		BD08D10F1B8B8B18009EAD75 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 		D5A238391B8BD75F00863023 /* WatchCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchCommunicator.swift; sourceTree = "<group>"; };
 		D5E5881D1B8E539D0050DD5C /* AlarmTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTimer.swift; sourceTree = "<group>"; };
 		D5E588291B8E55320050DD5C /* Alarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alarm.swift; sourceTree = "<group>"; };
-		F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,7 +235,6 @@
 				44AAE4141844C0690096BF52 /* CoreGraphics.framework in Frameworks */,
 				44AAE4161844C0690096BF52 /* UIKit.framework in Frameworks */,
 				44AAE4121844C0690096BF52 /* Foundation.framework in Frameworks */,
-				629F51B26C66E9A24287C335 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +253,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D503E6FA1BA2549D00E7214D /* WatchConnectivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC0ED4577152577A1BB0C004 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,7 +404,6 @@
 				BD2C3B311B3B44F900ACCFAA /* Thyme WatchKit App */,
 				44AAE4101844C0690096BF52 /* Frameworks */,
 				44AAE40F1844C0690096BF52 /* Products */,
-				BDF5048E6F88206565A3511A /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -578,15 +580,6 @@
 			path = actions;
 			sourceTree = "<group>";
 		};
-		BDF5048E6F88206565A3511A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */,
-				F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		D510E56A1BD7074300FFD7A5 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -655,13 +648,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 44AAE43A1844C0690096BF52 /* Build configuration list for PBXNativeTarget "Thyme" */;
 			buildPhases = (
-				7D8698BB7F221C7067FC110A /* Check Pods Manifest.lock */,
 				44AAE40A1844C0690096BF52 /* Sources */,
 				44AAE40B1844C0690096BF52 /* Frameworks */,
 				44AAE40C1844C0690096BF52 /* Resources */,
-				F9090E98373705974C2AF5B7 /* Copy Pods Resources */,
 				BD1C16E71B95E5F0009D693E /* Embed Watch Content */,
-				75607136367C9B9B79C1F124 /* Embed Pods Frameworks */,
 				BDCD59171B9D6E8E00EB368D /* ShellScript */,
 			);
 			buildRules = (
@@ -715,6 +705,7 @@
 			buildPhases = (
 				BD2C3B2B1B3B44F900ACCFAA /* Resources */,
 				BD1C16E61B95E5F0009D693E /* Embed App Extensions */,
+				EC0ED4577152577A1BB0C004 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -739,6 +730,7 @@
 				TargetAttributes = {
 					44AAE40D1844C0690096BF52 = {
 						DevelopmentTeam = XVAH95CHDC;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -746,11 +738,13 @@
 						};
 					};
 					44AAE4281844C0690096BF52 = {
+						LastSwiftMigration = 0830;
 						TestTargetID = 44AAE40D1844C0690096BF52;
 					};
 					BD2C3B1D1B3B44F900ACCFAA = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = XVAH95CHDC;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -760,6 +754,7 @@
 					BD2C3B2C1B3B44F900ACCFAA = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = XVAH95CHDC;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -826,36 +821,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		75607136367C9B9B79C1F124 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7D8698BB7F221C7067FC110A /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		BDCD59171B9D6E8E00EB368D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -868,21 +833,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 67ffdb78ce9cd50af8404c244fa25df01ea2b5bc 20cddd5b881ce36bfe855addd58d8d01aa2755c9bfa2c91515de7457a65d8d82";
-		};
-		F9090E98373705974C2AF5B7 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1085,7 +1035,6 @@
 		};
 		44AAE43B1844C0690096BF52 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A9D9F641ECC772CBF75A9F45 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1110,6 +1059,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme/AppDelegate/Thyme-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -1118,7 +1068,6 @@
 		};
 		44AAE43C1844C0690096BF52 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F04A96F97767EDE7A181C125 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1142,6 +1091,7 @@
 				PROVISIONING_PROFILE = "$(PROJECT_UDID)";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme/AppDelegate/Thyme-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				WRAPPER_EXTENSION = app;
@@ -1171,6 +1121,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1194,6 +1145,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "no.hyper.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -1226,6 +1178,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme WatchKit Extension/Thyme-Watch-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1256,6 +1209,7 @@
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Thyme WatchKit Extension/Thyme-Watch-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1287,6 +1241,7 @@
 				PROVISIONING_PROFILE = "$(WATCHKIT_APP_UDID)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -1315,6 +1270,7 @@
 				PROVISIONING_PROFILE = "$(WATCHKIT_APP_UDID)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;

@@ -1,144 +1,142 @@
 import Foundation
 
 public struct AlarmCenter {
-
-  enum Action: String {
-    case AddThreeMinutes = "AddThreeMinutes"
-    case AddFiveMinutes = "AddFiveMinutes"
-  }
-
-  static let categoryIdentifier = "ThymeNotificationCategory"
-
-  struct Notifications {
-    static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
-  }
-
-  // MARK: - Local notification management
-
-  static func hasCorrectNotificationTypes() -> Bool {
-    return UIApplication.sharedApplication().currentUserNotificationSettings()?.types == notificationsSettings().types
-  }
-
-  static func notificationsSettings() -> UIUserNotificationSettings {
-    var categories = Set<UIUserNotificationCategory>()
-
-    let threeMinutesAction = UIMutableUserNotificationAction()
-    threeMinutesAction.title = NSLocalizedString("Add 3 mins", comment: "")
-    threeMinutesAction.identifier = Action.AddThreeMinutes.rawValue
-    threeMinutesAction.activationMode = .Background
-    threeMinutesAction.authenticationRequired = false
-
-    let fiveMinutesAction = UIMutableUserNotificationAction()
-    fiveMinutesAction.title = NSLocalizedString("Add 5 mins", comment: "")
-    fiveMinutesAction.identifier = Action.AddFiveMinutes.rawValue
-    fiveMinutesAction.activationMode = .Background
-    fiveMinutesAction.authenticationRequired = false
-
-    let category = UIMutableUserNotificationCategory()
-    category.setActions([threeMinutesAction, fiveMinutesAction], forContext: .Default)
-    category.identifier = AlarmCenter.categoryIdentifier
-
-    categories.insert(category)
-
-    let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
-    let settings = UIUserNotificationSettings(forTypes: types, categories: categories)
-
-    return settings
-  }
-
-  static func registerNotificationSettings() {
-    let settings = AlarmCenter.notificationsSettings()
-    UIApplication.sharedApplication().registerUserNotificationSettings(settings)
-  }
-
-  static func scheduleNotification(alarmID: String, seconds: NSTimeInterval, message: String?) -> UILocalNotification {
-    if let notification = getNotification(alarmID) {
-      UIApplication.sharedApplication().cancelLocalNotification(notification)
+    enum Action: String {
+        case AddThreeMinutes
+        case AddFiveMinutes
     }
 
-    let fireDate = NSDate().dateByAddingTimeInterval(seconds)
+    static let categoryIdentifier = "ThymeNotificationCategory"
 
-    var userInfo = [NSObject : AnyObject]()
-    userInfo[ThymeAlarmIDKey] = alarmID
-    userInfo[ThymeAlarmFireDataKey] = NSDate()
-    userInfo[ThymeAlarmFireInterval] = seconds
-
-    let notification = UILocalNotification()
-    notification.alertBody = message
-    notification.fireDate = fireDate
-    notification.category = categoryIdentifier
-    notification.soundName = "alarm.caf"
-    notification.timeZone = NSTimeZone.defaultTimeZone()
-    notification.userInfo = userInfo
-    
-    UIApplication.sharedApplication().scheduleLocalNotification(notification)
-    WatchCommunicator.sharedInstance.sendAlarms()
-
-    return notification
-  }
-
-  static func extendNotification(notification: UILocalNotification, seconds: NSTimeInterval) -> UILocalNotification? {
-    var updatedNotification: UILocalNotification?
-
-    if let alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String,
-      userInfo = notification.userInfo,
-      firedDate = userInfo[ThymeAlarmFireDataKey] as? NSDate,
-      numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
-        var secondsAmount = seconds
-
-        let secondsPassed: NSTimeInterval = NSDate().timeIntervalSinceDate(firedDate)
-        let secondsLeft = NSTimeInterval(numberOfSeconds.integerValue) - secondsPassed
-
-        if secondsLeft > 0 { secondsAmount += secondsLeft }
-
-        UIApplication.sharedApplication().cancelLocalNotification(notification)
-
-        updatedNotification = AlarmCenter.scheduleNotification(alarmID,
-          seconds: secondsAmount,
-          message: notification.alertBody)
+    struct Notifications {
+        static let AlarmsDidUpdate = "WatchHandler.AlarmsDidUpdate"
     }
 
-    return updatedNotification
-  }
+    // MARK: - Local notification management
 
-  static func getNotification(alarmID: String) -> UILocalNotification? {
-    for notification in UIApplication.sharedApplication().scheduledLocalNotifications! {
-      if let notificationAlarmID = notification.userInfo?[ThymeAlarmIDKey] as? String
-        where notificationAlarmID == alarmID {
-          return notification
-      }
+    static func hasCorrectNotificationTypes() -> Bool {
+        return UIApplication.shared.currentUserNotificationSettings?.types == notificationsSettings().types
     }
-    return nil
-  }
 
-  static func cancelNotification(alarmID: String) {
-    for badgeCount in [1, 0] { UIApplication.sharedApplication().applicationIconBadgeNumber = badgeCount }
+    static func notificationsSettings() -> UIUserNotificationSettings {
+        var categories = Set<UIUserNotificationCategory>()
 
-    if let notification = getNotification(alarmID) {
-      UIApplication.sharedApplication().cancelLocalNotification(notification)
-      WatchCommunicator.sharedInstance.sendAlarms()
+        let threeMinutesAction = UIMutableUserNotificationAction()
+        threeMinutesAction.title = NSLocalizedString("Add 3 mins", comment: "")
+        threeMinutesAction.identifier = Action.AddThreeMinutes.rawValue
+        threeMinutesAction.activationMode = .background
+        threeMinutesAction.isAuthenticationRequired = false
+
+        let fiveMinutesAction = UIMutableUserNotificationAction()
+        fiveMinutesAction.title = NSLocalizedString("Add 5 mins", comment: "")
+        fiveMinutesAction.identifier = Action.AddFiveMinutes.rawValue
+        fiveMinutesAction.activationMode = .background
+        fiveMinutesAction.isAuthenticationRequired = false
+
+        let category = UIMutableUserNotificationCategory()
+        category.setActions([threeMinutesAction, fiveMinutesAction], for: .default)
+        category.identifier = AlarmCenter.categoryIdentifier
+
+        categories.insert(category)
+
+        let types: UIUserNotificationType = [.alert, .badge, .sound]
+        let settings = UIUserNotificationSettings(types: types, categories: categories)
+
+        return settings
     }
-  }
 
-  static func cancelAllNotifications() {
-    for notification in UIApplication.sharedApplication().scheduledLocalNotifications! {
-      if let _ = notification.userInfo?[ThymeAlarmIDKey] as? String {
-        UIApplication.sharedApplication().cancelLocalNotification(notification)
-      }
+    static func registerNotificationSettings() {
+        let settings = AlarmCenter.notificationsSettings()
+        UIApplication.shared.registerUserNotificationSettings(settings)
     }
-    WatchCommunicator.sharedInstance.sendAlarms()
-  }
 
-  // MARK: - Handling
+    static func scheduleNotification(_ alarmID: String, seconds: TimeInterval, message: String?) -> UILocalNotification {
+        if let notification = getNotification(alarmID) {
+            UIApplication.shared.cancelLocalNotification(notification)
+        }
 
-  static func handleNotification(notification: UILocalNotification, actionID: String?) {
-    if let actionID = actionID, action = Action(rawValue: actionID) {
-      switch action {
-      case .AddThreeMinutes:
-        extendNotification(notification, seconds: NSTimeInterval(60 * 3))
-      case .AddFiveMinutes:
-        extendNotification(notification, seconds: NSTimeInterval(60 * 5))
-      }
+        let fireDate = Date().addingTimeInterval(seconds)
+
+        var userInfo = [AnyHashable: Any]()
+        userInfo[ThymeAlarmIDKey] = alarmID
+        userInfo[ThymeAlarmFireDataKey] = Date()
+        userInfo[ThymeAlarmFireInterval] = seconds
+
+        let notification = UILocalNotification()
+        notification.alertBody = message
+        notification.fireDate = fireDate
+        notification.category = categoryIdentifier
+        notification.soundName = "alarm.caf"
+        notification.timeZone = TimeZone.current
+        notification.userInfo = userInfo
+
+        UIApplication.shared.scheduleLocalNotification(notification)
+        WatchCommunicator.sharedInstance.sendAlarms()
+
+        return notification
     }
-  }
+
+    static func extendNotification(_ notification: UILocalNotification, seconds: TimeInterval) -> UILocalNotification? {
+        var updatedNotification: UILocalNotification?
+
+        if let alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String,
+            let userInfo = notification.userInfo,
+            let firedDate = userInfo[ThymeAlarmFireDataKey] as? Date,
+            let numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
+            var secondsAmount = seconds
+
+            let secondsPassed: TimeInterval = Date().timeIntervalSince(firedDate)
+            let secondsLeft = TimeInterval(numberOfSeconds.intValue) - secondsPassed
+
+            if secondsLeft > 0 { secondsAmount += secondsLeft }
+
+            UIApplication.shared.cancelLocalNotification(notification)
+
+            updatedNotification = AlarmCenter.scheduleNotification(alarmID,
+                                                                   seconds: secondsAmount,
+                                                                   message: notification.alertBody)
+        }
+
+        return updatedNotification
+    }
+
+    static func getNotification(_ alarmID: String) -> UILocalNotification? {
+        for notification in UIApplication.shared.scheduledLocalNotifications! {
+            if let notificationAlarmID = notification.userInfo?[ThymeAlarmIDKey] as? String, notificationAlarmID == alarmID {
+                return notification
+            }
+        }
+        return nil
+    }
+
+    static func cancelNotification(_ alarmID: String) {
+        for badgeCount in [1, 0] { UIApplication.shared.applicationIconBadgeNumber = badgeCount }
+
+        if let notification = getNotification(alarmID) {
+            UIApplication.shared.cancelLocalNotification(notification)
+            WatchCommunicator.sharedInstance.sendAlarms()
+        }
+    }
+
+    static func cancelAllNotifications() {
+        for notification in UIApplication.shared.scheduledLocalNotifications! {
+            if let _ = notification.userInfo?[ThymeAlarmIDKey] as? String {
+                UIApplication.shared.cancelLocalNotification(notification)
+            }
+        }
+        WatchCommunicator.sharedInstance.sendAlarms()
+    }
+
+    // MARK: - Handling
+
+    static func handleNotification(_ notification: UILocalNotification, actionID: String?) {
+        if let actionID = actionID, let action = Action(rawValue: actionID) {
+            switch action {
+            case .AddThreeMinutes:
+                extendNotification(notification, seconds: TimeInterval(60 * 3))
+            case .AddFiveMinutes:
+                extendNotification(notification, seconds: TimeInterval(60 * 5))
+            }
+        }
+    }
 }
