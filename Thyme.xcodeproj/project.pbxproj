@@ -25,6 +25,9 @@
 		44AAE42D1844C0690096BF52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AAE4151844C0690096BF52 /* UIKit.framework */; };
 		44AAE4351844C0690096BF52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 44AAE4331844C0690096BF52 /* InfoPlist.strings */; };
 		44AAE4371844C0690096BF52 /* ThymeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 44AAE4361844C0690096BF52 /* ThymeTests.m */; };
+		44F43BD220C9CD79003E0A93 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F43BD120C9CD79003E0A93 /* Transition.swift */; };
+		44F43BD420C9CF67003E0A93 /* UnitTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F43BD320C9CF67003E0A93 /* UnitTesting.swift */; };
+		44F43BD820C9D53A003E0A93 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F43BD720C9D53A003E0A93 /* String+Extension.swift */; };
 		BD08D10A1B8B82CF009EAD75 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D1091B8B82CF009EAD75 /* Screen.swift */; };
 		BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D10D1B8B8798009EAD75 /* Theme.swift */; };
 		BD08D1101B8B8B18009EAD75 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD08D10F1B8B8B18009EAD75 /* Math.swift */; };
@@ -153,6 +156,9 @@
 		44AAE4321844C0690096BF52 /* ThymeTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ThymeTests-Info.plist"; sourceTree = "<group>"; };
 		44AAE4341844C0690096BF52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		44AAE4361844C0690096BF52 /* ThymeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThymeTests.m; sourceTree = "<group>"; };
+		44F43BD120C9CD79003E0A93 /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
+		44F43BD320C9CF67003E0A93 /* UnitTesting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTesting.swift; sourceTree = "<group>"; };
+		44F43BD720C9D53A003E0A93 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		92212D57F2CB0A81DABE31B6 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD08D1091B8B82CF009EAD75 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		BD08D10D1B8B8798009EAD75 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -294,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				BDFD87F01B34827F00F0DCE6 /* Alarm.swift */,
+				44F43BD720C9D53A003E0A93 /* String+Extension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -319,6 +326,7 @@
 			isa = PBXGroup;
 			children = (
 				BDBE46D11B3150D100E2896B /* AppDelegate.swift */,
+				44F43BD320C9CF67003E0A93 /* UnitTesting.swift */,
 				BDBE46D01B3150D100E2896B /* Thyme-Bridging-Header.h */,
 			);
 			path = AppDelegate;
@@ -346,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				BD1579731B32E58A00812247 /* HomeViewController.swift */,
+				44F43BD120C9CD79003E0A93 /* Transition.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -838,9 +847,11 @@
 				BDC80D991B343F02005E2C51 /* Fonts.swift in Sources */,
 				BD3B8B8F1B8F755600AAC2A9 /* UIColor+Hex.swift in Sources */,
 				BD6E97431B8BC1D1004C83D4 /* UIView+ToImage.swift in Sources */,
+				44F43BD220C9CD79003E0A93 /* Transition.swift in Sources */,
 				BD08D1121B8B8C0A009EAD75 /* TimerControl+Draw.swift in Sources */,
 				D5A2383A1B8BD75F00863023 /* WatchCommunicator.swift in Sources */,
 				BDFEB6651B3706E9004DFFD0 /* TimerControl.swift in Sources */,
+				44F43BD420C9CF67003E0A93 /* UnitTesting.swift in Sources */,
 				BD9705F21B9847560094574C /* HerbieController.swift in Sources */,
 				BDF6EC8A1B8E3685002A051B /* Device.swift in Sources */,
 				D510E57E1BD7074300FFD7A5 /* MMWormholeSession.m in Sources */,
@@ -850,6 +861,7 @@
 				BDFD87F11B34827F00F0DCE6 /* Alarm.swift in Sources */,
 				BD8CF14B1B32CC8100D00AC2 /* ViewController.swift in Sources */,
 				BDE89E211B33FD130010A6ED /* TimerViewController.swift in Sources */,
+				44F43BD820C9D53A003E0A93 /* String+Extension.swift in Sources */,
 				D510E5801BD7074300FFD7A5 /* MMWormholeSessionFileTransiting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

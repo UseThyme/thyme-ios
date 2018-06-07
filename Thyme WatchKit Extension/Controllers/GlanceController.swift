@@ -43,7 +43,7 @@ class GlanceController: WKInterfaceController, Communicable {
         super.willActivate()
 
         lostConnectionImage.setHidden(true)
-        wormhole.passMessageObject([:], identifier: Routes.App.alarms)
+        wormhole.passMessageObject(nil, identifier: Routes.App.alarms)
     }
 
     override func didDeactivate() {

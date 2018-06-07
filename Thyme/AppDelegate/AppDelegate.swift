@@ -88,11 +88,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
         if !AlarmCenter.hasCorrectNotificationTypes() {
             if !homeController.herbieController.isBeingPresented {
-                delay(1) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
                     if !AlarmCenter.hasCorrectNotificationTypes() {
                         self.homeController.presentHerbie()
                     }
-                }
+                })
             } else {
                 homeController.cancelledNotifications()
             }

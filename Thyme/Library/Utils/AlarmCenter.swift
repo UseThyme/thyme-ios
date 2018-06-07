@@ -133,9 +133,9 @@ public struct AlarmCenter {
         if let actionID = actionID, let action = Action(rawValue: actionID) {
             switch action {
             case .AddThreeMinutes:
-                extendNotification(notification, seconds: TimeInterval(60 * 3))
+                _ = extendNotification(notification, seconds: TimeInterval(60 * 3))
             case .AddFiveMinutes:
-                extendNotification(notification, seconds: TimeInterval(60 * 5))
+                _ = extendNotification(notification, seconds: TimeInterval(60 * 5))
             }
         }
     }

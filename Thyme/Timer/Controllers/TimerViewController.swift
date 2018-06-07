@@ -282,7 +282,7 @@ class TimerViewController: ViewController {
     }
 
     func alarmsDidUpdate(_ notification: Notification) {
-        if notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
+        if notification.name.rawValue == AlarmCenter.Notifications.AlarmsDidUpdate {
             DispatchQueue.main.async {
                 self.timerControl.stopTimer()
                 self.refreshTimerForCurrentAlarm()

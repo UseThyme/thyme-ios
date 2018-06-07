@@ -19,16 +19,16 @@ class Alarm {
     var active: Bool = false
 
     lazy var title: String = {
-        if self.type == .oven { return localizedString("OVEN") }
+        if self.type == .oven { return "OVEN".localized }
 
         let leading: String = self.indexPath?.item == 0
-            ? localizedString("TOP")
-            : localizedString("BOTTOM")
+            ? "TOP".localized
+            : "BOTTOM".localized
         let position: String = self.indexPath?.section == 0
-            ? localizedString("LEFT")
-            : localizedString("RIGHT")
+            ? "LEFT".localized
+            : "RIGHT".localized
 
-        return localizedString("\(leading) \(position) PLATE")
+        return "\(leading) \(position) PLATE".localized
     }()
 
     lazy var timerTitle: String = {
@@ -51,35 +51,35 @@ class Alarm {
     }
 
     static func titleForHomescreen() -> String {
-        return localizedString("IT'S TIME TO GET COOKING")
+        return "IT'S TIME TO GET COOKING".localized
     }
 
     static func subtitleForHomescreen() -> String {
-        return localizedString("TAP A PLATE TO SET A TIMER")
+        return "TAP A PLATE TO SET A TIMER".localized
     }
 
     static func subtitleForHomescreenUsingMinutes(_ maxMinutesLeft: NSNumber) -> String {
         var message: String
 
         if maxMinutesLeft.doubleValue == 0.0 {
-            message = localizedString("IN LESS THAN A MINUTE")
+            message = "IN LESS THAN A MINUTE".localized
         } else {
             let hoursLeft = floor(maxMinutesLeft.doubleValue / 60.0)
             let minutesLeft = maxMinutesLeft.doubleValue - (hoursLeft * 60)
 
             if hoursLeft > 0 {
                 if hoursLeft == 1 && minutesLeft == 0 {
-                    message = localizedString("IN ABOUT 1 HOUR")
+                    message = "IN ABOUT 1 HOUR".localized
                 } else if hoursLeft == 1 && minutesLeft > 0 {
-                    message = localizedString("IN ABOUT 1 HOUR \(Int(minutesLeft)) MINUTES")
+                    message = "IN ABOUT 1 HOUR \(Int(minutesLeft)) MINUTES".localized
                 } else {
-                    message = localizedString("IN ABOUT \(Int(hoursLeft)) HOURS \(Int(minutesLeft)) MINUTES")
+                    message = "IN ABOUT \(Int(hoursLeft)) HOURS \(Int(minutesLeft)) MINUTES".localized
                 }
             } else {
                 if minutesLeft >= 57 {
-                    message = localizedString("IN ABOUT 1 HOUR")
+                    message = "IN ABOUT 1 HOUR".localized
                 } else if minutesLeft < 10 {
-                    message = localizedString("IN \(Int(minutesLeft)) MINUTES")
+                    message = "IN \(Int(minutesLeft)) MINUTES".localized
                 } else {
                     var minutes = minutesLeft
                     let mod = minutes.truncatingRemainder(dividingBy: 5)
@@ -92,7 +92,7 @@ class Alarm {
                             : nextMinutes - nextMod
                     }
 
-                    message = localizedString("IN ABOUT \(Int(minutes)) MINUTES")
+                    message = "IN ABOUT \(Int(minutes)) MINUTES".localized
                 }
             }
         }
@@ -101,11 +101,11 @@ class Alarm {
     }
 
     static func messageForSetAlarm() -> String {
-        return localizedString("------------------SWIPE CLOCKWISE TO SET TIMER------------------")
+        return "------------------SWIPE CLOCKWISE TO SET TIMER------------------".localized
     }
 
     static func messageForReleaseToSetAlarm() -> String {
-        return localizedString("------------------RELEASE TO SET TIMER------------------")
+        return "------------------RELEASE TO SET TIMER------------------".localized
     }
 
     static func defaultAlarmID() -> String {

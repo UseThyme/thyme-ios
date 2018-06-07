@@ -103,7 +103,7 @@ class WatchCommunicator {
 
         if let notification = AlarmCenter.getNotification(alarm.alarmID!) {
             alarmData = extractAlarmData(notification)
-            alarmData["title"] = alarm.title
+            alarmData["title"] = alarm.title as AnyObject
         }
 
         return alarmData

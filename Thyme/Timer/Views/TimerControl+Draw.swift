@@ -34,7 +34,10 @@ extension TimerControl {
         color.set()
 
         context.move(to: CGPoint(x: x, y: y))
-        CGContextAddArc(context, x, y, radius, startDeg, endDeg, 0)
+
+        let center = CGPoint(x:(round(frame.size.width))/2, y:round(frame.size.height)/2)
+        let radius = (round(frame.size.width) - 10)/2
+        context.addArc(center: center, radius: radius, startAngle: startDeg, endAngle: endDeg, clockwise: true)
         context.closePath()
         context.fillPath()
         context.restoreGState()

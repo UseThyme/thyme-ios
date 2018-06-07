@@ -1,5 +1,5 @@
-import Transition
 import UIKit
+
 // FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
 // Consider refactoring the code to use the non-optional operators.
 fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -117,42 +117,42 @@ class HomeViewController: ViewController, ContentSizeChangable {
         let transition = Transition() { controller, show in
 
             controller.view.alpha = show ? 1 : 0
-            controller.view.backgroundColor = UIColor.clearColor()
+            controller.view.backgroundColor = UIColor.clear
 
             if !UIAccessibilityIsReduceMotionEnabled() {
                 if let timerController = controller as? TimerViewController {
                     if show {
                         timerController.kitchenButton.alpha = 0
                         self.ovenShineImageView.alpha = 0
-                        UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
-                            self.titleLabel.transform = CGAffineTransformMakeTranslation(0, -200)
-                            self.subtitleLabel.transform = CGAffineTransformMakeTranslation(0, -200)
-                            self.stoveView.transform = CGAffineTransformMakeScale(0.21, 0.21)
+                        UIView.animate(withDuration: 0.3, delay: 0, options: .beginFromCurrentState, animations: {
+                            self.titleLabel.transform = CGAffineTransform(translationX: 0, y: -200)
+                            self.subtitleLabel.transform = CGAffineTransform(translationX: 0, y: -200)
+                            self.stoveView.transform = CGAffineTransform(scaleX: 0.21, y: 0.21)
                             self.stoveView.frame.origin.x = timerController.kitchenButton.frame.origin.x - 10
                             self.stoveView.frame.origin.y = timerController.kitchenButton.frame.origin.y - 25
                         }, completion: { _ in
-                            timerController.kitchenButton.alpha = controller.isBeingDismissed() ? 0 : 1
+                            timerController.kitchenButton.alpha = controller.isBeingDismissed ? 0 : 1
                         })
 
-                        if controller.isBeingPresented() {
-                            timerController.timerControl.transform = CGAffineTransformMakeScale(0.5, 0.5)
+                        if controller.isBeingPresented {
+                            timerController.timerControl.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
                             timerController.timerControl.alpha = 0.0
-                            UIView.animateWithDuration(0.8, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .BeginFromCurrentState, animations: {
-                                timerController.timerControl.transform = CGAffineTransformIdentity
+                            UIView.animate(withDuration: 0.8, delay: 0.1, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .beginFromCurrentState, animations: {
+                                timerController.timerControl.transform = .identity
                                 timerController.timerControl.alpha = 1
                             }, completion: nil)
                         }
                     } else {
-                        if controller.isBeingDismissed() {
-                            UIView.animateWithDuration(0.25) {
+                        if controller.isBeingDismissed {
+                            UIView.animate(withDuration: 0.25) {
                                 timerController.timerControl.alpha = 0.0
-                                timerController.timerControl.transform = CGAffineTransformMakeScale(0.5, 0.5)
+                                timerController.timerControl.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
                             }
                         }
 
-                        self.titleLabel.transform = CGAffineTransformIdentity
-                        self.subtitleLabel.transform = CGAffineTransformIdentity
-                        self.stoveView.transform = CGAffineTransformIdentity
+                        self.titleLabel.transform = .identity
+                        self.subtitleLabel.transform = .identity
+                        self.stoveView.transform = .identity
                         self.stoveView.frame.origin.x = 0
                         self.stoveView.frame.origin.y = self.topMargin
                         self.ovenShineImageView.alpha = 1
@@ -419,7 +419,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     }
 
     func appWasShaked(_ notification: Notification) {
-        if notification.name == "appWasShaked" && deleteTimersMessageIsBeingDisplayed == false {
+        if notification.name.rawValue == "appWasShaked" && deleteTimersMessageIsBeingDisplayed == false {
             UIAlertView(title: NSLocalizedString("Would you like to cancel all the timers?", comment: ""),
                         message: "",
                         delegate: self,
@@ -430,7 +430,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     }
 
     func alarmsDidUpdate(_ notification: Notification) {
-        if notification.name == AlarmCenter.Notifications.AlarmsDidUpdate {
+        if notification.name.rawValue == AlarmCenter.Notifications.AlarmsDidUpdate {
             DispatchQueue.main.async {
                 self.maxMinutesLeft = nil
                 self.plateCollectionView.reloadData()
@@ -496,7 +496,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
             let hoursLeft = floor(minutesLeft / 60)
 
             if minutesLeft >= maxMinutesLeft?.doubleValue {
-                maxMinutesLeft = minutesLeft
+                maxMinutesLeft = minutesLeft as NSNumber
             }
 
             if hoursLeft > 0 {

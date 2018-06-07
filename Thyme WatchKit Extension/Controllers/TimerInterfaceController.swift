@@ -251,7 +251,7 @@ class TimerInterfaceController: WKInterfaceController, Communicable {
 
     func setupAlarm(_ alarmInfo: [String: AnyObject]) {
         let alarm = Alarm(
-            firedDate: alarmInfo["firedDate"] as? Date as! NSDate,
+            firedDate: alarmInfo["firedDate"] as? Date,
             numberOfSeconds: alarmInfo["numberOfSeconds"] as? NSNumber)
 
         state = alarm.active ? .active : .inactive

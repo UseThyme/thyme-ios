@@ -60,7 +60,7 @@ class HomeInterfaceController: WKInterfaceController, Communicable {
         super.willActivate()
 
         showLostConnection(false)
-        wormhole.passMessageObject([:], identifier: Routes.App.alarms)
+        wormhole.passMessageObject(nil, identifier: Routes.App.alarms)
     }
 
     // MARK: - Local notifications
@@ -80,7 +80,7 @@ class HomeInterfaceController: WKInterfaceController, Communicable {
                 break
             }
 
-            parameters["index"] = Alarm.indexFromString(alarmID)
+            parameters["index"] = Alarm.indexFromString(alarmID) as AnyObject
             wormhole.passMessageObject(parameters as NSCoding, identifier: identifier)
         }
     }
@@ -109,11 +109,11 @@ class HomeInterfaceController: WKInterfaceController, Communicable {
 
     @IBAction func menuCancelAllButtonDidTap() {
         WKInterfaceDevice.current().play(.stop)
-        wormhole.passMessageObject([:], identifier: Routes.App.cancelAlarms)
+        wormhole.passMessageObject(nil, identifier: Routes.App.cancelAlarms)
     }
 
     @IBAction func retryButtonTapped() {
-        wormhole.passMessageObject([:], identifier: Routes.App.alarms)
+        wormhole.passMessageObject(nil, identifier: Routes.App.alarms)
     }
 
     // MARK: - UI
@@ -178,7 +178,7 @@ class HomeInterfaceController: WKInterfaceController, Communicable {
 
             if let alarmInfo = alarmInfo as? [String: AnyObject] {
                 alarm = Alarm(
-                    firedDate: alarmInfo["firedDate"] as? Date as! NSDate,
+                    firedDate: alarmInfo["firedDate"] as? Date,
                     numberOfSeconds: alarmInfo["numberOfSeconds"] as? NSNumber)
             } else {
                 alarm = Alarm()
