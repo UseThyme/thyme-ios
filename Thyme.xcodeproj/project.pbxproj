@@ -506,10 +506,10 @@
 				D563F9581B9B33E700FF60AC /* Controllers */,
 				D5E588231B8E54FD0050DD5C /* Models */,
 				D538B8F01B8E42C300069C38 /* Library */,
-				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
 				BD2C3B201B3B44F900ACCFAA /* Supporting Files */,
 				D503E6901BA2469F00E7214D /* ExtensionDelegate.swift */,
 				D510E5691BD706FF00FFD7A5 /* Thyme-Watch-Bridging-Header.h */,
+				BD2C3B291B3B44F900ACCFAA /* Images.xcassets */,
 			);
 			path = "Thyme WatchKit Extension";
 			sourceTree = "<group>";
@@ -527,8 +527,8 @@
 			isa = PBXGroup;
 			children = (
 				BD2C3B341B3B44F900ACCFAA /* Interface.storyboard */,
-				BD2C3B371B3B44F900ACCFAA /* Images.xcassets */,
 				BD2C3B321B3B44F900ACCFAA /* Supporting Files */,
+				BD2C3B371B3B44F900ACCFAA /* Images.xcassets */,
 			);
 			path = "Thyme WatchKit App";
 			sourceTree = "<group>";
