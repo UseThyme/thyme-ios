@@ -32,16 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     }()
 
     lazy var homeController: HomeViewController = {
-        var theme: Themable = Theme.Main()
-        if UIAccessibilityDarkerSystemColorsEnabled() {
-            theme = Theme.DarkColors()
-
-            if UIAccessibilityIsReduceTransparencyEnabled() {
-                theme = Theme.HighContrast()
-            }
-        }
-        let controller = HomeViewController(theme: theme)
-        return controller
+        return HomeViewController()
     }()
 
     // MARK: - UIApplicationDelegate
@@ -51,17 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
 
         application.beginReceivingRemoteControlEvents()
 
-        let pageControl = UIPageControl.appearance()
-        pageControl.pageIndicatorTintColor = UIColor(hex: "D0E8E8")
-        pageControl.currentPageIndicatorTintColor = UIColor(hex: "FF5C5C")
-        pageControl.backgroundColor = UIColor(hex: "EDFFFF")
+        CustomAppearance.apply()
 
         if let notification = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? UILocalNotification {
             handleLocalNotification(notification, playingSound: false)
         }
 
-        window!.rootViewController = navigationController
-        window!.makeKeyAndVisible()
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
 
         WatchCommunicator.sharedInstance.configureRoutes()
 
@@ -69,17 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        var theme: Themable = Theme.Main()
-
-        if UIAccessibilityDarkerSystemColorsEnabled() {
-            theme = Theme.DarkColors()
-
-            if UIAccessibilityIsReduceTransparencyEnabled() {
-                theme = Theme.HighContrast()
-            }
-        }
-
-        homeController.theme = theme
+        homeController.theme = Theme.current()
         homeController.setNeedsStatusBarAppearanceUpdate()
 
         if !AlarmCenter.hasCorrectNotificationTypes() {

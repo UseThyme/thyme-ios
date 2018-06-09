@@ -13,6 +13,7 @@
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
 		4434DF3320CC67CC00D33AF8 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3220CC67CC00D33AF8 /* Transition.swift */; };
 		4434DF3520CC67E200D33AF8 /* UnitTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3420CC67E200D33AF8 /* UnitTesting.swift */; };
+		4434DF3720CC6A2A00D33AF8 /* CustomAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3620CC6A2A00D33AF8 /* CustomAppearance.swift */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
 		449143D118476786008A80F0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D018476786008A80F0 /* CoreText.framework */; };
 		449143D318476798008A80F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D218476798008A80F0 /* QuartzCore.framework */; };
@@ -141,6 +142,7 @@
 		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4434DF3220CC67CC00D33AF8 /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		4434DF3420CC67E200D33AF8 /* UnitTesting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTesting.swift; sourceTree = "<group>"; };
+		4434DF3620CC6A2A00D33AF8 /* CustomAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAppearance.swift; sourceTree = "<group>"; };
 		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
 		449143D018476786008A80F0 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		449143D218476798008A80F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -391,6 +393,7 @@
 				4434DF3220CC67CC00D33AF8 /* Transition.swift */,
 				D5A238391B8BD75F00863023 /* WatchCommunicator.swift */,
 				4434DF3420CC67E200D33AF8 /* UnitTesting.swift */,
+				4434DF3620CC6A2A00D33AF8 /* CustomAppearance.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -833,6 +836,7 @@
 				D510E57C1BD7074300FFD7A5 /* MMWormholeCoordinatedFileTransiting.m in Sources */,
 				BD08D1151B8B8FF2009EAD75 /* HYPDrawText.m in Sources */,
 				BD08D10E1B8B8798009EAD75 /* Theme.swift in Sources */,
+				4434DF3720CC6A2A00D33AF8 /* CustomAppearance.swift in Sources */,
 				BD1579741B32E58A00812247 /* HomeViewController.swift in Sources */,
 				4434DF3320CC67CC00D33AF8 /* Transition.swift in Sources */,
 				D510E5811BD7074300FFD7A5 /* MMWormholeSessionMessageTransiting.m in Sources */,

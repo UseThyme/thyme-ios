@@ -354,7 +354,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
         return controller
     }()
 
-    convenience init(theme: Themable?) {
+    convenience init(theme: Themable? = Theme.current()) {
         self.init()
         self.theme = theme
     }
