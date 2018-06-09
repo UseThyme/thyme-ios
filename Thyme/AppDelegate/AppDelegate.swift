@@ -153,7 +153,7 @@ extension AppDelegate {
             }
 
             let alert = UIAlertController(title: "Thyme", message: notification.alertBody, preferredStyle: .alert)
-            let actionAndDismiss = { (action: String?) -> ((UIAlertAction!) -> Void) in
+            let actionAndDismiss = { (action: String?) -> ((UIAlertAction) -> Void) in
                 return { _ in
                     AlarmCenter.handleNotification(notification, actionID: action)
                     if let audioPlayer = self.audioPlayer, audioPlayer.isPlaying {
