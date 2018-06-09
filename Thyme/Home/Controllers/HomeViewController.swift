@@ -1,29 +1,5 @@
 import UIKit
 
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func < <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l < r
-    case (nil, _?):
-        return true
-    default:
-        return false
-    }
-}
-
-// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
-// Consider refactoring the code to use the non-optional operators.
-fileprivate func >= <T: Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l >= r
-    default:
-        return !(lhs < rhs)
-    }
-}
-
 class HomeViewController: ViewController, ContentSizeChangable {
     let plateCellIdentifier = "HYPPlateCellIdentifier"
 
@@ -33,7 +9,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
     override var theme: Themable? {
         willSet(newTheme) {
             gradientLayer.colors = newTheme?.colors
-            gradientLayer.locations = newTheme?.locations as! [NSNumber]
+            gradientLayer.locations = newTheme?.locations as [NSNumber]?
             titleLabel.textColor = newTheme?.labelColor
             subtitleLabel.textColor = newTheme?.labelColor
             plateCollectionView.setNeedsDisplay()
@@ -52,11 +28,9 @@ class HomeViewController: ViewController, ContentSizeChangable {
     var maxMinutesLeft: NSNumber? {
         didSet(newValue) {
             if let maxMinutesLeft = maxMinutesLeft {
-                titleLabel.text = NSLocalizedString("YOUR DISH WILL BE DONE",
-                                                    comment: "YOUR DISH WILL BE DONE")
+                titleLabel.text = "YOUR DISH WILL BE DONE".localized
                 if maxMinutesLeft == 0.0 {
-                    subtitleLabel.text = NSLocalizedString("IN LESS THAN A MINUTE",
-                                                           comment: "IN LESS THAN A MINUTE")
+                    subtitleLabel.text = "IN LESS THAN A MINUTE".localized
                 } else {
                     subtitleLabel.text = Alarm.subtitleForHomescreenUsingMinutes(maxMinutesLeft)
                 }
@@ -344,11 +318,6 @@ class HomeViewController: ViewController, ContentSizeChangable {
         return imageView
     }()
 
-    lazy var tapRecognizer: UITapGestureRecognizer = { [unowned self] in
-        return UITapGestureRecognizer(target: self,
-                                      action: "backgroundTapped:")
-    }()
-
     lazy var herbieController: HerbieController = {
         let controller = HerbieController()
         return controller
@@ -366,45 +335,29 @@ class HomeViewController: ViewController, ContentSizeChangable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(HomeViewController.appWasShaked(_:)),
-                                               name: NSNotification.Name(rawValue: "appWasShaked"),
-                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.appWasShaked(_:)), name: NSNotification.Name(rawValue: "appWasShaked"), object: nil)
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(HomeViewController.alarmsDidUpdate(_:)),
-                                               name: NSNotification.Name(rawValue: AlarmCenter.Notifications.AlarmsDidUpdate),
-                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.alarmsDidUpdate(_:)), name: NSNotification.Name(rawValue: AlarmCenter.Notifications.AlarmsDidUpdate), object: nil)
 
-        UIViewAnimationOptions.curveEaseIn
+        plateCollectionView.register(PlateCell.classForCoder(), forCellWithReuseIdentifier: plateCellIdentifier)
+        ovenCollectionView.register(PlateCell.classForCoder(), forCellWithReuseIdentifier: plateCellIdentifier)
 
-        plateCollectionView.register(PlateCell.classForCoder(),
-                                     forCellWithReuseIdentifier: plateCellIdentifier)
-        ovenCollectionView.register(PlateCell.classForCoder(),
-                                    forCellWithReuseIdentifier: plateCellIdentifier)
+        view.addSubview(titleLabel)
+        view.addSubview(subtitleLabel)
 
-        for subview in [titleLabel, subtitleLabel] {
-            view.addSubview(subview)
-        }
-        for subview in [ovenBackgroundImageView, ovenShineImageView, plateCollectionView, ovenCollectionView] as [Any] {
-            stoveView.addSubview(subview as! UIView)
-        }
-
+        stoveView.addSubview(ovenBackgroundImageView)
+        stoveView.addSubview(ovenShineImageView)
+        stoveView.addSubview(plateCollectionView)
+        stoveView.addSubview(ovenCollectionView)
         view.addSubview(stoveView)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated, addGradient: true)
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(HomeViewController.dismissedTimerController(_:)),
-                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
-                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.dismissedTimerController(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(HomeViewController.contentSizeCategoryDidChange(_:)),
-                                               name: NSNotification.Name.UIContentSizeCategoryDidChange,
-                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.contentSizeCategoryDidChange(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
 
         setNeedsStatusBarAppearanceUpdate()
     }
@@ -495,7 +448,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
             var minutesLeft = floor(secondsLeft / 60)
             let hoursLeft = floor(minutesLeft / 60)
 
-            if minutesLeft >= maxMinutesLeft?.doubleValue {
+            let maxMinutesLeftDouble = maxMinutesLeft?.doubleValue ?? 0
+            if minutesLeft >= maxMinutesLeftDouble {
                 maxMinutesLeft = minutesLeft as NSNumber
             }
 

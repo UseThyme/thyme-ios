@@ -336,8 +336,8 @@
 		446C9E261844C551005FD797 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				446C9E2D1844CA21005FD797 /* Cells */,
 				446C9E281844C562005FD797 /* Controllers */,
+				446C9E2D1844CA21005FD797 /* Cells */,
 			);
 			path = Home;
 			sourceTree = "<group>";
