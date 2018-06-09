@@ -1,10 +1,6 @@
 import AVFoundation
 import UIKit
 
-let ThymeAlarmIDKey = "HYPAlarmID"
-let ThymeAlarmFireDataKey = "HYPAlarmFireDate"
-let ThymeAlarmFireInterval = "HYPAlarmFireInterval"
-
 @available(iOS 9.0, *)
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
@@ -144,7 +140,7 @@ extension AppDelegate {
     // MARK: - Private methods
 
     func handleLocalNotification(_ notification: UILocalNotification, playingSound: Bool) {
-        if let userInfo = notification.userInfo, let _ = userInfo[ThymeAlarmIDKey] as? String {
+        if let userInfo = notification.userInfo, let _ = userInfo[Alarm.idKey] as? String {
             if playingSound {
                 do { try audioSession?.setCategory(AVAudioSessionCategoryPlayback) } catch {}
                 do { try audioSession?.setActive(true) } catch {}

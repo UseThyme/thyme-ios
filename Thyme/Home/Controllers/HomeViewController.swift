@@ -487,8 +487,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
     func refreshTimerInCell(_ cell: PlateCell, alarm: Alarm) {
         if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!),
             let userinfo = existingNotification.userInfo,
-            let firedDate = userinfo[ThymeAlarmFireDataKey] as? Date,
-            let numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber {
+            let firedDate = userinfo[Alarm.fireDateKey] as? Date,
+            let numberOfSeconds = userinfo[Alarm.fireIntervalKey] as? NSNumber {
             let secondsPassed: TimeInterval = Date().timeIntervalSince(firedDate)
             let secondsLeft = TimeInterval(numberOfSeconds.intValue) - secondsPassed
             let currentSecond = secondsLeft.truncatingRemainder(dividingBy: 60)

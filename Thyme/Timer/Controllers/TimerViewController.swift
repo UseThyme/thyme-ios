@@ -253,8 +253,8 @@ class TimerViewController: ViewController {
 
     func refreshTimerForNotification(_ notification: UILocalNotification) {
         if let userinfo = notification.userInfo,
-            let firedDate = userinfo[ThymeAlarmFireDataKey] as? Date,
-            let numberOfSeconds = userinfo[ThymeAlarmFireInterval] as? NSNumber {
+            let firedDate = userinfo[Alarm.fireDateKey] as? Date,
+            let numberOfSeconds = userinfo[Alarm.fireIntervalKey] as? NSNumber {
             let secondsPassed: TimeInterval = Date().timeIntervalSince(firedDate)
             let secondsLeft = TimeInterval(numberOfSeconds.intValue) - secondsPassed
             let currentSecond = secondsLeft.truncatingRemainder(dividingBy: 60)

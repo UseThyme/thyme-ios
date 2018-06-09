@@ -58,9 +58,9 @@ public struct AlarmCenter {
         let fireDate = Date().addingTimeInterval(seconds)
 
         var userInfo = [AnyHashable: Any]()
-        userInfo[ThymeAlarmIDKey] = alarmID
-        userInfo[ThymeAlarmFireDataKey] = Date()
-        userInfo[ThymeAlarmFireInterval] = seconds
+        userInfo[Alarm.idKey] = alarmID
+        userInfo[Alarm.fireDateKey] = Date()
+        userInfo[Alarm.fireIntervalKey] = seconds
 
         let notification = UILocalNotification()
         notification.alertBody = message
@@ -79,10 +79,10 @@ public struct AlarmCenter {
     static func extendNotification(_ notification: UILocalNotification, seconds: TimeInterval) -> UILocalNotification? {
         var updatedNotification: UILocalNotification?
 
-        if let alarmID = notification.userInfo?[ThymeAlarmIDKey] as? String,
+        if let alarmID = notification.userInfo?[Alarm.idKey] as? String,
             let userInfo = notification.userInfo,
-            let firedDate = userInfo[ThymeAlarmFireDataKey] as? Date,
-            let numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
+            let firedDate = userInfo[Alarm.fireIntervalKey] as? Date,
+            let numberOfSeconds = userInfo[Alarm.fireIntervalKey] as? NSNumber {
             var secondsAmount = seconds
 
             let secondsPassed: TimeInterval = Date().timeIntervalSince(firedDate)
@@ -102,7 +102,7 @@ public struct AlarmCenter {
 
     static func getNotification(_ alarmID: String) -> UILocalNotification? {
         for notification in UIApplication.shared.scheduledLocalNotifications! {
-            if let notificationAlarmID = notification.userInfo?[ThymeAlarmIDKey] as? String, notificationAlarmID == alarmID {
+            if let notificationAlarmID = notification.userInfo?[Alarm.idKey] as? String, notificationAlarmID == alarmID {
                 return notification
             }
         }
@@ -120,7 +120,7 @@ public struct AlarmCenter {
 
     static func cancelAllNotifications() {
         for notification in UIApplication.shared.scheduledLocalNotifications! {
-            if let _ = notification.userInfo?[ThymeAlarmIDKey] as? String {
+            if let _ = notification.userInfo?[Alarm.idKey] as? String {
                 UIApplication.shared.cancelLocalNotification(notification)
             }
         }

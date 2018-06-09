@@ -113,8 +113,8 @@ class WatchCommunicator {
         var alarmData = [String: AnyObject]()
 
         if let userInfo = notification.userInfo,
-            let firedDate = userInfo[ThymeAlarmFireDataKey] as? Date,
-            let numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
+            let firedDate = userInfo[Alarm.fireDateKey] as? Date,
+            let numberOfSeconds = userInfo[Alarm.fireIntervalKey] as? NSNumber {
             alarmData["firedDate"] = firedDate as AnyObject
             alarmData["numberOfSeconds"] = numberOfSeconds
         }

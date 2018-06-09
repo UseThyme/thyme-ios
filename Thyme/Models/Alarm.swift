@@ -5,6 +5,10 @@ enum PlateType {
 }
 
 class Alarm {
+    static let idKey = "HYPAlarmID"
+    static let fireDateKey = "HYPAlarmFireDate"
+    static let fireIntervalKey = "HYPAlarmFireInterval"
+
     var type: PlateType
 
     var indexPath: IndexPath? {
@@ -109,7 +113,7 @@ class Alarm {
     }
 
     static func defaultAlarmID() -> String {
-        return ThymeAlarmIDKey
+        return Alarm.idKey
     }
 
     func idForIndexPath(_ indexPath: IndexPath) -> String {
