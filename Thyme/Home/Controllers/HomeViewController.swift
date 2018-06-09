@@ -413,12 +413,12 @@ class HomeViewController: ViewController, ContentSizeChangable {
         return false
     }
 
-    func contentSizeCategoryDidChange(_ notification: Notification) {
+    @objc func contentSizeCategoryDidChange(_ notification: Notification) {
         titleLabel.font = Font.HomeViewController.title
         subtitleLabel.font = Font.HomeViewController.subtitle
     }
 
-    func appWasShaked(_ notification: Notification) {
+    @objc func appWasShaked(_ notification: Notification) {
         if notification.name.rawValue == "appWasShaked" && deleteTimersMessageIsBeingDisplayed == false {
             UIAlertView(title: NSLocalizedString("Would you like to cancel all the timers?", comment: ""),
                         message: "",
@@ -429,7 +429,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
         }
     }
 
-    func alarmsDidUpdate(_ notification: Notification) {
+    @objc func alarmsDidUpdate(_ notification: Notification) {
         if notification.name.rawValue == AlarmCenter.Notifications.AlarmsDidUpdate {
             DispatchQueue.main.async {
                 self.maxMinutesLeft = nil
@@ -590,13 +590,13 @@ extension HomeViewController: UIAlertViewDelegate {
 // MARK: - HYPTimerControllerDelegate
 
 extension HomeViewController: TimerControllerDelegate {
-    func dismissedTimerController(_ timerController: TimerViewController!) {
+    @objc func dismissedTimerController(_ timerController: TimerViewController!) {
         maxMinutesLeft = nil
         plateCollectionView.reloadData()
         ovenCollectionView.reloadData()
     }
 
-    func timerControlChangedValue(_ timerControl: TimerControl) {
+    @objc func timerControlChangedValue(_ timerControl: TimerControl) {
         if let maxMinutes = self.maxMinutesLeft, maxMinutes.int32Value - 1 == timerControl.minutes {
             maxMinutesLeft = timerControl.minutes as NSNumber
         } else if let maxMinutes = maxMinutesLeft, maxMinutes.floatValue == Float(0) && timerControl.minutes == 59 {

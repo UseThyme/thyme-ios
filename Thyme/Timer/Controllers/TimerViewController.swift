@@ -202,11 +202,11 @@ class TimerViewController: ViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func updateForward(_ timer: Timer) {
+    @objc func updateForward(_ timer: Timer) {
         if timerControl.minutes < 7 { timerControl.minutes += 1 }
     }
 
-    func updateBackward(_ timer: Timer) {
+    @objc func updateBackward(_ timer: Timer) {
         if timerControl.minutes > 0 { timerControl.minutes -= 1 }
     }
 
@@ -275,13 +275,13 @@ class TimerViewController: ViewController {
         }
     }
 
-    func kitchenButtonPressed(_ button: UIButton) {
+    @objc func kitchenButtonPressed(_ button: UIButton) {
         delegate?.dismissedTimerController(self)
         dismiss(animated: true, completion: nil)
         timerControl.touchesAreActive = false
     }
 
-    func alarmsDidUpdate(_ notification: Notification) {
+    @objc func alarmsDidUpdate(_ notification: Notification) {
         if notification.name.rawValue == AlarmCenter.Notifications.AlarmsDidUpdate {
             DispatchQueue.main.async {
                 self.timerControl.stopTimer()

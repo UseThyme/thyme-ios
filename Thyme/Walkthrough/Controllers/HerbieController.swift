@@ -338,7 +338,7 @@ class HerbieController: ViewController {
         return .default
     }
 
-    func registerNotificationSettings() {
+    @objc func registerNotificationSettings() {
         let registredSettings = UIApplication.shared.currentUserNotificationSettings
 
         AlarmCenter.registerNotificationSettings()
@@ -367,7 +367,7 @@ class HerbieController: ViewController {
         gradientLayer.locations = [0, 1]
     }
 
-    func anotherReason() {
+    @objc func anotherReason() {
         let reasons = Reason.reasons()
         var newReason = reasons[Int.random(0, upper: reasons.count - 1)]
         while reason?.title == newReason.title {

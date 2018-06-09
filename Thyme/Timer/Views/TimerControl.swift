@@ -97,8 +97,8 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let fontSize = floor(defaultSize * self.frame.width) / bounds.width
         let font = Font.TimerControl.hoursLabel(fontSize)
         let sampleString = "2 HOURS"
-        let attributes = [NSFontAttributeName: font]
-        let textSize = (sampleString as NSString).size(attributes: attributes)
+        let attributes = [NSAttributedStringKey.font: font]
+        let textSize = (sampleString as NSString).size(withAttributes: attributes)
         let yOffset: CGFloat = textSize.height / 2
         let x: CGFloat = 0
         let y: CGFloat = self.timerTitleValueLabel.frame.origin.y - yOffset
@@ -123,8 +123,8 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let fontSize = floor(defaultSize * self.frame.width) / bounds.width
         let font = Font.TimerControl.minutesValueLabel(fontSize)
         let sampleString = "10:00"
-        let attributes = [NSFontAttributeName: font]
-        let textSize = (sampleString as NSString).size(attributes: attributes)
+        let attributes = [NSAttributedStringKey.font: font]
+        let textSize = (sampleString as NSString).size(withAttributes: attributes)
 
         var yOffset: CGFloat = self.completedMode
             ? 20 * self.frame.width / bounds.width
@@ -152,8 +152,8 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let fontSize = floor(defaultSize * self.frame.width) / bounds.width
         let font = Font.TimerControl.minutesTitleLabel(fontSize)
         let minutesLeftText = NSLocalizedString("SECONDS LEFT", comment: "SECONDS LEFT")
-        let attributes = [NSFontAttributeName: font]
-        let textSize = (minutesLeftText as NSString).size(attributes: attributes)
+        let attributes = [NSAttributedStringKey.font: font]
+        let textSize = (minutesLeftText as NSString).size(withAttributes: attributes)
         let factor: CGFloat = 5
         var yOffset: CGFloat = floor(factor * self.frame.width / bounds.width)
 
@@ -297,9 +297,9 @@ open class TimerControl: UIControl, ContentSizeChangable {
     func attributedString() -> NSAttributedString {
         let font: UIFont = Font.TimerControl.arcText
 
-        var attributes = [String: AnyObject]()
+        var attributes = [NSAttributedStringKey: Any]()
         if let theme = theme {
-            attributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: theme.labelColor]
+            attributes = [.font: font, .foregroundColor: theme.labelColor]
         }
         let string = NSAttributedString(string: title, attributes: attributes)
 
@@ -425,7 +425,7 @@ open class TimerControl: UIControl, ContentSizeChangable {
         sendActions(for: .valueChanged)
     }
 
-    func updateSeconds(_ timer: Timer) {
+    @objc func updateSeconds(_ timer: Timer) {
         seconds -= 1
         if seconds < 0 {
             angle = minutes - 1 * 6
@@ -479,7 +479,7 @@ open class TimerControl: UIControl, ContentSizeChangable {
         seconds = 0
         startTimer()
 
-        AlarmCenter.scheduleNotification(alarmID!,
+        let _ = AlarmCenter.scheduleNotification(alarmID!,
                                          seconds: numberOfSeconds,
                                          message: NSLocalizedString("\(alarm!.title) just finished", comment: ""))
     }
@@ -537,7 +537,7 @@ open class TimerControl: UIControl, ContentSizeChangable {
         lastPoint = CGPoint.zero
     }
 
-    func contentSizeCategoryDidChange(_ notification: Notification) {
+    @objc func contentSizeCategoryDidChange(_ notification: Notification) {
         let defaultTitleSize = completedMode == true
             ? minuteTitleSize
             : minuteTitleSize * 1.5
