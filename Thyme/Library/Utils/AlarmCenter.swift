@@ -14,7 +14,7 @@ public struct AlarmCenter {
 
     // MARK: - Local notification management
 
-    static func hasCorrectNotificationTypes() -> Bool {
+    static var hasCorrectNotificationTypes: Bool {
         return UIApplication.shared.currentUserNotificationSettings?.types == notificationsSettings().types
     }
 

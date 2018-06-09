@@ -343,7 +343,7 @@ class HerbieController: ViewController {
 
         AlarmCenter.registerNotificationSettings()
 
-        if !AlarmCenter.hasCorrectNotificationTypes() && !registredSettings!.categories!.isEmpty {
+        if !AlarmCenter.hasCorrectNotificationTypes && !registredSettings!.categories!.isEmpty {
             let url = URL(string: UIApplicationOpenSettingsURLString)!
             UIApplication.shared.openURL(url)
         }

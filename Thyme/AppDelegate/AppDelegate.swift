@@ -1,9 +1,8 @@
 import AVFoundation
 import UIKit
 
-@available(iOS 9.0, *)
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var window: UIWindow? = {
         return UIWindow(frame: UIScreen.main.bounds)
     }()
@@ -60,18 +59,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
         homeController.theme = Theme.current()
         homeController.setNeedsStatusBarAppearanceUpdate()
 
-        if !AlarmCenter.hasCorrectNotificationTypes() {
-            if !homeController.herbieController.isBeingPresented {
+        if AlarmCenter.hasCorrectNotificationTypes {
+            homeController.registeredForNotifications()
+        } else {
+            if homeController.herbieController.isBeingPresented {
+                homeController.cancelledNotifications()
+            } else {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-                    if !AlarmCenter.hasCorrectNotificationTypes() {
+                    if !AlarmCenter.hasCorrectNotificationTypes {
                         self.homeController.presentHerbie()
                     }
                 })
-            } else {
-                homeController.cancelledNotifications()
             }
-        } else {
-            homeController.registeredForNotifications()
         }
     }
 
@@ -85,12 +84,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UIAlertViewDelegate {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "appWasShaked"), object: nil)
         }
     }
-}
 
-// MARK: - Local Notifications
+    // MARK: - Local Notifications
 
-@available(iOS 9.0, *)
-extension AppDelegate {
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         if AlarmCenter.notificationsSettings().types != UIApplication.shared.currentUserNotificationSettings?.types {
             homeController.cancelledNotifications()
@@ -108,8 +104,8 @@ extension AppDelegate {
     func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, completionHandler: @escaping () -> Void) {
         AlarmCenter.handleNotification(notification, actionID: identifier)
         if let audioPlayer = self.audioPlayer, audioPlayer.isPlaying {
-            self.audioPlayer!.stop()
-            do { try audioSession?.setActive(false) } catch {}
+            audioPlayer.stop()
+            try? audioSession?.setActive(false)
         }
 
         completionHandler()
@@ -120,10 +116,10 @@ extension AppDelegate {
     func handleLocalNotification(_ notification: UILocalNotification, playingSound: Bool) {
         if let userInfo = notification.userInfo, let _ = userInfo[Alarm.idKey] as? String {
             if playingSound {
-                do { try audioSession?.setCategory(AVAudioSessionCategoryPlayback) } catch {}
-                do { try audioSession?.setActive(true) } catch {}
-                audioPlayer!.prepareToPlay()
-                audioPlayer!.play()
+                try? audioSession?.setCategory(AVAudioSessionCategoryPlayback)
+                try? audioSession?.setActive(true)
+                audioPlayer?.prepareToPlay()
+                audioPlayer?.play()
             }
 
             let alert = UIAlertController(title: "Thyme", message: notification.alertBody, preferredStyle: .alert)
@@ -131,18 +127,14 @@ extension AppDelegate {
                 return { _ in
                     AlarmCenter.handleNotification(notification, actionID: action)
                     if let audioPlayer = self.audioPlayer, audioPlayer.isPlaying {
-                        self.audioPlayer!.stop()
+                        audioPlayer.stop()
                     }
                 }
             }
 
-            alert.addAction(UIAlertAction(title: "OK",
-                                          style: .cancel, handler: actionAndDismiss(nil)))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Add 3 mins", comment: ""),
-                                          style: .default, handler: actionAndDismiss(AlarmCenter.Action.AddThreeMinutes.rawValue)))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""),
-                                          style: .default, handler: actionAndDismiss(AlarmCenter.Action.AddFiveMinutes.rawValue)))
-
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: actionAndDismiss(nil)))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Add 3 mins", comment: ""), style: .default, handler: actionAndDismiss(AlarmCenter.Action.AddThreeMinutes.rawValue)))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""), style: .default, handler: actionAndDismiss(AlarmCenter.Action.AddFiveMinutes.rawValue)))
             navigationController.visibleViewController?.present(alert, animated: true, completion: nil)
         }
     }
