@@ -479,9 +479,7 @@ open class TimerControl: UIControl, ContentSizeChangable {
         seconds = 0
         startTimer()
 
-        let _ = AlarmCenter.scheduleNotification(alarmID!,
-                                         seconds: numberOfSeconds,
-                                         message: NSLocalizedString("\(alarm!.title) just finished", comment: ""))
+        _ = AlarmCenter.scheduleNotification(alarmID!, seconds: numberOfSeconds, message: NSLocalizedString("\(alarm!.title) just finished", comment: ""))
     }
 
     open override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {

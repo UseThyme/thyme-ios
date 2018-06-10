@@ -374,14 +374,14 @@ class HomeViewController: ViewController, ContentSizeChangable {
     @objc func appWasShaked(_ notification: Notification) {
         if notification.name.rawValue == "appWasShaked" && deleteTimersMessageIsBeingDisplayed == false {
             let alertController = UIAlertController(title: "Would you like to cancel all the timers?".localized, message: nil, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ok".localized, style: .default, handler: { (_) in
+            alertController.addAction(UIAlertAction(title: "Ok".localized, style: .default, handler: { _ in
                 AlarmCenter.cancelAllNotifications()
                 self.maxMinutesLeft = nil
                 self.plateCollectionView.reloadData()
                 self.ovenCollectionView.reloadData()
                 self.deleteTimersMessageIsBeingDisplayed = false
             }))
-            alertController.addAction(UIAlertAction(title: "No".localized, style: .cancel, handler: { (_) in
+            alertController.addAction(UIAlertAction(title: "No".localized, style: .cancel, handler: { _ in
                 self.deleteTimersMessageIsBeingDisplayed = false
             }))
             present(alertController, animated: true, completion: nil)
@@ -436,9 +436,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
         alarm.indexPath = indexPath
         cell.timerControl.active = alarm.active
-        cell.timerControl.addTarget(self,
-                                    action: #selector(HomeViewController.timerControlChangedValue(_:)),
-                                    for: .valueChanged)
+        cell.timerControl.addTarget(self, action: #selector(HomeViewController.timerControlChangedValue(_:)), for: .valueChanged)
         cell.timerControl.theme = theme
 
         refreshTimerInCell(cell, alarm: alarm)

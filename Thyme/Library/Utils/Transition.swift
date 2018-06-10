@@ -1,7 +1,6 @@
 import UIKit
 
 public class Transition: NSObject {
-
     fileprivate var presentingViewController = false
 
     public var transitionDuration: TimeInterval = 0.6
@@ -20,15 +19,14 @@ public class Transition: NSObject {
     }
 }
 
-extension Transition : UIViewControllerAnimatedTransitioning {
-
+extension Transition: UIViewControllerAnimatedTransitioning {
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return transitionDuration
     }
 
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         let containerView = transitionContext.containerView
-        let screens : (from: UIViewController, to: UIViewController) = (
+        let screens: (from: UIViewController, to: UIViewController) = (
             transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!,
             transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!)
         let presentedViewController = !presentingViewController
@@ -53,15 +51,14 @@ extension Transition : UIViewControllerAnimatedTransitioning {
     }
 }
 
-extension Transition : UIViewControllerTransitioningDelegate {
-
+extension Transition: UIViewControllerTransitioningDelegate {
     public func animationControllerForPresentedController(presented: UIViewController,
                                                           presentingController presenting: UIViewController,
                                                           sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         presentingViewController = true
         return self
     }
-    
+
     public func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         presentingViewController = false
         return self

@@ -35,8 +35,8 @@ extension TimerControl {
 
         context.move(to: CGPoint(x: x, y: y))
 
-        let center = CGPoint(x:(round(frame.size.width))/2, y:round(frame.size.height)/2)
-        let radius = (round(frame.size.width) - 10)/2
+        let center = CGPoint(x: (round(frame.size.width)) / 2, y: round(frame.size.height) / 2)
+        let radius = (round(frame.size.width) - 10) / 2
         context.addArc(center: center, radius: radius, startAngle: startDeg, endAngle: endDeg, clockwise: true)
         context.closePath()
         context.fillPath()
