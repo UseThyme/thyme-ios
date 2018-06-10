@@ -373,11 +373,18 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
     @objc func appWasShaked(_ notification: Notification) {
         if notification.name.rawValue == "appWasShaked" && deleteTimersMessageIsBeingDisplayed == false {
-            UIAlertView(title: NSLocalizedString("Would you like to cancel all the timers?", comment: ""),
-                        message: "",
-                        delegate: self,
-                        cancelButtonTitle: NSLocalizedString("No", comment: ""),
-                        otherButtonTitles: NSLocalizedString("Ok", comment: "")).show()
+            let alertController = UIAlertController(title: "Would you like to cancel all the timers?".localized, message: nil, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok".localized, style: .default, handler: { (_) in
+                AlarmCenter.cancelAllNotifications()
+                self.maxMinutesLeft = nil
+                self.plateCollectionView.reloadData()
+                self.ovenCollectionView.reloadData()
+                self.deleteTimersMessageIsBeingDisplayed = false
+            }))
+            alertController.addAction(UIAlertAction(title: "No".localized, style: .cancel, handler: { (_) in
+                self.deleteTimersMessageIsBeingDisplayed = false
+            }))
+            present(alertController, animated: true, completion: nil)
             deleteTimersMessageIsBeingDisplayed = true
         }
     }
@@ -523,21 +530,6 @@ extension HomeViewController: UICollectionViewDelegate {
         }
 
         present(timerController, animated: true, completion: nil)
-    }
-}
-
-// MARK: - UIAlertViewDelegate
-
-extension HomeViewController: UIAlertViewDelegate {
-    func alertView(_ alertView: UIAlertView, clickedButtonAt buttonIndex: Int) {
-        let accepted: Bool = buttonIndex == 1
-        if accepted == true {
-            AlarmCenter.cancelAllNotifications()
-            maxMinutesLeft = nil
-            plateCollectionView.reloadData()
-            ovenCollectionView.reloadData()
-        }
-        deleteTimersMessageIsBeingDisplayed = false
     }
 }
 

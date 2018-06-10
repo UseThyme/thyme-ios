@@ -1,4 +1,4 @@
-let π = CGFloat(M_PI)
+let π = CGFloat(Double.pi)
 
 func RadToDeg(_ rad: CGFloat) -> CGFloat {
     return (180.0 * rad) / π
