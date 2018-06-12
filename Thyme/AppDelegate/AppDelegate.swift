@@ -30,9 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return audioPlayer
     }()
 
-    lazy var homeController: HomeViewController = {
-        return HomeViewController()
-    }()
+    lazy var homeController = HomeViewController()
 
     // MARK: - UIApplicationDelegate
 

@@ -497,14 +497,11 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectionView.isEqual(plateCollectionView)
-            ? alarms.first!.count
-            : ovenAlarms.first!.count
+        return collectionView.isEqual(plateCollectionView) ? alarms.first!.count : ovenAlarms.first!.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: plateCellIdentifier,
-                                                      for: indexPath) as! PlateCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: plateCellIdentifier, for: indexPath) as! PlateCell
 
         configureCell(cell, indexPath: indexPath, collectionView: collectionView)
 
