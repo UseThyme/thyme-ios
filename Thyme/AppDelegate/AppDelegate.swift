@@ -48,8 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 
-        WatchCommunicator.sharedInstance.configureRoutes()
-
         return true
     }
 
