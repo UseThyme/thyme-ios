@@ -27,6 +27,7 @@ class TimerViewController: ViewController {
     lazy var timerControl: TimerControl = {
         var sideMargin: CGFloat = Screen.isPad ? 140 : 0
         var topMargin: CGFloat = 0
+        let width = Screen.width - 2 * sideMargin
 
         if Screen.isPad {
             topMargin = 140
@@ -39,10 +40,11 @@ class TimerViewController: ViewController {
                 topMargin = 70
             } else if Screen.height == 736 {
                 topMargin = 78
+            } else {
+                topMargin = (Screen.height - width) / 2
             }
         }
 
-        let width = Screen.width - 2 * sideMargin
         let frame = CGRect(x: sideMargin, y: topMargin, width: width, height: width)
         let timerControl = TimerControl(frame: frame, completedMode: true)
 
@@ -139,6 +141,10 @@ class TimerViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(kitchenButtonPressed(_:)))
+        tapGestureRecognizer.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tapGestureRecognizer)
+        
         for subview in [timerControl, kitchenButton, fingerView] as [Any] { view.addSubview(subview as! UIView) }
 
         NotificationCenter.default.addObserver(self,

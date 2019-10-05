@@ -517,6 +517,15 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        UIView.animate(withDuration: 0.3) {
+            self.plateCollectionView.alpha = 0
+            self.ovenCollectionView.alpha = 0
+            self.ovenBackgroundImageView.alpha = 0
+            self.ovenShineImageView.alpha = 0
+            self.titleLabel.alpha = 0
+            self.subtitleLabel.alpha = 0
+        }
+
         let alarm = alarmAtIndexPath(indexPath, collectionView: collectionView)
         let timerController = TimerViewController(alarm: alarm)
 
@@ -539,6 +548,15 @@ extension HomeViewController: TimerControllerDelegate {
         maxMinutesLeft = nil
         plateCollectionView.reloadData()
         ovenCollectionView.reloadData()
+        
+        UIView.animate(withDuration: 0.3) {
+            self.plateCollectionView.alpha = 1
+            self.ovenCollectionView.alpha = 1
+            self.ovenBackgroundImageView.alpha = 1
+            self.ovenShineImageView.alpha = 1
+            self.titleLabel.alpha = 1
+            self.subtitleLabel.alpha = 1
+        }
     }
 
     @objc func timerControlChangedValue(_ timerControl: TimerControl) {
