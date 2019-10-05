@@ -1,7 +1,7 @@
 protocol Themable {
     var name: ThemeName { get }
     var colors: [CGColor] { get }
-    var locations: [CGFloat] { get }
+    var locations: [NSNumber] { get }
     var textColor: UIColor { get }
     var labelColor: UIColor { get }
     var circleActive: UIColor { get }
@@ -38,7 +38,7 @@ struct Theme {
             UIColor(hex: "05ABBF").cgColor,
             UIColor(hex: "0C80C3").cgColor,
         ]
-        var locations: [CGFloat] = [0.05, 0.5, 0.95]
+        var locations: [NSNumber] = [NSNumber(floatLiteral: 0.05), NSNumber(floatLiteral: 0.5), NSNumber(floatLiteral: 0.95)]
         var textColor = UIColor(hex: "1B7F7D")
         var labelColor = UIColor(hex: "FFFFFF")
         var circleActive = UIColor(hex: "4EE5E6")
@@ -55,7 +55,7 @@ struct Theme {
             UIColor(hex: "00FFE4").cgColor,
             UIColor(hex: "483076").cgColor,
         ]
-        var locations: [CGFloat] = [0.0, 1.0]
+        var locations: [NSNumber] = [NSNumber(floatLiteral: 0.0), NSNumber(floatLiteral: 1.0)]
         var textColor = UIColor(hex: "2F5686")
         var labelColor = UIColor(hex: "FFFFFF")
         var circleActive = UIColor(hex: "39C7D5")
@@ -72,7 +72,7 @@ struct Theme {
             UIColor(hex: "F7F7F7").cgColor,
             UIColor(hex: "D0D0D0").cgColor,
         ]
-        var locations: [CGFloat] = [0.0, 1.0]
+        var locations: [NSNumber] = [NSNumber(floatLiteral: 0.0), NSNumber(floatLiteral: 1.0)]
         var textColor = UIColor(hex: "000000")
         var labelColor = UIColor(hex: "000000")
         var circleActive = UIColor(hex: "BDBDBD")

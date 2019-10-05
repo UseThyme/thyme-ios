@@ -7,7 +7,7 @@ public func arc4random<T: ExpressibleByIntegerLiteral>(_ type: T.Type) -> T {
 }
 
 public extension Int {
-    public static func random(_ lower: Int, upper: Int) -> Int {
+    static func random(_ lower: Int, upper: Int) -> Int {
         return lower + Int(arc4random_uniform(UInt32(upper - lower + 1)))
     }
 }
@@ -147,7 +147,7 @@ class HerbieController: ViewController {
                 UIColor(hex: "E3FFFF").cgColor,
                 UIColor(hex: "E3FFFF").cgColor,
             ]
-            gradientLayer.locations = newTheme?.locations as! [NSNumber]
+            gradientLayer.locations = newTheme?.locations
         }
     }
 

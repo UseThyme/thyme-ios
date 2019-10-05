@@ -1,7 +1,7 @@
 import Foundation
 
 public extension String {
-    public var localized: String {
+    var localized: String {
         return NSLocalizedString(self, comment: "")
     }
 }
