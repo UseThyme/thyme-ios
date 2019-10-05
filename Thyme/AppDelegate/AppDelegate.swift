@@ -34,14 +34,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - UIApplicationDelegate
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if UnitTesting.isRunning { return true }
 
         application.beginReceivingRemoteControlEvents()
 
         CustomAppearance.apply()
 
-        if let notification = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? UILocalNotification {
+        if let notification = launchOptions?[UIApplication.LaunchOptionsKey.localNotification] as? UILocalNotification {
             handleLocalNotification(notification, playingSound: false)
         }
 
@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.beginReceivingRemoteControlEvents()
     }
 
-    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             NotificationCenter.default.post(name: Notification.Name(rawValue: "appWasShaked"), object: nil)
         }
@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AlarmCenter.handleNotification(notification, actionID: identifier)
         if let audioPlayer = self.audioPlayer, audioPlayer.isPlaying {
             audioPlayer.stop()
-            try? audioSession?.setActive(false)
+            ((try? audioSession?.setActive(false)) as ()??)
         }
 
         completionHandler()
@@ -114,8 +114,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func handleLocalNotification(_ notification: UILocalNotification, playingSound: Bool) {
         if let userInfo = notification.userInfo, let _ = userInfo[Alarm.idKey] as? String {
             if playingSound {
-                try? audioSession?.setCategory(AVAudioSessionCategoryPlayback)
-                try? audioSession?.setActive(true)
+                ((try? audioSession?.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playback)))) as ()??)
+                ((try? audioSession?.setActive(true)) as ()??)
                 audioPlayer?.prepareToPlay()
                 audioPlayer?.play()
             }
@@ -136,4 +136,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navigationController.visibleViewController?.present(alert, animated: true, completion: nil)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

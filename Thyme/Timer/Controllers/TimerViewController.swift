@@ -113,11 +113,11 @@ class TimerViewController: ViewController {
         button.frame = CGRect(x: x, y: y, width: width, height: height)
         button.imageEdgeInsets = UIEdgeInsets.zero
 
-        let states: [UIControlState] = [.highlighted, .selected]
+        let states: [UIControl.State] = [.highlighted, .selected]
         for state in states {
             button.setBackgroundImage(image, for: state)
         }
-        button.alpha = UIAccessibilityIsReduceMotionEnabled() ? 1.0 : 0.0
+        button.alpha = UIAccessibility.isReduceMotionEnabled ? 1.0 : 0.0
 
         return button
     }()
@@ -156,10 +156,10 @@ class TimerViewController: ViewController {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(TimerViewController.kitchenButtonPressed(_:)),
-                                               name: NSNotification.Name.UIApplicationDidBecomeActive,
+                                               name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
 
-        if UIAccessibilityIsReduceMotionEnabled() {
+        if UIAccessibility.isReduceMotionEnabled {
             view.layer.insertSublayer(gradientLayer, at: 0)
         }
     }
@@ -167,7 +167,7 @@ class TimerViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        if !UIAccessibilityIsReduceMotionEnabled() {
+        if !UIAccessibility.isReduceMotionEnabled {
             view.layer.insertSublayer(gradientLayer, at: 0)
         }
 
@@ -196,7 +196,7 @@ class TimerViewController: ViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if !UIAccessibilityIsReduceMotionEnabled() {
+        if !UIAccessibility.isReduceMotionEnabled {
             gradientLayer.removeFromSuperlayer()
         }
         NotificationCenter.default.removeObserver(self)
@@ -230,7 +230,7 @@ class TimerViewController: ViewController {
             }
 
             RunLoop.current.add(timer!,
-                                forMode: RunLoopMode.commonModes)
+                                forMode: RunLoop.Mode.common)
         }
     }
 

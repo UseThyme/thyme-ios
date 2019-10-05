@@ -44,33 +44,33 @@ class ViewController: UIViewController {
 
 extension UIViewController {
     func addViewController(_ controller: UIViewController, inFrame frame: CGRect = CGRect.zero) {
-        addChildViewController(controller)
+        addChild(controller)
 
         if !frame.isEmpty {
             controller.view.frame = frame
         }
 
         view.addSubview(controller.view)
-        controller.didMove(toParentViewController: self)
+        controller.didMove(toParent: self)
     }
 
     func removeViewController(_ controller: UIViewController) {
-        controller.willMove(toParentViewController: nil)
+        controller.willMove(toParent: nil)
         controller.view.removeFromSuperview()
-        controller.removeFromParentViewController()
+        controller.removeFromParent()
     }
 
     func transitionToViewController(_ controller: UIViewController, duration: TimeInterval, animations: @escaping (() -> Void), completion: ((Bool) -> Void)?) {
-        controller.willMove(toParentViewController: nil)
-        addChildViewController(self)
+        controller.willMove(toParent: nil)
+        addChild(self)
 
         transition(from: self,
                    to: controller,
                    duration: duration,
-                   options: UIViewAnimationOptions.autoreverse,
+                   options: UIView.AnimationOptions.autoreverse,
                    animations: animations) { (finished) -> Void in
-            self.removeFromParentViewController()
-            controller.didMove(toParentViewController: self)
+            self.removeFromParent()
+            controller.didMove(toParent: self)
             completion?(finished)
         }
     }

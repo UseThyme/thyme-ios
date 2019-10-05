@@ -20,10 +20,10 @@ struct Theme {
     static func current() -> Themable {
         var theme: Themable = Theme.Main()
 
-        if UIAccessibilityDarkerSystemColorsEnabled() {
+        if UIAccessibility.isDarkerSystemColorsEnabled {
             theme = Theme.DarkColors()
 
-            if UIAccessibilityIsReduceTransparencyEnabled() {
+            if UIAccessibility.isReduceTransparencyEnabled {
                 theme = Theme.HighContrast()
             }
         }

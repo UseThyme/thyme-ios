@@ -179,8 +179,8 @@ class HerbieController: ViewController {
                 self.titleLabel.transform = CGAffineTransform.identity
                 self.textLabel.transform = CGAffineTransform.identity
                 self.reasonImage.transform = CGAffineTransform.identity
-                self.tryButton.setTitle(self.reason?.tryText, for: UIControlState())
-                self.tryButton.setTitleColor(self.reason?.tryTextColor, for: UIControlState())
+                self.tryButton.setTitle(self.reason?.tryText, for: UIControl.State())
+                self.tryButton.setTitleColor(self.reason?.tryTextColor, for: UIControl.State())
                 self.tryButton.backgroundColor = self.reason?.tryBackground
 
                 self.tryButton.layer.cornerRadius = height / 2
@@ -190,8 +190,8 @@ class HerbieController: ViewController {
                 self.textLabel.text = self.reason?.text
                 self.textLabel.textColor = self.reason?.textColor
 
-                self.reasonButton.setTitle("Give me another reason", for: UIControlState())
-                self.reasonButton.setTitleColor(self.reason?.tryTextColor, for: UIControlState())
+                self.reasonButton.setTitle("Give me another reason", for: UIControl.State())
+                self.reasonButton.setTitleColor(self.reason?.tryTextColor, for: UIControl.State())
                 self.reasonButton.backgroundColor = self.reason?.tryBackground
                 self.reasonButton.layer.cornerRadius = height / 2
 
@@ -344,7 +344,7 @@ class HerbieController: ViewController {
         AlarmCenter.registerNotificationSettings()
 
         if !AlarmCenter.hasCorrectNotificationTypes && !registredSettings!.categories!.isEmpty {
-            let url = URL(string: UIApplicationOpenSettingsURLString)!
+            let url = URL(string: UIApplication.openSettingsURLString)!
             UIApplication.shared.openURL(url)
         }
     }

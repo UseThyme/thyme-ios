@@ -30,7 +30,7 @@ class AlarmTimer: NSObject {
                                                   selector: #selector(AlarmTimer.update(_:)),
                                                   userInfo: nil,
                                                   repeats: true)
-                RunLoop.current.add(self.timer!, forMode: RunLoopMode.commonModes)
+                RunLoop.current.add(self.timer!, forMode: RunLoop.Mode.common)
             }
         }
     }

@@ -93,7 +93,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
             controller.view.alpha = show ? 1 : 0
             controller.view.backgroundColor = UIColor.clear
 
-            if !UIAccessibilityIsReduceMotionEnabled() {
+            if !UIAccessibility.isReduceMotionEnabled {
                 if let timerController = controller as? TimerViewController {
                     if show {
                         timerController.kitchenButton.alpha = 0
@@ -355,9 +355,9 @@ class HomeViewController: ViewController, ContentSizeChangable {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated, addGradient: true)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.dismissedTimerController(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.dismissedTimerController(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.contentSizeCategoryDidChange(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.contentSizeCategoryDidChange(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
 
         setNeedsStatusBarAppearanceUpdate()
     }
