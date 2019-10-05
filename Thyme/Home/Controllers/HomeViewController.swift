@@ -53,6 +53,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
                 margin = 50
             } else if Screen.height == 667 {
                 margin = 64
+            } else if Screen.height == 896 {
+                margin = 75
             } else {
                 margin = 75
             }
@@ -293,6 +295,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
                 topMargin += 118
             } else if Screen.height == 736 {
                 topMargin += 128
+            } else {
+                topMargin += 258
             }
         }
 
