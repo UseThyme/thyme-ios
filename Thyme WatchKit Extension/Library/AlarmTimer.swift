@@ -1,52 +1,50 @@
 import Foundation
 
 protocol AlarmTimerDelegate: class {
-
-  func alarmTimerDidTick(alarmTimer: AlarmTimer, alarms: [Alarm])
+    func alarmTimerDidTick(_ alarmTimer: AlarmTimer, alarms: [Alarm])
 }
 
 class AlarmTimer: NSObject {
+    var timer: Timer?
+    var alarms = [Alarm]()
+    weak var delegate: AlarmTimerDelegate?
 
-  var timer: NSTimer?
-  var alarms = [Alarm]()
-  weak var delegate: AlarmTimerDelegate?
+    // MARK: - Initialization
 
-  // MARK: - Initialization
-
-  init(alarms: [Alarm], delegate: AlarmTimerDelegate? = nil) {
-    self.alarms = alarms
-    self.delegate = delegate
-  }
-
-  deinit {
-    stop()
-  }
-
-  // MARK: - Timer
-
-  func start() {
-    if timer == nil {
-      dispatch_async(dispatch_get_main_queue()) {
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(1,
-          target: self,
-          selector: "update:",
-          userInfo: nil,
-          repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(self.timer!, forMode: NSRunLoopCommonModes)
-      }
+    init(alarms: [Alarm], delegate: AlarmTimerDelegate? = nil) {
+        self.alarms = alarms
+        self.delegate = delegate
     }
-  }
 
-  func stop() {
-    timer?.invalidate()
-    timer = nil
-  }
+    deinit {
+        stop()
+    }
 
-  // MARK: - Actions
+    // MARK: - Timer
 
-  func update(timer: NSTimer) {
-    for alarm in alarms { alarm.update() }
+    func start() {
+        if timer == nil {
+            DispatchQueue.main.async {
+                self.timer = Timer.scheduledTimer(timeInterval: 1,
+                                                  target: self,
+                                                  selector: #selector(AlarmTimer.update(_:)),
+                                                  userInfo: nil,
+                                                  repeats: true)
+                RunLoop.current.add(self.timer!, forMode: RunLoop.Mode.common)
+            }
+        }
+    }
 
-    delegate?.alarmTimerDidTick(self, alarms: alarms)
-  }
+    func stop() {
+        timer?.invalidate()
+        timer = nil
+    }
+
+    // MARK: - Actions
+
+    @objc func update(_ timer: Timer) {
+        for alarm in alarms { alarm.update() }
+
+        delegate?.alarmTimerDidTick(self, alarms: alarms)
+    }
 }

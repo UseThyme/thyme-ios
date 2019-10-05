@@ -2,124 +2,123 @@ import Foundation
 import WatchConnectivity
 
 class WatchCommunicator {
+    fileprivate var wormhole: MMWormhole!
+    fileprivate var listeningWormhole: MMWormholeSession!
 
-  private var wormhole: MMWormhole!
-  private var listeningWormhole: MMWormholeSession!
+    fileprivate var routesConfigured = false
 
-  private var routesConfigured = false
+    static let sharedInstance = WatchCommunicator()
 
-  static let sharedInstance = WatchCommunicator()
+    // MARK: - Routing
 
-  // MARK: - Routing
+    func configureRoutes() {
+        if routesConfigured {
+            listeningWormhole.activateListening()
+            return
+        }
 
-  func configureRoutes() {
-    if routesConfigured {
-      listeningWormhole.activateSessionListening()
-      return
+        listeningWormhole = MMWormholeSession.sharedListening()
+
+        wormhole = MMWormhole(
+            applicationGroupIdentifier: "group.no.hyper.thyme",
+            optionalDirectory: "wormhole",
+            transitingType: .sessionMessage)
+
+        listeningWormhole.listenForMessage(withIdentifier: Routes.App.alarms) { _ in
+            self.sendAlarms()
+        }
+
+        listeningWormhole.listenForMessage(withIdentifier: Routes.App.alarm) { _ in
+            self.sendAlarms()
+        }
+
+        listeningWormhole.listenForMessage(withIdentifier: Routes.App.cancelAlarms) { _ in
+            AlarmCenter.cancelAllNotifications()
+            NotificationCenter.default.post(
+                name: Notification.Name(rawValue: AlarmCenter.Notifications.AlarmsDidUpdate),
+                object: nil)
+        }
+
+        listeningWormhole.listenForMessage(withIdentifier: Routes.App.cancelAlarm) { messageObject in
+            guard let message = messageObject as? [String: AnyObject],
+                let index = message["index"] as? Int else { return }
+
+            let alarm = Alarm.create(index)
+            AlarmCenter.cancelNotification(alarm.alarmID!)
+            NotificationCenter.default.post(
+                name: Notification.Name(rawValue: AlarmCenter.Notifications.AlarmsDidUpdate),
+                object: nil)
+        }
+
+        listeningWormhole.listenForMessage(withIdentifier: Routes.App.updateAlarm) { messageObject in
+            guard let message = messageObject as? [String: AnyObject],
+                let index = message["index"] as? Int,
+                let amount = message["amount"] as? Int else { return }
+
+            let alarm = Alarm.create(index)
+            let seconds = TimeInterval(amount)
+
+            if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
+                AlarmCenter.extendNotification(existingNotification, seconds: seconds)
+            } else {
+                AlarmCenter.scheduleNotification(alarm.alarmID!,
+                                                 seconds: seconds,
+                                                 message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
+            }
+
+            NotificationCenter.default.post(
+                name: Notification.Name(rawValue: AlarmCenter.Notifications.AlarmsDidUpdate),
+                object: nil)
+        }
+
+        listeningWormhole.activateListening()
+        routesConfigured = true
     }
 
-    listeningWormhole = MMWormholeSession.sharedListeningSession()
+    // MARK: - Send Helpers
 
-    wormhole = MMWormhole(
-      applicationGroupIdentifier: "group.no.hyper.thyme",
-      optionalDirectory: "wormhole",
-      transitingType: .SessionMessage)
+    func sendAlarms() {
+        let message = ["alarms": self.getAlarmsData()]
 
-    listeningWormhole.listenForMessageWithIdentifier(Routes.App.alarms) { messageObject in
-      self.sendAlarms()
+        [Routes.Watch.glance, Routes.Watch.home, Routes.Watch.timer].forEach {
+            wormhole.passMessageObject(message as NSCoding, identifier: $0)
+        }
     }
 
-    listeningWormhole.listenForMessageWithIdentifier(Routes.App.alarm) { messageObject in
-      self.sendAlarms()
+    // MARK: - Data Helpers
+
+    fileprivate func getAlarmsData() -> [AnyObject] {
+        var alarms = [AnyObject]()
+
+        for index in 0 ... 4 {
+            alarms.append(getAlarmData(index) as AnyObject)
+        }
+
+        return alarms
     }
 
-    listeningWormhole.listenForMessageWithIdentifier(Routes.App.cancelAlarms) { messageObject in
-      AlarmCenter.cancelAllNotifications()
-      NSNotificationCenter.defaultCenter().postNotificationName(
-        AlarmCenter.Notifications.AlarmsDidUpdate,
-        object: nil)
+    fileprivate func getAlarmData(_ index: Int) -> [String: AnyObject] {
+        let alarm = Alarm.create(index)
+        var alarmData = [String: AnyObject]()
+
+        if let notification = AlarmCenter.getNotification(alarm.alarmID!) {
+            alarmData = extractAlarmData(notification)
+            alarmData["title"] = alarm.title as AnyObject
+        }
+
+        return alarmData
     }
 
-    listeningWormhole.listenForMessageWithIdentifier(Routes.App.cancelAlarm) { messageObject in
-      guard let message = messageObject as? [String: AnyObject],
-        index = message["index"] as? Int else { return }
+    func extractAlarmData(_ notification: UILocalNotification) -> [String: AnyObject] {
+        var alarmData = [String: AnyObject]()
 
-      let alarm = Alarm.create(index)
-      AlarmCenter.cancelNotification(alarm.alarmID!)
-      NSNotificationCenter.defaultCenter().postNotificationName(
-        AlarmCenter.Notifications.AlarmsDidUpdate,
-        object: nil)
+        if let userInfo = notification.userInfo,
+            let firedDate = userInfo[Alarm.fireDateKey] as? Date,
+            let numberOfSeconds = userInfo[Alarm.fireIntervalKey] as? NSNumber {
+            alarmData["firedDate"] = firedDate as AnyObject
+            alarmData["numberOfSeconds"] = numberOfSeconds
+        }
+
+        return alarmData
     }
-
-    listeningWormhole.listenForMessageWithIdentifier(Routes.App.updateAlarm) { messageObject in
-      guard let message = messageObject as? [String: AnyObject],
-        index = message["index"] as? Int,
-        amount = message["amount"] as? Int else { return }
-
-      let alarm = Alarm.create(index)
-      let seconds = NSTimeInterval(amount)
-
-      if let existingNotification = AlarmCenter.getNotification(alarm.alarmID!) {
-        AlarmCenter.extendNotification(existingNotification, seconds: seconds)
-      } else {
-        AlarmCenter.scheduleNotification(alarm.alarmID!,
-          seconds: seconds,
-          message: NSLocalizedString("\(alarm.title) just finished", comment: ""))
-      }
-
-      NSNotificationCenter.defaultCenter().postNotificationName(
-        AlarmCenter.Notifications.AlarmsDidUpdate,
-        object: nil)
-    }
-
-    listeningWormhole.activateSessionListening()
-    routesConfigured = true
-  }
-
-  // MARK: - Send Helpers
-
-  func sendAlarms() {
-    let message = ["alarms": self.getAlarmsData()]
-
-    [Routes.Watch.glance, Routes.Watch.home, Routes.Watch.timer].forEach {
-      wormhole.passMessageObject(message, identifier: $0)
-    }
-  }
-
-  // MARK: - Data Helpers
-
-  private func getAlarmsData() -> [AnyObject] {
-    var alarms = [AnyObject]()
-
-    for index in 0...4 {
-      alarms.append(getAlarmData(index))
-    }
-
-    return alarms
-  }
-
-  private func getAlarmData(index: Int) -> [String: AnyObject] {
-    let alarm = Alarm.create(index)
-    var alarmData = [String: AnyObject]()
-
-    if let notification = AlarmCenter.getNotification(alarm.alarmID!) {
-      alarmData = extractAlarmData(notification)
-      alarmData["title"] = alarm.title
-    }
-
-    return alarmData
-  }
-
-  func extractAlarmData(notification: UILocalNotification) -> [String: AnyObject] {
-    var alarmData = [String: AnyObject]()
-
-    if let userInfo = notification.userInfo,
-      firedDate = userInfo[ThymeAlarmFireDataKey] as? NSDate,
-      numberOfSeconds = userInfo[ThymeAlarmFireInterval] as? NSNumber {
-        alarmData["firedDate"] = firedDate
-        alarmData["numberOfSeconds"] = numberOfSeconds
-    }
-
-    return alarmData
-  }
 }
