@@ -14,6 +14,7 @@
 		4434DF3320CC67CC00D33AF8 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3220CC67CC00D33AF8 /* Transition.swift */; };
 		4434DF3520CC67E200D33AF8 /* UnitTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3420CC67E200D33AF8 /* UnitTesting.swift */; };
 		4434DF3720CC6A2A00D33AF8 /* CustomAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3620CC6A2A00D33AF8 /* CustomAppearance.swift */; };
+		443DBF7023489F9300A94739 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 443DBF6F23489F9300A94739 /* LaunchScreen.storyboard */; };
 		4465EE93184772F9006C145F /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 4465EE92184772F9006C145F /* alarm.caf */; };
 		449143D118476786008A80F0 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D018476786008A80F0 /* CoreText.framework */; };
 		449143D318476798008A80F0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 449143D218476798008A80F0 /* QuartzCore.framework */; };
@@ -84,6 +85,7 @@
 		4434DF3220CC67CC00D33AF8 /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		4434DF3420CC67E200D33AF8 /* UnitTesting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTesting.swift; sourceTree = "<group>"; };
 		4434DF3620CC6A2A00D33AF8 /* CustomAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAppearance.swift; sourceTree = "<group>"; };
+		443DBF6F23489F9300A94739 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4465EE92184772F9006C145F /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
 		449143D018476786008A80F0 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		449143D218476798008A80F0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -341,6 +343,7 @@
 				4465EE91184772F9006C145F /* Sounds */,
 				44AAE4181844C0690096BF52 /* Supporting Files */,
 				1461778319CDBF1F00E46B1D /* Images.xcassets */,
+				443DBF6F23489F9300A94739 /* LaunchScreen.storyboard */,
 			);
 			path = Thyme;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				BDFA94B61B89AB9300D4408F /* tick.wav in Resources */,
 				1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */,
 				44AAE41C1844C0690096BF52 /* InfoPlist.strings in Resources */,
+				443DBF7023489F9300A94739 /* LaunchScreen.storyboard in Resources */,
 				14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */,
 				4465EE93184772F9006C145F /* alarm.caf in Resources */,
 			);
