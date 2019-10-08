@@ -124,6 +124,14 @@ class TimerViewController: ViewController {
         return button
     }()
 
+    lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setBackgroundImage(UIImage(named: "closeButton"), for: .normal)
+        button.addTarget(self, action: #selector(kitchenButtonPressed(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     init(alarm: Alarm) {
         self.alarm = alarm
 
@@ -140,17 +148,20 @@ class TimerViewController: ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(kitchenButtonPressed(_:)))
-        tapGestureRecognizer.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tapGestureRecognizer)
         
-        for subview in [timerControl, kitchenButton, fingerView] as [Any] { view.addSubview(subview as! UIView) }
+        for subview in [timerControl, kitchenButton, fingerView, closeButton] as [Any] { view.addSubview(subview as! UIView) }
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(TimerViewController.alarmsDidUpdate(_:)),
                                                name: NSNotification.Name(rawValue: AlarmCenter.Notifications.AlarmsDidUpdate),
                                                object: nil)
+        
+        NSLayoutConstraint.activate([
+            closeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
+            closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            closeButton.widthAnchor.constraint(equalToConstant: 50),
+            closeButton.heightAnchor.constraint(equalToConstant: 50)
+            ])
     }
 
     override func viewWillAppear(_ animated: Bool) {
