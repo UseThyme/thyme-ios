@@ -200,7 +200,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
             if Screen.height == 480 || Screen.height == 568 {
                 cellWidth = 100
                 sideMargin = 50
-            } else if Screen.height == 667 {
+            } else if Screen.height == 667 || Screen.height == 812 {
                 cellWidth = 113
                 sideMargin = 65
             } else {
@@ -244,7 +244,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
             } else if Screen.height == 568 {
                 cellWidth = 120
                 sideMargin = 100
-            } else if Screen.height == 667 {
+            } else if Screen.height == 667 || Screen.height == 812 {
                 cellWidth = 140
                 sideMargin = 120
             } else {
@@ -295,6 +295,8 @@ class HomeViewController: ViewController, ContentSizeChangable {
                 topMargin += 118
             } else if Screen.height == 736 {
                 topMargin += 128
+            } else if Screen.height == 812 {
+                topMargin += 220
             } else {
                 topMargin += 258
             }
