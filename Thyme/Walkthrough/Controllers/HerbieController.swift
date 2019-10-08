@@ -155,7 +155,7 @@ class HerbieController: ViewController {
         didSet {
             let height: CGFloat = 55
             let width: CGFloat = 295
-            let bottomMargin: CGFloat = 18
+            let bottomMargin: CGFloat = 40
 
             if reason?.imageName != nil {
                 reasonImage.image = UIImage(named: reason!.imageName!)
