@@ -533,7 +533,8 @@ extension HomeViewController: UICollectionViewDelegate {
 
         timerController.theme = theme
         timerController.delegate = self
-        timerController.transitioningDelegate = transition
+        // timerController.transitioningDelegate = transition
+        timerController.modalPresentationStyle = .fullScreen
 
         if let cell = collectionView.cellForItem(at: indexPath) {
             cellRect = cell.convert(view.bounds, to: collectionView)

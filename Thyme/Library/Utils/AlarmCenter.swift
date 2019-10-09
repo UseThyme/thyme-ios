@@ -100,7 +100,9 @@ public struct AlarmCenter {
     }
 
     static func getNotification(_ alarmID: String) -> UILocalNotification? {
-        for notification in UIApplication.shared.scheduledLocalNotifications! {
+        // Use UNUserNotificationCenter instead
+        let scheduledLocalNotifications = UIApplication.shared.scheduledLocalNotifications ?? [UILocalNotification]()
+        for notification in scheduledLocalNotifications {
             if let notificationAlarmID = notification.userInfo?[Alarm.idKey] as? String, notificationAlarmID == alarmID {
                 return notification
             }
