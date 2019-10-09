@@ -25,9 +25,9 @@ extension TimerControl {
     func drawMinutes(_ context: CGContext, color: UIColor, radius: CGFloat, angle: CGFloat, containerRect: CGRect) {
         context.saveGState()
 
-        let angleTranslation: CGFloat = 0 - 90
-        let startDeg: CGFloat = π * (0 + angleTranslation) / 180
-        let endDeg: CGFloat = π * (angle + angleTranslation) / 180
+        let angleTranslation: CGFloat = -90
+        let startDeg: CGFloat = DegToRad(angleTranslation)
+        let endDeg: CGFloat = DegToRad(angle + angleTranslation)
         let x = containerRect.width / 2 + containerRect.origin.x
         let y = containerRect.width / 2 + containerRect.origin.y
 
@@ -35,9 +35,8 @@ extension TimerControl {
 
         context.move(to: CGPoint(x: x, y: y))
 
-        let center = CGPoint(x: (round(frame.size.width)) / 2, y: round(frame.size.height) / 2)
-        let radius = (round(frame.size.width) - 10) / 2
-        context.addArc(center: center, radius: radius, startAngle: startDeg, endAngle: endDeg, clockwise: true)
+        let center = CGPoint(x: frame.size.width / 2, y: frame.size.height / 2)
+        context.addArc(center: center, radius: radius, startAngle: startDeg, endAngle: endDeg, clockwise: false)
         context.closePath()
         context.fillPath()
         context.restoreGState()

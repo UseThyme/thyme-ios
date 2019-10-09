@@ -250,14 +250,14 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let circleColor = colorForMinutesIndicator()
         let transform = CircleSizeFactor
         let sideMargin = floor(rect.width * (1 - transform) / 2)
-        let length = rect.width * transform
-        let circleRect = CGRect(x: sideMargin, y: sideMargin, width: length, height: length)
+        let circleWidth = rect.width * transform
+        let circleRect = CGRect(x: sideMargin, y: sideMargin, width: circleWidth, height: circleWidth)
         let lineWidth: CGFloat = completedMode ? 5 : 3.0
         let circleOutlineRect = CGRect(
             x: sideMargin + lineWidth / 2,
             y: sideMargin + lineWidth / 2,
-            width: length - lineWidth,
-            height: length - lineWidth)
+            width: circleWidth - lineWidth,
+            height: circleWidth - lineWidth)
 
         drawCircle(context!, color: circleColor, rect: circleRect)
 
