@@ -286,7 +286,9 @@ open class TimerControl: UIControl, ContentSizeChangable {
                     drawSecondsIndicator(context!, color: secondsColor, radius: sideMargin * factor, containerRect: circleRect, outlineWidth: lineWidth, outlineColor: theme.circleOutlineActive)
                 }
 
-                if completedMode { drawText(context!, rect: rect) }
+                if completedMode {
+                    drawText(context!, rect: rect)                    
+                }
             } else {
                 let secondsColor = UIColor.white
                 drawSecondsIndicator(context!, color: secondsColor, radius: sideMargin * 0.2, containerRect: circleRect, outlineWidth: 0, outlineColor: theme.circleOutlineActive)

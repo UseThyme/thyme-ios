@@ -28,8 +28,8 @@ extension TimerControl {
         let angleTranslation: CGFloat = -90
         let startDeg: CGFloat = DegToRad(angleTranslation)
         let endDeg: CGFloat = DegToRad(angle + angleTranslation)
-        let x = containerRect.width / 2 + containerRect.origin.x
-        let y = containerRect.width / 2 + containerRect.origin.y
+        let x = containerRect.origin.x + containerRect.width / 2
+        let y = containerRect.origin.y + containerRect.height / 2
 
         color.set()
 

@@ -1,8 +1,6 @@
 #import "HYPDrawText.h"
 @import CoreText;
 
-#define DEFAULT_RADIUS 0
-
 typedef struct GlyphArcInfo {
     CGFloat			width;
     CGFloat			angle;	// in radians
@@ -65,10 +63,10 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     PrepareGlyphArcInfo(line, glyphCount, glyphArcInfo);
 
     CGContextSaveGState(context);
-    CGContextTranslateCTM(context, CGRectGetMidX(rect), CGRectGetMidY(rect) - DEFAULT_RADIUS / 2.0);
+    CGContextTranslateCTM(context, CGRectGetMidX(rect), CGRectGetMidY(rect) - [HYPDrawText defaultRadius] / 2.0);
 
     CGContextRotateCTM(context, M_PI_2);
-    CGPoint textPosition = CGPointMake(0.0, DEFAULT_RADIUS);
+    CGPoint textPosition = CGPointMake(0.0, [HYPDrawText defaultRadius]);
     CGContextSetTextPosition(context, textPosition.x, textPosition.y);
 
     CFArrayRef runArray = CTLineGetGlyphRuns(line);
@@ -111,6 +109,11 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
     CFRelease(line);
 }
 
++ (CGFloat)defaultRadius
+{
+    return 0;
+}
+
 + (CGFloat)curvedTextBottomMargin
 {
   CGRect bounds = [[UIScreen mainScreen] bounds];
@@ -126,6 +129,12 @@ static void PrepareGlyphArcInfo(CTLineRef line, CFIndex glyphCount, GlyphArcInfo
       offset = 140.0f;
     } else if (screenHeight == 667.0f) {
       offset = 163.0f;
+    } else if (screenHeight == 736.0f) {
+        offset = 182.0f;
+    } else if (screenHeight == 896.0f) { // XR, XS Max
+        offset = 182.0f;
+    } else if (screenHeight == 812.0f) { // X, XS
+        offset = 172.0f;
     } else {
       offset = 182.0f;
     }
