@@ -90,7 +90,7 @@ open class TimerControl: UIControl, ContentSizeChangable {
 
     lazy var hoursLabel: UILabel = { [unowned self] in
         let bounds = UIScreen.main.bounds
-        let defaultSize = self.completedMode == true
+        let defaultSize = self.completedMode
             ? self.minuteTitleSize
             : self.minuteTitleSize * 1.5
 
@@ -116,7 +116,7 @@ open class TimerControl: UIControl, ContentSizeChangable {
 
     lazy var timerTitleValueLabel: UILabel = { [unowned self] in
         let bounds = UIScreen.main.bounds
-        let defaultSize = self.completedMode == true
+        let defaultSize = self.completedMode
             ? self.minuteValueSize
             : self.minuteValueSize * 0.9
 
@@ -145,7 +145,7 @@ open class TimerControl: UIControl, ContentSizeChangable {
 
     lazy var timerSubtitleLabel: UILabel = { [unowned self] in
         let bounds = UIScreen.main.bounds
-        let defaultSize = self.completedMode == true
+        let defaultSize = self.completedMode
             ? self.minuteTitleSize
             : self.minuteTitleSize * 0.9
 
@@ -233,7 +233,7 @@ open class TimerControl: UIControl, ContentSizeChangable {
                 baseSize = Screen.isPad ? 280 : 120
             }
 
-            if completedMode == true {
+            if completedMode {
                 baseSize = Screen.isPad ? 250 : minuteValueSize
             }
 
@@ -336,9 +336,9 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let lastPointIsZero: Bool = lastPoint.equalTo(CGPoint.zero)
         let lastPointWasInFirstQuadrand: Bool = firstQuadrandRect.contains(lastPoint)
 
-        if hours < 1 && pointBelongsToFirstHalfOfTheScreen == true &&
+        if hours < 1 && pointBelongsToFirstHalfOfTheScreen &&
             lastPointIsZero == false &&
-            lastPointWasInFirstQuadrand == true {
+            lastPointWasInFirstQuadrand {
             return true
         }
 
@@ -356,9 +356,9 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let lastPointWasInFirstQuadrand = firstQuadrandRect.contains(lastPoint)
         let lastPointIsZero = lastPoint.equalTo(CGPoint.zero)
 
-        if currentPointIsInFirstQuadrand == true &&
+        if currentPointIsInFirstQuadrand &&
             lastPointIsZero == false &&
-            lastPointWasInFirstQuadrand == true {
+            lastPointWasInFirstQuadrand {
             return true
         }
 
@@ -370,9 +370,9 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let lastPointWasInSecondQuadrand = secondQuadrandRect.contains(lastPoint)
         let lastPointIsZero = lastPoint.equalTo(CGPoint.zero)
 
-        if currentPointIsInFirstQuadrand == true &&
+        if currentPointIsInFirstQuadrand &&
             lastPointIsZero == false &&
-            lastPointWasInSecondQuadrand == true {
+            lastPointWasInSecondQuadrand {
             return true
         }
 
@@ -384,9 +384,9 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let lastPointWasInFirstQuadrand = firstQuadrandRect.contains(lastPoint)
         let lastPointIsZero = lastPoint.equalTo(CGPoint.zero)
 
-        if currentPointIsInSecondQuadrand == true &&
+        if currentPointIsInSecondQuadrand &&
             lastPointIsZero == false &&
-            lastPointWasInFirstQuadrand == true {
+            lastPointWasInFirstQuadrand {
             return true
         }
 
@@ -456,9 +456,9 @@ open class TimerControl: UIControl, ContentSizeChangable {
         let currentAngle: Float = AngleFromNorth(centerPoint, p2: currentPoint, flipped: true)
         let angle = floor(currentAngle)
 
-        if pointIsComingFromSecondQuadrand(currentPoint) == true {
+        if pointIsComingFromSecondQuadrand(currentPoint) {
             hours += 1
-        } else if hours > 0 && pointIsComingFromFirstQuadrand(currentPoint) == true {
+        } else if hours > 0 && pointIsComingFromFirstQuadrand(currentPoint) {
             hours -= 1
         }
 
@@ -494,8 +494,8 @@ open class TimerControl: UIControl, ContentSizeChangable {
         super.continueTracking(touch, with: event)
         let currentPoint = touch.location(in: self)
 
-        if touchesAreActive == true {
-            if hours < 1 && shouldBlockTouchesForPoint(currentPoint) == true {
+        if touchesAreActive {
+            if hours < 1 && shouldBlockTouchesForPoint(currentPoint) {
                 touchesAreActive = false
                 angle = 0
                 seconds = 0
@@ -504,8 +504,8 @@ open class TimerControl: UIControl, ContentSizeChangable {
             } else {
                 handleTouchesForPoint(currentPoint)
             }
-        } else if pointIsComingFromSecondQuadrand(currentPoint) == true
-            || pointIsInFirstQuadrand(currentPoint) == true {
+        } else if pointIsComingFromSecondQuadrand(currentPoint)
+            || pointIsInFirstQuadrand(currentPoint) {
             touchesAreActive = true
         }
 
@@ -536,10 +536,10 @@ open class TimerControl: UIControl, ContentSizeChangable {
     }
 
     @objc func contentSizeCategoryDidChange(_ notification: Notification) {
-        let defaultTitleSize = completedMode == true
+        let defaultTitleSize = completedMode
             ? minuteTitleSize
             : minuteTitleSize * 1.5
-        let defaultValueSize = completedMode == true
+        let defaultValueSize = completedMode
             ? minuteValueSize
             : minuteValueSize * 0.9
         let fontSize = floor(defaultTitleSize * frame.width) / bounds.width
