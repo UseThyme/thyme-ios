@@ -51,12 +51,14 @@ class HomeViewController: ViewController, ContentSizeChangable {
                 margin = 42
             } else if Screen.height == 568 {
                 margin = 50
-            } else if Screen.height == 667 {
+            } else if Screen.height == 667 { // iPhone 6, iPhone 7, iPhone 8
                 margin = 64
-            } else if Screen.height == 896 {
+            } else if Screen.height == 896 { // iPhone 11
+                margin = 150
+            } else if Screen.height == 736 { // iPhone 6S, 7 Plus, 8 Plus
                 margin = 75
             } else {
-                margin = 75
+                margin = 120
             }
         }
 
@@ -149,12 +151,19 @@ class HomeViewController: ViewController, ContentSizeChangable {
         if Screen.isPad {
             topMargin = 115
         } else {
-            if Screen.height == 480 || Screen.height == 568 {
+
+            if Screen.height == 480 {
                 topMargin = 60
-            } else if Screen.height == 667 {
+            } else if Screen.height == 568 {
+                topMargin = 60
+            } else if Screen.height == 667 { // iPhone 6, iPhone 7, iPhone 8
                 topMargin = 74
-            } else {
+            } else if Screen.height == 896 { // iPhone 11
+                topMargin = self.plateCollectionView.frame.minY + 40
+            } else if Screen.height == 736 { // iPhone 6S, 7 Plus, 8 Plus
                 topMargin = 82
+            } else {
+                topMargin = self.plateCollectionView.frame.minY + 40
             }
         }
 
@@ -230,7 +239,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
 
     lazy var ovenCollectionView: UICollectionView = { [unowned self] in
         let layout = UICollectionViewFlowLayout()
-        var topMargin: CGFloat = self.plateCollectionView.frame.height + self.topMargin * 2
+        var topMargin: CGFloat = self.plateCollectionView.frame.minY + self.plateCollectionView.frame.height - 6
         var cellWidth: CGFloat = 0
         var sideMargin: CGFloat = 0
 
@@ -280,31 +289,9 @@ class HomeViewController: ViewController, ContentSizeChangable {
         var height: CGFloat = image!.size.height
         var topMargin: CGFloat = image!.size.height
 
-        if Screen.isPad {
-            topMargin += 175
-        } else {
-            if Screen.height == 480 {
-                topMargin += 10
-                width -= 42
-                height -= 42
-            } else if Screen.height == 568 {
-                width -= 42
-                height -= 42
-                topMargin += 70
-            } else if Screen.height == 667 {
-                topMargin += 118
-            } else if Screen.height == 736 {
-                topMargin += 128
-            } else if Screen.height == 812 {
-                topMargin += 220
-            } else {
-                topMargin += 258
-            }
-        }
-
         var x: CGFloat = Screen.width / 2 - width / 2
 
-        let y = Screen.height - topMargin * 1.2
+        let y = ovenCollectionView.frame.minY - 26
         imageView = UIImageView(frame: CGRect(x: x, y: y,
                                               width: width, height: height))
         imageView.image = image

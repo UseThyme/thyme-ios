@@ -41,7 +41,7 @@ class TimerViewController: ViewController {
             } else if Screen.height == 736 {
                 topMargin = 78
             } else {
-                topMargin = (Screen.height - width) / 2
+                topMargin = ((Screen.height - width) / 2) - 50
             }
         }
 
@@ -157,7 +157,7 @@ class TimerViewController: ViewController {
                                                object: nil)
         
         NSLayoutConstraint.activate([
-            closeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
+            closeButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             closeButton.widthAnchor.constraint(equalToConstant: 50),
             closeButton.heightAnchor.constraint(equalToConstant: 50)
