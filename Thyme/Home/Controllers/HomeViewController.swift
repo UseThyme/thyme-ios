@@ -409,6 +409,7 @@ class HomeViewController: ViewController, ContentSizeChangable {
         if let visibleViewController = navigationController?.visibleViewController, !visibleViewController.isKind(of: HerbieController.self) {
             herbieController.theme = theme
             herbieController.transitioningDelegate = transition
+            herbieController.modalPresentationStyle = .fullScreen
             present(herbieController, animated: true, completion: nil)
         }
     }
