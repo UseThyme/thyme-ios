@@ -18,15 +18,16 @@ enum ThemeName {
 
 struct Theme {
     static func current() -> Themable {
-        var theme: Themable = Theme.Main()
+        let theme: Themable = Theme.Main()
 
+        /*
         if UIAccessibility.isDarkerSystemColorsEnabled {
             theme = Theme.DarkColors()
 
             if UIAccessibility.isReduceTransparencyEnabled {
                 theme = Theme.HighContrast()
             }
-        }
+        }*/
 
         return theme
     }

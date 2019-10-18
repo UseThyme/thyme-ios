@@ -11,6 +11,7 @@
 		14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 14CEFBB018FFD6FB000952EC /* Localizable.strings */; };
 		14F3768218FFF7EA00359D38 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14F3768118FFF7EA00359D38 /* AudioToolbox.framework */; };
 		4409ADB918479AB300E349FF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4409ADB818479AB300E349FF /* AVFoundation.framework */; };
+		4429FF6B235A03C000E701DA /* Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 4429FF6A235A03C000E701DA /* Splash.png */; };
 		4434DF3320CC67CC00D33AF8 /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3220CC67CC00D33AF8 /* Transition.swift */; };
 		4434DF3520CC67E200D33AF8 /* UnitTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3420CC67E200D33AF8 /* UnitTesting.swift */; };
 		4434DF3720CC6A2A00D33AF8 /* CustomAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4434DF3620CC6A2A00D33AF8 /* CustomAppearance.swift */; };
@@ -82,6 +83,7 @@
 		14E2235F18FFD74700E33389 /* es */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		14F3768118FFF7EA00359D38 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4409ADB818479AB300E349FF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4429FF6A235A03C000E701DA /* Splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Splash.png; sourceTree = SOURCE_ROOT; };
 		4434DF3220CC67CC00D33AF8 /* Transition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 		4434DF3420CC67E200D33AF8 /* UnitTesting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTesting.swift; sourceTree = "<group>"; };
 		4434DF3620CC6A2A00D33AF8 /* CustomAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAppearance.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 		44AAE4181844C0690096BF52 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4429FF6A235A03C000E701DA /* Splash.png */,
 				14CEFBAB18FFD697000952EC /* Localizations */,
 				44AAE4191844C0690096BF52 /* Thyme-Info.plist */,
 				44AAE41A1844C0690096BF52 /* InfoPlist.strings */,
@@ -521,6 +524,7 @@
 				BDFA94B61B89AB9300D4408F /* tick.wav in Resources */,
 				1461778419CDBF1F00E46B1D /* Images.xcassets in Resources */,
 				44AAE41C1844C0690096BF52 /* InfoPlist.strings in Resources */,
+				4429FF6B235A03C000E701DA /* Splash.png in Resources */,
 				443DBF7023489F9300A94739 /* LaunchScreen.storyboard in Resources */,
 				14CEFBAE18FFD6FB000952EC /* Localizable.strings in Resources */,
 				4465EE93184772F9006C145F /* alarm.caf in Resources */,
