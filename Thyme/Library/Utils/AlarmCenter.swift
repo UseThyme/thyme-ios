@@ -14,44 +14,35 @@ public struct AlarmCenter {
 
     // MARK: - Local notification management
 
-    static var hasCorrectNotificationTypes: Bool {
-        return UIApplication.shared.currentUserNotificationSettings?.types == notificationsSettings().types
+    static func hasCorrectNotificationTypes(_ completion: @escaping (Bool) -> Void) {
+        UNUserNotificationCenter.current().getNotificationCategories { currentCategories in
+            completion(currentCategories == notificationsCategories())
+        }
     }
 
-    static func notificationsSettings() -> UIUserNotificationSettings {
-        var categories = Set<UIUserNotificationCategory>()
+    static func notificationsCategories() -> Set<UNNotificationCategory> {
+        var categories = Set<UNNotificationCategory>()
 
-        let threeMinutesAction = UIMutableUserNotificationAction()
-        threeMinutesAction.title = NSLocalizedString("Add 3 mins", comment: "")
-        threeMinutesAction.identifier = Action.AddThreeMinutes.rawValue
-        threeMinutesAction.activationMode = .background
-        threeMinutesAction.isAuthenticationRequired = false
+        let threeMinutesAction = UNNotificationAction(identifier: Action.AddThreeMinutes.rawValue, title: NSLocalizedString("Add 3 mins", comment: ""), options: [])
 
-        let fiveMinutesAction = UIMutableUserNotificationAction()
-        fiveMinutesAction.title = NSLocalizedString("Add 5 mins", comment: "")
-        fiveMinutesAction.identifier = Action.AddFiveMinutes.rawValue
-        fiveMinutesAction.activationMode = .background
-        fiveMinutesAction.isAuthenticationRequired = false
+        let fiveMinutesAction = UNNotificationAction(identifier: Action.AddFiveMinutes.rawValue, title: NSLocalizedString("Add 5 mins", comment: ""), options: [])
 
-        let category = UIMutableUserNotificationCategory()
-        category.setActions([threeMinutesAction, fiveMinutesAction], for: .default)
-        category.identifier = AlarmCenter.categoryIdentifier
+        let category = UNNotificationCategory(identifier: AlarmCenter.categoryIdentifier, actions: [threeMinutesAction, fiveMinutesAction], intentIdentifiers: [], hiddenPreviewsBodyPlaceholder: "", options: [])
 
         categories.insert(category)
 
-        let types: UIUserNotificationType = [.alert, .badge, .sound]
-        let settings = UIUserNotificationSettings(types: types, categories: categories)
-
-        return settings
+        return categories
     }
 
     static func registerNotificationSettings() {
-        let settings = AlarmCenter.notificationsSettings()
-        UIApplication.shared.registerUserNotificationSettings(settings)
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { granted, error in
+            UNUserNotificationCenter.current().setNotificationCategories(notificationsCategories())
+        }
     }
 
-    static func scheduleNotification(_ alarmID: String, seconds: TimeInterval, message: String?) -> UILocalNotification {
+    static func scheduleNotification(_ alarmID: String, seconds: TimeInterval, message: String?) -> UNNotificationRequest {
         if let notification = getNotification(alarmID) {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notification])
             UIApplication.shared.cancelLocalNotification(notification)
         }
 
