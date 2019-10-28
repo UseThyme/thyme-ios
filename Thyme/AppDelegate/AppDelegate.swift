@@ -41,9 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         CustomAppearance.apply()
 
-        if let notification = launchOptions?[UIApplication.LaunchOptionsKey.localNotification] as? UILocalNotification {
+        // TODO: Handle notifications
+        /*if let notification = launchOptions?[UIApplication.LaunchOptionsKey.localNotification] as? UILocalNotification {
             handleLocalNotification(notification, playingSound: false)
-        }
+        }*/
 
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
@@ -55,17 +56,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         homeController.theme = Theme.current()
         homeController.setNeedsStatusBarAppearanceUpdate()
 
-        if AlarmCenter.hasCorrectNotificationTypes {
-            homeController.registeredForNotifications()
-        } else {
-            if homeController.herbieController.isBeingPresented {
-                homeController.cancelledNotifications()
+        AlarmCenter.hasCorrectNotificationTypes { hasCorrectNotificationTypes in
+            if hasCorrectNotificationTypes {
+                self.homeController.registeredForNotifications()
             } else {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-                    if !AlarmCenter.hasCorrectNotificationTypes {
-                        self.homeController.presentHerbie()
-                    }
-                })
+                if self.homeController.herbieController.isBeingPresented {
+                    self.homeController.cancelledNotifications()
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                        if !hasCorrectNotificationTypes {
+                            self.homeController.presentHerbie()
+                        }
+                    })
+                }
             }
         }
     }
@@ -83,6 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Local Notifications
 
+    /*
     func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
         if AlarmCenter.notificationsSettings().types != UIApplication.shared.currentUserNotificationSettings?.types {
             homeController.cancelledNotifications()
@@ -133,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             alert.addAction(UIAlertAction(title: NSLocalizedString("Add 5 mins", comment: ""), style: .default, handler: actionAndDismiss(AlarmCenter.Action.AddFiveMinutes.rawValue)))
             navigationController.visibleViewController?.present(alert, animated: true, completion: nil)
         }
-    }
+    }*/
 }
 
 // Helper function inserted by Swift 4.2 migrator.

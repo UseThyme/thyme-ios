@@ -338,8 +338,9 @@ class HerbieController: ViewController {
         return .default
     }
 
+    // TODO: registerNotificationSettings
     @objc func registerNotificationSettings() {
-        let registredSettings = UIApplication.shared.currentUserNotificationSettings
+        /*let registredSettings = UIApplication.shared.currentUserNotificationSettings
 
         UNUserNotificationCenter.current().getNotificationCategories { categories in
             if !AlarmCenter.hasCorrectNotificationTypes && categories.isEmpty {
@@ -347,7 +348,7 @@ class HerbieController: ViewController {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 AlarmCenter.registerNotificationSettings()
             }
-        }
+        }*/
     }
 
     func cancelledNotifications() {

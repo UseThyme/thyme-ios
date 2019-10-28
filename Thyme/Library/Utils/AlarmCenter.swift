@@ -41,7 +41,7 @@ public struct AlarmCenter {
     }
 
     static func scheduleNotification(_ alarmID: String, seconds: TimeInterval, message: String?) -> UNNotificationRequest {
-        if let notification = getNotification(alarmID) {
+        /*if let notification = getNotification(alarmID) {
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [notification])
             UIApplication.shared.cancelLocalNotification(notification)
         }
@@ -63,11 +63,13 @@ public struct AlarmCenter {
 
         UIApplication.shared.scheduleLocalNotification(notification)
 
-        return notification
+        return notification*/
+
+        return UNNotificationRequest(identifier: "", content: UNNotificationContent(), trigger: nil)
     }
 
     static func extendNotification(_ notification: UILocalNotification, seconds: TimeInterval) -> UILocalNotification? {
-        var updatedNotification: UILocalNotification?
+        /*var updatedNotification: UILocalNotification?
 
         if let alarmID = notification.userInfo?[Alarm.idKey] as? String,
             let userInfo = notification.userInfo,
@@ -87,46 +89,47 @@ public struct AlarmCenter {
                                                                    message: notification.alertBody)
         }
 
-        return updatedNotification
+        return updatedNotification*/
+        return nil
     }
 
     static func getNotification(_ alarmID: String) -> UILocalNotification? {
         // Use UNUserNotificationCenter instead
-        let scheduledLocalNotifications = UIApplication.shared.scheduledLocalNotifications ?? [UILocalNotification]()
+        /*let scheduledLocalNotifications = UIApplication.shared.scheduledLocalNotifications ?? [UILocalNotification]()
         for notification in scheduledLocalNotifications {
             if let notificationAlarmID = notification.userInfo?[Alarm.idKey] as? String, notificationAlarmID == alarmID {
                 return notification
             }
-        }
+        }*/
         return nil
     }
 
     static func cancelNotification(_ alarmID: String) {
-        for badgeCount in [1, 0] { UIApplication.shared.applicationIconBadgeNumber = badgeCount }
+        /*for badgeCount in [1, 0] { UIApplication.shared.applicationIconBadgeNumber = badgeCount }
 
         if let notification = getNotification(alarmID) {
             UIApplication.shared.cancelLocalNotification(notification)
-        }
+        }*/
     }
 
     static func cancelAllNotifications() {
-        for notification in UIApplication.shared.scheduledLocalNotifications! {
+        /*for notification in UIApplication.shared.scheduledLocalNotifications! {
             if let _ = notification.userInfo?[Alarm.idKey] as? String {
                 UIApplication.shared.cancelLocalNotification(notification)
             }
-        }
+        }*/
     }
 
     // MARK: - Handling
 
     static func handleNotification(_ notification: UILocalNotification, actionID: String?) {
-        if let actionID = actionID, let action = Action(rawValue: actionID) {
+        /*if let actionID = actionID, let action = Action(rawValue: actionID) {
             switch action {
             case .AddThreeMinutes:
                 _ = extendNotification(notification, seconds: TimeInterval(60 * 3))
             case .AddFiveMinutes:
                 _ = extendNotification(notification, seconds: TimeInterval(60 * 5))
             }
-        }
+        }*/
     }
 }
